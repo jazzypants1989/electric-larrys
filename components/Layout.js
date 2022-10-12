@@ -1,65 +1,68 @@
-import { signOut, useSession } from 'next-auth/react';
-import Head from 'next/head';
-import Link from 'next/link';
-import Cookies from 'js-cookie';
-import React, { useContext, useEffect, useState } from 'react';
-import { ToastContainer } from 'react-toastify';
-import { Menu } from '@headlessui/react';
-import 'react-toastify/dist/ReactToastify.css';
-import { Store } from '../utils/Store';
-import DropdownLink from './DropdownLink';
+import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
+import Cookies from "js-cookie";
+import React, { useContext, useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
+import { Menu } from "@headlessui/react";
+import "react-toastify/dist/ReactToastify.css";
+import { ShoppingCartIcon } from "@heroicons/react/outline";
+import DropdownLink from "./DropdownLink";
+import Footer from "./Footer";
+import HeadComponent from "./HeadComponent";
+import { Store } from "../utils/Store";
+import Search from "./SearchWithUseRef";
 
-export default function Layout({ title, children }) {
+export default function Layout({ title, description, tags, children }) {
   const { status, data: session } = useSession();
-
   const { state, dispatch } = useContext(Store);
   const { cart } = state;
   const [cartItemsCount, setCartItemsCount] = useState(0);
+
   useEffect(() => {
     setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
   }, [cart.cartItems]);
 
   const logoutClickHandler = () => {
-    Cookies.remove('cart');
-    dispatch({ type: 'CART_RESET' });
-    signOut({ callbackUrl: '/login' });
+    Cookies.remove("cart");
+    dispatch({ type: "CART_RESET" });
+    signOut({ callbackUrl: "/login" });
   };
+
   return (
     <>
-      <Head>
-        <title>{title ? title + ' - Amazona' : 'Amazona'}</title>
-        <meta name="description" content="Ecommerce Website" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <HeadComponent title={title} description={description} tags={tags} />
 
-      <ToastContainer position="bottom-center" limit={1} />
+      <ToastContainer position="bottom-center" limit={1} theme="dark" />
 
-      <div className="flex min-h-screen flex-col justify-between ">
+      <div className="flex bg-blue min-h-screen flex-col justify-between">
         <header>
           <nav className="flex h-12 items-center px-4 justify-between shadow-md">
             <Link href="/">
-              <a className="text-lg font-bold">amazona</a>
+              <a className="text-4xl font-thin lg:text-3xl sm:text-lg hover:text-Green">
+                Electric Larry&apos;s
+              </a>
             </Link>
+            <Search placeholder="Explore our oddities!" />
             <div>
               <Link href="/cart">
-                <a className="p-2">
-                  Cart
+                <a className="p-4">
+                  <ShoppingCartIcon className="inline h-7 w-7 hover:text-Green hover:scale-125 transition-all duration-300 ease-in-out" />
                   {cartItemsCount > 0 && (
-                    <span className="ml-1 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
+                    <span className="ml-1 rounded-full bg-orange font-extralight hover:bg-Green px-2 py-1 text-xs text-Black hover:text-orange transition-all duration-500 ease-in-out">
                       {cartItemsCount}
                     </span>
                   )}
                 </a>
               </Link>
 
-              {status === 'loading' ? (
-                'Loading'
+              {status === "loading" ? (
+                "Loading"
               ) : session?.user ? (
                 <Menu as="div" className="relative inline-block">
-                  <Menu.Button className="text-blue-600">
+                  <Menu.Button className="tracking-wide font-thin hover:text-orange">
                     {session.user.name}
                   </Menu.Button>
-                  <Menu.Items className="absolute right-0 w-56 origin-top-right bg-white  shadow-lg ">
+                  <Menu.Items className="absolute right-0 w-56 origin-top-right mt-4 shadow-lg bg-blue z-10">
                     <Menu.Item>
                       <DropdownLink className="dropdown-link" href="/profile">
                         Profile
@@ -96,16 +99,14 @@ export default function Layout({ title, children }) {
                 </Menu>
               ) : (
                 <Link href="/login">
-                  <a className="p-2">Login</a>
+                  <a className="p-2 hover:text-Green">Log-in!</a>
                 </Link>
               )}
             </div>
           </nav>
         </header>
-        <main className="container m-auto mt-4 px-4">{children}</main>
-        <footer className="flex h-10 justify-center items-center shadow-inner">
-          <p>Copyright © 2022 Amazona</p>
-        </footer>
+        <main className="container m-auto mt-4 px-2">{children}</main>
+        <Footer />
       </div>
     </>
   );
