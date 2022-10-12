@@ -4,13 +4,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>
-          <link rel="icon" href="/favicon.ico" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Bangers&display=swap"
-            rel="stylesheet"
-          />
-        </Head>
+        <Head></Head>
         <body>
           <Main />
           <NextScript />
