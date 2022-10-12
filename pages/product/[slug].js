@@ -1,13 +1,13 @@
-import axios from 'axios';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React, { useContext } from 'react';
-import { toast } from 'react-toastify';
-import Layout from '../../components/Layout';
-import Product from '../../models/Product';
-import db from '../../utils/db';
-import { Store } from '../../utils/Store';
+import axios from "axios";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useContext } from "react";
+import { toast } from "react-toastify";
+import Layout from "../../components/Layout";
+import Product from "../../models/Product";
+import db from "../../utils/db";
+import { Store } from "../../utils/Store";
 
 export default function ProductScreen(props) {
   const { product } = props;
@@ -23,25 +23,33 @@ export default function ProductScreen(props) {
     const { data } = await axios.get(`/api/products/${product._id}`);
 
     if (data.countInStock < quantity) {
-      return toast.error('Sorry. Product is out of stock');
+      return toast.error(
+        "Sorry. I guess that item was too cool, cuz it looks like we just sold out!"
+      );
     }
 
-    dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } });
-    router.push('/cart');
+    dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
+    router.push("/cart");
   };
 
   return (
-    <Layout title={product.name}>
+    <Layout
+      title={product.name}
+      description={product.description}
+      tags={product.tags}
+    >
       <div className="py-2">
-        <Link href="/">back to products</Link>
+        <Link href="/">
+          <a className="hover:text-Green">back to products</a>
+        </Link>
       </div>
       <div className="grid md:grid-cols-4 md:gap-3">
         <div className="md:col-span-2">
           <Image
             src={product.image}
             alt={product.name}
-            width={640}
-            height={640}
+            width={1024}
+            height={768}
             layout="responsive"
           ></Image>
         </div>
@@ -51,22 +59,23 @@ export default function ProductScreen(props) {
               <h1 className="text-lg">{product.name}</h1>
             </li>
             <li>Category: {product.category}</li>
-            <li>Brand: {product.brand}</li>
-            <li>
-              {product.rating} of {product.numReviews} reviews
-            </li>
+            <li>Tags: {product.tags}</li>
             <li>Description: {product.description}</li>
           </ul>
         </div>
         <div>
           <div className="card p-5">
             <div className="mb-2 flex justify-between">
-              <div>Price</div>
-              <div>${product.price}</div>
+              <div className="text-orange p-2">Price</div>
+              <div className="text-lg">${product.price}</div>
             </div>
             <div className="mb-2 flex justify-between">
-              <div>Status</div>
-              <div>{product.countInStock > 0 ? 'In stock' : 'Unavailable'}</div>
+              <div className="text-orange p-2">In Stock? </div>
+              <div className="mt-2">
+                {product.countInStock > 0
+                  ? "Yeah, we've got at least one!"
+                  : "Dang Nabbit, I think we sold 'em all!"}
+              </div>
             </div>
             <button
               className="primary-button w-full"
@@ -74,6 +83,14 @@ export default function ProductScreen(props) {
             >
               Add to cart
             </button>
+            {product.category == "TV" ||
+            (product.category == "movies" && product.countInStock >= 1) ? (
+              <button className="primary-button w-full mt-2">
+                Rent It for a Week! <br /> (Only $1.99)
+              </button>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
