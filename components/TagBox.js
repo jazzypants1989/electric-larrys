@@ -1,29 +1,30 @@
 import { useState } from "react";
-import { Listbox, Transition } from "@headlessui/react";
+import { Combobox, Transition } from "@headlessui/react";
 import Container from "./Container";
+import { CheckIcon } from "@heroicons/react/outline";
 
-export default function CategoryBox({ categories }) {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+export default function TagBox({ tags }) {
+  const [selectedTag, setSelectedTag] = useState("All");
 
   return (
     <Container>
-      <Listbox
+      <Combobox
         as="div"
-        value={selectedCategory}
-        onChange={setSelectedCategory}
+        value={selectedTag}
+        onChange={setSelectedTag}
         className="flex items-center justify-between w-full p-0"
       >
         {({ open }) => (
           <>
             <div className="w-32 ml-2">
               <span className="inline-block w-32">
-                <Listbox.Label className="w-full text-sm font-base">
-                  Category
-                </Listbox.Label>
+                <Combobox.Label className="w-full text-sm font-base">
+                  Tags
+                </Combobox.Label>
 
-                <Listbox.Button className="pl-3 py-2 w-full text-left focus:outline-none focus:shadow-outline-blue focus:border-orange relative border shadow-sm border-Green rounded text-Green hover:text-orange transition-all duration-300 ease-in-out">
-                  <span className="block truncate">{selectedCategory}</span>
-                </Listbox.Button>
+                <Combobox.Button className="pl-3 py-2 w-32 text-left focus:outline-none focus:shadow-outline-blue focus:border-orange relative border shadow-sm border-Green rounded text-Green hover:text-orange transition-all duration-300 ease-in-out">
+                  <span className="block truncate">{selectedTag}</span>
+                </Combobox.Button>
               </span>
               <Transition
                 show={open}
@@ -31,12 +32,12 @@ export default function CategoryBox({ categories }) {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <Listbox.Options
+                <Combobox.Options
                   static
                   className="border border-Green rounded mt-1 absolute w-32 bg-blue shadow-lg max-h-60 overflow-y-auto overflow-x-hidden leading-6 z-10"
                 >
-                  {categories.map((category) => (
-                    <Listbox.Option key={category} value={category}>
+                  {tags.map((tag) => (
+                    <Combobox.Option key={tag} value={tag}>
                       {({ selected, active }) => (
                         <div
                           className={`${
@@ -50,7 +51,7 @@ export default function CategoryBox({ categories }) {
                               selected ? "font-semibold" : "font-normal"
                             }`}
                           >
-                            {category}
+                            {tag}
                           </span>
 
                           {selected && (
@@ -59,32 +60,24 @@ export default function CategoryBox({ categories }) {
                                 active
                                   ? "text-blue transition-all duration-300 ease-in-out"
                                   : "text-orange transition-all duration-300 ease-in-out"
-                              } absolute inset-y-0 left-0 flex items-center pl-2`}
+                              } absolute inset-y-0 left-0 flex items-center pl-3`}
                             >
-                              <svg
-                                className="h-5 w-5"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
+                              <CheckIcon
+                                className="w-5 h-5"
+                                aria-hidden="true"
+                              />
                             </span>
                           )}
                         </div>
                       )}
-                    </Listbox.Option>
+                    </Combobox.Option>
                   ))}
-                </Listbox.Options>
+                </Combobox.Options>
               </Transition>
             </div>
           </>
         )}
-      </Listbox>
+      </Combobox>
     </Container>
   );
 }
