@@ -38,10 +38,11 @@ export default function Search(props) {
         name="search"
         id="search"
         placeholder={props.placeholder}
-        className="w-full rounded-md border"
+        className="w-full rounded-md border doobiedoo"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         ref={inputRef}
+        style={{ transition: "all 1s ease" }}
       />
       {searchTerm && (
         <div className="absolute top-12 left-0 w-full bg-blue text-orange rounded-md shadow-lg">
@@ -49,7 +50,7 @@ export default function Search(props) {
             <div>I&apos;m a-looking!</div>
           ) : (
             <ul>
-              {searchResults.map((product) => (
+              {searchResults.slice(0, 10).map((product) => (
                 <li
                   key={product._id}
                   className="p-2 cursor-pointer hover:text-Green transition-all ease-in-out duration-300"

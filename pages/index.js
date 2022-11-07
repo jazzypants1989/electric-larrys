@@ -1,88 +1,142 @@
-import axios from "axios";
-import { useContext } from "react";
-import { toast } from "react-toastify";
-import CategoryBox from "../components/CategoryBox";
-import TagBox from "../components/TagBox";
-import SortBox from "../components/SortBox";
-import Layout from "../components/Layout";
-import ProductItem from "../components/ProductItem";
-import Product from "../models/Product";
-import db from "../utils/db";
-import { Store } from "../utils/Store";
-import {
-  categoryFilter,
-  tagFilter,
-  FilterByCategory,
-  FilterByTags,
-  SortByPrice,
-} from "../utils/Filter";
+import axios from "axios"
+import { useCallback, useContext, useEffect, useState } from "react"
+import { toast } from "react-toastify"
+import CategoryBox from "../components/CategoryBox"
+import TagBox from "../components/TagBox"
+import SortBox from "../components/SortBox"
+import Layout from "../components/Layout"
+import ProductItem from "../components/ProductItem"
+import Product from "../models/Product"
+import db from "../utils/db"
+import { Store } from "../utils/Store"
 
 export default function Home({ products }) {
-  const { state, dispatch } = useContext(Store);
-  const { cart } = state;
+  const { state, dispatch } = useContext(Store)
+  const { cart } = state
 
   const addToCartHandler = async (product) => {
-    const existItem = cart.cartItems.find((x) => x.slug === product.slug);
-    const quantity = existItem ? existItem.quantity + 1 : 1;
-    const { data } = await axios.get(`/api/products/${product._id}`);
+    const existItem = cart.cartItems.find((x) => x.slug === product.slug)
+    const quantity = existItem ? existItem.quantity + 1 : 1
+    const { data } = await axios.get(`/api/products/${product._id}`)
 
     if (data.countInStock < quantity) {
       return toast.error(
         "Sorry. I guess that item was too cool, cuz it looks like we are sold out."
-      );
+      )
     }
-    dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
+    dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } })
 
-    toast.success("Product added to the cart");
-  };
-
-  let categories = categoryFilter(products);
-  // find the category that is selected in the CategoryBox component
-  let category = categories.find((category) => category.active);
-  // if there is a category selected, filter the products by that category
-  if (category) {
-    products = FilterByCategory(products, category);
+    toast.success("Product added to the cart")
   }
 
-  let tags = tagFilter(products);
-  // find the tag that is selected in the TagBox component
-  let tag = tags.find((tag) => tag.active);
-  // if there is a tag selected, filter the products by that tag
-  if (tag) {
-    products = FilterByTags(products, tag);
-  }
+  const categories = products.reduce((acc, product) => {
+    if (!acc.includes(product.category)) {
+      acc.push(product.category.toLowerCase())
+    }
+    let uniqueCategories = [...new Set(acc)]
+    return uniqueCategories
+  }, [])
 
-  // sort the products by price
-  products = SortByPrice(products, state.sort);
+  const tags = products.reduce((acc, product) => {
+    if (!acc.includes(product.tags.toLowerCase())) {
+      acc.push(product.tags)
+    }
+    let splitTags = acc.map((tag) => tag.split(","))
+    let flattenedTags = [...new Set(splitTags.flat())]
+    let sortedTags = flattenedTags.sort()
+    let uniqueSortedTags = [...new Set(sortedTags)]
+    return uniqueSortedTags
+  }, [])
+
+  const [category, setCategory] = useState("")
+  const [tag, setTag] = useState("")
+  const [sort, setSort] = useState("")
+  const [sortOrder, setSortOrder] = useState("")
+  const [filteredProducts, setFilteredProducts] = useState(products)
+
+  const handleSort = useCallback(
+    (e) => {
+      setSort(sort)
+      setSortOrder(sortOrder)
+      dispatch({ type: "SORT_BY_PRICE", payload: { sort, sortOrder } })
+    },
+    [sort, sortOrder]
+  )
+
+  const handleCategory = useCallback(
+    (e) => {
+      setCategory(category)
+      dispatch({ type: "FILTER_BY_CATEGORY", payload: category })
+    },
+    [category]
+  )
+
+  const handleTag = useCallback(
+    (e) => {
+      setTag(tag)
+      dispatch({ type: "FILTER_BY_TAG", payload: tag })
+    },
+    [tag]
+  )
+
+  useEffect(() => {
+    setFilteredProducts(
+      products.filter((product) =>
+        product.category.toLowerCase().includes(category)
+      )
+    )
+  }, [category])
+
+  useEffect(() => {
+    setFilteredProducts(
+      products.filter((product) => product.tags.toLowerCase().includes(tag))
+    )
+  }, [tag])
+
+  useEffect(() => {
+    setFilteredProducts(
+      products.sort((a, b) =>
+        sortOrder === "lowest" ? a.price - b.price : b.price - a.price
+      )
+    )
+  }, [sort, sortOrder])
 
   return (
-    <Layout title="Home Page">
-      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
-        <div className="md:col-span-1">
-          <CategoryBox categories={categories} />
-          <TagBox tags={tags} />
-          <SortBox />
+    <Layout title="Home">
+      <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col w-full md:w-1/4">
+          <CategoryBox
+            categories={categories}
+            handleCategory={handleCategory}
+          />
+          <TagBox tags={tags} handleTag={handleTag} />
+          <SortBox handleSort={handleSort} />
         </div>
-        {products.map((product) => (
-          <ProductItem
-            product={product}
-            key={product.slug}
-            addToCartHandler={addToCartHandler}
-          ></ProductItem>
-        ))}
+        <div className="flex flex-col w-full md:w-3/4">
+          <div className="flex flex-wrap">
+            {filteredProducts.map((product) => (
+              <ProductItem
+                key={product._id}
+                product={product}
+                addToCartHandler={addToCartHandler}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </Layout>
-  );
+  )
 }
+
 export async function getServerSideProps() {
-  await db.connect();
-  const products = await Product.find({}).lean();
-  await db.disconnect();
+  await db.connect()
+  const products = await Product.find({}).lean()
+  await db.disconnect()
   return {
     props: {
       products: products.map(db.convertDocToObj),
     },
-  };
+  }
 }
 
 // Language: javascript

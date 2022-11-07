@@ -1,22 +1,27 @@
-import { useState } from "react";
-import { Listbox, Transition } from "@headlessui/react";
-import Container from "./Container";
+import { useState } from "react"
+import { Listbox, Transition } from "@headlessui/react"
+import Container from "./Container"
 
-export default function CategoryBox({ categories }) {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+export default function CategoryBox({ categories, setCategory }) {
+  const [selectedCategory, setSelectedCategory] = useState("All")
+
+  const handleChange = (e) => {
+    setSelectedCategory(e)
+    setCategory(e)
+  }
 
   return (
     <Container>
       <Listbox
         as="div"
         value={selectedCategory}
-        onChange={setSelectedCategory}
-        className="flex items-center justify-between w-full p-0"
+        onChange={handleChange}
+        className="relative w-full"
       >
         {({ open }) => (
           <>
-            <div className="w-32 ml-2">
-              <span className="inline-block w-32">
+            <div className="w-48 ml-2">
+              <span className="inline-block w-48">
                 <Listbox.Label className="w-full text-sm font-base">
                   Category
                 </Listbox.Label>
@@ -33,7 +38,7 @@ export default function CategoryBox({ categories }) {
               >
                 <Listbox.Options
                   static
-                  className="border border-Green rounded mt-1 absolute w-32 bg-blue shadow-lg max-h-60 overflow-y-auto overflow-x-hidden leading-6 z-10"
+                  className="border border-Green rounded mt-1 absolute w-48 bg-blue shadow-lg max-h-60 overflow-y-auto overflow-x-hidden leading-6 z-10"
                 >
                   {categories.map((category) => (
                     <Listbox.Option key={category} value={category}>
@@ -86,5 +91,5 @@ export default function CategoryBox({ categories }) {
         )}
       </Listbox>
     </Container>
-  );
+  )
 }

@@ -11,10 +11,12 @@ body {
 
 * {
   box-sizing: border-box;
+  letter-spacing: 0.15rem;
 }
 
 a {
-  @apply text-orange;
+  @apply text-orange drop-shadow-lg;
+  text-shadow: 0 0 0.5rem #000;
 }
 
 input,
@@ -39,7 +41,11 @@ textarea {
 }
 
 .card {
-  @apply mb-5 block rounded-lg border-collapse shadow-lg;
+  @apply mb-5 block rounded-lg border-collapse shadow-lg animate-swoosh transition-all ease-in-out duration-500;
+}
+
+.dingdong {
+  @apply bg-orange text-xs p-1;
 }
 
 .primary-button {

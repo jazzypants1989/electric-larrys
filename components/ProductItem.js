@@ -1,16 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
-import Link from "next/link";
-import React from "react";
+import Image from "next/image"
+import Link from "next/link"
+import React from "react"
 
 export default function ProductItem({ product, addToCartHandler }) {
   return (
-    <div className="card">
+    <div className="card hover:shadow-2xl hover:shadow-orange hover:translate-y-1 transition-all ease-in-out duration-500">
       <Link href={`/product/${product.slug}`}>
         <a>
-          <img
+          <Image
             src={product.image}
             alt={product.name}
-            className="rounded shadow object-cover h-64 w-full"
+            width={300}
+            height={300}
+            className="object-contain"
           />
         </a>
       </Link>
@@ -31,5 +34,5 @@ export default function ProductItem({ product, addToCartHandler }) {
         </button>
       </div>
     </div>
-  );
+  )
 }

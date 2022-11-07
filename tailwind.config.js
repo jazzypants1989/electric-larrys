@@ -42,6 +42,24 @@ module.exports = {
       borderRadius: {
         "4xl": "2rem",
       },
+      animation: {
+        "swoosh": "swoosh 0.75s ease-in-out 1",
+        "woosh": "woosh 0.75s ease-in-out 1",
+      },
+      keyframes: {
+        swoosh: {
+          "0%": { transform: "translateX(100%)", opacity: "0" },
+          "100%": { transform: "translateX(0%)", opacity: "1" },
+        },
+        woosh: {
+          "0%": { transform: "translateX(-100%)", opacity: "0" },
+          "100%": { transform: "translateX(0%)", opacity: "1" },
+        },
+      },
     },
   },
+  variants: {},
+  plugins: [],
 };
+
+// Language: javascript
