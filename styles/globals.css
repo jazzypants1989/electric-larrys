@@ -16,6 +16,9 @@ body {
 
 a {
   @apply text-orange drop-shadow-lg;
+}
+
+.drop-shadow {
   text-shadow: 0 0 0.5rem #000;
 }
 
@@ -60,7 +63,7 @@ textarea {
 }
 
 .dropdown-link {
-  @apply flex p-2 tracking-widest hover:text-blue hover:bg-Green transition-all ease-in-out duration-300 shadow-sm;
+  @apply flex p-2 tracking-widest text-Green hover:text-blue hover:bg-Green transition-all ease-in-out duration-300 hover:shadow-none;
 }
 
 .alert-error {

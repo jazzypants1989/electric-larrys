@@ -1,36 +1,36 @@
-import axios from "axios";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useContext } from "react";
-import { toast } from "react-toastify";
-import Layout from "../../components/Layout";
-import Product from "../../models/Product";
-import db from "../../utils/db";
-import { Store } from "../../utils/Store";
+import axios from "axios"
+import Image from "next/image"
+import Link from "next/link"
+import { useRouter } from "next/router"
+import React, { useContext } from "react"
+import { toast } from "react-toastify"
+import Layout from "../../components/Layout"
+import Product from "../../models/Product"
+import db from "../../utils/db"
+import { Store } from "../../utils/Store"
 
 export default function ProductScreen(props) {
-  const { product } = props;
-  const { state, dispatch } = useContext(Store);
-  const router = useRouter();
+  const { product } = props
+  const { state, dispatch } = useContext(Store)
+  const router = useRouter()
   if (!product) {
-    return <Layout title="Produt Not Found">Produt Not Found</Layout>;
+    return <Layout title="Produt Not Found">Produt Not Found</Layout>
   }
 
   const addToCartHandler = async () => {
-    const existItem = state.cart.cartItems.find((x) => x.slug === product.slug);
-    const quantity = existItem ? existItem.quantity + 1 : 1;
-    const { data } = await axios.get(`/api/products/${product._id}`);
+    const existItem = state.cart.cartItems.find((x) => x.slug === product.slug)
+    const quantity = existItem ? existItem.quantity + 1 : 1
+    const { data } = await axios.get(`/api/products/${product._id}`)
 
     if (data.countInStock < quantity) {
       return toast.error(
         "Sorry. I guess that item was too cool, cuz it looks like we just sold out!"
-      );
+      )
     }
 
-    dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
-    router.push("/cart");
-  };
+    dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } })
+    router.push("/cart")
+  }
 
   return (
     <Layout
@@ -60,7 +60,9 @@ export default function ProductScreen(props) {
             </li>
             <li>Category: {product.category}</li>
             <li>Tags: {product.tags}</li>
-            <li>Description: {product.description}</li>
+            <li className="mt-4 border-orange border-2 rounded-md p-2">
+              Description: {product.description}
+            </li>
           </ul>
         </div>
         <div>
@@ -83,31 +85,23 @@ export default function ProductScreen(props) {
             >
               Add to cart
             </button>
-            {product.category == "TV" ||
-            (product.category == "movies" && product.countInStock >= 1) ? (
-              <button className="primary-button w-full mt-2">
-                Rent It for a Week! <br /> (Only $1.99)
-              </button>
-            ) : (
-              ""
-            )}
           </div>
         </div>
       </div>
     </Layout>
-  );
+  )
 }
 
 export async function getServerSideProps(context) {
-  const { params } = context;
-  const { slug } = params;
+  const { params } = context
+  const { slug } = params
 
-  await db.connect();
-  const product = await Product.findOne({ slug }).lean();
-  await db.disconnect();
+  await db.connect()
+  const product = await Product.findOne({ slug }).lean()
+  await db.disconnect()
   return {
     props: {
       product: product ? db.convertDocToObj(product) : null,
     },
-  };
+  }
 }

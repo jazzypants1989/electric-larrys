@@ -112,7 +112,6 @@ export default function Home({ products }) {
     setTag("")
   }
 
-  // make a helper function to check if clear filter button should be displayed
   const showClearFilter = () => {
     if (category || tag) {
       return true
@@ -134,7 +133,7 @@ export default function Home({ products }) {
           </h1>
           <button
             onClick={clearFilter}
-            className="primary block mx-auto p-2 bg-orange hover:bg-Red rounded-lg"
+            className="bg-Red primary-button block mx-auto"
           >
             Clear Filter
           </button>
@@ -150,7 +149,7 @@ export default function Home({ products }) {
           </h1>
           <button
             onClick={clearFilter}
-            className="primary block mx-auto p-2 bg-orange hover:bg-Red rounded-lg"
+            className="primary-button block mx-auto bg-Red"
           >
             Clear Filter
           </button>
@@ -165,7 +164,7 @@ export default function Home({ products }) {
           </h1>
           <button
             onClick={clearFilter}
-            className="primary block mx-auto bg-Red"
+            className="primary-button block mx-auto bg-Red"
           >
             Clear Filter
           </button>
@@ -181,7 +180,7 @@ export default function Home({ products }) {
           </h1>
           <button
             onClick={clearFilter}
-            className="primary block mx-auto bg-Red"
+            className="primary-button block mx-auto bg-Red"
           >
             Clear Filter
           </button>
@@ -196,7 +195,7 @@ export default function Home({ products }) {
           </h1>
           <button
             onClick={clearFilter}
-            className="primary block mx-auto bg-Red"
+            className="primary-button block mx-auto bg-Red"
           >
             Clear Filter
           </button>
@@ -211,7 +210,7 @@ export default function Home({ products }) {
           </h1>
           <button
             onClick={clearFilter}
-            className="primary block mx-auto bg-Red"
+            className="primary-button block mx-auto bg-Red"
           >
             Clear Filter
           </button>
@@ -226,7 +225,7 @@ export default function Home({ products }) {
           </h1>
           <button
             onClick={clearFilter}
-            className="primary block mx-auto bg-Red"
+            className="primary-button block mx-auto bg-Red"
           >
             Clear Filter
           </button>

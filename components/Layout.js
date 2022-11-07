@@ -1,32 +1,32 @@
-import { signOut, useSession } from "next-auth/react";
-import Link from "next/link";
-import Cookies from "js-cookie";
-import React, { useContext, useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
-import { Menu } from "@headlessui/react";
-import "react-toastify/dist/ReactToastify.css";
-import { ShoppingCartIcon } from "@heroicons/react/outline";
-import DropdownLink from "./DropdownLink";
-import Footer from "./Footer";
-import HeadComponent from "./HeadComponent";
-import { Store } from "../utils/Store";
-import Search from "./SearchWithUseRef";
+import { signOut, useSession } from "next-auth/react"
+import Link from "next/link"
+import Cookies from "js-cookie"
+import React, { useContext, useEffect, useState } from "react"
+import { ToastContainer } from "react-toastify"
+import { Menu } from "@headlessui/react"
+import "react-toastify/dist/ReactToastify.css"
+import { ShoppingCartIcon } from "@heroicons/react/outline"
+import DropdownLink from "./DropdownLink"
+import Footer from "./Footer"
+import HeadComponent from "./HeadComponent"
+import { Store } from "../utils/Store"
+import Search from "./SearchWithUseRef"
 
 export default function Layout({ title, description, tags, children }) {
-  const { status, data: session } = useSession();
-  const { state, dispatch } = useContext(Store);
-  const { cart } = state;
-  const [cartItemsCount, setCartItemsCount] = useState(0);
+  const { status, data: session } = useSession()
+  const { state, dispatch } = useContext(Store)
+  const { cart } = state
+  const [cartItemsCount, setCartItemsCount] = useState(0)
 
   useEffect(() => {
-    setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
-  }, [cart.cartItems]);
+    setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0))
+  }, [cart.cartItems])
 
   const logoutClickHandler = () => {
-    Cookies.remove("cart");
-    dispatch({ type: "CART_RESET" });
-    signOut({ callbackUrl: "/login" });
-  };
+    Cookies.remove("cart")
+    dispatch({ type: "CART_RESET" })
+    signOut({ callbackUrl: "/login" })
+  }
 
   return (
     <>
@@ -38,7 +38,7 @@ export default function Layout({ title, description, tags, children }) {
         <header>
           <nav className="flex h-12 items-center px-4 justify-between shadow-md">
             <Link href="/">
-              <a className="text-4xl font-thin lg:text-3xl sm:text-lg hover:text-Green">
+              <a className="drop-shadow text-4xl font-thin lg:text-3xl sm:text-lg hover:text-Green">
                 Electric Larry&apos;s
               </a>
             </Link>
@@ -109,5 +109,5 @@ export default function Layout({ title, description, tags, children }) {
         <Footer />
       </div>
     </>
-  );
+  )
 }

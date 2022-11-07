@@ -5,7 +5,7 @@ import React from "react"
 
 export default function ProductItem({ product, addToCartHandler }) {
   return (
-    <div className="card hover:shadow-2xl hover:shadow-orange hover:translate-y-1 transition-all ease-in-out duration-500">
+    <div className="card drop-shadow hover:shadow-2xl hover:shadow-orange hover:translate-y-1 transition-all ease-in-out duration-500">
       <Link href={`/product/${product.slug}`}>
         <a>
           <Image
