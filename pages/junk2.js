@@ -17,6 +17,7 @@ export default function Home({ products }) {
   const [tag, setTag] = useState("")
   const [sort, setSort] = useState("")
   const [sortOrder, setSortOrder] = useState("")
+  const [page, setPage] = useState(1)
 
   const addToCartHandler = async (product) => {
     const existItem = cart.cartItems.find((x) => x.slug === product.slug)
@@ -106,7 +107,7 @@ export default function Home({ products }) {
   )
 
   const filteredProducts = filterProducts(products)
-  const sortedProducts = filteredProducts.sort(sortCallback)
+  const sortedProducts = filteredProducts.sort(sortCallback).slice(0, 20)
   const clearFilter = () => {
     setCategory("")
     setTag("")
@@ -117,6 +118,14 @@ export default function Home({ products }) {
       return true
     } else {
       return false
+    }
+  }
+
+  const getMoreProducts = (page) => {
+    if (page === 1) {
+      return products.slice(0, 20)
+    } else {
+      return products.slice(0, page * 20)
     }
   }
 
@@ -239,6 +248,13 @@ export default function Home({ products }) {
   return (
     <Layout title="Cool Stuff!">
       {cheese}
+      {sortedProducts.length === 0 && (
+        <div className="flex justify-center">
+          <h1 className="text-3xl m-4 text-center text-Red">
+            We have a lot of crazy stuff, but we don&apos;t have that.
+          </h1>
+        </div>
+      )}
       <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
         <div className="z-20 flex flex-col -translate-x-10 sm:col-span-1">
           <SortBox setSort={setSort} setSortOrder={setSortOrder} />
@@ -246,7 +262,6 @@ export default function Home({ products }) {
             categories={categories}
             category={category}
             setCategory={setCategory}
-            clearFilter={clearFilter}
           />
           <TagBox tags={tags} tag={tag} setTag={setTag} className="z-30" />
 
@@ -268,6 +283,25 @@ export default function Home({ products }) {
           />
         ))}
       </div>
+      {sortedProducts.length > 20 && (
+        <div className="flex justify-center">
+          <button
+            onClick={() => getMoreProducts(setPage(page + 1))}
+            className="primary-button"
+          >
+            Load More
+          </button>
+        </div>
+      )}
+      {showClearFilter() && (
+        <button
+          type="button"
+          onClick={clearFilter}
+          className="primary-button w-3/5 font-thin text-sm mx-auto mt-4 flex justify-center"
+        >
+          Clear Filter
+        </button>
+      )}
     </Layout>
   )
 }

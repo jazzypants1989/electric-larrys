@@ -1,57 +1,39 @@
 import { getSession } from "next-auth/react"
 import Announcement from "../../../../models/Announcement"
-import db from "../../../../../utils/db"
+import db from "../../../../utils/db"
 
 const handler = async (req, res) => {
   const session = await getSession({ req })
-  if (!session || (session && !session.user.isAdmin)) {
-    return res.status(401).send("Error: signin required")
+  if (!session || !session.user.isAdmin) {
+    return res.status(401).send("admin signin required")
   }
+  // const { user } = session;
   if (req.method === "GET") {
-    await db.connect()
-    const announcements = await Announcement.find({}).sort({ createdAt: -1 })
-    await db.disconnect()
-    res.send(announcements)
+    return getHandler(req, res)
   } else if (req.method === "POST") {
-    await db.connect()
-    const announcement = new Announcement({
-      title: req.body.title,
-      link: req.body.link,
-      description: req.body.description,
-      isPublished: req.body.isPublished,
-    })
-    await announcement.save()
-    await db.disconnect()
-    res.send({ message: "Announcement created successfully" })
-  } else if (req.method === "PUT") {
-    await db.connect()
-    const announcement = await Announcement.findById(req.query.id)
-    if (announcement) {
-      announcement.title = req.body.title
-      announcement.description = req.body.description
-      announcement.isPublished = req.body.isPublished
-      announcement.link = req.body.link
-      await announcement.save()
-      await db.disconnect()
-      res.send({ message: "Announcement updated successfully" })
-    } else {
-      await db.disconnect()
-      res.status(404).send({ message: "Announcement not found" })
-    }
-  } else if (req.method === "DELETE") {
-    await db.connect()
-    const announcement = await Announcement.findById(req.query.id)
-    if (announcement) {
-      await announcement.remove()
-      await db.disconnect()
-      res.send({ message: "Announcement deleted successfully" })
-    } else {
-      await db.disconnect()
-      res.status(404).send({ message: "Announcement not found" })
-    }
+    return postHandler(req, res)
   } else {
     return res.status(400).send({ message: "Method not allowed" })
   }
+}
+const postHandler = async (req, res) => {
+  await db.connect()
+  const newAnnouncement = new Announcement({
+    title: "50% off all products",
+    link: "no",
+    description:
+      "Electric Larry has truly gone crazy this time. He's slashing prices like a madman. You can get a 50% discount on all of his products. But you better hurry, this sale won't last long.",
+    isPublished: false,
+  })
+  const announcement = await newAnnouncement.save()
+  await db.disconnect()
+  res.send({ message: "Announcement created successfully", announcement })
+}
+const getHandler = async (req, res) => {
+  await db.connect()
+  const announcements = await Announcement.find({})
+  await db.disconnect()
+  res.send(announcements)
 }
 
 export default handler

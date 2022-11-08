@@ -1,29 +1,30 @@
-import axios from "axios";
-import Link from "next/link";
-import React, { useEffect, useReducer } from "react";
-import { toast } from "react-toastify";
-import Layout from "../../components/Layout";
-import { getError } from "../../utils/error";
+import axios from "axios"
+import Link from "next/link"
+import React, { useEffect, useReducer } from "react"
+import { toast } from "react-toastify"
+import AdminSideBar from "../../components/AdminSideBar"
+import Layout from "../../components/Layout"
+import { getError } from "../../utils/error"
 
 function reducer(state, action) {
   switch (action.type) {
     case "FETCH_REQUEST":
-      return { ...state, loading: true, error: "" };
+      return { ...state, loading: true, error: "" }
     case "FETCH_SUCCESS":
-      return { ...state, loading: false, users: action.payload, error: "" };
+      return { ...state, loading: false, users: action.payload, error: "" }
     case "FETCH_FAIL":
-      return { ...state, loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload }
 
     case "DELETE_REQUEST":
-      return { ...state, loadingDelete: true };
+      return { ...state, loadingDelete: true }
     case "DELETE_SUCCESS":
-      return { ...state, loadingDelete: false, successDelete: true };
+      return { ...state, loadingDelete: false, successDelete: true }
     case "DELETE_FAIL":
-      return { ...state, loadingDelete: false };
+      return { ...state, loadingDelete: false }
     case "DELETE_RESET":
-      return { ...state, loadingDelete: false, successDelete: false };
+      return { ...state, loadingDelete: false, successDelete: false }
     default:
-      return state;
+      return state
   }
 }
 
@@ -33,64 +34,44 @@ function AdminUsersScreen() {
       loading: true,
       users: [],
       error: "",
-    });
+    })
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/admin/users`);
-        dispatch({ type: "FETCH_SUCCESS", payload: data });
+        dispatch({ type: "FETCH_REQUEST" })
+        const { data } = await axios.get(`/api/admin/users`)
+        dispatch({ type: "FETCH_SUCCESS", payload: data })
       } catch (err) {
-        dispatch({ type: "FETCH_FAIL", payload: getError(err) });
+        dispatch({ type: "FETCH_FAIL", payload: getError(err) })
       }
-    };
-    if (successDelete) {
-      dispatch({ type: "DELETE_RESET" });
-    } else {
-      fetchData();
     }
-  }, [successDelete]);
+    if (successDelete) {
+      dispatch({ type: "DELETE_RESET" })
+    } else {
+      fetchData()
+    }
+  }, [successDelete])
 
   const deleteHandler = async (userId) => {
     if (!window.confirm("Are you sure?")) {
-      return;
+      return
     }
     try {
-      dispatch({ type: "DELETE_REQUEST" });
-      await axios.delete(`/api/admin/users/${userId}`);
-      dispatch({ type: "DELETE_SUCCESS" });
-      toast.success("User deleted successfully");
+      dispatch({ type: "DELETE_REQUEST" })
+      await axios.delete(`/api/admin/users/${userId}`)
+      dispatch({ type: "DELETE_SUCCESS" })
+      toast.success("User deleted successfully")
     } catch (err) {
-      dispatch({ type: "DELETE_FAIL" });
-      toast.error(getError(err));
+      dispatch({ type: "DELETE_FAIL" })
+      toast.error(getError(err))
     }
-  };
+  }
 
   return (
     <Layout title="Users">
       <div className="grid md:grid-cols-4 md:gap-5">
-        <div>
-          <ul className="text-base">
-            <li>
-              <Link href="/admin/dashboard">Dashboard</Link>
-            </li>
-            <li>
-              <Link href="/admin/orders">Orders</Link>
-            </li>
-            <li>
-              <Link href="/admin/products">Products</Link>
-            </li>
-            <li>
-              <Link href="/admin/users">
-                <a className="font-bold text-Green">Users</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/admin/rentals">Rentals</Link>
-            </li>
-          </ul>
-        </div>
+        <AdminSideBar />
         <div className="overflow-x-auto md:col-span-3">
           <h1 className="mb-4 text-xl">Users</h1>
           {loadingDelete && <div>Deleting...</div>}
@@ -145,8 +126,8 @@ function AdminUsersScreen() {
         </div>
       </div>
     </Layout>
-  );
+  )
 }
 
-AdminUsersScreen.auth = { adminOnly: true };
-export default AdminUsersScreen;
+AdminUsersScreen.auth = { adminOnly: true }
+export default AdminUsersScreen

@@ -115,7 +115,7 @@ export default function TagBox({ tags, setTag }) {
           <button
             className="delete-button pt-2"
             type="button"
-            onClick={() => (setSelectedTag([]), setTag([]))}
+            onClick={() => (setSelectedTag(""), setTag(""))}
           >
             Clear Tags
           </button>

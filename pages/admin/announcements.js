@@ -11,7 +11,12 @@ function reducer(state, action) {
     case "FETCH_REQUEST":
       return { ...state, loading: true, error: "" }
     case "FETCH_SUCCESS":
-      return { ...state, loading: false, posts: action.payload, error: "" }
+      return {
+        ...state,
+        loading: false,
+        announcements: action.payload,
+        error: "",
+      }
     case "FETCH_FAIL":
       return { ...state, loading: false, error: action.payload }
     case "CREATE_REQUEST":
@@ -34,29 +39,36 @@ function reducer(state, action) {
   }
 }
 
-export default function AdminPostsScreen() {
+export default function AdminAnnouncementsScreen() {
   const router = useRouter()
 
   const [
-    { loading, error, posts, loadingCreate, successDelete, loadingDelete },
+    {
+      loading,
+      error,
+      announcements,
+      loadingCreate,
+      successDelete,
+      loadingDelete,
+    },
     dispatch,
   ] = useReducer(reducer, {
     loading: true,
-    posts: [],
+    announcements: [],
     error: "",
   })
 
   const createHandler = async () => {
-    if (!window.confirm("This will create a dummy post. Continue?")) {
+    if (!window.confirm("This will create a dummy announcement. Continue?")) {
       return
     }
     try {
       dispatch({ type: "CREATE_REQUEST" })
-      const { data } = await axios.post(`/api/admin/posts`)
+      const { data } = await axios.post(`/api/admin/announcements`)
       dispatch({ type: "CREATE_SUCCESS", payload: data })
-      toast.success("Post created successfully")
+      toast.success("Announcement created successfully")
       console.log(data)
-      router.push(`/admin/post/${data.sliderPost._id}`)
+      router.push(`/admin/announcement/${data.Announcement._id}`)
     } catch (err) {
       dispatch({ type: "CREATE_FAIL" })
       toast.error(getError(err))
@@ -64,10 +76,10 @@ export default function AdminPostsScreen() {
   }
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchAnnouncements = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" })
-        const { data } = await axios.get(`/api/admin/posts`)
+        const { data } = await axios.get(`/api/admin/announcements`)
         dispatch({ type: "FETCH_SUCCESS", payload: data })
       } catch (err) {
         dispatch({ type: "FETCH_FAIL", payload: getError(err) })
@@ -77,7 +89,7 @@ export default function AdminPostsScreen() {
     if (successDelete) {
       dispatch({ type: "DELETE_RESET" })
     } else {
-      fetchPosts()
+      fetchAnnouncements()
     }
   }, [successDelete])
 
@@ -87,9 +99,9 @@ export default function AdminPostsScreen() {
     }
     try {
       dispatch({ type: "DELETE_REQUEST" })
-      await axios.delete(`/api/admin/posts/${id}`)
+      await axios.delete(`/api/admin/announcements/${id}`)
       dispatch({ type: "DELETE_SUCCESS" })
-      toast.success("Post deleted successfully")
+      toast.success("Announcement deleted successfully")
     } catch (err) {
       dispatch({ type: "DELETE_FAIL" })
       toast.error(getError(err))
@@ -97,12 +109,12 @@ export default function AdminPostsScreen() {
   }
 
   return (
-    <Layout title="Posts">
+    <Layout title="Announcements">
       <div className="grid md:grid-cols-4 md:gap-4 sm:grid-cols-1 sm:gap-4">
         <AdminSideBar />
         <div className="overflow-x-auto md:col-span-3">
           <div className="flex justify-between">
-            <h1 className="mb-4 text-xl">Posts</h1>
+            <h1 className="mb-4 text-xl">Announcements</h1>
             {loadingDelete && <div>Deleting item...</div>}
             <button
               disabled={loadingCreate}
@@ -124,44 +136,39 @@ export default function AdminPostsScreen() {
                     <th className=" text-center px-4">TITLE</th>
                     <th className=" text-center px-4 mx-10">DESCRIPTION</th>
                     <th className=" text-center px-4">LINK</th>
-                    <th className=" text-center px-4">IMAGE</th>
-                    <th className=" text-center px-4">FEATURED</th>
                     <th className=" text-center px-4">PUBLIC</th>
                     <th className=" text-center px-4">ACTIONS</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {posts.map((post) => (
-                    <tr key={post._id}>
-                      <td className="text-center m-4">{post.title}</td>
+                  {announcements.map((announcement) => (
+                    <tr key={announcement._id}>
+                      <td className="text-center m-4">{announcement.title}</td>
                       <td className="text-center m-4 mx-10">
-                        {post.description}
+                        {announcement.description}
                       </td>
                       <td className="text-center m-4 text-lg hover:scale-150 duration-300 ease-in-out">
-                        {!post.link || post.link == "no".toLowerCase()
+                        {!announcement.link ||
+                        announcement.link == "no".toLowerCase()
                           ? "❌"
                           : "💯"}
                       </td>
                       <td className="text-center m-4 text-lg hover:scale-150 duration-300 ease-in-out">
-                        {!post.image || post.image == "no".toLowerCase()
-                          ? "❌"
-                          : "💯"}
-                      </td>
-                      <td className="text-center m-4 text-lg hover:scale-150 duration-300 ease-in-out">
-                        {post.isFeatured ? "💯" : "❌"}
-                      </td>
-                      <td className="text-center m-4 text-lg hover:scale-150 duration-300 ease-in-out">
-                        {post.isPublished ? "💯" : "❌"}
+                        {announcement.isPublished ? "💯" : "❌"}
                       </td>
                       <td className="text-center m-4">
                         <button
-                          onClick={() => router.push(`/admin/post/${post._id}`)}
+                          onClick={() =>
+                            router.push(
+                              `/admin/announcement/${announcement._id}`
+                            )
+                          }
                           className="primary-button m-2 w-24"
                         >
                           Edit
                         </button>
                         <button
-                          onClick={() => deleteHandler(post._id)}
+                          onClick={() => deleteHandler(announcement._id)}
                           className="default-button m-2 w-24 text-Red hover:text-Green hover:bg-Red"
                         >
                           Delete
@@ -179,4 +186,4 @@ export default function AdminPostsScreen() {
   )
 }
 
-AdminPostsScreen.auth = { adminOnly: true }
+AdminAnnouncementsScreen.auth = { adminOnly: true }

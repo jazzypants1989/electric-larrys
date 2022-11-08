@@ -1,19 +1,20 @@
-import axios from "axios";
-import Link from "next/link";
-import React, { useEffect, useReducer } from "react";
-import Layout from "../../components/Layout";
-import { getError } from "../../utils/error";
+import axios from "axios"
+import Link from "next/link"
+import React, { useEffect, useReducer } from "react"
+import AdminSideBar from "../../components/AdminSideBar"
+import Layout from "../../components/Layout"
+import { getError } from "../../utils/error"
 
 function reducer(state, action) {
   switch (action.type) {
     case "FETCH_REQUEST":
-      return { ...state, loading: true, error: "" };
+      return { ...state, loading: true, error: "" }
     case "FETCH_SUCCESS":
-      return { ...state, loading: false, orders: action.payload, error: "" };
+      return { ...state, loading: false, orders: action.payload, error: "" }
     case "FETCH_FAIL":
-      return { ...state, loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload }
     default:
-      state;
+      state
   }
 }
 
@@ -22,47 +23,25 @@ export default function AdminOrderScreen() {
     loading: true,
     orders: [],
     error: "",
-  });
+  })
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/admin/orders`);
-        dispatch({ type: "FETCH_SUCCESS", payload: data });
+        dispatch({ type: "FETCH_REQUEST" })
+        const { data } = await axios.get(`/api/admin/orders`)
+        dispatch({ type: "FETCH_SUCCESS", payload: data })
       } catch (err) {
-        dispatch({ type: "FETCH_FAIL", payload: getError(err) });
+        dispatch({ type: "FETCH_FAIL", payload: getError(err) })
       }
-    };
-    fetchData();
-  }, []);
+    }
+    fetchData()
+  }, [])
 
   return (
     <Layout title="Admin Dashboard">
       <div className="grid md:grid-cols-4 md:gap-5">
-        <div className="flex-col text-base align-middle justify-center">
-          <ul className="align-middle">
-            <li>
-              <Link href="/admin/dashboard">Dashboard</Link>
-            </li>
-            <li>
-              <Link href="/admin/orders">
-                <a className="font-bold text-Green">Orders</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/admin/products">
-                <a>Products</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/admin/users">Users</Link>
-            </li>
-            <li>
-              <Link href="/admin/rentals">Rentals</Link>
-            </li>
-          </ul>
-        </div>
+        <AdminSideBar />
         <div className="overflow-x-auto md:col-span-3">
           <h1 className="mb-4 text-xl">Admin Orders</h1>
 
@@ -119,7 +98,7 @@ export default function AdminOrderScreen() {
         </div>
       </div>
     </Layout>
-  );
+  )
 }
 
-AdminOrderScreen.auth = { adminOnly: true };
+AdminOrderScreen.auth = { adminOnly: true }

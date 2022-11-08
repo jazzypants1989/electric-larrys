@@ -1,14 +1,22 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Listbox, Transition } from "@headlessui/react"
 import Container from "./Container"
 
-export default function CategoryBox({ categories, setCategory }) {
+export default function CategoryBox({ category, categories, setCategory }) {
   const [selectedCategory, setSelectedCategory] = useState("All")
 
   const handleChange = (e) => {
     setSelectedCategory(e)
     setCategory(e)
   }
+
+  useEffect(() => {
+    if (category === "") {
+      setSelectedCategory("All")
+    } else {
+      setSelectedCategory(category)
+    }
+  }, [category])
 
   return (
     <Container>

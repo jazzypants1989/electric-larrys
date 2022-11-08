@@ -1,53 +1,60 @@
 import { getSession } from "next-auth/react"
-import SliderPost from "../../../../models/SliderPost"
+import Post from "../../../../../models/SliderPost"
 import db from "../../../../../utils/db"
 
 const handler = async (req, res) => {
   const session = await getSession({ req })
   if (!session || (session && !session.user.isAdmin)) {
-    return res.status(401).send("Error: signin required")
+    return res.status(401).send("signin required")
   }
+
+  const { user } = session
   if (req.method === "GET") {
-    await db.connect()
-    const sliderPosts = await SliderPost.findById(req.query.id)
-    await db.disconnect()
-    res.send(sliderPosts)
-  } else if (req.method === "POST") {
-    await db.connect()
-    const sliderPost = new SliderPost({
-      title: req.body.title,
-      description: req.body.description,
-      link: req.body.link,
-      isPublished: req.body.isPublished,
-      isFeatured: req.body.isFeatured,
-      image: req.body.image,
-    })
-    await sliderPost.save()
-    await db.disconnect()
-    res.send({ message: "Slider Post created successfully" })
+    return getHandler(req, res, user)
   } else if (req.method === "PUT") {
-    await db.connect()
-    const sliderPost = await SliderPost.findById(req.query.id)
-    if (sliderPost) {
-      sliderPost.title = req.body.title
-      sliderPost.description = req.body.description
-      sliderPost.link = req.body.link
-      sliderPost.isPublished = req.body.isPublished
-      sliderPost.isFeatured = req.body.isFeatured
-      sliderPost.image = req.body.image
-      await sliderPost.save()
-      await db.disconnect()
-      res.send({ message: "Slider Post updated successfully" })
-    }
+    return putHandler(req, res, user)
   } else if (req.method === "DELETE") {
-    await db.connect()
-    const sliderPost = await SliderPost.findById(req.query.id)
-    if (sliderPost) {
-      await sliderPost.remove()
-      await db.disconnect()
-      res.send({ message: "Slider Post deleted successfully" })
-    }
+    return deleteHandler(req, res, user)
+  } else {
+    return res.status(400).send({ message: "Method not allowed" })
   }
 }
-
+const getHandler = async (req, res) => {
+  await db.connect()
+  const post = await Post.findById(req.query.id)
+  console.log(post)
+  await db.disconnect()
+  res.send(post)
+}
+const putHandler = async (req, res) => {
+  await db.connect()
+  const post = await Post.findById(req.query.id)
+  if (post) {
+    post.title = req.body.title
+    post.link = req.body.link
+    post.description = req.body.description
+    post.image = req.body.image
+    post.isFeatured = req.body.isFeatured
+    post.isPublished = req.body.isPublished
+    post.date = new Date()
+    await post.save()
+    await db.disconnect()
+    res.send({ message: "Post updated successfully" })
+  } else {
+    await db.disconnect()
+    res.status(404).send({ message: "Post not found" })
+  }
+}
+const deleteHandler = async (req, res) => {
+  await db.connect()
+  const post = await Post.findById(req.query.id)
+  if (post) {
+    await post.remove()
+    await db.disconnect()
+    res.send({ message: "Post deleted successfully" })
+  } else {
+    await db.disconnect()
+    res.status(404).send({ message: "Post not found" })
+  }
+}
 export default handler
