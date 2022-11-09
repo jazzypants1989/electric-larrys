@@ -2,7 +2,7 @@ const Announcement = ({ announcement }) => {
   return (
     <>
       {announcement.isPublished && (
-        <div className="bg-Green flex flex-col justify-center items-center text-blue max-h-fit min-w-screen mx-8 rounded-t-2xl rounded-b-lg px-2 mb-2 gap-1 even:bg-orange even:text-Green even:mt-4 pb-2">
+        <div className="animate-dropDown bg-Green flex flex-col justify-center items-center text-blue max-h-fit min-w-screen mx-8 rounded-t-2xl rounded-b-lg px-2 mb-2 gap-1 even:bg-orange even:text-Green even:mt-4 pb-2">
           <h1 className="sm:text-sm lg:text-2xl border-b-2 text-center shadow-orange shadow-md font-medium">
             {announcement.title}
           </h1>

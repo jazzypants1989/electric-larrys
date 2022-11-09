@@ -1,9 +1,10 @@
 import axios from "axios"
 import { toast } from "react-toastify"
 import Layout from "../components/Layout"
-import FeaturedProductItem from "../components/ProductItem"
+import ProductItem from "../components/ProductItem"
 import IndexSideBar from "../components/IndexSideBar"
 import Announcement from "../components/Announcement"
+import Categories from "../components/Categories"
 import Slider from "../components/Slider"
 import AnnouncementModel from "../models/Announcement"
 import Post from "../models/SliderPost"
@@ -50,6 +51,7 @@ export default function Home({ announcements, posts, products }) {
       </div>
       <Layout title="Home">
         <Slider sliderPosts={featuredPosts} />
+        <Categories />
         <main className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <IndexSideBar sideBarPosts={nonFeaturedPosts} />
           <div className="flex m-2 gap-2 flex-col justify-center items-center">
@@ -60,7 +62,7 @@ export default function Home({ announcements, posts, products }) {
                 </h1>
                 <div className="bg-orange bg-opacity-70 hover:bg-opacity-80 rounded-l-full flex flex-col justify-center items-center">
                   {featuredProducts.map((product) => (
-                    <FeaturedProductItem
+                    <ProductItem
                       key={product._id}
                       product={product}
                       addToCartHandler={addToCartHandler}

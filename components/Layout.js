@@ -46,9 +46,9 @@ export default function Layout({ title, description, tags, children }) {
             <div>
               <Link href="/cart">
                 <a className="p-4">
-                  <ShoppingCartIcon className="inline h-7 w-7 hover:text-Green hover:scale-125 transition-all duration-300 ease-in-out" />
+                  <ShoppingCartIcon className="inline h-7 w-7 lg:h-10 lg:w-10 lg:-translate-y-1 lg:translate-x-3 lg:pt-1 hover:text-Green hover:scale-125 transition-all duration-300 ease-in-out" />
                   {cartItemsCount > 0 && (
-                    <span className="ml-1 rounded-full bg-orange font-extralight hover:bg-Green px-2 py-1 text-xs text-Black hover:text-orange transition-all duration-500 ease-in-out">
+                    <span className="absolute -translate-y-3 lg:-translate-y-2 -translate-x-3 lg:ml-2 rounded-full bg-Green font-extralight hover:bg-orange px-1 text-Black hover:text-Green transition-all duration-500 ease-in-out">
                       {cartItemsCount}
                     </span>
                   )}
@@ -59,7 +59,7 @@ export default function Layout({ title, description, tags, children }) {
                 "Loading"
               ) : session?.user ? (
                 <Menu as="div" className="relative inline-block">
-                  <Menu.Button className="tracking-wide font-thin hover:text-orange">
+                  <Menu.Button className="tracking-wide font-thin hover:text-orange lg:text-lg">
                     {session.user.name}
                   </Menu.Button>
                   <Menu.Items className="absolute right-0 w-56 origin-top-right mt-4 shadow-lg bg-blue z-10">

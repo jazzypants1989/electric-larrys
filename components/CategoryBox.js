@@ -24,7 +24,7 @@ export default function CategoryBox({ category, categories, setCategory }) {
         as="div"
         value={selectedCategory}
         onChange={handleChange}
-        className="relative w-full"
+        className="relative w-full text-sm lg:text-base"
       >
         {({ open }) => (
           <>
