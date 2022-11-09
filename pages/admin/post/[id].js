@@ -236,13 +236,13 @@ export default function AdminPostEditScreen() {
                   name="isFeatured"
                   {...register("isFeatured")}
                 />
-                <label htmlFor="isRented">Currently Published?</label>
+                <label htmlFor="isPublished">Currently Published?</label>
                 <input
                   type="checkbox"
                   className="w-6 h-6 mr-5 pr-2"
-                  id="isRented"
-                  name="isRented"
-                  {...register("isRented")}
+                  id="isPublished"
+                  name="isPublished"
+                  {...register("isPublished")}
                 />
               </div>
 

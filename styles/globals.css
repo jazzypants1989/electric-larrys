@@ -6,7 +6,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  @apply text-Green font-thin tracking-wider;
+  @apply text-Green font-thin tracking-wider bg-blue;
 }
 
 * {

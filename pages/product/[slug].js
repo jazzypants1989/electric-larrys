@@ -53,27 +53,40 @@ export default function ProductScreen(props) {
             layout="responsive"
           ></Image>
         </div>
-        <div>
+        <div className="leading-10">
           <ul>
             <li>
-              <h1 className="text-lg">{product.name}</h1>
+              <h1 className="text-2xl font-extralight mb-4 pb-0 border-b-2 text-center border-b-orange drop-shadow">
+                {product.name}
+              </h1>
             </li>
-            <li>Category: {product.category}</li>
-            <li>Tags: {product.tags}</li>
-            <li className="mt-4 border-orange border-2 rounded-md p-2">
-              Description: {product.description}
+            <li className="drop-shadow">
+              <span className="text-orange text-sm border-l-4 border-t-4 border-orange p-2">
+                Category:
+              </span>
+              <span className="inline">{product.category}</span>
+            </li>
+            <li className="mt-2 drop-shadow whitespace-pre-wrap">
+              <span className="text-orange inline text-sm border-l-4 border-orange p-2 mb-2">
+                Tags:
+              </span>
+              <span className="inline">{product.tags}</span>
+            </li>
+            <li className="mt-4 drop-shadow border-orange border-b-4 border-r-4 rounded-md p-2">
+              <span className="text-sm p-2 text-orange">Description:</span>{" "}
+              <span>{product.description}</span>
             </li>
           </ul>
         </div>
-        <div>
+        <div className="drop-shadow leading-5">
           <div className="card p-5">
             <div className="mb-2 flex justify-between">
               <div className="text-orange p-2">Price</div>
-              <div className="text-lg">${product.price}</div>
+              <div className="text-lg p-2">${product.price}</div>
             </div>
-            <div className="mb-2 flex justify-between">
-              <div className="text-orange p-2">In Stock? </div>
-              <div className="mt-2">
+            <div className="mb-2 flex justify-around">
+              <div className="text-orange p-2 text-left">In Stock? </div>
+              <div className="m-2 text-center">
                 {product.countInStock > 0
                   ? "Yeah, we've got at least one!"
                   : "Dang Nabbit, I think we sold 'em all!"}

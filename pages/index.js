@@ -1,16 +1,17 @@
 import axios from "axios"
-import { useCallback, useContext, useEffect, useState } from "react"
 import { toast } from "react-toastify"
-import CategoryBox from "../components/CategoryBox"
-import TagBox from "../components/TagBox"
-import SortBox from "../components/SortBox"
 import Layout from "../components/Layout"
 import ProductItem from "../components/ProductItem"
+import AnnouncementModel from "../models/Announcement"
+import Post from "../models/SliderPost"
 import Product from "../models/Product"
 import db from "../utils/db"
 import { Store } from "../utils/Store"
+import Announcement from "../components/Announcement"
+import Slider from "../components/Slider"
+import { useContext } from "react"
 
-export default function Home({ products }) {
+export default function Home({ announcements, posts, products }) {
   const { state, dispatch } = useContext(Store)
   const { cart } = state
 
@@ -29,114 +30,37 @@ export default function Home({ products }) {
     toast.success("Product added to the cart")
   }
 
-  const categories = products.reduce((acc, product) => {
-    if (!acc.includes(product.category)) {
-      acc.push(product.category.toLowerCase())
-    }
-    let uniqueCategories = [...new Set(acc)]
-    return uniqueCategories
-  }, [])
-
-  const tags = products.reduce((acc, product) => {
-    if (!acc.includes(product.tags.toLowerCase())) {
-      acc.push(product.tags)
-    }
-    let splitTags = acc.map((tag) => tag.split(","))
-    let flattenedTags = [...new Set(splitTags.flat())]
-    let sortedTags = flattenedTags.sort()
-    let uniqueSortedTags = [...new Set(sortedTags)]
-    return uniqueSortedTags
-  }, [])
-
-  const [category, setCategory] = useState("")
-  const [tag, setTag] = useState("")
-  const [sort, setSort] = useState("")
-  const [sortOrder, setSortOrder] = useState("")
-  const [filteredProducts, setFilteredProducts] = useState(products)
-
-  const handleSort = useCallback(
-    (e) => {
-      setSort(sort)
-      setSortOrder(sortOrder)
-      dispatch({ type: "SORT_BY_PRICE", payload: { sort, sortOrder } })
-    },
-    [sort, sortOrder]
-  )
-
-  const handleCategory = useCallback(
-    (e) => {
-      setCategory(category)
-      dispatch({ type: "FILTER_BY_CATEGORY", payload: category })
-    },
-    [category]
-  )
-
-  const handleTag = useCallback(
-    (e) => {
-      setTag(tag)
-      dispatch({ type: "FILTER_BY_TAG", payload: tag })
-    },
-    [tag]
-  )
-
-  useEffect(() => {
-    setFilteredProducts(
-      products.filter((product) =>
-        product.category.toLowerCase().includes(category)
-      )
-    )
-  }, [category])
-
-  useEffect(() => {
-    setFilteredProducts(
-      products.filter((product) => product.tags.toLowerCase().includes(tag))
-    )
-  }, [tag])
-
-  useEffect(() => {
-    setFilteredProducts(
-      products.sort((a, b) =>
-        sortOrder === "lowest" ? a.price - b.price : b.price - a.price
-      )
-    )
-  }, [sort, sortOrder])
+  let publishedPosts = posts.filter((post) => post.isPublished)
+  let featuredPosts = publishedPosts.filter((post) => post.isFeatured)
+  let featuredProducts = products.filter((product) => product.isFeatured)
+  let announcementList = announcements.map((announcement) => (
+    <Announcement key={announcement._id} announcement={announcement} />
+  ))
 
   return (
-    <Layout title="Home">
-      <div className="flex flex-col md:flex-row">
-        <div className="flex flex-col w-full md:w-1/4">
-          <CategoryBox
-            categories={categories}
-            handleCategory={handleCategory}
-          />
-          <TagBox tags={tags} handleTag={handleTag} />
-          <SortBox handleSort={handleSort} />
-        </div>
-        <div className="flex flex-col w-full md:w-3/4">
-          <div className="flex flex-wrap">
-            {filteredProducts.map((product) => (
-              <ProductItem
-                key={product._id}
-                product={product}
-                addToCartHandler={addToCartHandler}
-              />
-            ))}
-          </div>
-        </div>
+    <>
+      <div className="flex flex-col justify-center items-center min-w-screen bg-blue">
+        {announcementList}
       </div>
-    </Layout>
+      <Layout title="Home">
+        <Slider sliderPosts={featuredPosts} />
+      </Layout>
+    </>
   )
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   await db.connect()
   const products = await Product.find({}).lean()
+  const posts = await Post.find({}).lean()
+  const announcements = await AnnouncementModel.find({}).lean()
   await db.disconnect()
+
   return {
     props: {
       products: products.map(db.convertDocToObj),
+      posts: posts.map(db.convertDocToObj),
+      announcements: announcements.map(db.convertDocToObj),
     },
   }
 }
-
-// Language: javascript

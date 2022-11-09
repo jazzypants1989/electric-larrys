@@ -67,8 +67,7 @@ export default function AdminAnnouncementsScreen() {
       const { data } = await axios.post(`/api/admin/announcements`)
       dispatch({ type: "CREATE_SUCCESS", payload: data })
       toast.success("Announcement created successfully")
-      console.log(data)
-      router.push(`/admin/announcement/${data.Announcement._id}`)
+      router.push(`/admin/announcement/${data.announcement._id}`)
     } catch (err) {
       dispatch({ type: "CREATE_FAIL" })
       toast.error(getError(err))

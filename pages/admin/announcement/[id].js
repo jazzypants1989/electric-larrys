@@ -114,7 +114,9 @@ export default function AdminAnnouncementEditScreen() {
                 )}
               </div>
               <div className="mb-4">
-                <label htmlFor="description">Description</label>
+                <label htmlFor="description">
+                  Description (type &quot;no&quot; to avoid)
+                </label>
                 <input
                   type="text"
                   className="w-full"
@@ -141,25 +143,14 @@ export default function AdminAnnouncementEditScreen() {
                   <div className="text-Red">{errors.link.message}</div>
                 )}
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <label htmlFor="isFeatured">Currently Featured?</label>
-                <input
-                  type="checkbox"
-                  className="w-6 h-6 mr-5 ml-0"
-                  id="isFeatured"
-                  name="isFeatured"
-                  {...register("isFeatured")}
-                />
-                <label htmlFor="isPublished">Currently Published?</label>
-                <input
-                  type="checkbox"
-                  className="w-6 h-6 mr-5 pr-2"
-                  id="isPublished"
-                  name="isPublished"
-                  {...register("isPublished")}
-                />
-              </div>
-
+              <label htmlFor="isPublished">Currently Published?</label>
+              <input
+                type="checkbox"
+                className="w-6 h-6 p-6 m-6"
+                id="isPublished"
+                name="isPublished"
+                {...register("isPublished")}
+              />
               <div className="mb-4">
                 <button disabled={loadingUpdate} className="primary-button">
                   {loadingUpdate ? "Loading" : "Update"}

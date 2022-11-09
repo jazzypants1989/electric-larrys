@@ -137,20 +137,20 @@ export default function AdminPostsScreen() {
                       <td className="text-center m-4 mx-10">
                         {post.description}
                       </td>
-                      <td className="text-center m-4 text-lg hover:scale-150 duration-300 ease-in-out">
+                      <td className="text-center m-4 text-lg hover:scale-150 duration-300 ease-in-out cursor-crosshair">
                         {!post.link || post.link == "no".toLowerCase()
                           ? "❌"
                           : "💯"}
                       </td>
-                      <td className="text-center m-4 text-lg hover:scale-150 duration-300 ease-in-out">
+                      <td className="text-center m-4 text-lg hover:scale-150 duration-300 ease-in-out cursor-crosshair">
                         {!post.image || post.image == "no".toLowerCase()
                           ? "❌"
                           : "💯"}
                       </td>
-                      <td className="text-center m-4 text-lg hover:scale-150 duration-300 ease-in-out">
+                      <td className="text-center m-4 text-lg hover:scale-150 duration-300 ease-in-out cursor-crosshair">
                         {post.isFeatured ? "💯" : "❌"}
                       </td>
-                      <td className="text-center m-4 text-lg hover:scale-150 duration-300 ease-in-out">
+                      <td className="text-center m-4 text-lg hover:scale-150 duration-300 ease-in-out cursor-crosshair">
                         {post.isPublished ? "💯" : "❌"}
                       </td>
                       <td className="text-center m-4">

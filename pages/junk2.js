@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useContext, useCallback, useState } from "react"
+import { useContext, useCallback, useState, useEffect } from "react"
 import { toast } from "react-toastify"
 import Layout from "../components/Layout"
 import ProductItem from "../components/ProductItem"
@@ -10,10 +10,10 @@ import CategoryBox from "../components/CategoryBox"
 import TagBox from "../components/TagBox"
 import SortBox from "../components/SortBox"
 
-export default function Home({ products }) {
+export default function Home({ products, queryCategory, queryTag }) {
   const { state, dispatch } = useContext(Store)
   const { cart } = state
-  const [category, setCategory] = useState("")
+  const [category, setCategory] = useState(queryCategory || "")
   const [tag, setTag] = useState("")
   const [sort, setSort] = useState("")
   const [sortOrder, setSortOrder] = useState("")
@@ -68,7 +68,6 @@ export default function Home({ products }) {
       products = products.sort(sortCallback)
     }
 
-    console.log(tag)
     return products
   }
 
@@ -245,6 +244,15 @@ export default function Home({ products }) {
       cheese = <h1 className="text-3xl mb-4 text-center">Cool Stuff!</h1>
   }
 
+  useEffect(() => {
+    if (queryTag) {
+      setTag([" ", queryTag])
+    }
+    if (queryCategory) {
+      setCategory(queryCategory)
+    }
+  }, [queryTag, queryCategory])
+
   return (
     <Layout title="Cool Stuff!">
       {cheese}
@@ -256,7 +264,7 @@ export default function Home({ products }) {
         </div>
       )}
       <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
-        <div className="z-20 flex flex-col -translate-x-10 sm:col-span-1">
+        <div className="z-20 flex flex-col -translate-x-10 col-span-1">
           <SortBox setSort={setSort} setSortOrder={setSortOrder} />
           <CategoryBox
             categories={categories}
@@ -307,14 +315,16 @@ export default function Home({ products }) {
 }
 
 export async function getServerSideProps({ query }) {
+  console.log(query)
   await db.connect()
-  const products = await Product.find(
-    query.slug ? { slug: query.slug } : {}
-  ).lean()
-  await db.disconnect()
+  const products = await Product.find({}).lean()
+  const queryCategory = query.category ? query.category : ""
+  const queryTag = query.tag ? query.tag : ""
   return {
     props: {
       products: products.map(db.convertDocToObj),
+      queryCategory,
+      queryTag,
     },
   }
 }

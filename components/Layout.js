@@ -34,9 +34,9 @@ export default function Layout({ title, description, tags, children }) {
 
       <ToastContainer position="bottom-center" limit={1} theme="dark" />
 
-      <div className="flex bg-blue min-h-screen flex-col justify-between">
+      <div className="pt-2 flex bg-blue min-w-fit min-h-screen flex-col justify-between">
         <header>
-          <nav className="flex h-12 items-center px-4 justify-between shadow-md">
+          <nav className="flex h-12 items-center px-4 justify-between shadow-md mx-auto">
             <Link href="/">
               <a className="drop-shadow text-4xl font-thin lg:text-3xl sm:text-lg hover:text-Green">
                 Electric Larry&apos;s
@@ -105,7 +105,7 @@ export default function Layout({ title, description, tags, children }) {
             </div>
           </nav>
         </header>
-        <main className="container m-auto mt-4 px-2">{children}</main>
+        <main className="m-auto mt-4 px-2">{children}</main>
         <Footer />
       </div>
     </>

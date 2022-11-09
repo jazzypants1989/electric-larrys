@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             <Component {...pageProps} />
           </Auth>
         ) : (
-          <Component {...pageProps} />
+          <Component className="bg-blue" {...pageProps} />
         )}
       </StoreProvider>
     </SessionProvider>
