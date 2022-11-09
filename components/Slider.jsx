@@ -32,25 +32,32 @@ const Slider = ({ sliderPosts }) => {
       <div
         className={
           index === current
-            ? `h-64 sm:w-80 md:w-144 lg:w-big ${animation}`
+            ? `h-64 sm:w-80 md:w-144 lg:w-big ${animation} mr-16 -translate-y-8 md:-translate-y-0`
             : "h-64 sm:w-80 md:w-144 lg:w-big"
         }
         key={index}
       >
         {index === current && (
-          <div className="flex m-auto py-8 items-center justify-center w-64 md:w-128 lg:w-big lg:py-0 md:-translate-y-16 gap-6">
+          <div className="flex m-auto py-8 text-center items-center justify-center w-64 md:w-128 lg:w-big lg:py-0 md:-translate-y-16 gap-6">
             <a href={link} target="_blank" rel="noreferrer" className="">
               <Image
                 src={image}
                 alt={title}
                 width={500}
                 height={500}
-                className=""
+                className="rounded-3xl"
               />
             </a>
-            <div className="sliderPost__text">
-              <h2 className="text-blue">{title}</h2>
-              <p className="sliderPost__description">{description}</p>
+            <div className="">
+              <h2 className="sm:text-sm md:text-2xl text-blue drop-shadow-lg">
+                {title}
+              </h2>
+              <p className="text-center pt-8 drop-shadow">{description}</p>
+              <a href={link} target="_blank" rel="noreferrer">
+                <h3 className="text-Black opacity-70 hover:opacity-100 drop-shadow-lg mt-4">
+                  Check it out!
+                </h3>
+              </a>
             </div>
           </div>
         )}
@@ -62,14 +69,20 @@ const Slider = ({ sliderPosts }) => {
       <div
         className={
           index === current
-            ? `h-64 sm:w-80 md:w-144 lg:w-big ${animation} mr-12`
+            ? `h-64 sm:w-80 md:w-144 lg:w-big ${animation} mr-16 -translate-y-8 md:-translate-y-0`
             : "h-64 sm:w-80 md:w-144 lg:w-big"
         }
         key={index}
       >
         {index === current && (
-          <div className="flex m-auto py-8 items-center justify-center w-64 md:w-128 lg:w-big lg:py-0 md:-translate-y-16 gap-6">
-            <Image src={image} alt={title} width={500} height={500} />
+          <div className="flex m-auto py-8 text-center items-center justify-center w-64 md:w-128 lg:w-big lg:py-0 md:-translate-y-16 gap-6">
+            <Image
+              src={image}
+              alt={title}
+              width={500}
+              height={500}
+              className="rounded-3xl"
+            />
             <div className="">
               <h2 className="sm:text-sm md:text-2xl text-blue drop-shadow-lg">
                 {title}
@@ -92,7 +105,9 @@ const Slider = ({ sliderPosts }) => {
         key={index}
       >
         {index === current && (
-          <div className="h-64 sm:w-64 md:w-144 lg:w-big text-center grid justify-center items-center">
+          <div
+            className={` h-64 sm:w-64 md:w-144 lg:w-big text-center grid justify-center items-center`}
+          >
             <a href={link} target="_blank" rel="noreferrer">
               <h2 className="sm:text-lg md:text-3xl text-blue drop-shadow-lg">
                 {title}
@@ -101,7 +116,7 @@ const Slider = ({ sliderPosts }) => {
             <p className="md:text-base drop-shadow">{description}</p>
             <a href={link} target="_blank" rel="noreferrer">
               <h3 className="text-Black opacity-70 hover:opacity-100 drop-shadow-lg">
-                Go check our friends out!
+                Check it out!
               </h3>
             </a>
           </div>
@@ -121,7 +136,9 @@ const Slider = ({ sliderPosts }) => {
         key={index}
       >
         {index === current && (
-          <div className="text-center grid items-center justify-center m-auto">
+          <div
+            className={` text-center grid items-center justify-center m-auto`}
+          >
             <div className="h-64 sm:w-64 md:w-144 lg:w-big text-center grid justify-center items-center">
               <h2 className="sm:text-lg md:text-3xl text-blue drop-shadow-lg">
                 {title}

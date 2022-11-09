@@ -1,14 +1,15 @@
 import axios from "axios"
 import { toast } from "react-toastify"
 import Layout from "../components/Layout"
-import ProductItem from "../components/ProductItem"
+import FeaturedProductItem from "../components/ProductItem"
+import IndexSideBar from "../components/IndexSideBar"
+import Announcement from "../components/Announcement"
+import Slider from "../components/Slider"
 import AnnouncementModel from "../models/Announcement"
 import Post from "../models/SliderPost"
 import Product from "../models/Product"
 import db from "../utils/db"
 import { Store } from "../utils/Store"
-import Announcement from "../components/Announcement"
-import Slider from "../components/Slider"
 import { useContext } from "react"
 
 export default function Home({ announcements, posts, products }) {
@@ -32,7 +33,12 @@ export default function Home({ announcements, posts, products }) {
 
   let publishedPosts = posts.filter((post) => post.isPublished)
   let featuredPosts = publishedPosts.filter((post) => post.isFeatured)
-  let featuredProducts = products.filter((product) => product.isFeatured)
+  let nonFeaturedPosts = publishedPosts
+    .filter((post) => !post.isFeatured)
+    .slice(0, 4)
+  let featuredProducts = products
+    .filter((product) => product.isFeatured)
+    .slice(0, 4)
   let announcementList = announcements.map((announcement) => (
     <Announcement key={announcement._id} announcement={announcement} />
   ))
@@ -44,6 +50,27 @@ export default function Home({ announcements, posts, products }) {
       </div>
       <Layout title="Home">
         <Slider sliderPosts={featuredPosts} />
+        <main className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <IndexSideBar sideBarPosts={nonFeaturedPosts} />
+          <div className="flex m-2 gap-2 flex-col justify-center items-center">
+            {featuredProducts.length > 0 && (
+              <div className="flex flex-col justify-center items-center lg:-translate-y-2">
+                <h1 className="text-3xl font-bold text-center drop-shadow my-4">
+                  Featured Products
+                </h1>
+                <div className="bg-orange bg-opacity-70 hover:bg-opacity-80 rounded-l-full flex flex-col justify-center items-center">
+                  {featuredProducts.map((product) => (
+                    <FeaturedProductItem
+                      key={product._id}
+                      product={product}
+                      addToCartHandler={addToCartHandler}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </main>
       </Layout>
     </>
   )
