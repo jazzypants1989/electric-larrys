@@ -55,7 +55,6 @@ export default function AdminPostsScreen() {
       const { data } = await axios.post(`/api/admin/posts`)
       dispatch({ type: "CREATE_SUCCESS", payload: data })
       toast.success("Post created successfully")
-      console.log(data)
       router.push(`/admin/post/${data.sliderPost._id}`)
     } catch (err) {
       dispatch({ type: "CREATE_FAIL" })

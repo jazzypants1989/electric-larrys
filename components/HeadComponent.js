@@ -1,15 +1,47 @@
 import Head from "next/head"
 
-const HeadComponent = ({ title, description, tags }) => {
+const HeadComponent = ({ title, description, image, slug, tags }) => {
   // combine the title, description and tags to use as the description meta tag
 
-  const metaDescription = [title, description, tags].join(", ")
   return (
     <Head>
       <title>
         {title ? title + " at Electric Larry's" : "Electric Larry's"}
       </title>
-      <meta name="description" content={metaDescription} />
+      <meta
+        name="description"
+        content={
+          description
+            ? description
+            : "Electric Larry's is a small business in Carbondale, Illinois. We sell a variety of oddities, antiques, and collectibles."
+        }
+      />
+      <meta
+        name="keywords"
+        content={
+          tags
+            ? tags
+            : "antiques, collectibles, oddities, Carbondale, Illinois, small business"
+        }
+      />
+      <meta name="robots" content="index, follow" />
+      <meta name="language" content="English" />
+      <meta name="revisit-after" content="7 days" />
+      <meta name="keywords" content={tags} />
+      <meta name="author" content="Electric Larry's" />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={image} />
+      <meta property="og:url" content={`https://electriclarrys.com/${slug}`} />
+      <meta property="og:type" content="website" />
+      <meta property="og:site_name" content="Electric Larry's" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@electriclarrys" />
+      <meta name="twitter:creator" content="@electriclarrys" />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={image} />
+
       <link
         rel="apple-touch-icon"
         sizes="180x180"

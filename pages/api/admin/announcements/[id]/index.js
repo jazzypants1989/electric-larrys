@@ -22,7 +22,6 @@ const handler = async (req, res) => {
 const getHandler = async (req, res) => {
   await db.connect()
   const announcement = await Announcement.findById(req.query.id)
-  console.log(announcement)
   await db.disconnect()
   res.send(announcement)
 }

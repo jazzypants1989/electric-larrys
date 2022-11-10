@@ -319,7 +319,6 @@ export default function Home({ products, queryCategory, queryTag }) {
 }
 
 export async function getServerSideProps({ query }) {
-  console.log(query)
   await db.connect()
   const products = await Product.find({}).lean()
   const queryCategory = query.category ? query.category : ""

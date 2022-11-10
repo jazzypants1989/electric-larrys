@@ -17,7 +17,6 @@ export default function TagBox({ tags, setTag }) {
   const handleTagClick = (tag) => {
     setSelectedTag(tag)
     setTag(tag)
-    console.log(tag)
   }
 
   let uniqueList = [...new Set(filteredTag)]

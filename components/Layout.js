@@ -13,7 +13,14 @@ import { Store } from "../utils/Store"
 import Search from "./SearchWithUseRef"
 import HamburgerMenu from "./HamburgerMenu"
 
-export default function Layout({ title, description, tags, children }) {
+export default function Layout({
+  title,
+  description,
+  image,
+  slug,
+  tags,
+  children,
+}) {
   const { status, data: session } = useSession()
   const { state, dispatch } = useContext(Store)
   const { cart } = state
@@ -31,7 +38,13 @@ export default function Layout({ title, description, tags, children }) {
 
   return (
     <>
-      <HeadComponent title={title} description={description} tags={tags} />
+      <HeadComponent
+        title={title}
+        description={description}
+        tags={tags}
+        image={image}
+        slug={slug}
+      />
 
       <ToastContainer position="bottom-center" limit={1} theme="dark" />
 
@@ -39,7 +52,7 @@ export default function Layout({ title, description, tags, children }) {
         <header>
           <nav className="flex flex-wrap h-16 items-center justify-between shadow-md mx-5">
             <Link href="/">
-              <a className="drop-shadow text-4xl font-thin lg:text-3xl sm:text-lg hover:text-Green">
+              <a className="drop-shadow text-4xl font-thin lg:text-3xl sm:text-lg hover:text-Green duration-500">
                 Electric Larry&apos;s
               </a>
             </Link>

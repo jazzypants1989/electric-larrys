@@ -15,7 +15,7 @@ const Footer = () => {
       <nav className="grid md:grid-cols-3 gap-8">
         <ul className="flex flex-col items-center justify-center">
           <Link href="/" className="self-center text-center">
-            <a className="p-2 text-lg font-thin lg:text-2xl hover:text-Green">
+            <a className="p-2 text-lg font-thin lg:text-2xl hover:text-Green duration-500">
               Electric Larry&apos;s
             </a>
           </Link>
@@ -24,7 +24,7 @@ const Footer = () => {
             Carbondale, IL. We carry a wide variety of items including movies,
             music, books, toys, and more.
           </p>
-          <div className="flex mb-2">
+          <div className="flex mb-4">
             <Link
               href="https://www.facebook.com/electriclarrys/"
               target="_blank"

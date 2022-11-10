@@ -31,6 +31,7 @@ export default async function searchHandler(req, res) {
       name: products[i].name,
       slug: products[i].slug,
       image: products[i].image,
+      price: products[i].price,
     }
   }
 

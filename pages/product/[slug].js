@@ -37,6 +37,8 @@ export default function ProductScreen(props) {
       title={product.name}
       description={product.description}
       tags={product.tags}
+      image={product.image}
+      slug={product.slug}
     >
       <div className="py-2">
         <Link href="/">
