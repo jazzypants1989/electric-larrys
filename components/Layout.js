@@ -5,12 +5,13 @@ import React, { useContext, useEffect, useState } from "react"
 import { ToastContainer } from "react-toastify"
 import { Menu } from "@headlessui/react"
 import "react-toastify/dist/ReactToastify.css"
-import { ShoppingCartIcon } from "@heroicons/react/outline"
+import { BsCart4 } from "react-icons/bs"
 import DropdownLink from "./DropdownLink"
 import Footer from "./Footer"
 import HeadComponent from "./HeadComponent"
 import { Store } from "../utils/Store"
 import Search from "./SearchWithUseRef"
+import HamburgerMenu from "./HamburgerMenu"
 
 export default function Layout({ title, description, tags, children }) {
   const { status, data: session } = useSession()
@@ -36,17 +37,18 @@ export default function Layout({ title, description, tags, children }) {
 
       <div className="pt-2 flex bg-blue min-w-fit min-h-screen flex-col justify-between">
         <header>
-          <nav className="flex h-12 items-center px-4 justify-between shadow-md mx-auto">
+          <nav className="flex flex-wrap h-16 items-center justify-between shadow-md mx-5">
             <Link href="/">
               <a className="drop-shadow text-4xl font-thin lg:text-3xl sm:text-lg hover:text-Green">
                 Electric Larry&apos;s
               </a>
             </Link>
             <Search placeholder="Explore our oddities!" />
+            <HamburgerMenu />
             <div>
               <Link href="/cart">
                 <a className="p-4">
-                  <ShoppingCartIcon className="inline h-7 w-7 lg:h-10 lg:w-10 lg:-translate-y-1 lg:translate-x-3 lg:pt-1 hover:text-Green hover:scale-125 transition-all duration-300 ease-in-out" />
+                  <BsCart4 className="inline h-7 w-7 -translate-y-1 lg:h-10 lg:w-10 lg:-translate-y-3 lg:translate-x-3 lg:pt-1 hover:text-Green hover:scale-125 transition-all duration-300 ease-in-out" />
                   {cartItemsCount > 0 && (
                     <span className="absolute -translate-y-3 lg:-translate-y-2 -translate-x-3 lg:ml-2 rounded-full bg-Green font-extralight hover:bg-orange px-1 text-Black hover:text-Green transition-all duration-500 ease-in-out">
                       {cartItemsCount}

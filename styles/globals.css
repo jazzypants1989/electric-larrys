@@ -6,6 +6,7 @@ html,
 body {
   padding: 0;
   margin: 0;
+  scroll-behavior: smooth;
   @apply text-Green font-thin tracking-wider bg-blue;
 }
 
@@ -78,4 +79,8 @@ textarea {
   --toastify-color-light: #34fac5;
   --toastify-color-dark: #f77605;
   --toastify-color-info: #f77605;
+}
+
+.hamburger {
+  display: none;
 }

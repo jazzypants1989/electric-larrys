@@ -12,6 +12,8 @@ import Product from "../models/Product"
 import db from "../utils/db"
 import { Store } from "../utils/Store"
 import { useContext } from "react"
+import Newsletter from "../components/Newsletter"
+import { useEffect } from "react"
 
 export default function Home({ announcements, posts, products }) {
   const { state, dispatch } = useContext(Store)
@@ -44,6 +46,18 @@ export default function Home({ announcements, posts, products }) {
     <Announcement key={announcement._id} announcement={announcement} />
   ))
 
+  // create useEffect that checks if the user has clicked outside of the hamburger menu
+  // if they have, then close the menu
+  // if they haven't, then do nothing
+
+  useEffect(() => {
+    const closeMenu = () => {
+      dispatch({ type: "CLOSE_MENU" })
+    }
+    document.addEventListener("click", closeMenu)
+    return () => document.removeEventListener("click", closeMenu)
+  }, [dispatch])
+
   return (
     <>
       <div className="flex flex-col justify-center items-center min-w-screen bg-blue">
@@ -52,7 +66,7 @@ export default function Home({ announcements, posts, products }) {
       <Layout title="Home">
         <Slider sliderPosts={featuredPosts} />
         <Categories />
-        <main className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <main className="grid mx-auto grid-cols-1 md:grid-cols-2 gap-4">
           <IndexSideBar sideBarPosts={nonFeaturedPosts} />
           <div className="flex m-2 gap-2 flex-col justify-center items-center">
             {featuredProducts.length > 0 && (
@@ -73,6 +87,7 @@ export default function Home({ announcements, posts, products }) {
             )}
           </div>
         </main>
+        <Newsletter />
       </Layout>
     </>
   )

@@ -28,7 +28,7 @@ const SideBar = ({ sideBarPosts }) => {
             <p className="text-center pt-8 drop-shadow-lg">{description}</p>
           </div>
           <a href={link} target="_blank" rel="noreferrer">
-            <h3 className="text-orange hover:text-Black py-1 opacity-70 hover:opacity-100 drop-shadow-lg hover:border-2 hover:bg-orange transition-all duration-500 ease-in-out rounded-lg w-8/9 text-center mt-2">
+            <h3 className="text-orange hover:text-Black py-1 opacity-70 hover:opacity-100 drop-shadow-lg hover:border-2 hover:bg-orange hover:scale-110 transition-all duration-500 ease-in-out rounded-lg w-8/9 text-center mt-2">
               Check it out!
             </h3>
           </a>
@@ -75,7 +75,7 @@ const SideBar = ({ sideBarPosts }) => {
           {description}
         </p>
         <a href={link} target="_blank" rel="noreferrer">
-          <h3 className="text-orange hover:text-Black mt-2 py-1 opacity-70 hover:opacity-100 drop-shadow-lg hover:border-2 hover:bg-orange transition-all duration-500 ease-in-out rounded-lg w-8/9">
+          <h3 className="text-orange hover:text-Black mt-2 py-1 opacity-70 hover:opacity-100 drop-shadow-lg hover:border-2 hover:bg-orange hover:scale-110 transition-all duration-500 ease-in-out rounded-lg w-8/9">
             Check it out!
           </h3>
         </a>

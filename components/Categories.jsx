@@ -6,7 +6,7 @@ const categories = [
   "Music",
   "Books",
   "Board Games",
-  "Other Oddities",
+  "Oddities",
 ]
 
 const CategoryList = () => {

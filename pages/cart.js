@@ -1,39 +1,43 @@
-import Image from "next/image";
-import Link from "next/link";
-import React, { useContext } from "react";
-import { XCircleIcon } from "@heroicons/react/outline";
-import Layout from "../components/Layout";
-import { Store } from "../utils/Store";
-import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
-import axios from "axios";
-import { toast } from "react-toastify";
+import Image from "next/image"
+import Link from "next/link"
+import React, { useContext } from "react"
+import { BsXCircleFill } from "react-icons/bs"
+import Layout from "../components/Layout"
+import { Store } from "../utils/Store"
+import { useRouter } from "next/router"
+import dynamic from "next/dynamic"
+import axios from "axios"
+import { toast } from "react-toastify"
 
 function CartScreen() {
-  const router = useRouter();
-  const { state, dispatch } = useContext(Store);
+  const router = useRouter()
+  const { state, dispatch } = useContext(Store)
   const {
     cart: { cartItems },
-  } = state;
+  } = state
   const removeItemHandler = (item) => {
-    dispatch({ type: "CART_REMOVE_ITEM", payload: item });
-  };
+    dispatch({ type: "CART_REMOVE_ITEM", payload: item })
+  }
   const updateCartHandler = async (item, qty) => {
-    const quantity = Number(qty);
-    const { data } = await axios.get(`/api/products/${item._id}`);
+    const quantity = Number(qty)
+    const { data } = await axios.get(`/api/products/${item._id}`)
     if (data.countInStock < quantity) {
-      return toast.error("You snooze, you lose. We don't have that many left!");
+      return toast.error("You snooze, you lose. We don't have that many left!")
     }
-    dispatch({ type: "CART_ADD_ITEM", payload: { ...item, quantity } });
-    toast.success("Changed your mind, eh? No problemo!");
-  };
+    dispatch({ type: "CART_ADD_ITEM", payload: { ...item, quantity } })
+    toast.success("Changed your mind, eh? No problemo!")
+  }
   return (
     <Layout title="Cart Full of Goodies">
-      <h1 className="mb-4 text-xl">Cart full of goodies.</h1>
+      <h1 className="drop-shadow mb-4 text-xl">Cart full of goodies.</h1>
       {cartItems.length === 0 ? (
-        <div className="text-sm">
-          Aw, shucks. There&apos;s nothing here.{" "}
-          <Link href="/">Go get some cool stuff!</Link>
+        <div className="gap-10 mb-10 flex flex-col">
+          Aw, shucks. There&apos;s nothing here...{" "}
+          <Link href="/products" passHref>
+            <span className="underline text-lg text-orange hover:text-Green cursor-pointer drop-shadow">
+              Go get some cool stuff!
+            </span>
+          </Link>
         </div>
       ) : (
         <div className="grid md:grid-cols-4 md:gap-5">
@@ -81,7 +85,7 @@ function CartScreen() {
                     <td className="p-5 text-right text-base">${item.price}</td>
                     <td className="p-5 text-center">
                       <button onClick={() => removeItemHandler(item)}>
-                        <XCircleIcon className="delete-button"></XCircleIcon>
+                        <BsXCircleFill className="delete-button"></BsXCircleFill>
                       </button>
                     </td>
                   </tr>
@@ -110,7 +114,7 @@ function CartScreen() {
         </div>
       )}
     </Layout>
-  );
+  )
 }
 
-export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });
+export default dynamic(() => Promise.resolve(CartScreen), { ssr: false })

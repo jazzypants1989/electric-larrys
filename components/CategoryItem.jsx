@@ -13,7 +13,7 @@ const images = {
   "Music": music,
   "Books": books,
   "Board Games": boardgames,
-  "Other Oddities": oddities,
+  "Oddities": oddities,
 }
 
 const CategoryItem = ({ category }) => {
@@ -35,9 +35,9 @@ const CategoryItem = ({ category }) => {
           alt={category}
           width={250}
           height={250}
-          className="invisible md:visible object-fill hover:blur-md transition-all duration-1000 ease-in-out rounded-lg"
+          className="invisible md:visible object-fill hover:blur-md md:transition-all md:duration-1000 md:ease-in-out rounded-lg"
         />
-        <h1 className="mt-0 absolute bg-opacity-50 md:bg-opacity-50 bg-orange md:bg-blue p-3 rounded-full text-center md:mt-4 hover:blur-none hover:bg-opacity-100 hover:scale-125 transition-all duration-500 ease-in-out">
+        <h1 className="mt-0 absolute bg-opacity-50 md:bg-opacity-50 bg-orange md:bg-blue p-3 rounded-full text-center drop-shadow md:mt-4 hover:blur-none hover:bg-opacity-100 hover:scale-125 transition-all duration-500 ease-in-out">
           {category}
         </h1>
       </button>

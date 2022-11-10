@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react"
+import { RiArrowLeftSFill, RiArrowRightSFill } from "react-icons/ri"
 import Image from "next/image"
 
 const Slider = ({ sliderPosts }) => {
@@ -81,7 +82,7 @@ const Slider = ({ sliderPosts }) => {
               </h2>
               <p className="text-center drop-shadow">{description}</p>
               <a href={link} target="_blank" rel="noreferrer">
-                <h3 className="text-blue bg-Green hover:text-Black py-1 opacity-70 hover:opacity-100 drop-shadow-lg hover:border-2 hover:bg-orange transition-all duration-500 ease-in-out rounded-lg w-8/9 text-center mt-2">
+                <h3 className="text-blue bg-Green hover:text-Black py-1 opacity-70 hover:opacity-100 drop-shadow-lg hover:border-2 hover:bg-orange hover:scale-95 transition-all duration-500 ease-in-out rounded-lg w-8/9 text-center mt-2">
                   Check it out!
                 </h3>
               </a>
@@ -144,7 +145,7 @@ const Slider = ({ sliderPosts }) => {
             </a>
             <p className="md:text-base drop-shadow">{description}</p>
             <a href={link} target="_blank" rel="noreferrer">
-              <h3 className="text-blue bg-Green hover:text-Black py-1 opacity-70 hover:opacity-100 drop-shadow-lg hover:border-2 hover:bg-orange transition-all duration-500 ease-in-out rounded-lg w-8/9 text-center mt-2">
+              <h3 className="text-blue bg-Green hover:text-Black py-1 opacity-70 hover:opacity-100 drop-shadow-lg hover:border-2 hover:bg-orange hover:scale-95 transition-all duration-500 ease-in-out rounded-lg w-7/9 text-center mt-2">
                 Check it out!
               </h3>
             </a>
@@ -194,19 +195,19 @@ const Slider = ({ sliderPosts }) => {
     <>
       <main className="w-11/12 translate-x-10 bg-orange max-h-full flex rounded-lg rounded-t-2xl -z-10">
         <span
-          className="text-2xl relative md:p-4 h-16 min-w-max opacity-70 z-20 bg-Green text-orange rounded-full flex items-center justify-center top-0 bottom-0 lg:-left-20 m-auto cursor-pointer hover:opacity-100 transition-all duration-1000 ease-in-out hover:text-blue"
+          className="text-2xl relative md:p-2 md:text-4xl h-16 min-w-max opacity-70 z-20 bg-Green text-blue rounded-full flex items-center justify-center top-0 bottom-0 lg:-left-20 m-auto cursor-pointer hover:opacity-100 transition-all duration-1000 ease-in-out hover:text-orange hover:scale-110"
           onClick={() => prevSlide()}
         >
-          ⬅
+          <RiArrowLeftSFill />
         </span>
         <div className="h-64 w-80 md:h-96 md:w-144 lg:w-big lg:h-128 flex items-center justify-center">
           {sliderPost[current]}
         </div>
         <span
-          className="text-2xl relative md:p-4 h-16 min-w-max opacity-70 z-20 bg-Green text-orange rounded-full flex items-center justify-center top-0 bottom-0 md:left-12 lg:left-20 m-auto cursor-pointer hover:opacity-100 transition duration-1000 ease-in-out hover:text-blue"
+          className="text-2xl relative md:p-2 md:text-4xl h-16 min-w-max opacity-70 z-20 bg-Green text-blue rounded-full flex items-center justify-center top-0 bottom-0 md:left-12 lg:left-20 m-auto cursor-pointer hover:opacity-100 transition duration-1000 ease-in-out hover:text-orange hover:scale-110"
           onClick={() => nextSlide()}
         >
-          ➡
+          <RiArrowRightSFill />
         </span>
       </main>
     </>

@@ -80,11 +80,11 @@ export default function ProductScreen(props) {
         </div>
         <div className="drop-shadow leading-5">
           <div className="card p-5">
-            <div className="mb-2 flex justify-between">
+            <div className="mb-2 flex justify-center">
               <div className="text-orange p-2">Price</div>
               <div className="text-lg p-2">${product.price}</div>
             </div>
-            <div className="mb-2 flex justify-around">
+            <div className="mb-2 flex justify-center">
               <div className="text-orange p-2 text-left">In Stock? </div>
               <div className="m-2 text-center">
                 {product.countInStock > 0

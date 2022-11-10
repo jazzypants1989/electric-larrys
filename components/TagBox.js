@@ -27,7 +27,7 @@ export default function TagBox({ tags, setTag }) {
       <Combobox
         as="div"
         value={selectedTag}
-        onChange={(setSelectedTag, handleTagClick)}
+        onChange={handleTagClick}
         className="flex items-center justify-between w-full p-0 z-10"
         multiple
       >
@@ -104,7 +104,7 @@ export default function TagBox({ tags, setTag }) {
         <ul className="grid mt-3 p-1 m-1 sm:grid-cols">
           {selectedTag.map(
             (tag) =>
-              tag !== "" && (
+              tag.length > 0 && (
                 <li key={tag} className="flex items-center justify-between">
                   <span className="text-sm font-medium text-Green bg-orange rounded-full px-3 py-1 mt-1">
                     {tag}

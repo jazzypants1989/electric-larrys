@@ -14,7 +14,7 @@ export default function Home({ products, queryCategory, queryTag }) {
   const { state, dispatch } = useContext(Store)
   const { cart } = state
   const [category, setCategory] = useState(queryCategory || "")
-  const [tag, setTag] = useState("")
+  const [tag, setTag] = useState([])
   const [sort, setSort] = useState("")
   const [sortOrder, setSortOrder] = useState("")
   const [page, setPage] = useState(1)
@@ -109,11 +109,11 @@ export default function Home({ products, queryCategory, queryTag }) {
   const sortedProducts = filteredProducts.sort(sortCallback).slice(0, 20)
   const clearFilter = () => {
     setCategory("")
-    setTag("")
+    setTag([])
   }
 
   const showClearFilter = () => {
-    if (category || tag) {
+    if (category.length > 0 || tag.length > 0) {
       return true
     } else {
       return false

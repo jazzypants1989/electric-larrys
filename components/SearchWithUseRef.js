@@ -1,7 +1,7 @@
 import { useState, useRef, useMemo, useEffect } from "react"
 import { useRouter } from "next/router"
 import axios from "axios"
-import { SearchCircleIcon } from "@heroicons/react/outline"
+import { BiSearchAlt } from "react-icons/bi"
 import Image from "next/image"
 
 export default function Search(props) {
@@ -87,7 +87,7 @@ export default function Search(props) {
                   <span className="text-Green my-auto text-sm hover:text-orange px-5">
                     {product.name}
                   </span>
-                  <SearchCircleIcon className="inline max-w-8 max-h-8 my-auto text-Green hover:text-orange" />
+                  <BiSearchAlt className="inline max-w-8 max-h-8 h-10 w-10 my-auto text-Green hover:text-orange" />
                 </li>
               ))}
             </ul>

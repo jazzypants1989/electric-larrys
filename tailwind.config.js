@@ -61,7 +61,7 @@ module.exports = {
         "swoosh": "swoosh 0.75s ease-in-out 1",
         "woosh": "woosh 0.75s ease-in-out 1",
         "searchSlide": "searchSlide 0.75s ease-in-out 1",
-        "dropDown": "dropDown 0.75s ease-in-out 1",
+        "dropDown": "dropDown 1.5s ease-in-out 1",
       },
       keyframes: {
         swoosh: {
