@@ -69,7 +69,9 @@ export default function Home({ announcements, posts, products }) {
         {announcementList}
       </div>
       <Layout title="Home">
-        <Slider sliderPosts={featuredPosts} />
+        <aside className="-translate-x-10 md:translate-x-2">
+          <Slider sliderPosts={featuredPosts} />
+        </aside>
         <Categories />
         <main className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <IndexSideBar sideBarPosts={nonFeaturedPosts} />

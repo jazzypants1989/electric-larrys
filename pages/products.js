@@ -5,7 +5,6 @@ import Layout from "../components/Layout"
 import ProductItem from "../components/ProductItem"
 import Product from "../models/Product"
 import dbConnect from "../utils/db"
-import { Converter } from "../utils/hooks"
 import { Store, reactions } from "../utils/Store"
 import CategoryBox from "../components/CategoryBox"
 import TagBox from "../components/TagBox"
@@ -331,7 +330,7 @@ export async function getServerSideProps({ query }) {
   const queryTag = query.tag ? query.tag : ""
   return {
     props: {
-      products: Converter(products),
+      products: JSON.parse(JSON.stringify(products)),
       queryCategory,
       queryTag,
     },

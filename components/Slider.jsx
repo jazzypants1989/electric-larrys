@@ -33,7 +33,7 @@ const Slider = ({ sliderPosts }) => {
     } else {
       setCurrent(current + 1)
     }
-  }, 10000)
+  }, 15000)
 
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1)
@@ -60,13 +60,13 @@ const Slider = ({ sliderPosts }) => {
       <div
         className={
           index === current
-            ? `h-64 sm:w-80 md:w-144 lg:w-big ${animation} -translate-y-8 md:-translate-y-0`
+            ? `h-64 sm:w-80 md:w-144 lg:w-big ${animation} absolute bottom-10`
             : "h-64 sm:w-80 md:w-144 lg:w-big"
         }
         key={index}
       >
         {index === current && (
-          <div className="md:hover:bg-Green hover:bg-opacity-50 hover:text-Black rounded-4xl flex m-auto py-8 text-center items-center justify-center w-64 md:w-128 lg:w-big lg:py-0 md:-translate-y-16 gap-6 transition duration-1000 ease-in-out">
+          <div className="md:hover:bg-Green hover:bg-opacity-50 hover:text-Black rounded-4xl flex m-auto py-8 text-center items-center justify-center w-64 md:w-128 lg:w-big lg:py-0 gap-6 transition duration-1000 ease-in-out absolute md:bottom-3 left-8 lg:bottom-10">
             <a href={link} target="_blank" rel="noreferrer" className="">
               <Image
                 src={image}
@@ -74,7 +74,6 @@ const Slider = ({ sliderPosts }) => {
                 width={600}
                 height={600}
                 className="rounded-3xl"
-                priority
               />
             </a>
             <div className="">
@@ -99,13 +98,13 @@ const Slider = ({ sliderPosts }) => {
       <div
         className={
           index === current
-            ? `h-64 sm:w-80 md:w-144 lg:w-big ${animation} -translate-y-8 md:-translate-y-0`
+            ? `h-64 sm:w-80 md:w-144 lg:w-big ${animation} absolute bottom-8`
             : "h-64 sm:w-80 md:w-144 lg:w-big"
         }
         key={index}
       >
         {index === current && (
-          <div className="md:hover:bg-Green hover:bg-opacity-50 hover:text-Black rounded-4xl flex m-auto py-8 text-center items-center justify-center w-64 md:w-128 lg:w-big lg:py-0 md:-translate-y-16 gap-6 transition duration-1000 ease-in-out">
+          <div className="md:hover:bg-Green hover:bg-opacity-50 hover:text-Black rounded-4xl flex m-auto py-8 text-center items-center justify-center w-64 md:w-128 lg:w-big absolute md:bottom-0 left-8 md:left-12 gap-6 transition duration-1000 ease-in-out">
             <Image
               src={image}
               alt={title}
@@ -130,14 +129,14 @@ const Slider = ({ sliderPosts }) => {
       <div
         className={
           index === current || 0
-            ? `${animation} w-80 md:w-144 lg:w-big m-auto translate-x-8 md:translate-x-16 md:mr-32 md:pl-8 lg:mr-48 md:-translate-y-10 duration-500 ease-in-out`
-            : "animate-searchSlide w-80 md:w-144 lg:w-big m-auto pr-8 md:pr-16"
+            ? `${animation} w-80 md:w-144 lg:w-big m-auto absolute ml-16 md:ml-0 md:bottom-22`
+            : "animate-searchSlide w-80 md:w-144 lg:w-big m-auto"
         }
         key={index}
       >
         {index === current && (
           <div
-            className={`md:hover:bg-Green hover:bg-opacity-50 p-4 hover:text-Black hover:drop-shadow-lg rounded-4xl h-64 sm:w-64 md:w-144 lg:w-big text-center grid justify-center items-center transition duration-1000 ease-in-out`}
+            className={`md:hover:bg-Green hover:bg-opacity-50 hover:text-Black hover:drop-shadow-lg rounded-4xl h-64 sm:w-64 md:w-144 lg:w-big text-center grid justify-center items-center transition duration-1000 ease-in-out`}
           >
             <a href={link} target="_blank" rel="noreferrer">
               <h2 className="sm:text-lg md:text-3xl text-blue md:hover:text-orange drop-shadow-lg transition-all duration-1000 ease-in-out">
@@ -196,7 +195,7 @@ const Slider = ({ sliderPosts }) => {
     <>
       <main className="w-11/12 translate-x-10 bg-orange max-h-full flex rounded-lg rounded-t-2xl -z-10">
         <span
-          className="text-2xl relative md:p-2 md:text-4xl h-16 min-w-max opacity-70 z-20 bg-Green text-blue rounded-full flex items-center justify-center top-0 bottom-0 lg:-left-20 m-auto cursor-pointer hover:opacity-100 transition-all duration-1000 ease-in-out hover:text-orange hover:scale-110"
+          className="text-3xl relative md:p-2 md:text-5xl h-20 min-w-max opacity-70 z-20 bg-Green text-blue rounded-full flex items-center justify-center top-0 bottom-0 lg:-left-20 m-auto cursor-pointer hover:opacity-100 transition-all duration-1000 ease-in-out hover:text-orange hover:scale-110"
           onClick={() => prevSlide()}
         >
           <RiArrowLeftSFill />
@@ -205,7 +204,7 @@ const Slider = ({ sliderPosts }) => {
           {sliderPost[current]}
         </div>
         <span
-          className="text-2xl relative md:p-2 md:text-4xl h-16 min-w-max opacity-70 z-20 bg-Green text-blue rounded-full flex items-center justify-center top-0 bottom-0 md:left-12 lg:left-20 m-auto cursor-pointer hover:opacity-100 transition duration-1000 ease-in-out hover:text-orange hover:scale-110"
+          className="text-3xl relative md:p-2 md:text-5xl h-20 min-w-max opacity-70 z-20 bg-Green text-blue rounded-full flex items-center justify-center top-0 bottom-0 md:left-12 lg:left-20 m-auto cursor-pointer hover:opacity-100 transition duration-1000 ease-in-out hover:text-orange hover:scale-110"
           onClick={() => nextSlide()}
         >
           <RiArrowRightSFill />

@@ -67,10 +67,10 @@ export default function Layout({
         onClick={cartOpen ? closeCartHandler : null}
         className="pt-2 flex bg-blue min-w-fit min-h-screen flex-col justify-between"
       >
-        <header>
-          <nav className="flex flex-wrap h-16 items-center justify-between shadow-md mx-5">
+        <header className="">
+          <nav className="flex flex-wrap h-16 items-center justify-between shadow-md ml-2">
             <Link href="/">
-              <a className="drop-shadow text-4xl font-thin lg:text-3xl sm:text-lg hover:text-Green duration-500">
+              <a className="drop-shadow text-base font-thin md:text-2xl lg:text-3xl hover:text-Green duration-500">
                 Electric Larry&apos;s
               </a>
             </Link>
@@ -126,7 +126,7 @@ export default function Layout({
                 </Menu>
               ) : (
                 <Link href="/login">
-                  <a className="p-2 hover:text-Green">Log-in!</a>
+                  <a className="pr-4 hover:text-Green">Log-in!</a>
                 </Link>
               )}
             </div>

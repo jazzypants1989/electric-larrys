@@ -41,6 +41,7 @@ const HeadComponent = ({ title, description, image, slug, tags }) => {
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
+      <meta lang="en" />
 
       <link
         rel="apple-touch-icon"

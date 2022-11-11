@@ -78,7 +78,7 @@ export default function HamburgerMenu(props) {
 
   return (
     <>
-      <div className="md:hidden z-30">
+      <div className="md:hidden pl-2 z-30">
         <div className="flex justify-between items-center">
           <button onClick={() => toggle()}>
             <svg
@@ -190,19 +190,19 @@ export default function HamburgerMenu(props) {
 
       <div className="hidden md:flex justify-between w-1/5">
         <button
-          className="text-Green hover:text-orange cursor-pointer duration-300 ease-in border-x-2 px-2 border-orange rounded-md hover:border-x-4 hover:px-6 hover:rounded-2xl hover:text-sm"
+          className="text-Green hover:text-orange cursor-pointer duration-300 ease-in border-x-2 px-2 border-orange rounded-md hover:border-x-4 hover:px-3 hover:rounded-2xl hover:text-sm"
           onClick={() => router.push("/about")}
         >
           About
         </button>
         <button
-          className="text-Green hover:text-orange cursor-pointer duration-300 ease-in border-x-2 px-2 border-orange rounded-md hover:border-x-4 hover:px-6 hover:rounded-2xl hover:text-sm"
+          className="text-Green hover:text-orange cursor-pointer duration-300 ease-in border-x-2 px-2 border-orange rounded-md hover:border-x-4 hover:px-3 hover:rounded-2xl hover:text-sm"
           onClick={() => router.push("/products")}
         >
           Products
         </button>
         <button
-          className="hidden lg:flex text-Green hover:text-orange cursor-pointer duration-300 ease-in border-x-2 px-2 border-orange rounded-md hover:border-x-4 hover:px-6 hover:rounded-2xl hover:text-sm"
+          className="hidden lg:flex text-Green hover:text-orange cursor-pointer duration-300 ease-in border-x-2 px-2 border-orange rounded-md hover:border-x-4 hover:px-3 hover:rounded-2xl hover:text-sm"
           onClick={() => router.push("#contact")}
         >
           Contact

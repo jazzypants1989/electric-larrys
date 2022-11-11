@@ -6,8 +6,8 @@ import { toast } from "react-toastify"
 import Layout from "../../components/Layout"
 import Product from "../../models/Product"
 import dbConnect from "../../utils/db"
-import { Converter } from "../../utils/hooks"
 import { Store, reactions } from "../../utils/Store"
+import { BiArrowToLeft } from "react-icons/bi"
 
 export default function ProductScreen(props) {
   const { product } = props
@@ -49,6 +49,9 @@ export default function ProductScreen(props) {
       slug={product.slug}
     >
       <div className="py-2">
+        <Link href="/" passHref>
+          <BiArrowToLeft className="relative text-2xl cursor-pointer hover:text-orange hover:scale-125" />
+        </Link>
         <Link href="/">
           <a className="hover:text-Green">back to products</a>
         </Link>
@@ -124,7 +127,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      product: product ? Converter(product) : null,
+      product: product ? JSON.parse(JSON.stringify(product)) : null,
     },
   }
 }
