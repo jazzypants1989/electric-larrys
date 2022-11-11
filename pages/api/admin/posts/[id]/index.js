@@ -1,6 +1,6 @@
 import { getSession } from "next-auth/react"
 import Post from "../../../../../models/SliderPost"
-import db from "../../../../../utils/db"
+import dbConnect from "../../../../../utils/db"
 
 const handler = async (req, res) => {
   const session = await getSession({ req })
@@ -20,13 +20,12 @@ const handler = async (req, res) => {
   }
 }
 const getHandler = async (req, res) => {
-  await db.connect()
+  await dbConnect()
   const post = await Post.findById(req.query.id)
-  await db.disconnect()
   res.send(post)
 }
 const putHandler = async (req, res) => {
-  await db.connect()
+  await dbConnect()
   const post = await Post.findById(req.query.id)
   if (post) {
     post.title = req.body.title
@@ -37,22 +36,18 @@ const putHandler = async (req, res) => {
     post.isPublished = req.body.isPublished
     post.date = new Date()
     await post.save()
-    await db.disconnect()
     res.send({ message: "Post updated successfully" })
   } else {
-    await db.disconnect()
     res.status(404).send({ message: "Post not found" })
   }
 }
 const deleteHandler = async (req, res) => {
-  await db.connect()
+  await dbConnect()
   const post = await Post.findById(req.query.id)
   if (post) {
     await post.remove()
-    await db.disconnect()
     res.send({ message: "Post deleted successfully" })
   } else {
-    await db.disconnect()
     res.status(404).send({ message: "Post not found" })
   }
 }

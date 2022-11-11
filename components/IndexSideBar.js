@@ -9,7 +9,7 @@ const SideBar = ({ sideBarPosts }) => {
     let sideBarPostWithImageAndLink = (
       <div
         className="p-7 m-7 md:m-9 max-w-lg rounded-3xl bg-Green text-Black transition-all duration-700 ease-in-out hover:scale-105 bg-opacity-90 hover:bg-opacity-100"
-        key={sideBarPost.id}
+        key={title}
       >
         <div>
           <a href={link} target="_blank" rel="noreferrer">

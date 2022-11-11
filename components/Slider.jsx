@@ -74,6 +74,7 @@ const Slider = ({ sliderPosts }) => {
                 width={600}
                 height={600}
                 className="rounded-3xl"
+                priority
               />
             </a>
             <div className="">

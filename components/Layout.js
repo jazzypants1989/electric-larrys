@@ -59,7 +59,7 @@ export default function Layout({
           "bg-blue bg-opacity-80 text-Green drop-shadow shadow-2xl rounded-full p-2 text-center"
         }
         position="top-center"
-        limit={2}
+        limit={3}
         theme="colored"
       />
 
@@ -100,15 +100,7 @@ export default function Layout({
                   <Menu.Items className="absolute right-0 w-56 origin-top-right mt-4 shadow-lg bg-blue z-10">
                     <Menu.Item>
                       <DropdownLink className="dropdown-link" href="/profile">
-                        Profile
-                      </DropdownLink>
-                    </Menu.Item>
-                    <Menu.Item>
-                      <DropdownLink
-                        className="dropdown-link"
-                        href="/order-history"
-                      >
-                        Order History
+                        Profile / Order History
                       </DropdownLink>
                     </Menu.Item>
                     {session.user.isAdmin && (

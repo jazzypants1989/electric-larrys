@@ -1,6 +1,6 @@
 import { getSession } from "next-auth/react"
 import SliderPost from "../../../../models/SliderPost"
-import db from "../../../../utils/db"
+import dbConnect from "../../../../utils/db"
 
 const handler = async (req, res) => {
   const session = await getSession({ req })
@@ -17,7 +17,7 @@ const handler = async (req, res) => {
   }
 }
 const postHandler = async (req, res) => {
-  await db.connect()
+  await dbConnect()
   const newSliderPost = new SliderPost({
     title: "sample title",
     link: "https://www.google.com",
@@ -29,13 +29,11 @@ const postHandler = async (req, res) => {
     isFeatured: false,
   })
   const sliderPost = await newSliderPost.save()
-  await db.disconnect()
   res.send({ message: "Slider Post created successfully", sliderPost })
 }
 const getHandler = async (req, res) => {
-  await db.connect()
+  await dbConnect()
   const sliderPosts = await SliderPost.find({})
-  await db.disconnect()
   res.send(sliderPosts)
 }
 

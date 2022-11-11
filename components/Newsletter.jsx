@@ -1,6 +1,28 @@
 import { RiBallPenFill } from "react-icons/ri"
+import { toast } from "react-toastify"
+import axios from "axios"
+import { useForm } from "react-hook-form"
+import { getError } from "../utils/error"
 
 const Newsletter = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
+
+  const submitHandler = async ({ email }) => {
+    try {
+      await axios.post("/api/newsletter", { email })
+      toast.success(
+        "Thanks for signing up! Maybe I'll get around to sending you an email one day."
+      )
+    } catch (err) {
+      toast.error(getError(err))
+    }
+    console.log(email)
+  }
+
   return (
     <div className="md:h-96 w-full flex flex-col justify-center items-center bg-transparent">
       <h1 className="text-4xl drop-shadow text-center text-orange">
@@ -10,18 +32,32 @@ const Newsletter = () => {
         Join the fan club and get semi-sorta-regular updates from our fearless
         leader about new products and stuff going on at the store.
       </p>
-      <div className="w-1/2 h-12 bg-transparent flex justify-between text-orange transition-all outline-none hover:border-2 hover:shadow-2xl hover:-translate-y-1 hover:after:scale-x-110 hover:after:origin-left after:content-none after:absolute after:w-full after:h-full after:z-1 after:bg-orange after:scale-x-0 after:origin-right after:transition-all">
+      <form
+        onSubmit={handleSubmit(submitHandler)}
+        className="w-1/2 h-12 bg-transparent flex justify-center items-center text-orange transition-all outline-none hover:border-2 hover:shadow-2xl hover:-translate-y-1 hover:after:scale-x-110 hover:after:origin-left after:content-none after:absolute after:w-full after:h-full after:z-1 after:bg-orange after:scale-x-0 after:origin-right after:transition-all"
+      >
         <input
-          className="
-        placeholder-orange flex-grow border-none md:pl-8 transparent md:text-lg
-        "
-          placeholder="Your email"
+          className="w-full h-full bg-transparent text-orange outline-none placeholder-orange"
+          type="email"
+          placeholder="I won't spam you, I promise."
+          {...register("email", {
+            required:
+              "It's cool if you don't want be a Larry, just don't fill this out.",
+          })}
         />
-        <button className="flex-shrink w-fit p-2 border-none bg-orange text-Green md:text-lg cursor-pointer">
-          <RiBallPenFill>HI</RiBallPenFill>
+        <button
+          className="flex-shrink w-fit p-2 border-none bg-transparent text-orange hover:text-Green md:text-lg cursor-pointer"
+          type="submit"
+        >
+          <RiBallPenFill className="text-2xl" />
         </button>
-      </div>
+
+        {errors.email && (
+          <p className="text-Red text-center">{errors.email.message}</p>
+        )}
+      </form>
     </div>
   )
 }
+
 export default Newsletter

@@ -1,8 +1,9 @@
-import db from "../../utils/db"
 import Product from "../../models/Product"
+import dbConnect from "../../utils/db"
 
 export default async function searchHandler(req, res) {
-  await db.connect()
+  dbConnect()
+
   let products = await Product.aggregate([
     {
       $search: {
@@ -35,6 +36,5 @@ export default async function searchHandler(req, res) {
     }
   }
 
-  await db.disconnect()
   res.send(products)
 }

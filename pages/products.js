@@ -4,7 +4,8 @@ import { toast } from "react-toastify"
 import Layout from "../components/Layout"
 import ProductItem from "../components/ProductItem"
 import Product from "../models/Product"
-import db from "../utils/db"
+import dbConnect from "../utils/db"
+import { Converter } from "../utils/hooks"
 import { Store, reactions } from "../utils/Store"
 import CategoryBox from "../components/CategoryBox"
 import TagBox from "../components/TagBox"
@@ -324,13 +325,13 @@ export default function Home({ products, queryCategory, queryTag }) {
 }
 
 export async function getServerSideProps({ query }) {
-  await db.connect()
+  await dbConnect()
   const products = await Product.find({}).lean()
   const queryCategory = query.category ? query.category : ""
   const queryTag = query.tag ? query.tag : ""
   return {
     props: {
-      products: products.map(db.convertDocToObj),
+      products: Converter(products),
       queryCategory,
       queryTag,
     },

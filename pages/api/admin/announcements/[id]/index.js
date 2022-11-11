@@ -1,6 +1,6 @@
 import { getSession } from "next-auth/react"
 import Announcement from "../../../../../models/Announcement"
-import db from "../../../../../utils/db"
+import dbConnect from "../../../../../utils/db"
 
 const handler = async (req, res) => {
   const session = await getSession({ req })
@@ -20,13 +20,13 @@ const handler = async (req, res) => {
   }
 }
 const getHandler = async (req, res) => {
-  await db.connect()
+  await dbConnect()
   const announcement = await Announcement.findById(req.query.id)
-  await db.disconnect()
+  await dbConnect()
   res.send(announcement)
 }
 const putHandler = async (req, res) => {
-  await db.connect()
+  await dbConnect()
   const announcement = await Announcement.findById(req.query.id)
   if (announcement) {
     announcement.title = req.body.title
@@ -35,22 +35,18 @@ const putHandler = async (req, res) => {
     announcement.isPublished = req.body.isPublished
     announcement.date = new Date()
     await announcement.save()
-    await db.disconnect()
     res.send({ message: "Announcement updated successfully" })
   } else {
-    await db.disconnect()
     res.status(404).send({ message: "Announcement not found" })
   }
 }
 const deleteHandler = async (req, res) => {
-  await db.connect()
+  await dbConnect()
   const announcement = await Announcement.findById(req.query.id)
   if (announcement) {
     await announcement.remove()
-    await db.disconnect()
     res.send({ message: "Announcement deleted successfully" })
   } else {
-    await db.disconnect()
     res.status(404).send({ message: "Announcement not found" })
   }
 }

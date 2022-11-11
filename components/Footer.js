@@ -101,7 +101,6 @@ const Footer = () => {
             target="_blank"
             rel="noreferrer"
             className=""
-            passHref
           >
             <TbMail className="hover:animate-searchSlide cursor-pointer m-auto h-7 w-7 text-orange" />{" "}
             <span className="cursor-pointer text-Green">
@@ -149,11 +148,11 @@ const Footer = () => {
                 Board Games
               </li>
             </Link>
-            {/* <Link href="/products?category=books" passHref>
+            <Link href="/products?category=books" passHref>
               <li className="p-1 font-thin cursor-pointer hover:text-orange">
                 Books
               </li>
-            </Link> */}
+            </Link>
             <Link href="/products?category=oddities" passHref>
               <li className="p-1 font-thin cursor-pointer hover:text-orange">
                 Oddities
@@ -162,11 +161,6 @@ const Footer = () => {
             <Link href="/profile" passHref>
               <li className="p-1 font-thin cursor-pointer hover:text-orange">
                 My Account
-              </li>
-            </Link>
-            <Link href="/order-history" passHref>
-              <li className="p-1 font-thin cursor-pointer hover:text-orange">
-                Order Tracking
               </li>
             </Link>
             <Link href="/terms" passHref>

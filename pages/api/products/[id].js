@@ -1,11 +1,10 @@
-import Product from '../../../models/Product';
-import db from '../../../utils/db';
+import Product from "../../../models/Product"
+import dbConnect from "../../../utils/db"
 
 const handler = async (req, res) => {
-  await db.connect();
-  const product = await Product.findById(req.query.id);
-  await db.disconnect();
-  res.send(product);
-};
+  await dbConnect()
+  const product = await Product.findById(req.query.id)
+  res.send(product)
+}
 
-export default handler;
+export default handler

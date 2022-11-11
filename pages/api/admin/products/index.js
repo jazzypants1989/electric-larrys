@@ -1,6 +1,6 @@
 import { getSession } from "next-auth/react"
 import Product from "../../../../models/Product"
-import db from "../../../../utils/db"
+import dbConnect from "../../../../utils/db"
 
 const handler = async (req, res) => {
   const session = await getSession({ req })
@@ -17,7 +17,7 @@ const handler = async (req, res) => {
   }
 }
 const postHandler = async (req, res) => {
-  await db.connect()
+  await dbConnect()
   const newProduct = new Product({
     name: "sample name",
     slug: "this-is-a-slug_good-for-seo" + Date.now(),
@@ -33,13 +33,11 @@ const postHandler = async (req, res) => {
     salePrice: 5,
   })
   const product = await newProduct.save()
-  await db.disconnect()
   res.send({ message: "Product created successfully", product })
 }
 const getHandler = async (req, res) => {
-  await db.connect()
+  await dbConnect()
   const products = await Product.find({})
-  await db.disconnect()
   res.send(products)
 }
 export default handler

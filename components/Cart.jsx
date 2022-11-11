@@ -43,7 +43,8 @@ export default function Cart() {
       body: JSON.stringify({ cartItems }),
     })
     const data = await response.json()
-    await stripe.redirectToCheckout({ sessionId: data.id })
+    console.log(data)
+    stripe.redirectToCheckout({ sessionId: data.id })
   }
 
   return (
@@ -128,8 +129,7 @@ export default function Cart() {
                 </li>
                 <li>
                   <button
-                    // onClick={handleCheckout}
-                    onClick={console.log(cartItems)}
+                    onClick={handleCheckout}
                     className="primary-button md:w-full"
                   >
                     Check Out
@@ -193,8 +193,7 @@ export default function Cart() {
                 </li>
                 <li>
                   <button
-                    // onClick={handleCheckout}
-                    onClick={console.log(cartItems)}
+                    onClick={handleCheckout}
                     className="primary-button md:w-full"
                   >
                     Check Out

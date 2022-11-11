@@ -332,7 +332,7 @@ export default function AdminProductEditScreen() {
                   {...register("isOnSale")}
                 />
                 <label htmlFor="isOnSale">Sale Price</label>
-                <p className="absolute text-Red translate-x-80 translate-y-28 pl-4 text-3xl">
+                <p className="absolute text-Red translate-x-72 translate-y-28 pl-4 text-3xl">
                   $
                 </p>
                 <input

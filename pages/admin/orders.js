@@ -40,6 +40,9 @@ export default function AdminOrderScreen() {
 
   return (
     <Layout title="Admin Dashboard">
+      <h1 className="text-3xl drop-shadow text-center">
+        This page will probably go away soon.
+      </h1>
       <div className="grid md:grid-cols-4 md:gap-5">
         <AdminSideBar />
         <div className="overflow-x-auto md:col-span-3">

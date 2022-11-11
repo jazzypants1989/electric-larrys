@@ -70,7 +70,7 @@ function AdminUsersScreen() {
 
   return (
     <Layout title="Users">
-      <div className="grid md:grid-cols-4 md:gap-5">
+      <div className="grid md:grid-cols-4 md:gap-5 drop-shadow">
         <AdminSideBar />
         <div className="overflow-x-auto md:col-span-3">
           <h1 className="mb-4 text-xl">Users</h1>
@@ -87,7 +87,9 @@ function AdminUsersScreen() {
                     <th className="text-center">ID</th>
                     <th className="text-center">NAME</th>
                     <th className="text-center">EMAIL</th>
+                    <th className="text-center">NEWSLETTER</th>
                     <th className="text-center">ADMIN</th>
+                    <th className="text-center">EMPLOYEE</th>
                     <th className="text-center">ACTIONS</th>
                   </tr>
                 </thead>
@@ -100,7 +102,13 @@ function AdminUsersScreen() {
                       <td className=" text-center ">{user.name}</td>
                       <td className=" text-center ">{user.email}</td>
                       <td className=" text-center ">
+                        {user.newsletter ? "Subscribed" : "Unsubscribed"}
+                      </td>
+                      <td className=" text-center ">
                         {user.isAdmin ? "YES" : "NO"}
+                      </td>
+                      <td className=" text-center ">
+                        {user.isEmployee ? "Employee" : "Maybe"}
                       </td>
                       <td className=" text-center ">
                         <Link href={`/admin/user/${user._id}`} passHref>

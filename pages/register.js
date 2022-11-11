@@ -26,12 +26,13 @@ export default function LoginScreen() {
     getValues,
     formState: { errors },
   } = useForm()
-  const submitHandler = async ({ name, email, password }) => {
+  const submitHandler = async ({ name, email, password, newsletter }) => {
     try {
       await axios.post("/api/auth/signup", {
         name,
         email,
         password,
+        newsletter,
       })
 
       const result = await signIn("credentials", {
@@ -129,6 +130,21 @@ export default function LoginScreen() {
               errors.confirmPassword.type === "validate" && (
                 <div className="text-Red ">Password do not match</div>
               )}
+            <label htmlFor="newsletter">
+              <input
+                type="checkbox"
+                id="newsletter"
+                className="mr-2"
+                {...register("newsletter")}
+              />
+              <span
+                className="
+              text-sm
+              "
+              >
+                Subscribe to newsletter
+              </span>
+            </label>
           </div>
 
           <div className="mb-4 ">

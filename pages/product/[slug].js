@@ -5,7 +5,8 @@ import React, { useContext } from "react"
 import { toast } from "react-toastify"
 import Layout from "../../components/Layout"
 import Product from "../../models/Product"
-import db from "../../utils/db"
+import dbConnect from "../../utils/db"
+import { Converter } from "../../utils/hooks"
 import { Store, reactions } from "../../utils/Store"
 
 export default function ProductScreen(props) {
@@ -118,12 +119,12 @@ export async function getServerSideProps(context) {
   const { params } = context
   const { slug } = params
 
-  await db.connect()
+  await dbConnect()
   const product = await Product.findOne({ slug }).lean()
-  await db.disconnect()
+
   return {
     props: {
-      product: product ? db.convertDocToObj(product) : null,
+      product: product ? Converter(product) : null,
     },
   }
 }

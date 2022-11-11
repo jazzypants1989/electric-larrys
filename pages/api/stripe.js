@@ -4,8 +4,9 @@ import { getSession } from "next-auth/react"
 const stripe = new Stripe(`${process.env.NEXT_PUBLIC_STRIPE_SECRET}`)
 
 export default async function handler(req, res) {
-  const session = await getSession(req, res)
+  const session = await getSession({ req })
   const user = session?.user
+  console.log(session)
   const stripeId = user
     ? user["http://localhost:3000/stripe_customer_id"]
     : undefined
@@ -67,8 +68,8 @@ export default async function handler(req, res) {
           price_data: {
             currency: "usd",
             product_data: {
-              name: item.title,
-              images: [item.image.data.attributes.formats.thumbnail.url],
+              name: item.name,
+              images: [item.image],
             },
             unit_amount: item.price * 100,
           },

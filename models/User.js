@@ -7,11 +7,11 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     isAdmin: { type: Boolean, required: true, default: false },
     isEmployee: { type: Boolean, required: true, default: false },
+    newsletter: { type: Boolean, required: true, default: false },
   },
   {
     timestamps: true,
   }
 )
 
-const User = mongoose.models.User || mongoose.model("User", userSchema)
-export default User
+export default mongoose.models.User || mongoose.model("User", userSchema)

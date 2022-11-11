@@ -31,6 +31,10 @@ export default function AdminSideBar() {
       name: "Announcements",
       href: "/admin/announcements",
     },
+    {
+      name: "Newsletter",
+      href: "/admin/newsletter",
+    },
   ]
 
   return (

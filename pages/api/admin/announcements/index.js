@@ -1,6 +1,6 @@
 import { getSession } from "next-auth/react"
 import Announcement from "../../../../models/Announcement"
-import db from "../../../../utils/db"
+import dbConnect from "../../../../utils/db"
 
 const handler = async (req, res) => {
   const session = await getSession({ req })
@@ -17,7 +17,7 @@ const handler = async (req, res) => {
   }
 }
 const postHandler = async (req, res) => {
-  await db.connect()
+  await dbConnect()
   const newAnnouncement = new Announcement({
     title: "50% off all products",
     link: "no",
@@ -26,13 +26,11 @@ const postHandler = async (req, res) => {
     isPublished: false,
   })
   const announcement = await newAnnouncement.save()
-  await db.disconnect()
   res.send({ message: "Announcement created successfully", announcement })
 }
 const getHandler = async (req, res) => {
-  await db.connect()
+  dbConnect()
   const announcements = await Announcement.find({})
-  await db.disconnect()
   res.send(announcements)
 }
 

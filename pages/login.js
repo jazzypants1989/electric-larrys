@@ -1,13 +1,15 @@
 import Link from "next/link"
 import React, { useEffect } from "react"
-import { signIn, useSession } from "next-auth/react"
+import { signIn, useSession, getProviders } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import Layout from "../components/Layout"
 import { getError } from "../utils/error"
 import { toast } from "react-toastify"
 import { useRouter } from "next/router"
+import { FcGoogle, FcReddit } from "react-icons/fc"
+import { RiDiscordFill } from "react-icons/ri"
 
-export default function LoginScreen() {
+export default function LoginScreen({ providers }) {
   const { data: session } = useSession()
 
   const router = useRouter()
@@ -95,7 +97,45 @@ export default function LoginScreen() {
             </button>
           </div>
         </form>
+
+        <div className="mx-auto pt-5 bg-Green hover:bg-orange rounded-full w-1/2 flex justify-center items-center text-center gap-4 transition-all duration-500 ease-in-out transform hover:scale-110">
+          <h1 className="mb-4 text-xl">Or Login With:</h1>
+          <div className="mb-4 flex bg-transparent">
+            <button
+              aria-label="Sign in with Google"
+              onClick={() => signIn(providers.google.id)}
+              className="transition-all duration-500 ease-in-out transform hover:scale-125"
+            >
+              <FcGoogle className="inline-block h-10 w-10" />
+            </button>
+          </div>
+          <div className="mb-4">
+            <button
+              aria-label="Login with Reddit"
+              onClick={() => signIn(providers.reddit.id)}
+              className="transition-all duration-500 ease-in-out transform hover:scale-125"
+            >
+              <FcReddit className="inline-block h-10 w-10" />
+            </button>
+          </div>
+          <div className="mb-4">
+            <button
+              aria-label="Login with Discord"
+              onClick={() => signIn(providers.discord.id)}
+              className="transition-all duration-500 ease-in-out transform hover:scale-125"
+            >
+              <RiDiscordFill className="inline-block h-10 w-10" />
+            </button>
+          </div>
+        </div>
       </div>
     </Layout>
   )
+}
+
+export async function getServerSideProps() {
+  const providers = await getProviders()
+  return {
+    props: { providers },
+  }
 }

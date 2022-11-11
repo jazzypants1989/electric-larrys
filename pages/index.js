@@ -9,7 +9,7 @@ import Slider from "../components/Slider"
 import AnnouncementModel from "../models/Announcement"
 import Post from "../models/SliderPost"
 import Product from "../models/Product"
-import db from "../utils/db"
+import dbConnect from "../utils/db"
 import { Store, reactions } from "../utils/Store"
 import { useContext } from "react"
 import Newsletter from "../components/Newsletter"
@@ -99,17 +99,17 @@ export default function Home({ announcements, posts, products }) {
 }
 
 export async function getStaticProps() {
-  await db.connect()
+  await dbConnect()
   const products = await Product.find({}).lean()
   const posts = await Post.find({}).lean()
   const announcements = await AnnouncementModel.find({}).lean()
-  await db.disconnect()
+  console.log(products)
 
   return {
     props: {
-      products: products.map(db.convertDocToObj),
-      posts: posts.map(db.convertDocToObj),
-      announcements: announcements.map(db.convertDocToObj),
+      products: JSON.parse(JSON.stringify(products)),
+      posts: JSON.parse(JSON.stringify(posts)),
+      announcements: JSON.parse(JSON.stringify(announcements)),
     },
   }
 }
