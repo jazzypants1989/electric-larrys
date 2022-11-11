@@ -36,6 +36,9 @@ module.exports = {
       serif: ["Bangers", "serif"],
     },
     extend: {
+      boxShadow: {
+        "3xl-left": "3px 3px 3px 3px rgba(247, 118, 5, 0.5)",
+      },
       spacing: {
         "128": "32rem",
         "144": "36rem",
@@ -52,6 +55,7 @@ module.exports = {
       },
       borderRadius: {
         "4xl": "2rem",
+        "cart": "10rem",
       },
       width: {
         "big": "48rem",
@@ -63,6 +67,7 @@ module.exports = {
         "searchSlide": "searchSlide 0.75s ease-in-out 1",
         "dropDown": "dropDown 1.5s ease-in-out 1",
         "fasterDropDown": "fasterDropDown 0.75s ease-in-out 1",
+        "flyUp": "flyUp 0.75s ease-in-out 1",
       },
       keyframes: {
         swoosh: {
@@ -83,6 +88,10 @@ module.exports = {
         },
         fasterDropDown: {
           "0%": { transform: "translateY(-100%)", opacity: "0" },
+          "100%": { transform: "translateY(0%)", opacity: "1" },
+        },
+        flyUp: {
+          "0%": { transform: "translateY(100%)", opacity: "0" },
           "100%": { transform: "translateY(0%)", opacity: "1" },
         },
       },

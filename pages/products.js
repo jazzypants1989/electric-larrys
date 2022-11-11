@@ -5,7 +5,7 @@ import Layout from "../components/Layout"
 import ProductItem from "../components/ProductItem"
 import Product from "../models/Product"
 import db from "../utils/db"
-import { Store } from "../utils/Store"
+import { Store, reactions } from "../utils/Store"
 import CategoryBox from "../components/CategoryBox"
 import TagBox from "../components/TagBox"
 import SortBox from "../components/SortBox"
@@ -30,8 +30,13 @@ export default function Home({ products, queryCategory, queryTag }) {
       )
     }
     dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } })
+    dispatch({ type: "CART_OPEN" })
 
-    toast.success("Product added to the cart")
+    toast.success(
+      `${product.name} added to your cart! ${
+        reactions[Math.floor(Math.random() * reactions.length)]
+      }`
+    )
   }
 
   const categories = products.reduce((acc, product) => {
@@ -43,7 +48,6 @@ export default function Home({ products, queryCategory, queryTag }) {
   }, [])
 
   const tags = products.reduce((acc, product) => {
-    console.log(product.image)
     if (!acc.includes(product.tags.toLowerCase())) {
       acc.push(product.tags)
     }

@@ -10,7 +10,7 @@ import AnnouncementModel from "../models/Announcement"
 import Post from "../models/SliderPost"
 import Product from "../models/Product"
 import db from "../utils/db"
-import { Store } from "../utils/Store"
+import { Store, reactions } from "../utils/Store"
 import { useContext } from "react"
 import Newsletter from "../components/Newsletter"
 import { useEffect } from "react"
@@ -30,8 +30,13 @@ export default function Home({ announcements, posts, products }) {
       )
     }
     dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } })
+    dispatch({ type: "CART_OPEN" })
 
-    toast.success("Product added to the cart")
+    toast.success(
+      `${product.name} added to your cart! ${
+        reactions[Math.floor(Math.random() * reactions.length)]
+      }`
+    )
   }
 
   let publishedPosts = posts.filter((post) => post.isPublished)

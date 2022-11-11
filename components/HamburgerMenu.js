@@ -33,13 +33,11 @@ export default function HamburgerMenu(props) {
 
   useEffect(() => {
     if (searchBarOpen) {
-      document.addEventListener("click", checkForClick)
       document.addEventListener("keydown", checkForEscape)
     } else {
-      document.removeEventListener("click", checkForClick)
       document.removeEventListener("keydown", checkForEscape)
     }
-  }, [searchBarOpen])
+  }, [searchBarOpen]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const doSearch = useMemo(() => {
     return async () => {
@@ -61,19 +59,6 @@ export default function HamburgerMenu(props) {
       setSearchResults([])
     }
   }, [searchTerm, doSearch])
-
-  const checkForClick = (e) => {
-    if (e.target !== searchRef.current) {
-      setSearchResults([])
-    }
-  }
-
-  useEffect(() => {
-    document.addEventListener("click", checkForClick)
-    return () => {
-      document.removeEventListener("click", checkForClick)
-    }
-  }, [])
 
   useEffect(() => {
     if (props.query) {
@@ -115,7 +100,7 @@ export default function HamburgerMenu(props) {
         <div
           className={`${
             isOpen
-              ? "absolute flex flex-col left-60 bottom-0 justify-center items-center w-fit p-5 bg-blue max-h-screen text-xl rounded-2xl hover:border-4 hover:rounded-4xl border-orange duration-300 ease-in animate-fasterDropDown"
+              ? "absolute flex flex-col left-60 justify-center items-center w-fit p-5 bg-blue max-h-screen text-xl rounded-2xl hover:border-4 hover:rounded-4xl border-orange duration-300 ease-in animate-fasterDropDown"
               : "hidden"
           }`}
         >
@@ -136,12 +121,6 @@ export default function HamburgerMenu(props) {
             onClick={(() => toggle(), () => router.push("/products"))}
           >
             Products
-          </button>
-          <button
-            className="text-Green hover:text-orange cursor-pointer duration-300 ease-in"
-            onClick={() => router.push("/cart")}
-          >
-            Cart
           </button>
           <button
             className="text-Green hover:text-orange cursor-pointer duration-300 ease-in"

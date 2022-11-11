@@ -40,47 +40,48 @@ export default function TermsAndConditions() {
         <p className="first-letter:text-3xl text-left">
           1. AGREEMENT TO TERMS These Terms of Use constitute a legally binding
           agreement made between you, whether personally or on behalf of an
-          entity (“you”) and Electric Larry's ("Company", “we”, “us”, or “our”),
-          concerning your access to and use of the www.electriclarry's.com
-          website as well as any other media form, media channel, mobile website
-          or mobile application related, linked, or otherwise connected thereto
-          (collectively, the “Site”). We are registered in Illinois, United
-          States and have our registered office at 217 W. Main Street,
-          Carbondale,, IL 62901. You agree that by accessing the Site, you have
-          read, understood, and agreed to be bound by all of these Terms of Use.
-          IF YOU DO NOT AGREE WITH ALL OF THESE TERMS OF USE, THEN YOU ARE
-          EXPRESSLY PROHIBITED FROM USING THE SITE AND YOU MUST DISCONTINUE USE
-          IMMEDIATELY. Supplemental terms and conditions or documents that may
-          be posted on the Site from time to time are hereby expressly
-          incorporated herein by reference. We reserve the right, in our sole
-          discretion, to make changes or modifications to these Terms of Use at
-          any time and for any reason. We will alert you about any changes by
-          updating the “Last updated” date of these Terms of Use, and you waive
-          any right to receive specific notice of each such change. Please
-          ensure that you check the applicable Terms every time you use our Site
-          so that you understand which Terms apply. You will be subject to, and
-          will be deemed to have been made aware of and to have accepted, the
-          changes in any revised Terms of Use by your continued use of the Site
-          after the date such revised Terms of Use are posted. The information
-          provided on the Site is not intended for distribution to or use by any
-          person or entity in any jurisdiction or country where such
-          distribution or use would be contrary to law or regulation or which
-          would subject us to any registration requirement within such
-          jurisdiction or country. Accordingly, those persons who choose to
-          access the Site from other locations do so on their own initiative and
-          are solely responsible for compliance with local laws, if and to the
-          extent local laws are applicable. The Site is not tailored to comply
-          with industry-specific regulations (Health Insurance Portability and
-          Accountability Act (HIPAA), Federal Information Security Management
-          Act (FISMA), etc.), so if your interactions would be subjected to such
-          laws, you may not use this Site. You may not use the Site in a way
-          that would violate the Gramm-Leach-Bliley Act (GLBA). The Site is
-          intended for users who are at least 13 years of age. All users who are
-          minors in the jurisdiction in which they reside (generally under the
-          age of 18) must have the permission of, and be directly supervised by,
-          their parent or guardian to use the Site. If you are a minor, you must
-          have your parent or guardian read and agree to these Terms of Use
-          prior to you using the Site.{" "}
+          entity (“you”) and Electric Larry&apos;s (&quot;Company&quot;, “we”,
+          “us”, or “our”), concerning your access to and use of the
+          www.electriclarry&apos;s.com website as well as any other media form,
+          media channel, mobile website or mobile application related, linked,
+          or otherwise connected thereto (collectively, the “Site”). We are
+          registered in Illinois, United States and have our registered office
+          at 217 W. Main Street, Carbondale,, IL 62901. You agree that by
+          accessing the Site, you have read, understood, and agreed to be bound
+          by all of these Terms of Use. IF YOU DO NOT AGREE WITH ALL OF THESE
+          TERMS OF USE, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SITE
+          AND YOU MUST DISCONTINUE USE IMMEDIATELY. Supplemental terms and
+          conditions or documents that may be posted on the Site from time to
+          time are hereby expressly incorporated herein by reference. We reserve
+          the right, in our sole discretion, to make changes or modifications to
+          these Terms of Use at any time and for any reason. We will alert you
+          about any changes by updating the “Last updated” date of these Terms
+          of Use, and you waive any right to receive specific notice of each
+          such change. Please ensure that you check the applicable Terms every
+          time you use our Site so that you understand which Terms apply. You
+          will be subject to, and will be deemed to have been made aware of and
+          to have accepted, the changes in any revised Terms of Use by your
+          continued use of the Site after the date such revised Terms of Use are
+          posted. The information provided on the Site is not intended for
+          distribution to or use by any person or entity in any jurisdiction or
+          country where such distribution or use would be contrary to law or
+          regulation or which would subject us to any registration requirement
+          within such jurisdiction or country. Accordingly, those persons who
+          choose to access the Site from other locations do so on their own
+          initiative and are solely responsible for compliance with local laws,
+          if and to the extent local laws are applicable. The Site is not
+          tailored to comply with industry-specific regulations (Health
+          Insurance Portability and Accountability Act (HIPAA), Federal
+          Information Security Management Act (FISMA), etc.), so if your
+          interactions would be subjected to such laws, you may not use this
+          Site. You may not use the Site in a way that would violate the
+          Gramm-Leach-Bliley Act (GLBA). The Site is intended for users who are
+          at least 13 years of age. All users who are minors in the jurisdiction
+          in which they reside (generally under the age of 18) must have the
+          permission of, and be directly supervised by, their parent or guardian
+          to use the Site. If you are a minor, you must have your parent or
+          guardian read and agree to these Terms of Use prior to you using the
+          Site.{" "}
         </p>
         <p className="first-letter:text-3xl text-left">
           2. INTELLECTUAL PROPERTY RIGHTS Unless otherwise indicated, the Site
@@ -239,15 +240,15 @@ export default function TermsAndConditions() {
           or broadcast content and materials to us or on the Site, including but
           not limited to text, writings, video, audio, photographs, graphics,
           comments, suggestions, or personal information or other material
-          (collectively, "Contributions"). Contributions may be viewable by
-          other users of the Site and through third-party websites. As such, any
-          Contributions you transmit may be treated in accordance with the Site
-          Privacy Policy. When you create or make available any Contributions,
-          you thereby represent and warrant that: The creation, distribution,
-          transmission, public display, or performance, and the accessing,
-          downloading, or copying of your Contributions do not and will not
-          infringe the proprietary rights, including but not limited to the
-          copyright, patent, trademark, trade secret, or moral rights of any
+          (collectively, &quot;Contributions&quot;). Contributions may be
+          viewable by other users of the Site and through third-party websites.
+          As such, any Contributions you transmit may be treated in accordance
+          with the Site Privacy Policy. When you create or make available any
+          Contributions, you thereby represent and warrant that: The creation,
+          distribution, transmission, public display, or performance, and the
+          accessing, downloading, or copying of your Contributions do not and
+          will not infringe the proprietary rights, including but not limited to
+          the copyright, patent, trademark, trade secret, or moral rights of any
           third party. You are the creator and owner of or have the necessary
           licenses, rights, consents, releases, and permissions to use and to
           authorize us, the Site, and other users of the Site to use your
@@ -351,10 +352,10 @@ export default function TermsAndConditions() {
         <p className="first-letter:text-3xl text-left">
           12. SUBMISSIONS You acknowledge and agree that any questions,
           comments, suggestions, ideas, feedback, or other information regarding
-          the Site or the Marketplace Offerings ("Submissions") provided by you
-          to us are non-confidential and shall become our sole property. We
-          shall own exclusive rights, including all intellectual property
-          rights, and shall be entitled to the unrestricted use and
+          the Site or the Marketplace Offerings (&quot;Submissions&quot;)
+          provided by you to us are non-confidential and shall become our sole
+          property. We shall own exclusive rights, including all intellectual
+          property rights, and shall be entitled to the unrestricted use and
           dissemination of these Submissions for any lawful purpose, commercial
           or otherwise, without acknowledgment or compensation to you. You
           hereby waive all moral rights to any such Submissions, and you hereby
@@ -366,36 +367,36 @@ export default function TermsAndConditions() {
         <p className="first-letter:text-3xl text-left">
           13. THIRD-PARTY WEBSITES AND CONTENT The Site may contain (or you may
           be sent via the Site or the Marketplace Offerings) links to other
-          websites ("Third-Party Websites") as well as articles, photographs,
-          text, graphics, pictures, designs, music, sound, video, information,
-          applications, software, and other content or items belonging to or
-          originating from third parties ("Third-Party Content"). Such
-          Third-Party Websites and Third-Party Content are not investigated,
-          monitored, or checked for accuracy, appropriateness, or completeness
-          by us, and we are not responsible for any Third Party Websites
-          accessed through the Site or any Third-Party Content posted on,
-          available through, or installed from the Site, including the content,
-          accuracy, offensiveness, opinions, reliability, privacy practices, or
-          other policies of or contained in the Third-Party Websites or the
-          Third-Party Content. Inclusion of, linking to, or permitting the use
-          or installation of any Third-Party Websites or any Third-PartyContent
-          does not imply approval or endorsement thereof by us. If you decide to
-          leave the Site and access the Third-Party Websites or to use or
-          install any Third-Party Content, you do so at your own risk, and you
-          should be aware these Terms of Use no longer govern. You should review
-          the applicable terms and policies, including privacy and data
-          gathering practices, of any website to which you navigate from the
-          Site or relating to any applications you use or install from the Site.
-          Any purchases you make through Third-Party Websites will be through
-          other websites and from other companies, and we take no responsibility
-          whatsoever in relation to such purchases which are exclusively between
-          you and the applicable third party. You agree and acknowledge that we
-          do not endorse the products or services offered on Third-Party
-          Websites and you shall hold us harmless from any harm caused by your
-          purchase of such products or services. Additionally, you shall hold us
-          harmless from any losses sustained by you or harm caused to you
-          relating to or resulting in any way from any Third-Party Content or
-          any contact with Third-Party Websites.
+          websites (&quot;Third-Party Websites&quot;) as well as articles,
+          photographs, text, graphics, pictures, designs, music, sound, video,
+          information, applications, software, and other content or items
+          belonging to or originating from third parties (&quot;Third-Party
+          Content&quot;). Such Third-Party Websites and Third-Party Content are
+          not investigated, monitored, or checked for accuracy, appropriateness,
+          or completeness by us, and we are not responsible for any Third Party
+          Websites accessed through the Site or any Third-Party Content posted
+          on, available through, or installed from the Site, including the
+          content, accuracy, offensiveness, opinions, reliability, privacy
+          practices, or other policies of or contained in the Third-Party
+          Websites or the Third-Party Content. Inclusion of, linking to, or
+          permitting the use or installation of any Third-Party Websites or any
+          Third-PartyContent does not imply approval or endorsement thereof by
+          us. If you decide to leave the Site and access the Third-Party
+          Websites or to use or install any Third-Party Content, you do so at
+          your own risk, and you should be aware these Terms of Use no longer
+          govern. You should review the applicable terms and policies, including
+          privacy and data gathering practices, of any website to which you
+          navigate from the Site or relating to any applications you use or
+          install from the Site. Any purchases you make through Third-Party
+          Websites will be through other websites and from other companies, and
+          we take no responsibility whatsoever in relation to such purchases
+          which are exclusively between you and the applicable third party. You
+          agree and acknowledge that we do not endorse the products or services
+          offered on Third-Party Websites and you shall hold us harmless from
+          any harm caused by your purchase of such products or services.
+          Additionally, you shall hold us harmless from any losses sustained by
+          you or harm caused to you relating to or resulting in any way from any
+          Third-Party Content or any contact with Third-Party Websites.
         </p>
         <p className="first-letter:text-3xl text-left">
           {" "}
@@ -494,18 +495,18 @@ export default function TermsAndConditions() {
           WITHOUT THIS PROVISION, YOU WOULD HAVE THE RIGHT TO SUE IN COURT AND
           HAVE A JURY TRIAL. The arbitration shall be commenced and conducted
           under the Commercial Arbitration Rules of the American Arbitration
-          Association ("AAA") and, where appropriate, the AAA’s Supplementary
-          Procedures for Consumer Related Disputes ("AAA Consumer Rules"), both
-          of which are available at the AAA website www.adr.org. Your
-          arbitration fees and your share of arbitrator compensation shall be
-          governed by the AAA Consumer Rules and, where appropriate, limited by
-          the AAA Consumer Rules. The arbitration may be conducted in person,
-          through the submission of documents, by phone, or online. The
-          arbitrator will make a decision in writing, but need not provide a
-          statement of reasons unless requested by either Party. The arbitrator
-          must follow applicable law, and any award may be challenged if the
-          arbitrator fails to do so. Except where otherwise required by the
-          applicable AAA rules or applicable law, the arbitration will take
+          Association (&quot;AAA&quot;) and, where appropriate, the AAA’s
+          Supplementary Procedures for Consumer Related Disputes (&quot;AAA
+          Consumer Rules&quot;), both of which are available at the AAA website
+          www.adr.org. Your arbitration fees and your share of arbitrator
+          compensation shall be governed by the AAA Consumer Rules and, where
+          appropriate, limited by the AAA Consumer Rules. The arbitration may be
+          conducted in person, through the submission of documents, by phone, or
+          online. The arbitrator will make a decision in writing, but need not
+          provide a statement of reasons unless requested by either Party. The
+          arbitrator must follow applicable law, and any award may be challenged
+          if the arbitrator fails to do so. Except where otherwise required by
+          the applicable AAA rules or applicable law, the arbitration will take
           place in Jackson, Illinois. Except as otherwise provided herein, the
           Parties may litigate in court to compel arbitration, stay proceedings
           pending arbitration, or to confirm, modify, vacate, or enter judgment
@@ -685,11 +686,11 @@ export default function TermsAndConditions() {
           to receive further information regarding use of the Site, please
           contact us at:
           <ol>
-            <li>Electric Larry's</li>{" "}
+            <li>Electric Larry&apos;s</li>{" "}
             <li> 217 W. Main Street Carbondale, IL</li>
             <li>62901</li>
             <li> United States</li> <li>Phone: 6187891144</li>{" "}
-            <li>electriclarry's@gmail.com </li>{" "}
+            <li>electriclarry&apos;s@gmail.com </li>{" "}
           </ol>
         </p>
       </body>

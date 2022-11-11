@@ -74,13 +74,3 @@ textarea {
 .alert-success {
   @apply my-3 rounded-lg p-3;
 }
-
-:root {
-  --toastify-color-light: #34fac5;
-  --toastify-color-dark: #f77605;
-  --toastify-color-info: #f77605;
-}
-
-.hamburger {
-  display: none;
-}

@@ -12,7 +12,7 @@ import HeadComponent from "./HeadComponent"
 import { Store } from "../utils/Store"
 import Search from "./SearchWithUseRef"
 import HamburgerMenu from "./HamburgerMenu"
-import FakeCart from "./FakeCart"
+import Cart from "./Cart"
 
 export default function Layout({
   title,
@@ -37,6 +37,13 @@ export default function Layout({
     signOut({ callbackUrl: "/login" })
   }
 
+  const cartClickHandler = () => {
+    dispatch({ type: "CART_OPEN" })
+  }
+  const closeCartHandler = () => {
+    dispatch({ type: "CART_CLOSE" })
+  }
+
   return (
     <>
       <HeadComponent
@@ -46,9 +53,20 @@ export default function Layout({
         image={image}
         slug={slug}
       />
-      <ToastContainer position="bottom-center" limit={1} theme="dark" />
+      <ToastContainer
+        autoClose={2500}
+        toastClassName={() =>
+          "bg-blue bg-opacity-80 text-Green drop-shadow shadow-2xl rounded-full p-2 text-center"
+        }
+        position="top-center"
+        limit={2}
+        theme="colored"
+      />
 
-      <div className="pt-2 flex bg-blue min-w-fit min-h-screen flex-col justify-between">
+      <div
+        onClick={cartOpen ? closeCartHandler : null}
+        className="pt-2 flex bg-blue min-w-fit min-h-screen flex-col justify-between"
+      >
         <header>
           <nav className="flex flex-wrap h-16 items-center justify-between shadow-md mx-5">
             <Link href="/">
@@ -56,25 +74,21 @@ export default function Layout({
                 Electric Larry&apos;s
               </a>
             </Link>
-            <h1
-              onClick={() => dispatch({ type: "CART_OPEN" })}
-              className="flex items-center justify-center text-2xl font-thin lg:text-2xl sm:text-lg hover:text-Green duration-500"
-            >
-              <BsCart4 className="text-3xl text-Green" />
-            </h1>
             <Search placeholder="Explore our oddities!" />
             <HamburgerMenu />
             <div>
-              {/* <Link href="/cart">
-                <a className="p-4">
-                  <BsCart4 className="inline h-7 w-7 -translate-y-1 lg:h-10 lg:w-10 lg:-translate-y-3 lg:translate-x-3 lg:pt-1 hover:text-Green hover:scale-125 transition-all duration-300 ease-in-out" />
-                  {cartItemsCount > 0 && (
-                    <span className="absolute -translate-y-3 lg:-translate-y-2 -translate-x-3 lg:ml-2 rounded-full bg-Green font-extralight hover:bg-orange px-1 text-Black hover:text-Green transition-all duration-500 ease-in-out">
-                      {cartItemsCount}
-                    </span>
-                  )}
-                </a>
-              </Link> */}
+              <BsCart4
+                onClick={cartClickHandler}
+                className="inline h-7 w-7 mx-5 lg:mr-0 lg:-translate-x-2 lg:-translate-y-2 lg:h-10 lg:w-10 text-orange hover:text-Green hover:scale-125 transition-all duration-300 ease-in-out cursor-pointer"
+              />
+              {cartItemsCount > 0 && (
+                <span
+                  onClick={cartClickHandler}
+                  className="absolute -translate-y-3 lg:-translate-y-2 -translate-x-5 lg:ml-2 rounded-full bg-Green font-extralight hover:bg-orange px-1 text-Black hover:text-Green transition-all duration-500 ease-in-out cursor-pointer"
+                >
+                  {cartItemsCount}
+                </span>
+              )}
 
               {status === "loading" ? (
                 "Loading"
@@ -126,7 +140,7 @@ export default function Layout({
             </div>
           </nav>
         </header>
-        {cartOpen && <FakeCart />}
+        {cartOpen && <Cart />}
         <main className="m-auto mt-4 px-2">{children}</main>
         <Footer />
       </div>

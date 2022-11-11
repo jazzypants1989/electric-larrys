@@ -1,20 +1,22 @@
 import axios from "axios"
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/router"
 import React, { useContext } from "react"
 import { toast } from "react-toastify"
 import Layout from "../../components/Layout"
 import Product from "../../models/Product"
 import db from "../../utils/db"
-import { Store } from "../../utils/Store"
+import { Store, reactions } from "../../utils/Store"
 
 export default function ProductScreen(props) {
   const { product } = props
   const { state, dispatch } = useContext(Store)
-  const router = useRouter()
   if (!product) {
-    return <Layout title="Produt Not Found">Produt Not Found</Layout>
+    return (
+      <Layout title="Produt Not Found">
+        Man, that sounds awesome, but I don&apos;t think we have that.
+      </Layout>
+    )
   }
 
   const addToCartHandler = async () => {
@@ -29,7 +31,12 @@ export default function ProductScreen(props) {
     }
 
     dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } })
-    router.push("/cart")
+    dispatch({ type: "CART_OPEN" })
+    toast.success(
+      `${product.name} added to your cart! ${
+        reactions[Math.floor(Math.random() * reactions.length)]
+      }`
+    )
   }
 
   return (

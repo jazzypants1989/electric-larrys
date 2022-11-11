@@ -38,12 +38,12 @@ export default function Search(props) {
     }
   }
 
-  useEffect(() => {
-    document.addEventListener("click", checkForClick)
-    return () => {
-      document.removeEventListener("click", checkForClick)
-    }
-  }, [])
+  // useEffect(() => {
+  //   document.addEventListener("click", checkForClick)
+  //   return () => {
+  //     document.removeEventListener("click", checkForClick)
+  //   }
+  // }, [])
 
   useEffect(() => {
     if (props.query) {
