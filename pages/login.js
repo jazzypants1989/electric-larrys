@@ -1,43 +1,43 @@
-import Link from "next/link";
-import React, { useEffect } from "react";
-import { signIn, useSession } from "next-auth/react";
-import { useForm } from "react-hook-form";
-import Layout from "../components/Layout";
-import { getError } from "../utils/error";
-import { toast } from "react-toastify";
-import { useRouter } from "next/router";
+import Link from "next/link"
+import React, { useEffect } from "react"
+import { signIn, useSession } from "next-auth/react"
+import { useForm } from "react-hook-form"
+import Layout from "../components/Layout"
+import { getError } from "../utils/error"
+import { toast } from "react-toastify"
+import { useRouter } from "next/router"
 
 export default function LoginScreen() {
-  const { data: session } = useSession();
+  const { data: session } = useSession()
 
-  const router = useRouter();
-  const { redirect } = router.query;
+  const router = useRouter()
+  const { redirect } = router.query
 
   useEffect(() => {
     if (session?.user) {
-      router.push(redirect || "/");
+      router.push(redirect || "/")
     }
-  }, [router, session, redirect]);
+  }, [router, session, redirect])
 
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm();
+  } = useForm()
   const submitHandler = async ({ email, password }) => {
     try {
       const result = await signIn("credentials", {
         redirect: false,
         email,
         password,
-      });
+      })
       if (result.error) {
-        toast.error(result.error);
+        toast.error(result.error)
       }
     } catch (err) {
-      toast.error(getError(err));
+      toast.error(getError(err))
     }
-  };
+  }
   return (
     <Layout title="Login">
       <div className="bg1 max-w-screen">
@@ -60,7 +60,7 @@ export default function LoginScreen() {
               autoFocus
             ></input>
             {errors.email && (
-              <div className="text-red-500">{errors.email.message}</div>
+              <div className="text-Red">{errors.email.message}</div>
             )}
           </div>
           <div className="mb-4">
@@ -80,7 +80,7 @@ export default function LoginScreen() {
               autoFocus
             ></input>
             {errors.password && (
-              <div className="text-red-500 ">{errors.password.message}</div>
+              <div className="text-Red ">{errors.password.message}</div>
             )}
           </div>
           <div className="mb-4 ">
@@ -97,5 +97,5 @@ export default function LoginScreen() {
         </form>
       </div>
     </Layout>
-  );
+  )
 }

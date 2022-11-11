@@ -12,6 +12,7 @@ import HeadComponent from "./HeadComponent"
 import { Store } from "../utils/Store"
 import Search from "./SearchWithUseRef"
 import HamburgerMenu from "./HamburgerMenu"
+import FakeCart from "./FakeCart"
 
 export default function Layout({
   title,
@@ -23,7 +24,7 @@ export default function Layout({
 }) {
   const { status, data: session } = useSession()
   const { state, dispatch } = useContext(Store)
-  const { cart } = state
+  const { cart, cartOpen } = state
   const [cartItemsCount, setCartItemsCount] = useState(0)
 
   useEffect(() => {
@@ -45,7 +46,6 @@ export default function Layout({
         image={image}
         slug={slug}
       />
-
       <ToastContainer position="bottom-center" limit={1} theme="dark" />
 
       <div className="pt-2 flex bg-blue min-w-fit min-h-screen flex-col justify-between">
@@ -56,10 +56,16 @@ export default function Layout({
                 Electric Larry&apos;s
               </a>
             </Link>
+            <h1
+              onClick={() => dispatch({ type: "CART_OPEN" })}
+              className="flex items-center justify-center text-2xl font-thin lg:text-2xl sm:text-lg hover:text-Green duration-500"
+            >
+              <BsCart4 className="text-3xl text-Green" />
+            </h1>
             <Search placeholder="Explore our oddities!" />
             <HamburgerMenu />
             <div>
-              <Link href="/cart">
+              {/* <Link href="/cart">
                 <a className="p-4">
                   <BsCart4 className="inline h-7 w-7 -translate-y-1 lg:h-10 lg:w-10 lg:-translate-y-3 lg:translate-x-3 lg:pt-1 hover:text-Green hover:scale-125 transition-all duration-300 ease-in-out" />
                   {cartItemsCount > 0 && (
@@ -68,12 +74,12 @@ export default function Layout({
                     </span>
                   )}
                 </a>
-              </Link>
+              </Link> */}
 
               {status === "loading" ? (
                 "Loading"
               ) : session?.user ? (
-                <Menu as="div" className="relative inline-block">
+                <Menu as="div" className="z-40 relative inline-block">
                   <Menu.Button className="tracking-wide font-thin hover:text-orange lg:text-lg">
                     {session.user.name}
                   </Menu.Button>
@@ -120,6 +126,7 @@ export default function Layout({
             </div>
           </nav>
         </header>
+        {cartOpen && <FakeCart />}
         <main className="m-auto mt-4 px-2">{children}</main>
         <Footer />
       </div>

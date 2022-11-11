@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { RiFacebookCircleFill, RiPinterestFill } from "react-icons/ri"
+import { RiFacebookCircleFill } from "react-icons/ri"
 import {
   AiFillTwitterCircle,
   AiFillInstagram,
@@ -30,7 +30,6 @@ const Footer = () => {
               target="_blank"
               rel="noreferrer"
               className="cursor-pointer"
-              passHref
             >
               <a>
                 <RiFacebookCircleFill
@@ -44,7 +43,6 @@ const Footer = () => {
               target="_blank"
               rel="noreferrer"
               className="cursor-pointer"
-              passHref
             >
               <a>
                 <AiFillTwitterCircle
@@ -58,7 +56,6 @@ const Footer = () => {
               target="_blank"
               rel="noreferrer"
               className="cursor-pointer"
-              passHref
             >
               <a>
                 <AiFillInstagram
@@ -72,7 +69,6 @@ const Footer = () => {
               target="_blank"
               rel="noreferrer"
               className="cursor-pointer"
-              passHref
             >
               <a>
                 <Image
@@ -107,12 +103,10 @@ const Footer = () => {
             className=""
             passHref
           >
-            <li>
-              <TbMail className="hover:animate-searchSlide cursor-pointer m-auto h-7 w-7 text-orange" />{" "}
-              <span className="cursor-pointer text-Green">
-                electriclarrys@gmail.com
-              </span>
-            </li>
+            <TbMail className="hover:animate-searchSlide cursor-pointer m-auto h-7 w-7 text-orange" />{" "}
+            <span className="cursor-pointer text-Green">
+              electriclarrys@gmail.com
+            </span>
           </a>
           <Image
             className="mx-auto object-contain"

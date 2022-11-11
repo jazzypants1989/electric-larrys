@@ -66,7 +66,7 @@ export default function Home({ announcements, posts, products }) {
       <Layout title="Home">
         <Slider sliderPosts={featuredPosts} />
         <Categories />
-        <main className="grid mx-auto grid-cols-1 md:grid-cols-2 gap-4">
+        <main className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <IndexSideBar sideBarPosts={nonFeaturedPosts} />
           <div className="flex m-2 gap-2 flex-col justify-center items-center">
             {featuredProducts.length > 0 && (

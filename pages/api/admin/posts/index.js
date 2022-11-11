@@ -1,7 +1,6 @@
 import { getSession } from "next-auth/react"
 import SliderPost from "../../../../models/SliderPost"
 import db from "../../../../utils/db"
-import number from "../../../../components/math"
 
 const handler = async (req, res) => {
   const session = await getSession({ req })
@@ -25,7 +24,7 @@ const postHandler = async (req, res) => {
     image: "no",
     description:
       "number of times Jesse has regretted making this the primary key: " +
-      number,
+      Math.floor(Math.random() * 1000000 + 1).toString(),
     isPublished: false,
     isFeatured: false,
   })

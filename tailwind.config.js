@@ -62,6 +62,7 @@ module.exports = {
         "woosh": "woosh 0.75s ease-in-out 1",
         "searchSlide": "searchSlide 0.75s ease-in-out 1",
         "dropDown": "dropDown 1.5s ease-in-out 1",
+        "fasterDropDown": "fasterDropDown 0.75s ease-in-out 1",
       },
       keyframes: {
         swoosh: {
@@ -77,6 +78,10 @@ module.exports = {
           "100%": { transform: "translateY(0%)", opacity: "1" },
         },
         dropDown: {
+          "0%": { transform: "translateY(-100%)", opacity: "0" },
+          "100%": { transform: "translateY(0%)", opacity: "1" },
+        },
+        fasterDropDown: {
           "0%": { transform: "translateY(-100%)", opacity: "0" },
           "100%": { transform: "translateY(0%)", opacity: "1" },
         },

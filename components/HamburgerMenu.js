@@ -1,10 +1,9 @@
 import axios from "axios"
 import Image from "next/image"
-import Link from "next/link"
 import { useRouter } from "next/router"
 import { useMemo } from "react"
 import { useState, useRef, useEffect } from "react"
-import { RiCloseCircleFill } from "react-icons/ri"
+import { RiCloseCircleFill, RiSearchEyeFill } from "react-icons/ri"
 
 export default function HamburgerMenu(props) {
   const [isOpen, setIsOpen] = useState(false)
@@ -116,7 +115,7 @@ export default function HamburgerMenu(props) {
         <div
           className={`${
             isOpen
-              ? "absolute flex flex-col justify-center items-center w-fit p-5 bg-blue max-h-screen text-xl rounded-2xl hover:border-4 hover:rounded-4xl border-orange duration-300 ease-in animate-dropDown"
+              ? "absolute flex flex-col left-60 bottom-0 justify-center items-center w-fit p-5 bg-blue max-h-screen text-xl rounded-2xl hover:border-4 hover:rounded-4xl border-orange duration-300 ease-in animate-fasterDropDown"
               : "hidden"
           }`}
         >
@@ -150,27 +149,15 @@ export default function HamburgerMenu(props) {
           >
             Contact
           </button>
-          <div className="text-3xl duration-700">
-            <button onClick={handleSearchBar}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                alt="search"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="feather feather-search"
-              >
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
+          <div className="text-3xl duration-700 mx-auto">
+            <button
+              onClick={handleSearchBar}
+              className="text-Green hover:text-orange hover:scale-125 duration-300 ease-in pr-2"
+            >
+              <RiSearchEyeFill />
             </button>
             {searchBarOpen && (
-              <div className="absolute right-4 border-2 flex flex-col justify-center items-center w-fit p-5 bg-blue max-h-screen text-xl rounded-2xl hover:border-4 hover:rounded-4xl border-orange duration-300 ease-in animate-dropDown">
+              <div className="absolute right-4 top-63 border-2 flex flex-col justify-center items-center w-fit p-5 bg-blue max-h-screen text-xl rounded-2xl hover:border-4 hover:rounded-4xl border-orange duration-300 ease-in animate-fasterDropDown">
                 <form onSubmit={searchHelper}>
                   <input
                     ref={searchRef}
@@ -213,7 +200,7 @@ export default function HamburgerMenu(props) {
               </div>
             )}
             <button
-              className="text-orange hover:text-Red hover:scale-125 text-4xl pt-2 h-12 w-12 cursor-pointer duration-300 ease-in"
+              className="text-Red hover:scale-125 text-4xl pt-2 h-12 w-12 cursor-pointer duration-300 ease-in"
               onClick={() => toggle()}
             >
               <RiCloseCircleFill />
