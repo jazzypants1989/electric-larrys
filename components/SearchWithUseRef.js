@@ -32,19 +32,6 @@ export default function Search(props) {
     }
   }, [searchTerm, doSearch])
 
-  const checkForClick = (e) => {
-    if (e.target !== inputRef.current) {
-      setSearchResults([])
-    }
-  }
-
-  // useEffect(() => {
-  //   document.addEventListener("click", checkForClick)
-  //   return () => {
-  //     document.removeEventListener("click", checkForClick)
-  //   }
-  // }, [])
-
   useEffect(() => {
     if (props.query) {
       setSearchTerm(props.query)
