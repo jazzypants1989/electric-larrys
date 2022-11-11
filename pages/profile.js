@@ -57,7 +57,7 @@ export function ProfilePage({ user, orders }) {
         <h2 className="text-lg drop-shadow text-center">User</h2>
         <h3 className="drop-shadow text-center">{user.name}</h3>
         <p className="text-center drop-shadow">{user.email}</p>
-        {user.image && (
+        {user.image && user.image !== "f" && (
           <div className="w-32 h-32 mx-auto mt-4 relative left-4">
             <Image
               src={user.image}
