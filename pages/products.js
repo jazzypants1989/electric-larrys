@@ -43,6 +43,7 @@ export default function Home({ products, queryCategory, queryTag }) {
   }, [])
 
   const tags = products.reduce((acc, product) => {
+    console.log(product.image)
     if (!acc.includes(product.tags.toLowerCase())) {
       acc.push(product.tags)
     }

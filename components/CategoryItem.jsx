@@ -1,11 +1,29 @@
 import Image from "next/image"
+import { buildUrl } from "cloudinary-build-url"
 import { useRouter } from "next/router"
-const boardgames = "../public/images/boardgames.jpg"
-const books = "../public/images/books.jpg"
-const movies = "../public/images/movies.jpeg"
-const music = "../public/images/music.jpg"
-const oddities = "../public/images/oddities.jpg"
-const vidya = "../public/images/vidya.jpg"
+
+function imageLinkBuilder(image) {
+  const url = buildUrl(image, {
+    cloud: {
+      cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+    },
+    transformations: {
+      resize: {
+        type: "fill",
+        width: 250,
+        height: 250,
+      },
+    },
+  })
+  return url
+}
+
+const boardgames = "boardgames_owxhlz"
+const books = "books_l4ph7g"
+const movies = "movies_e5cayu"
+const music = "music_umetmu"
+const oddities = "oddities_n8vvjp"
+const vidya = "vidya_jh1fbk"
 
 const images = {
   "Movies / TV": movies,
@@ -31,7 +49,7 @@ const CategoryItem = ({ category }) => {
         className="flex flex-col items-center justify-center m-1"
       >
         <Image
-          src={`/${images[category]}`}
+          src={imageLinkBuilder(images[category])}
           alt={category}
           width={250}
           height={250}
