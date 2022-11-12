@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Combobox, Transition } from "@headlessui/react"
 import Container from "./Container"
-import { CheckIcon } from "@heroicons/react/"
+import { HiCheckCircle } from "react-icons/hi"
 
 export default function TagBox({ tags, setTag }) {
   const [selectedTag, setSelectedTag] = useState([])
@@ -83,7 +83,7 @@ export default function TagBox({ tags, setTag }) {
                                 }
                                                                 absolute inset-y-0 left-0 flex items-center pl-3`}
                               >
-                                <CheckIcon
+                                <HiCheckCircle
                                   className="w-5 h-5"
                                   aria-hidden="true"
                                 />
