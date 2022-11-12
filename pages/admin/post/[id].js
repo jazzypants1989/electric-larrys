@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import Layout from "../../../components/Layout"
 import { getError } from "../../../utils/error"
+import AdminSideBar from "../../../components/AdminSideBar"
 
 function reducer(state, action) {
   switch (action.type) {
@@ -129,134 +130,117 @@ export default function AdminPostEditScreen() {
 
   return (
     <Layout title={`Edit Post ${postId}`}>
-      <div className="grid md:grid-cols-4 md:gap-5">
-        <div>
-          <ul className="text-base">
-            <li>
-              <Link href="/admin/dashboard">Dashboard</Link>
-            </li>
-            <li>
-              <Link href="/admin/orders">Orders</Link>
-            </li>
-            <li>
-              <Link href="/admin/posts">
-                <a className="font-bold">Posts</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/admin/users">Users</Link>
-            </li>
-          </ul>
-        </div>
-        <div className="md:col-span-3">
-          {loading ? (
-            <div>Loading...</div>
-          ) : error ? (
-            <div className="alert-error">{error}</div>
-          ) : (
-            <form
-              className="mx-auto max-w-screen-md"
-              onSubmit={handleSubmit(submitHandler)}
-            >
-              <h1 className="mb-4 text-xl">{`Edit Post ${postId}`}</h1>
-              <div className="mb-4">
-                <label htmlFor="title">Title</label>
-                <input
-                  type="text"
-                  className="w-full"
-                  id="title"
-                  autoFocus
-                  {...register("title", {
-                    required: "Please enter a title",
-                  })}
-                />
-                {errors.title && (
-                  <div className="text-Red">{errors.title.message}</div>
-                )}
-              </div>
-              <div className="mb-4">
-                <label htmlFor="description">Description</label>
-                <input
-                  type="text"
-                  className="w-full"
-                  id="description"
-                  {...register("description", {
-                    required: "Please enter description",
-                  })}
-                />
-                {errors.description && (
-                  <div className="text-Red">{errors.description.message}</div>
-                )}
-              </div>
-              <div className="mb-4">
-                <label htmlFor="image">image</label>
-                <input
-                  type="text"
-                  className="w-full"
-                  id="image"
-                  {...register("image", {
-                    required: "Please enter image",
-                  })}
-                />
-                {errors.image && (
-                  <div className="text-Red">{errors.image.message}</div>
-                )}
-              </div>
-              <div className="mb-4">
-                <label htmlFor="imageFile">Upload image</label>
-                <input
-                  type="file"
-                  className="w-full"
-                  id="imageFile"
-                  onChange={uploadHandler}
-                />
+      <div className="md:flex gap-4 md:col-span-3">
+        <AdminSideBar />
+        {loading ? (
+          <div>Loading...</div>
+        ) : error ? (
+          <div className="alert-error">{error}</div>
+        ) : (
+          <form
+            className="mx-auto max-w-screen-md"
+            onSubmit={handleSubmit(submitHandler)}
+          >
+            <h1 className="mb-4 text-xl">{`Edit Post ${postId}`}</h1>
+            <div className="mb-4">
+              <label htmlFor="title">Title</label>
+              <input
+                type="text"
+                className="w-full"
+                id="title"
+                autoFocus
+                {...register("title", {
+                  required: "Please enter a title",
+                })}
+              />
+              {errors.title && (
+                <div className="text-Red">{errors.title.message}</div>
+              )}
+            </div>
+            <div className="mb-4">
+              <label htmlFor="description">Description</label>
+              <input
+                type="text"
+                className="w-full"
+                id="description"
+                {...register("description", {
+                  required: "Please enter description",
+                })}
+              />
+              {errors.description && (
+                <div className="text-Red">{errors.description.message}</div>
+              )}
+            </div>
+            <div className="mb-4">
+              <label htmlFor="image">
+                Image (type &quot;no&quot; to avoid)
+              </label>
+              <input
+                type="text"
+                className="w-full"
+                id="image"
+                {...register("image", {
+                  required: "Please enter image",
+                })}
+              />
+              {errors.image && (
+                <div className="text-Red">{errors.image.message}</div>
+              )}
+            </div>
+            <div className="mb-4">
+              <label htmlFor="imageFile">Upload image</label>
+              <input
+                type="file"
+                className="w-full"
+                id="imageFile"
+                onChange={uploadHandler}
+              />
 
-                {loadingUpload && <div>Uploading....</div>}
-              </div>
-              <div className="mb-4">
-                <label htmlFor="link">
-                  External Link (type &quot;no&quot; to avoid)
-                </label>
-                <input
-                  type="text"
-                  className="w-full"
-                  id="link"
-                  {...register("link")}
-                />
-                {errors.link && (
-                  <div className="text-Red">{errors.link.message}</div>
-                )}
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <label htmlFor="isFeatured">Currently Featured?</label>
-                <input
-                  type="checkbox"
-                  className="w-6 h-6 mr-5 ml-0"
-                  id="isFeatured"
-                  name="isFeatured"
-                  {...register("isFeatured")}
-                />
-                <label htmlFor="isPublished">Currently Published?</label>
-                <input
-                  type="checkbox"
-                  className="w-6 h-6 mr-5 pr-2"
-                  id="isPublished"
-                  name="isPublished"
-                  {...register("isPublished")}
-                />
-              </div>
+              {loadingUpload && <div>Uploading....</div>}
+            </div>
+            <div className="mb-4">
+              <label htmlFor="link">
+                External Link (type &quot;no&quot; to avoid)
+              </label>
+              <input
+                type="text"
+                className="w-full"
+                id="link"
+                {...register("link")}
+              />
+              {errors.link && (
+                <div className="text-Red">{errors.link.message}</div>
+              )}
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <label htmlFor="isFeatured">Currently Featured?</label>
+              <input
+                type="checkbox"
+                className="w-6 h-6 mr-5 ml-0"
+                id="isFeatured"
+                name="isFeatured"
+                {...register("isFeatured")}
+              />
+              <label htmlFor="isPublished">Currently Published?</label>
+              <input
+                type="checkbox"
+                className="w-6 h-6 mr-5 pr-2"
+                id="isPublished"
+                name="isPublished"
+                {...register("isPublished")}
+              />
+            </div>
 
-              <div className="mb-4">
-                <button disabled={loadingUpdate} className="primary-button">
-                  {loadingUpdate ? "Loading" : "Update"}
-                </button>
-              </div>
-              <div className="mb-4">
-                <Link href={`/admin/posts`}>Back</Link>
-              </div>
-            </form>
-          )}
-        </div>
+            <div className="mb-4">
+              <button disabled={loadingUpdate} className="primary-button">
+                {loadingUpdate ? "Loading" : "Update"}
+              </button>
+            </div>
+            <div className="mb-4">
+              <Link href={`/admin/posts`}>Back</Link>
+            </div>
+          </form>
+        )}
       </div>
     </Layout>
   )

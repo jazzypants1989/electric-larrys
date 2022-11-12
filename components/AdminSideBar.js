@@ -39,15 +39,15 @@ export default function AdminSideBar() {
 
   return (
     <div className="md:pr-4 flex flex-col w-fit max-h-screen lg:border-r border-orange">
-      <div className="flex flex-col flex-1 md:p-6">
-        <div className="flex md:flex-col flex-1">
-          <div className="flex items-center flex-shrink-0">
+      <div className="flex flex-col md:p-2">
+        <div className="flex gap-4 md:gap-0 md:flex-col">
+          <div className="flex">
             <Image
-              className="w-auto h-8"
+              className="w-auto h-auto object-contain"
               src="/images/bg1.jpg"
               alt="Workflow"
-              width={100}
-              height={100}
+              width={200}
+              height={200}
             />
           </div>
           <nav className="flex flex-col flex-1 mt-6">

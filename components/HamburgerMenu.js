@@ -112,7 +112,7 @@ export default function HamburgerMenu(props) {
           </button>
           <button
             className="text-Green hover:text-orange cursor-pointer duration-300 ease-in"
-            onClick={() => linkHelper("/products")}
+            onClick={() => linkHelper("/about")}
           >
             About
           </button>

@@ -94,7 +94,7 @@ export default function Layout({
                 "Loading"
               ) : session?.user ? (
                 <Menu as="div" className="z-40 relative inline-block">
-                  <Menu.Button className="tracking-wide font-thin hover:text-orange lg:text-lg">
+                  <Menu.Button className="tracking-wide mr-2 selection:font-thin hover:text-orange lg:text-lg">
                     {session.user.name}
                   </Menu.Button>
                   <Menu.Items className="absolute right-0 w-56 origin-top-right mt-4 shadow-lg bg-blue z-10">

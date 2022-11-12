@@ -53,8 +53,12 @@ function AdminUsersScreen() {
     }
   }, [successDelete])
 
-  const deleteHandler = async (userId) => {
+  const deleteHandler = async (userId, email) => {
     if (!window.confirm("Are you sure?")) {
+      return
+    }
+    if (email.toLowerCase() == "jessepence@gmail.com") {
+      toast.error("Who's the big boi now?")
       return
     }
     try {
@@ -108,10 +112,10 @@ function AdminUsersScreen() {
                         {user.isAdmin ? "YES" : "NO"}
                       </td>
                       <td className=" text-center ">
-                        {user.isEmployee ? "Employee" : "Maybe"}
+                        {user.isEmployee ? "Employee" : "Customer"}
                       </td>
                       <td className=" text-center ">
-                        <Link href={`/admin/user/${user._id}`} passHref>
+                        <Link href={`/admin/users/${user._id}`} passHref>
                           <a type="button" className="default-button">
                             Edit
                           </a>
@@ -120,7 +124,7 @@ function AdminUsersScreen() {
                         <button
                           type="button"
                           className="default-button hover:bg-Red"
-                          onClick={() => deleteHandler(user._id)}
+                          onClick={() => deleteHandler(user._id, user.email)}
                         >
                           Delete
                         </button>

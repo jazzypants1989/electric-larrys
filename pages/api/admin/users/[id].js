@@ -8,26 +8,53 @@ const handler = async (req, res) => {
     return res.status(401).send("admin signin required")
   }
 
-  if (req.method === "DELETE") {
-    return deleteHandler(req, res)
-  } else {
-    return res.status(400).send({ message: "Method not allowed" })
+  switch (req.method) {
+    case "GET":
+      await getUser(req, res)
+      break
+    case "PUT":
+      await updateUser(req, res)
+      break
+    case "DELETE":
+      await deleteUser(req, res)
+      break
+    default:
+      res.status(400).send({ message: "Method not allowed" })
+      break
   }
 }
 
-const deleteHandler = async (req, res) => {
+const getUser = async (req, res) => {
+  await dbConnect()
+  const user = await User.findById(req.query.id)
+  res.send(user)
+}
+
+const updateUser = async (req, res) => {
+  await dbConnect()
+  const user = await User.findById(req.query.id)
+  console.log(req.body)
+  if (user) {
+    user.name = req.body.name
+    user.email = req.body.email
+    user.isAdmin = req.body.isAdmin
+    user.isEmployee = req.body.isEmployee
+    user.newsletter = req.body.newsletter
+    const updatedUser = await user.save()
+    res.send(updatedUser)
+  } else {
+    res.status(404).send({ message: "User not found" })
+  }
+}
+
+const deleteUser = async (req, res) => {
   await dbConnect()
   const user = await User.findById(req.query.id)
   if (user) {
-    if (user.email === "jessepence@gmail.com") {
-      return res
-        .status(400)
-        .send({ message: "You think you can delete me, you fool?" })
-    }
     await user.remove()
-    res.send({ message: "User Deleted" })
+    res.send({ message: "User deleted successfully" })
   } else {
-    res.status(404).send({ message: "User Not Found" })
+    res.status(404).send({ message: "User not found" })
   }
 }
 

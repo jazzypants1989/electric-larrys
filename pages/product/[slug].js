@@ -49,10 +49,10 @@ export default function ProductScreen(props) {
       slug={product.slug}
     >
       <div className="py-2">
-        <Link href="/" passHref>
+        <Link href="/products" passHref>
           <BiArrowToLeft className="relative text-2xl cursor-pointer hover:text-orange hover:scale-125" />
         </Link>
-        <Link href="/">
+        <Link href="/products">
           <a className="hover:text-Green">back to products</a>
         </Link>
       </div>

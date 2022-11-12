@@ -118,7 +118,7 @@ export default function AdminAnnouncementsScreen() {
             <button
               disabled={loadingCreate}
               onClick={createHandler}
-              className="primary-button"
+              className="primary-button mr-10"
             >
               {loadingCreate ? "Loading" : "Create"}
             </button>
