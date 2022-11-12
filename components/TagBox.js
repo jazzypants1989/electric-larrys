@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Combobox, Transition } from "@headlessui/react"
 import Container from "./Container"
-import { CheckIcon } from "@heroicons/react/solid"
+import { CheckIcon } from "@heroicons/react/"
 
 export default function TagBox({ tags, setTag }) {
   const [selectedTag, setSelectedTag] = useState([])
