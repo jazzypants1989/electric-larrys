@@ -20,10 +20,6 @@ export default function AdminSideBar() {
       href: "/admin/products",
     },
     {
-      name: "Orders",
-      href: "/admin/orders",
-    },
-    {
       name: "Posts",
       href: "/admin/posts",
     },
@@ -34,6 +30,10 @@ export default function AdminSideBar() {
     {
       name: "Newsletter",
       href: "/admin/newsletter",
+    },
+    {
+      name: "Stripe Dashboard",
+      href: "https://dashboard.stripe.com/",
     },
   ]
 
@@ -52,19 +52,31 @@ export default function AdminSideBar() {
           </div>
           <nav className="flex flex-col flex-1 mt-6">
             <div className="space-y-1">
-              {links.map((link) => (
-                <Link href={link.href} key={link.name}>
+              {links.map((link) =>
+                link.name === "Stripe Dashboard" ? (
                   <a
-                    className={`flex items-center px-2 py-2 text-sm font-medium rounded-md transition-all duration-300 ease-out ${
-                      isActive(link.href) || isActive(link.href)
-                        ? "bg-orange text-Green"
-                        : "text-gray-600 hover:bg-Green hover:text-blue"
-                    }`}
+                    key={link.name}
+                    href={link.href}
+                    className="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-white hover:text-orange hover:bg-Green"
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     {link.name}
                   </a>
-                </Link>
-              ))}
+                ) : (
+                  <Link href={link.href} key={link.name}>
+                    <a
+                      className={`flex items-center px-2 py-2 text-sm font-medium rounded-md transition-all duration-300 ease-out ${
+                        isActive(link.href) || isActive(link.href)
+                          ? "bg-orange text-Green"
+                          : "text-gray-600 hover:bg-Green hover:text-blue"
+                      }`}
+                    >
+                      {link.name}
+                    </a>
+                  </Link>
+                )
+              )}
             </div>
           </nav>
         </div>

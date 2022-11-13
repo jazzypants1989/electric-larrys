@@ -1,6 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
 import Layout from "../components/Layout"
+import { useContext, useEffect } from "react"
+import { Store } from "../utils/Store"
 
 const stripe = require("stripe")(process.env.NEXT_PUBLIC_STRIPE_SECRET)
 
@@ -18,6 +20,12 @@ export async function getServerSideProps(params) {
 
 export default function Success({ order }) {
   console.log(order)
+  const { dispatch } = useContext(Store)
+
+  useEffect(() => {
+    dispatch({ type: "CLEAR_CART" })
+  }, [dispatch])
+
   return (
     <Layout title="Success">
       <div className="flex flex-col items-center justify-center">
@@ -88,14 +96,12 @@ export default function Success({ order }) {
         <p>
           If you have any questions or see any issues with your order, please
           contact us at our email address:
-          <button className="text-blue-500 underline">
+          <button className="text-orange underline">
             <a href="mailto:electriclarry@gmail.com"> HERE</a>
           </button>
         </p>
         <Link href="/" passHref>
-          <button className="px-4 py-2 mt-4 text-white bg-blue-500 rounded hover:bg-blue-600">
-            Continue Shopping
-          </button>
+          <button className="primary-button">Continue Shopping</button>
         </Link>
       </div>
     </Layout>

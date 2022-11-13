@@ -1,0 +1,929 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  style="color-scheme: light dark; supported-color-schemes: light dark"
+>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="supported-color-schemes" content="light dark" />
+
+    <title>{{subject}}</title>
+    <style type="text/css" rel="stylesheet" media="all">
+      /* Base ------------------------------ */
+
+      @import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
+      body {
+        width: 100% !important;
+        height: 100%;
+        margin: 0;
+        -webkit-text-size-adjust: none;
+      }
+
+      a {
+        color: #f77605;
+      }
+
+      a img {
+        border: none;
+      }
+
+      td {
+        word-break: break-word;
+      }
+
+      .preheader {
+        display: none !important;
+        visibility: hidden;
+        mso-hide: all;
+        font-size: 1px;
+        line-height: 1px;
+        max-height: 0;
+        max-width: 0;
+        opacity: 0;
+        overflow: hidden;
+      }
+      /* Type ------------------------------ */
+
+      body,
+      td,
+      th {
+        font-family: "Bangers", Helvetica, Arial, sans-serif;
+      }
+
+      h1 {
+        margin-top: 0;
+        color: #333333;
+        font-size: 32px;
+        font-weight: bold;
+        text-align: left;
+        letter-spacing: 2px;
+      }
+
+      h2 {
+        margin-top: 0;
+        color: #333333;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: left;
+        letter-spacing: 2px;
+      }
+
+      h3 {
+        margin-top: 0;
+        color: #333333;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: left;
+        letter-spacing: 2px;
+      }
+
+      td,
+      th {
+        font-size: 16px;
+        letter-spacing: 2px;
+      }
+
+      p,
+      ul,
+      ol,
+      blockquote {
+        margin: 0.4em 0 1.1875em;
+        font-size: 16px;
+        line-height: 1.625;
+        letter-spacing: 2px;
+      }
+
+      p.sub {
+        font-size: 13px;
+        letter-spacing: 2px;
+      }
+      /* Utilities ------------------------------ */
+
+      .align-right {
+        text-align: right;
+      }
+
+      .align-left {
+        text-align: left;
+      }
+
+      .align-center {
+        text-align: center;
+      }
+
+      .u-margin-bottom-none {
+        margin-bottom: 0;
+      }
+      /* Buttons ------------------------------ */
+
+      .button {
+        background-color: #f77605;
+        border-top: 10px solid #f77605;
+        border-right: 18px solid #f77605;
+        border-bottom: 10px solid #f77605;
+        border-left: 18px solid #f77605;
+        display: inline-block;
+        color: #34fac5;
+        text-decoration: none;
+        border-radius: 3px;
+        box-shadow: 0 3px 3px 3px rgba(247, 118, 5, 0.3);
+        -webkit-text-size-adjust: none;
+        box-sizing: border-box;
+      }
+
+      .button--green {
+        background-color: #22bc66;
+        border-top: 10px solid #22bc66;
+        border-right: 18px solid #22bc66;
+        border-bottom: 10px solid #22bc66;
+        border-left: 18px solid #22bc66;
+      }
+
+      .button--red {
+        background-color: #ff6136;
+        border-top: 10px solid #ff6136;
+        border-right: 18px solid #ff6136;
+        border-bottom: 10px solid #ff6136;
+        border-left: 18px solid #ff6136;
+      }
+
+      @media only screen and (max-width: 500px) {
+        .button {
+          width: 100% !important;
+          text-align: center !important;
+        }
+      }
+      /* Attribute list ------------------------------ */
+
+      .attributes {
+        margin: 0 0 21px;
+      }
+
+      .attributes_content {
+        background-color: #0050c0;
+        padding: 16px;
+      }
+
+      .attributes_item {
+        padding: 0;
+      }
+      /* Related Items ------------------------------ */
+
+      .related {
+        width: 100%;
+        margin: 0;
+        padding: 25px 0 0 0;
+        -premailer-width: 100%;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+      }
+
+      .related_item {
+        padding: 10px 0;
+        color: #cbcccf;
+        font-size: 15px;
+        line-height: 18px;
+      }
+
+      .related_item-title {
+        display: block;
+        margin: 0.5em 0 0;
+      }
+
+      .related_item-thumb {
+        display: block;
+        padding-bottom: 10px;
+      }
+
+      .related_heading {
+        border-top: 1px solid #cbcccf;
+        text-align: center;
+        padding: 25px 0 10px;
+      }
+      /* Discount Code ------------------------------ */
+
+      .discount {
+        width: 100%;
+        margin: 0;
+        padding: 24px;
+        -premailer-width: 100%;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+        background-color: #f4f4f7;
+        border: 2px dashed #cbcccf;
+      }
+
+      .discount_heading {
+        text-align: center;
+      }
+
+      .discount_body {
+        text-align: center;
+        font-size: 15px;
+      }
+      /* Social Icons ------------------------------ */
+
+      .social {
+        width: auto;
+      }
+
+      .social td {
+        padding: 0;
+        width: auto;
+      }
+
+      .social_icon {
+        height: 20px;
+        margin: 0 8px 10px 8px;
+        padding: 0;
+      }
+      /* Data table ------------------------------ */
+
+      .purchase {
+        width: 100%;
+        margin: 0;
+        padding: 35px 0;
+        -premailer-width: 100%;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+      }
+
+      .purchase_content {
+        width: 100%;
+        margin: 0;
+        padding: 25px 0 0 0;
+        -premailer-width: 100%;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+      }
+
+      .purchase_item {
+        padding: 10px 0;
+        color: #51545e;
+        font-size: 15px;
+        line-height: 18px;
+      }
+
+      .purchase_heading {
+        padding-bottom: 8px;
+        border-bottom: 1px solid #eaeaec;
+      }
+
+      .purchase_heading p {
+        margin: 0;
+        color: #85878e;
+        font-size: 12px;
+      }
+
+      .purchase_footer {
+        padding-top: 15px;
+        border-top: 1px solid #eaeaec;
+      }
+
+      .purchase_total {
+        margin: 0;
+        text-align: right;
+        font-weight: bold;
+        color: #333333;
+      }
+
+      .purchase_total--label {
+        padding: 0 15px 0 0;
+      }
+
+      body {
+        background-color: #0050c0;
+        color: #34fac5;
+      }
+
+      p {
+        color: #34fac5;
+      }
+
+      .email-wrapper {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        -premailer-width: 100%;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+        background-color: #34fac5;
+      }
+
+      .email-content {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        -premailer-width: 100%;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+      }
+      /* Masthead ----------------------- */
+
+      .email-masthead {
+        padding: 25px 0;
+        text-align: center;
+      }
+
+      .email-masthead_logo {
+        width: 94px;
+      }
+
+      .email-masthead_name {
+        font-size: 16px;
+        font-weight: bold;
+        color: #f77605;
+        text-decoration: none;
+        text-shadow: 0 1px 0 #34fac5;
+      }
+      /* Body ------------------------------ */
+
+      .email-body {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        -premailer-width: 100%;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+      }
+
+      .email-body_inner {
+        width: 570px;
+        margin: 0 auto;
+        padding: 0;
+        -premailer-width: 570px;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+        background-color: #0050c0;
+      }
+
+      .email-footer {
+        width: 570px;
+        margin: 0 auto;
+        padding: 0;
+        -premailer-width: 570px;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+        text-align: center;
+      }
+
+      .email-footer p {
+        color: #f77605;
+      }
+
+      .body-action {
+        width: 100%;
+        margin: 30px auto;
+        padding: 0;
+        -premailer-width: 100%;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+        text-align: center;
+      }
+
+      .body-sub {
+        margin-top: 25px;
+        padding-top: 25px;
+        border-top: 1px solid #f77605;
+      }
+
+      .content-cell {
+        padding: 45px;
+      }
+      /*Media Queries ------------------------------ */
+
+      @media only screen and (max-width: 600px) {
+        .email-body_inner,
+        .email-footer {
+          width: 100% !important;
+        }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        body,
+        .email-body,
+        .email-body_inner,
+        .email-content,
+        .email-wrapper,
+        .email-masthead,
+        .email-footer {
+          background-color: #333333 !important;
+          color: #fff !important;
+        }
+        p,
+        ul,
+        ol,
+        blockquote,
+        h1,
+        h2,
+        h3,
+        span,
+        .purchase_item {
+          color: #fff !important;
+        }
+        .attributes_content,
+        .discount {
+          background-color: #222 !important;
+        }
+        .email-masthead_name {
+          text-shadow: none !important;
+        }
+      }
+
+      :root {
+        color-scheme: light dark;
+        supported-color-schemes: light dark;
+      }
+    </style>
+    <!--[if mso]>
+      <style type="text/css">
+        .f-fallback {
+          font-family: Arial, sans-serif;
+        }
+      </style>
+    <![endif]-->
+  </head>
+  <body
+    style="
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      -webkit-text-size-adjust: none;
+      font-family: 'Bangers', Helvetica, Arial, sans-serif;
+      background-color: #0050c0;
+      color: #34fac5;
+    "
+  >
+    <span
+      class="preheader"
+      style="
+        display: none;
+        visibility: hidden;
+        mso-hide: all;
+        font-size: 1px;
+        line-height: 1px;
+        max-height: 0;
+        max-width: 0;
+        opacity: 0;
+        overflow: hidden;
+      "
+      >Thanks for trying out [Product Name]. We’ve pulled together some
+      information and resources to help you get started.</span
+    >
+    <table
+      class="email-wrapper"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      role="presentation"
+      style="
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        -premailer-width: 100%;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+        background-color: #34fac5;
+      "
+      bgcolor="#34fac5"
+    >
+      <tr>
+        <td
+          align="center"
+          style="
+            word-break: break-word;
+            font-family: 'Bangers', Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            letter-spacing: 2px;
+          "
+        >
+          <table
+            class="email-content"
+            width="100%"
+            cellpadding="0"
+            cellspacing="0"
+            role="presentation"
+            style="
+              width: 100%;
+              margin: 0;
+              padding: 0;
+              -premailer-width: 100%;
+              -premailer-cellpadding: 0;
+              -premailer-cellspacing: 0;
+            "
+          >
+            <tr>
+              <td
+                class="email-masthead"
+                style="
+                  word-break: break-word;
+                  font-family: 'Bangers', Helvetica, Arial, sans-serif;
+                  font-size: 16px;
+                  letter-spacing: 2px;
+                  padding: 25px 0;
+                  text-align: center;
+                "
+                align="center"
+              >
+                <a
+                  href="https://electric-larrys.vercel.app"
+                  class="f-fallback email-masthead_name"
+                  style="
+                    color: #f77605;
+                    font-size: 16px;
+                    font-weight: bold;
+                    text-decoration: none;
+                    text-shadow: 0 1px 0 #34fac5;
+                  "
+                >
+                  Electric Larry's
+                </a>
+              </td>
+            </tr>
+            <!-- Email Body -->
+            <tr>
+              <td
+                class="email-body"
+                width="100%"
+                cellpadding="0"
+                cellspacing="0"
+                style="
+                  word-break: break-word;
+                  font-family: 'Bangers', Helvetica, Arial, sans-serif;
+                  font-size: 16px;
+                  letter-spacing: 2px;
+                  width: 100%;
+                  margin: 0;
+                  padding: 0;
+                  -premailer-width: 100%;
+                  -premailer-cellpadding: 0;
+                  -premailer-cellspacing: 0;
+                "
+              >
+                <table
+                  class="email-body_inner"
+                  align="center"
+                  width="570"
+                  cellpadding="0"
+                  cellspacing="0"
+                  role="presentation"
+                  style="
+                    width: 570px;
+                    margin: 0 auto;
+                    padding: 0;
+                    -premailer-width: 570px;
+                    -premailer-cellpadding: 0;
+                    -premailer-cellspacing: 0;
+                    background-color: #0050c0;
+                  "
+                  bgcolor="#0050c0"
+                >
+                  <!-- Body content -->
+                  <tr>
+                    <td
+                      class="content-cell"
+                      style="
+                        word-break: break-word;
+                        font-family: 'Bangers', Helvetica, Arial, sans-serif;
+                        font-size: 16px;
+                        letter-spacing: 2px;
+                        padding: 45px;
+                      "
+                    >
+                      <div class="f-fallback">
+                        <h1
+                          style="
+                            margin-top: 0;
+                            color: #333333;
+                            font-size: 32px;
+                            font-weight: bold;
+                            text-align: left;
+                            letter-spacing: 2px;
+                          "
+                        >
+                          Hey, {{name}}!
+                        </h1>
+                        <p
+                          style="
+                            margin: 0.4em 0 1.1875em;
+                            font-size: 16px;
+                            line-height: 1.625;
+                            letter-spacing: 2px;
+                            color: #34fac5;
+                          "
+                        >
+                          Welcome to the newsletter! Check out this cool new
+                          product! It's the best thing since sliced bread.
+                        </p>
+                        <a href="{{link}}" style="color: #f77605">
+                          <img
+                            src="{{image}}"
+                            alt="{{subject}}"
+                            width="570"
+                            height="300"
+                            border="0"
+                            style="border: none"
+                          />
+                        </a>
+
+                        <!-- Action -->
+                        <table
+                          class="body-action"
+                          align="center"
+                          width="100%"
+                          cellpadding="0"
+                          cellspacing="0"
+                          role="presentation"
+                          style="
+                            width: 100%;
+                            margin: 30px auto;
+                            padding: 0;
+                            -premailer-width: 100%;
+                            -premailer-cellpadding: 0;
+                            -premailer-cellspacing: 0;
+                            text-align: center;
+                          "
+                        >
+                          <tr>
+                            <td
+                              align="center"
+                              style="
+                                word-break: break-word;
+                                font-family: 'Bangers', Helvetica, Arial,
+                                  sans-serif;
+                                font-size: 16px;
+                                letter-spacing: 2px;
+                              "
+                            >
+                              <!-- Border based button
+                                 https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
+                              <table
+                                width="100%"
+                                border="0"
+                                cellspacing="0"
+                                cellpadding="0"
+                                role="presentation"
+                              >
+                                <tr>
+                                  <td
+                                    align="center"
+                                    style="
+                                      word-break: break-word;
+                                      font-family: 'Bangers', Helvetica, Arial,
+                                        sans-serif;
+                                      font-size: 16px;
+                                      letter-spacing: 2px;
+                                    "
+                                  >
+                                    <a
+                                      href="{{link}}"
+                                      class="f-fallback button"
+                                      target="_blank"
+                                      style="
+                                        color: #34fac5;
+                                        background-color: #f77605;
+                                        border-top: 10px solid #f77605;
+                                        border-right: 18px solid #f77605;
+                                        border-bottom: 10px solid #f77605;
+                                        border-left: 18px solid #f77605;
+                                        display: inline-block;
+                                        text-decoration: none;
+                                        border-radius: 3px;
+                                        box-shadow: 0 3px 3px 3px
+                                          rgba(247, 118, 5, 0.3);
+                                        -webkit-text-size-adjust: none;
+                                        box-sizing: border-box;
+                                      "
+                                      >You know you wanna click me.</a
+                                    >
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                        <p
+                          style="
+                            margin: 0.4em 0 1.1875em;
+                            font-size: 16px;
+                            line-height: 1.625;
+                            letter-spacing: 2px;
+                            color: #34fac5;
+                          "
+                        >
+                          I can make a table!
+                        </p>
+                        <table
+                          class="attributes"
+                          width="100%"
+                          cellpadding="0"
+                          cellspacing="0"
+                          role="presentation"
+                          style="margin: 0 0 21px"
+                        >
+                          <tr>
+                            <td
+                              class="attributes_content"
+                              style="
+                                word-break: break-word;
+                                font-family: 'Bangers', Helvetica, Arial,
+                                  sans-serif;
+                                font-size: 16px;
+                                letter-spacing: 2px;
+                                background-color: #0050c0;
+                                padding: 16px;
+                              "
+                              bgcolor="#0050c0"
+                            >
+                              <table
+                                width="100%"
+                                cellpadding="0"
+                                cellspacing="0"
+                                role="presentation"
+                              >
+                                <tr>
+                                  <td
+                                    class="attributes_item"
+                                    style="
+                                      word-break: break-word;
+                                      font-family: 'Bangers', Helvetica, Arial,
+                                        sans-serif;
+                                      font-size: 16px;
+                                      letter-spacing: 2px;
+                                      padding: 0;
+                                    "
+                                  >
+                                    <span class="f-fallback">
+                                      <strong>Do you like my...</strong>
+                                    </span>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td
+                                    class="attributes_item"
+                                    style="
+                                      word-break: break-word;
+                                      font-family: 'Bangers', Helvetica, Arial,
+                                        sans-serif;
+                                      font-size: 16px;
+                                      letter-spacing: 2px;
+                                      padding: 0;
+                                    "
+                                  >
+                                    <span class="f-fallback">
+                                      <strong>Table?</strong>
+                                    </span>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                        <p
+                          style="
+                            margin: 0.4em 0 1.1875em;
+                            font-size: 16px;
+                            line-height: 1.625;
+                            letter-spacing: 2px;
+                            color: #34fac5;
+                          "
+                        >
+                          If you have any questions, feel free to
+                          <a
+                            href="mailto:electriclarrys@gmail.com"
+                            style="color: #f77605"
+                            >email our customer success team</a
+                          >. (We're lightning quick at replying.)
+                        </p>
+                        <p
+                          style="
+                            margin: 0.4em 0 1.1875em;
+                            font-size: 16px;
+                            line-height: 1.625;
+                            letter-spacing: 2px;
+                            color: #34fac5;
+                          "
+                        >
+                          Thanks, <br />Electric Larry and his minions
+                        </p>
+                        <!-- Sub copy -->
+                        <table
+                          class="body-sub"
+                          role="presentation"
+                          style="
+                            margin-top: 25px;
+                            padding-top: 25px;
+                            border-top: 1px solid #f77605;
+                          "
+                        >
+                          <tr>
+                            <td
+                              style="
+                                word-break: break-word;
+                                font-family: 'Bangers', Helvetica, Arial,
+                                  sans-serif;
+                                font-size: 16px;
+                                letter-spacing: 2px;
+                              "
+                            >
+                              <p
+                                class="f-fallback sub"
+                                style="
+                                  margin: 0.4em 0 1.1875em;
+                                  line-height: 1.625;
+                                  color: #34fac5;
+                                  font-size: 13px;
+                                  letter-spacing: 2px;
+                                "
+                              >
+                                If you’re having trouble with the button above,
+                                copy and paste the URL below into your web
+                                browser.
+                              </p>
+                              <p
+                                class="f-fallback sub"
+                                style="
+                                  margin: 0.4em 0 1.1875em;
+                                  line-height: 1.625;
+                                  color: #34fac5;
+                                  font-size: 13px;
+                                  letter-spacing: 2px;
+                                "
+                              >
+                                {{link}}
+                              </p>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td
+                style="
+                  word-break: break-word;
+                  font-family: 'Bangers', Helvetica, Arial, sans-serif;
+                  font-size: 16px;
+                  letter-spacing: 2px;
+                "
+              >
+                <table
+                  class="email-footer"
+                  align="center"
+                  width="570"
+                  cellpadding="0"
+                  cellspacing="0"
+                  role="presentation"
+                  style="
+                    width: 570px;
+                    margin: 0 auto;
+                    padding: 0;
+                    -premailer-width: 570px;
+                    -premailer-cellpadding: 0;
+                    -premailer-cellspacing: 0;
+                    text-align: center;
+                  "
+                >
+                  <tr>
+                    <td
+                      class="content-cell"
+                      align="center"
+                      style="
+                        word-break: break-word;
+                        font-family: 'Bangers', Helvetica, Arial, sans-serif;
+                        font-size: 16px;
+                        letter-spacing: 2px;
+                        padding: 45px;
+                      "
+                    >
+                      <p
+                        class="f-fallback sub align-center"
+                        style="
+                          margin: 0.4em 0 1.1875em;
+                          line-height: 1.625;
+                          text-align: center;
+                          font-size: 13px;
+                          letter-spacing: 2px;
+                          color: #f77605;
+                        "
+                      >
+                        Electric Larry's
+                        <br />217 West Main Street <br />Carbondale, IL
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

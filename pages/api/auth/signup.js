@@ -6,7 +6,8 @@ async function handler(req, res) {
   if (req.method !== "POST") {
     return
   }
-  const { name, email, password } = req.body
+  const { name, email, password, newsletter } = req.body
+  console.log(name, email, newsletter)
   if (
     !name ||
     !email ||
@@ -32,7 +33,9 @@ async function handler(req, res) {
     name,
     email,
     password: bcryptjs.hashSync(password),
+    newsletter,
     isAdmin: false,
+    isEmployee: false,
   })
 
   const user = await newUser.save()
@@ -43,6 +46,8 @@ async function handler(req, res) {
     name: user.name,
     email: user.email,
     isAdmin: user.isAdmin,
+    isEmployee: user.isEmployee,
+    newsletter: user.newsletter,
   })
 }
 

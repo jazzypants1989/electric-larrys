@@ -1,7 +1,9 @@
 import { useRouter } from "next/router"
 import Image from "next/image"
-import { getSession, signIn } from "next-auth/react"
-import { useEffect } from "react"
+import { getSession, signIn, signOut } from "next-auth/react"
+import Cookies from "js-cookie"
+import { useEffect, useContext } from "react"
+import { Store } from "../utils/Store"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import { getError } from "../utils/error"
@@ -10,6 +12,7 @@ import Layout from "../components/Layout"
 
 export function ProfilePage({ user, orders }) {
   const router = useRouter()
+  const { dispatch } = useContext(Store)
   useEffect(() => {
     if (!user) {
       router.push("/login")
@@ -19,15 +22,17 @@ export function ProfilePage({ user, orders }) {
   const {
     handleSubmit,
     register,
-    getValues,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm()
 
   useEffect(() => {
-    setValue("name", user.name)
-    setValue("email", user.email)
-  }, [user, setValue])
+    if (user) {
+      setValue("name", user.name)
+      setValue("email", user.email)
+    }
+  }, [user]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const submitHandler = async ({ name, email, password }) => {
     try {
@@ -45,6 +50,27 @@ export function ProfilePage({ user, orders }) {
       if (result.error) {
         toast.error(result.error)
       }
+    } catch (err) {
+      toast.error(getError(err))
+    }
+  }
+
+  const logoutClickHandler = () => {
+    Cookies.remove("cart")
+    dispatch({ type: "CART_RESET" })
+    signOut({ callbackUrl: "/login" })
+  }
+
+  const newsletterClickHandler = async () => {
+    try {
+      await axios.put("/api/profile", {
+        email: user.email,
+        newsletter: !user.newsletter,
+      })
+      toast.success(
+        "Newsletter updated successfully. Sorry, we have to log you out."
+      )
+      signOut({ callbackUrl: "/login" })
     } catch (err) {
       toast.error(getError(err))
     }
@@ -72,7 +98,7 @@ export function ProfilePage({ user, orders }) {
           className="mx-auto max-w-screen-md"
           onSubmit={handleSubmit(submitHandler)}
         >
-          <h1 className="mb-4 text-xl">Update Profile</h1>
+          <h1 className="mb-4 text-xl">Change Password</h1>
 
           <div className="mb-4">
             <label htmlFor="name">Name</label>
@@ -152,9 +178,14 @@ export function ProfilePage({ user, orders }) {
               )}
           </div>
           <div className="mb-4">
-            <button className="primary-button">Update Profile</button>
+            <button className="primary-button">Change Password</button>
           </div>
         </form>
+        <div className="mb-4">
+          <button className="primary-button" onClick={newsletterClickHandler}>
+            {user.newsletter ? "Unsubscribe" : "Subscribe"} to Newsletter
+          </button>
+        </div>
         <h2 className="text-lg drop-shadow text-center">Orders</h2>
         <ul className="flex flex-col items-center justify-center">
           {orders.map((order) => (
@@ -202,15 +233,24 @@ export function ProfilePage({ user, orders }) {
 
           <h3>
             {" "}
-            You&apos;ve spent:{" $"}
-            {orders.reduce((acc, order) => {
-              return acc + order.amount
-            }, 0) / 100}{" "}
-            over {orders.length} orders. We hope you&apos;ve enjoyed us because
-            we&apos;ve enjoyed you!
+            You&apos;ve spent:{" "}
+            <span className="p-1 text-sm drop-shadow">
+              $
+              {orders.reduce((acc, order) => {
+                return acc + order.amount
+              }, 0) / 100}
+            </span>
+            over{" "}
+            <span className="text-sm pl-1 drop-shadow">{orders.length}</span>{" "}
+            orders. We hope you&apos;ve enjoyed us because we&apos;ve enjoyed
+            you!
           </h3>
 
-          <button type="button" onClick={() => router.push("/api/auth/logout")}>
+          <button
+            type="button"
+            className="primary-button"
+            onClick={logoutClickHandler}
+          >
             Log Out
           </button>
         </ul>
@@ -223,6 +263,7 @@ export const getServerSideProps = async (context) => {
   const stripe = require("stripe")(`${process.env.NEXT_PUBLIC_STRIPE_SECRET}`)
   const session = await getSession(context)
   const user = session?.user
+  console.log(session)
   const stripeId =
     user[`${process.env.NEXT_PUBLIC_BASE_URL}/stripe_customer_id`]
   const paymentIntents = await stripe.paymentIntents.list({

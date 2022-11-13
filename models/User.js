@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema(
     isAdmin: { type: Boolean, required: true, default: false },
     isEmployee: { type: Boolean, required: true, default: false },
     newsletter: { type: Boolean, required: true, default: false },
+    image: { type: String, required: true, default: "/images/wow.webp" },
   },
   {
     timestamps: true,

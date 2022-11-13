@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import Layout from "../../../components/Layout"
 import { getError } from "../../../utils/error"
+import AdminSideBar from "../../../components/AdminSideBar"
 
 function reducer(state, action) {
   switch (action.type) {
@@ -147,213 +148,200 @@ export default function AdminProductEditScreen() {
 
   return (
     <Layout title={`Edit Product ${productId}`}>
-      <div className="grid md:grid-cols-4 md:gap-5">
-        <div>
-          <ul className="text-base">
-            <li>
-              <Link href="/admin/dashboard">Dashboard</Link>
-            </li>
-            <li>
-              <Link href="/admin/orders">Orders</Link>
-            </li>
-            <li>
-              <Link href="/admin/products">
-                <a className="font-bold">Products</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/admin/users">Users</Link>
-            </li>
-          </ul>
-        </div>
-        <div className="md:col-span-3">
-          {loading ? (
-            <div>Loading...</div>
-          ) : error ? (
-            <div className="alert-error">{error}</div>
-          ) : (
-            <form
-              className="mx-auto max-w-screen-md"
-              onSubmit={handleSubmit(submitHandler)}
-            >
-              <h1 className="mb-4 text-xl">{`Edit Product ${productId}`}</h1>
-              <div className="mb-4">
-                <label htmlFor="name">Name</label>
-                <input
-                  type="text"
-                  className="w-full"
-                  id="name"
-                  autoFocus
-                  {...register("name", {
-                    required: "Please enter name",
-                  })}
-                />
-                {errors.name && (
-                  <div className="text-Red">{errors.name.message}</div>
-                )}
-              </div>
-              <div className="mb-4">
-                <label htmlFor="slug">Slug</label>
-                <input
-                  type="text"
-                  className="w-full"
-                  id="slug"
-                  {...register("slug", {
-                    required: "Please enter slug",
-                  })}
-                />
-                {errors.slug && (
-                  <div className="text-Red">{errors.slug.message}</div>
-                )}
-              </div>
-              <div className="mb-4">
-                <label htmlFor="price">Price</label>
-                <p className="absolute text-blue text-xl -translate-y-16 translate-x-16">
-                  $
-                </p>
-                <input
-                  type="text"
-                  className="w-24 pl-6 pr-2 ml-4 mb-4"
-                  id="price"
-                  {...register("price", {
-                    required: "Please enter price",
-                  })}
-                />
-                {errors.price && (
-                  <div className="text-Red">{errors.price.message}</div>
-                )}
-              </div>
-              <div className="mb-4">
-                <label htmlFor="image">image</label>
-                <input
-                  type="text"
-                  className="w-full"
-                  id="image"
-                  {...register("image", {
-                    required: "Please enter image",
-                  })}
-                />
-                {errors.image && (
-                  <div className="text-Red">{errors.image.message}</div>
-                )}
-              </div>
-              <div className="mb-4">
-                <label htmlFor="imageFile">Upload image</label>
-                <input
-                  type="file"
-                  className="w-full"
-                  id="imageFile"
-                  onChange={uploadHandler}
-                />
+      <div className="row">
+        <div className="col-md-3">
+          <AdminSideBar />
+          <div className="md:col-span-3">
+            {loading ? (
+              <div>Loading...</div>
+            ) : error ? (
+              <div className="alert-error">{error}</div>
+            ) : (
+              <form
+                className="mx-auto max-w-screen-md"
+                onSubmit={handleSubmit(submitHandler)}
+              >
+                <h1 className="mb-4 text-xl">{`Edit Product ${productId}`}</h1>
+                <div className="mb-4">
+                  <label htmlFor="name">Name</label>
+                  <input
+                    type="text"
+                    className="w-full"
+                    id="name"
+                    autoFocus
+                    {...register("name", {
+                      required: "Please enter name",
+                    })}
+                  />
+                  {errors.name && (
+                    <div className="text-Red">{errors.name.message}</div>
+                  )}
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="slug">Slug</label>
+                  <input
+                    type="text"
+                    className="w-full"
+                    id="slug"
+                    {...register("slug", {
+                      required: "Please enter slug",
+                    })}
+                  />
+                  {errors.slug && (
+                    <div className="text-Red">{errors.slug.message}</div>
+                  )}
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="price">Price</label>
+                  <p className="absolute text-blue text-xl -translate-y-16 translate-x-16">
+                    $
+                  </p>
+                  <input
+                    type="text"
+                    className="w-24 pl-6 pr-2 ml-4 mb-4"
+                    id="price"
+                    {...register("price", {
+                      required: "Please enter price",
+                    })}
+                  />
+                  {errors.price && (
+                    <div className="text-Red">{errors.price.message}</div>
+                  )}
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="image">image</label>
+                  <input
+                    type="text"
+                    className="w-full"
+                    id="image"
+                    {...register("image", {
+                      required: "Please enter image",
+                    })}
+                  />
+                  {errors.image && (
+                    <div className="text-Red">{errors.image.message}</div>
+                  )}
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="imageFile">Upload image</label>
+                  <input
+                    type="file"
+                    className="w-full"
+                    id="imageFile"
+                    onChange={uploadHandler}
+                  />
 
-                {loadingUpload && <div>Uploading....</div>}
-              </div>
-              <div className="mb-4">
-                <label htmlFor="category">category</label>
-                <input
-                  type="text"
-                  className="w-full"
-                  id="category"
-                  {...register("category", {
-                    required: "Please enter category",
-                  })}
-                />
-                {errors.category && (
-                  <div className="text-Red">{errors.category.message}</div>
-                )}
-              </div>
-              <div className="mb-4">
-                <label htmlFor="tags">tags</label>
-                <input
-                  type="text"
-                  className="w-full"
-                  id="tags"
-                  {...register("tags", {
-                    required: "Please enter tags",
-                  })}
-                />
-                {errors.tags && (
-                  <div className="text-Red">{errors.tags.message}</div>
-                )}
-              </div>
-              <div className="mb-4">
-                <label htmlFor="countInStock">Amount in stock</label>
-                <input
-                  type="text"
-                  className="w-24 pl-6 pr-2 ml-4 mb-4"
-                  id="countInStock"
-                  {...register("countInStock", {
-                    required: "Please enter countInStock",
-                  })}
-                />
-                {errors.countInStock && (
-                  <div className="text-Red">{errors.countInStock.message}</div>
-                )}
-              </div>
-              <div className="mb-4">
-                <label htmlFor="countInStock">description</label>
-                <input
-                  type="text"
-                  className="w-full"
-                  id="description"
-                  {...register("description", {
-                    required: "Please enter description",
-                  })}
-                />
-                {errors.description && (
-                  <div className="text-Red">{errors.description.message}</div>
-                )}
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <label htmlFor="isFeatured">Currently Featured?</label>
-                <input
-                  type="checkbox"
-                  className="w-6 h-6 mr-5 ml-0"
-                  id="isFeatured"
-                  name="isFeatured"
-                  {...register("isFeatured")}
-                />
-                <label htmlFor="isRented">
-                  In stock, but all currently rented?
-                </label>
-                <input
-                  type="checkbox"
-                  className="w-6 h-6 mr-5 pr-2"
-                  id="isRented"
-                  name="isRented"
-                  {...register("isRented")}
-                />
-                <label htmlFor="isOnSale">On Sale?</label>
-                <input
-                  type="checkbox"
-                  className="w-6 h-6 mr-5"
-                  id="isOnSale"
-                  name="isOnSale"
-                  {...register("isOnSale")}
-                />
-                <label htmlFor="isOnSale">Sale Price</label>
-                <p className="absolute text-Red translate-x-72 translate-y-28 pl-4 text-3xl">
-                  $
-                </p>
-                <input
-                  type="text"
-                  className="w-24 pl-6 pr-2 text-orange"
-                  id="salePrice"
-                  name="salePrice"
-                  {...register("salePrice")}
-                />
-              </div>
+                  {loadingUpload && <div>Uploading....</div>}
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="category">category</label>
+                  <input
+                    type="text"
+                    className="w-full"
+                    id="category"
+                    {...register("category", {
+                      required: "Please enter category",
+                    })}
+                  />
+                  {errors.category && (
+                    <div className="text-Red">{errors.category.message}</div>
+                  )}
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="tags">tags</label>
+                  <input
+                    type="text"
+                    className="w-full"
+                    id="tags"
+                    {...register("tags", {
+                      required: "Please enter tags",
+                    })}
+                  />
+                  {errors.tags && (
+                    <div className="text-Red">{errors.tags.message}</div>
+                  )}
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="countInStock">Amount in stock</label>
+                  <input
+                    type="text"
+                    className="w-24 pl-6 pr-2 ml-4 mb-4"
+                    id="countInStock"
+                    {...register("countInStock", {
+                      required: "Please enter countInStock",
+                    })}
+                  />
+                  {errors.countInStock && (
+                    <div className="text-Red">
+                      {errors.countInStock.message}
+                    </div>
+                  )}
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="countInStock">description</label>
+                  <input
+                    type="text"
+                    className="w-full"
+                    id="description"
+                    {...register("description", {
+                      required: "Please enter description",
+                    })}
+                  />
+                  {errors.description && (
+                    <div className="text-Red">{errors.description.message}</div>
+                  )}
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <label htmlFor="isFeatured">Currently Featured?</label>
+                  <input
+                    type="checkbox"
+                    className="w-6 h-6 mr-5 ml-0"
+                    id="isFeatured"
+                    name="isFeatured"
+                    {...register("isFeatured")}
+                  />
+                  <label htmlFor="isRented">
+                    In stock, but all currently rented?
+                  </label>
+                  <input
+                    type="checkbox"
+                    className="w-6 h-6 mr-5 pr-2"
+                    id="isRented"
+                    name="isRented"
+                    {...register("isRented")}
+                  />
+                  <label htmlFor="isOnSale">On Sale?</label>
+                  <input
+                    type="checkbox"
+                    className="w-6 h-6 mr-5"
+                    id="isOnSale"
+                    name="isOnSale"
+                    {...register("isOnSale")}
+                  />
+                  <label htmlFor="isOnSale">Sale Price</label>
+                  <p className="absolute text-Red translate-x-72 translate-y-28 pl-4 text-3xl">
+                    $
+                  </p>
+                  <input
+                    type="text"
+                    className="w-24 pl-6 pr-2 text-orange"
+                    id="salePrice"
+                    name="salePrice"
+                    {...register("salePrice")}
+                  />
+                </div>
 
-              <div className="mb-4">
-                <button disabled={loadingUpdate} className="primary-button">
-                  {loadingUpdate ? "Loading" : "Update"}
-                </button>
-              </div>
-              <div className="mb-4">
-                <Link href={`/admin/products`}>Back</Link>
-              </div>
-            </form>
-          )}
+                <div className="mb-4">
+                  <button disabled={loadingUpdate} className="primary-button">
+                    {loadingUpdate ? "Loading" : "Update"}
+                  </button>
+                </div>
+                <div className="mb-4">
+                  <Link href={`/admin/products`}>Back</Link>
+                </div>
+              </form>
+            )}
+          </div>
         </div>
       </div>
     </Layout>
