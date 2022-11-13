@@ -28,18 +28,14 @@ function reducer(state, action) {
   }
 }
 export default function AdminUserEditScreen() {
-  const [userValues, setUserValues] = useState({
-    name: "",
-    email: "",
-    isAdmin: false,
-  })
+  const [user, setUser] = useState("")
+  const [email, setEmail] = useState("")
   const { query } = useRouter()
   const userId = query.id
   const [{ loading, error, loadingUpdate }, dispatch] = useReducer(reducer, {
     loading: true,
     error: "",
   })
-
   const { register, handleSubmit, setValue } = useForm()
 
   useEffect(() => {
@@ -47,19 +43,12 @@ export default function AdminUserEditScreen() {
       try {
         dispatch({ type: "FETCH_REQUEST" })
         const { data } = await axios.get(`/api/admin/users/${userId}`)
-        console.log(data)
         dispatch({ type: "FETCH_SUCCESS" })
-        setValue("isEmployee", data.isEmployee)
-        setValue("isAdmin", data.description)
         setValue("newsletter", data.newsletter)
-        setValue("name", data.name)
-        setValue("email", data.email)
-        setValue("password", data.password)
-        setUserValues({
-          name: data.name,
-          email: data.email,
-          isAdmin: data.isAdmin,
-        })
+        setValue("isEmployee", data.isEmployee)
+        setValue("isAdmin", data.isAdmin)
+        setUser(data.name)
+        setEmail(data.email)
       } catch (error) {
         dispatch({ type: "FETCH_FAIL", payload: getError(error) })
       }
@@ -70,14 +59,7 @@ export default function AdminUserEditScreen() {
 
   const router = useRouter()
 
-  const submitHandler = async ({
-    isEmployee,
-    isAdmin,
-    newsletter,
-    name,
-    email,
-    password,
-  }) => {
+  const submitHandler = async ({ isEmployee, isAdmin, newsletter }) => {
     if (email === "jessepence@gmail.com") {
       toast.error("How cute. You think you have real power here?")
       return
@@ -85,13 +67,10 @@ export default function AdminUserEditScreen() {
 
     try {
       dispatch({ type: "UPDATE_REQUEST" })
-      await axios.put(`/api/admin/users/${userId}`, {
+      await axios.patch(`/api/admin/users/${userId}`, {
         isEmployee,
         isAdmin,
         newsletter,
-        name,
-        email,
-        password,
       })
       dispatch({ type: "UPDATE_SUCCESS" })
       toast.success("User updated. You are basically a god now.")
@@ -103,8 +82,8 @@ export default function AdminUserEditScreen() {
   }
 
   return (
-    <Layout title={`Editing ${userValues.name}`}>
-      <div className="grid md:grid-cols-4 md:gap-5 drop-shadow">
+    <Layout title={`Editing ${user}`}>
+      <div className="grid md:grid-cols-4 md:gap-5">
         <AdminSideBar />
         <div className="md:col-span-3">
           {loading ? (
@@ -116,47 +95,21 @@ export default function AdminUserEditScreen() {
               className="mx-auto max-w-screen-md"
               onSubmit={handleSubmit(submitHandler)}
             >
-              <h1 className="mb-4 text-xl">{`Edit ${userValues.name}`}</h1>
+              <h1 className="mb-4 text-xl">{`Edit ${user}`}</h1>
               <div className="mb-4">
-                <h2 className="mb-2 text-lg">Email</h2>
-                <h3 className="text-sm">{userValues.email}</h3>
+                <h2 className="mb-2 text-lg drop-shadow">Email</h2>
+                <h3 className="text-sm">{email}</h3>
                 <fieldset>
-                  <legend className="text-sm">Is Employee</legend>
-                  <input
-                    type="checkbox"
-                    {...register("isEmployee")}
-                    defaultChecked={userValues.isEmployee}
-                  />
+                  <legend className="text-sm drop-shadow">Is Employee</legend>
+                  <input type="checkbox" {...register("isEmployee")} />
                 </fieldset>
                 <fieldset>
-                  <legend className="text-sm">Is Admin</legend>
-                  {userValues.email.toLowerCase() === "jessepence@gmail.com" ? (
-                    <>
-                      <input
-                        type="checkbox"
-                        {...register("isAdmin")}
-                        defaultChecked={userValues.isAdmin}
-                      />
-                      <h1 className="inline pl-8 text-5xl text-Red">
-                        ALWAYS AND FOREVER BITCHES!
-                      </h1>
-                      <span className="text-sm pl-2">Love you</span>
-                    </>
-                  ) : (
-                    <input
-                      type="checkbox"
-                      defaultValue={false}
-                      {...register("isAdmin")}
-                    />
-                  )}
+                  <legend className="text-sm drop-shadow">Is Admin</legend>
+                  <input type="checkbox" {...register("isAdmin")} />
                 </fieldset>
                 <fieldset>
                   <legend className="text-sm">Newsletter</legend>
-                  <input
-                    type="checkbox"
-                    {...register("newsletter")}
-                    defaultChecked={userValues.newsletter}
-                  />
+                  <input type="checkbox" {...register("newsletter")} />
                 </fieldset>
               </div>
               <div className="flex justify-end">

@@ -109,7 +109,7 @@ export default function AdminAnnouncementsScreen() {
 
   return (
     <Layout title="Announcements">
-      <div className="grid md:grid-cols-4 md:gap-4 sm:grid-cols-1 sm:gap-4">
+      <div className="grid md:grid-cols-4 sm:grid-cols-1">
         <AdminSideBar />
         <div className="overflow-x-auto md:col-span-3">
           <div className="flex justify-between">

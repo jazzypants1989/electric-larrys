@@ -38,7 +38,7 @@ export default function AdminSideBar() {
   ]
 
   return (
-    <div className="md:pr-4 flex flex-col w-fit max-h-screen lg:border-r border-orange">
+    <div className="md:pr-4 flex flex-col w-fit max-h-screen lg:border-r border-orange drop-shadow">
       <div className="flex flex-col md:p-2">
         <div className="flex gap-4 md:gap-0 md:flex-col">
           <div className="flex">

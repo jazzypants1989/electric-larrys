@@ -97,7 +97,7 @@ export default function AdminPostsScreen() {
 
   return (
     <Layout title="Posts">
-      <div className="grid md:grid-cols-4 md:gap-4 sm:grid-cols-1 sm:gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4">
         <AdminSideBar />
         <div className="overflow-x-auto md:col-span-3">
           <div className="flex justify-between">
@@ -106,7 +106,7 @@ export default function AdminPostsScreen() {
             <button
               disabled={loadingCreate}
               onClick={createHandler}
-              className="primary-button"
+              className="primary-button mr-9"
             >
               {loadingCreate ? "Loading" : "Create"}
             </button>

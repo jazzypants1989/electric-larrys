@@ -74,10 +74,10 @@ function AdminUsersScreen() {
 
   return (
     <Layout title="Users">
-      <div className="grid md:grid-cols-4 md:gap-5 drop-shadow">
+      <div className="grid md:grid-cols-4 md:gap-5">
         <AdminSideBar />
         <div className="overflow-x-auto md:col-span-3">
-          <h1 className="mb-4 text-xl">Users</h1>
+          <h1 className="mb-4 text-xl drop-shadow ">Users</h1>
           {loadingDelete && <div>Deleting...</div>}
           {loading ? (
             <div>Loading...</div>
@@ -86,7 +86,7 @@ function AdminUsersScreen() {
           ) : (
             <div className="overflow-x-auto">
               <table className="min-w-full">
-                <thead className="border-b">
+                <thead className="border-b drop-shadow">
                   <tr>
                     <th className="text-center">ID</th>
                     <th className="text-center">NAME</th>

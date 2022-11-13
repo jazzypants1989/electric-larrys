@@ -3,13 +3,13 @@ const SideBar = ({ sideBarPosts }) => {
   // check sideBarPosts for images and links, then make dynamic styles based on their presence
 
   const sideBarPost = sideBarPosts.map((sideBarPost) => {
-    const { title, description, link, image } = sideBarPost
+    const { title, description, link, image, id } = sideBarPost
 
     // LINK AND IMAGE PRESENT
     let sideBarPostWithImageAndLink = (
       <div
         className="p-7 m-7 md:m-9 max-w-lg rounded-3xl bg-Green text-Black transition-all duration-700 ease-in-out hover:scale-105 bg-opacity-90 hover:bg-opacity-100"
-        key={title}
+        key={id}
       >
         <div>
           <a href={link} target="_blank" rel="noreferrer">
@@ -40,7 +40,7 @@ const SideBar = ({ sideBarPosts }) => {
     let sideBarPostWithImage = (
       <div
         className="rounded-3xl p-7 m-7 max-w-lg bg-orange transition-all duration-700 ease-in-out bg-opacity-90 hover:bg-opacity-100 hover:scale-105"
-        key={sideBarPost.id}
+        key={id}
       >
         <div className="">
           <Image
@@ -64,7 +64,7 @@ const SideBar = ({ sideBarPosts }) => {
     let sideBarPostWithLink = (
       <div
         className="bg-Green text-center rounded-3xl min-w-sm max-w-lg p-7 m-7 flex flex-col bg-opacity-90 hover:bg-opacity-100 hover:scale-110 transition-all duration-500 ease-in-out"
-        key={sideBarPost.id}
+        key={id}
       >
         <a href={link} target="_blank" rel="noreferrer">
           <h2 className="sm:text-sm md:text-2xl text-blue drop-shadow-xl">
@@ -87,7 +87,7 @@ const SideBar = ({ sideBarPosts }) => {
     let sideBarPostNoImageOrLink = (
       <aside
         className="bg-orange text-center rounded-3xl min-w-sm max-w-lg p-7 m-7 flex flex-col bg-opacity-90 hover:bg-opacity-100 hover:scale-110 transition-all duration-500 ease-in-out"
-        key={sideBarPost.id}
+        key={id}
       >
         <h2 className="sm:text-base md:text-2xl text-blue drop-shadow-xl">
           {title}

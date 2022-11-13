@@ -13,7 +13,6 @@ import dbConnect from "../utils/db"
 import { Store, reactions } from "../utils/Store"
 import { useContext } from "react"
 import Newsletter from "../components/Newsletter"
-import { useEffect } from "react"
 
 export default function Home({ announcements, posts, products }) {
   const { state, dispatch } = useContext(Store)
@@ -51,21 +50,12 @@ export default function Home({ announcements, posts, products }) {
     <Announcement key={announcement._id} announcement={announcement} />
   ))
 
-  // create useEffect that checks if the user has clicked outside of the hamburger menu
-  // if they have, then close the menu
-  // if they haven't, then do nothing
-
-  useEffect(() => {
-    const closeMenu = () => {
-      dispatch({ type: "CLOSE_MENU" })
-    }
-    document.addEventListener("click", closeMenu)
-    return () => document.removeEventListener("click", closeMenu)
-  }, [dispatch])
-
   return (
     <>
-      <div className="flex flex-col justify-center items-center min-w-screen bg-blue">
+      <div
+        onClick={() => dispatch({ type: "CART_CLOSE" })}
+        className="flex flex-col justify-center items-center min-w-screen bg-blue"
+      >
         {announcementList}
       </div>
       <Layout title="Home">
@@ -105,7 +95,6 @@ export async function getStaticProps() {
   const products = await Product.find({}).lean()
   const posts = await Post.find({}).lean()
   const announcements = await AnnouncementModel.find({}).lean()
-  console.log(products)
 
   return {
     props: {

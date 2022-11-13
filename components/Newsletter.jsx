@@ -20,7 +20,6 @@ const Newsletter = () => {
     } catch (err) {
       toast.error(getError(err))
     }
-    console.log(email)
   }
 
   return (

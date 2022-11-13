@@ -43,7 +43,6 @@ export default function Cart() {
       body: JSON.stringify({ cartItems }),
     })
     const data = await response.json()
-    console.log(data)
     stripe.redirectToCheckout({ sessionId: data.id })
   }
 

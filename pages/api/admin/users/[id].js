@@ -12,7 +12,7 @@ const handler = async (req, res) => {
     case "GET":
       await getUser(req, res)
       break
-    case "PUT":
+    case "PATCH":
       await updateUser(req, res)
       break
     case "DELETE":
@@ -35,12 +35,10 @@ const updateUser = async (req, res) => {
   const user = await User.findById(req.query.id)
   console.log(req.body)
   if (user) {
-    user.name = req.body.name
-    user.email = req.body.email
     user.isAdmin = req.body.isAdmin
     user.isEmployee = req.body.isEmployee
     user.newsletter = req.body.newsletter
-    const updatedUser = await user.save()
+    const updatedUser = await user.updateOne(user)
     res.send(updatedUser)
   } else {
     res.status(404).send({ message: "User not found" })

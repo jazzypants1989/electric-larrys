@@ -65,7 +65,7 @@ export default function Layout({
 
       <div
         onClick={cartOpen ? closeCartHandler : null}
-        className="pt-2 flex bg-blue min-w-fit min-h-screen flex-col justify-between"
+        className="flex bg-blue min-w-fit min-h-screen flex-col justify-between"
       >
         <header className="">
           <nav className="flex flex-wrap h-16 items-center justify-between shadow-md ml-2">
@@ -126,7 +126,7 @@ export default function Layout({
                 </Menu>
               ) : (
                 <Link href="/login">
-                  <a className="pr-4 hover:text-Green">Log-in!</a>
+                  <a className="mr-8 hover:text-Green">Log-in!</a>
                 </Link>
               )}
             </div>

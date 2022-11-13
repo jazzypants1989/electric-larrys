@@ -229,7 +229,6 @@ export const getServerSideProps = async (context) => {
     customer: stripeId,
   })
   const orders = paymentIntents.data
-  console.log(orders)
   return {
     props: {
       user,
