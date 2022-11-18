@@ -98,7 +98,7 @@ export default function LoginScreen({ providers }) {
           </div>
         </form>
 
-        <div className="mx-auto pt-5 bg-Green hover:bg-orange rounded-full w-1/2 flex justify-center items-center text-center gap-4 transition-all duration-500 ease-in-out transform hover:scale-110">
+        <div className="mx-auto pt-5 bg-Green hover:bg-orange rounded-3xl w-1/2 flex justify-center items-center text-center gap-4 transition-all duration-500 ease-in-out transform hover:scale-110">
           <h1 className="mb-4 text-xl">Or Login With:</h1>
           <div className="mb-4 flex bg-transparent">
             <button

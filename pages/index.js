@@ -59,7 +59,7 @@ export default function Home({ announcements, posts, products }) {
         {announcementList}
       </div>
       <Layout title="Home">
-        <aside className="-translate-x-10 md:translate-x-2">
+        <aside className="-translate-x-4 md:translate-x-2 overflow-hidden">
           <Slider sliderPosts={featuredPosts} />
         </aside>
         <Categories />

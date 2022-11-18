@@ -5,7 +5,7 @@ import { useMemo } from "react"
 import { useState, useRef, useEffect } from "react"
 import { RiCloseCircleFill, RiSearchEyeFill } from "react-icons/ri"
 
-export default function HamburgerMenu(props) {
+export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false)
   const [searchBarOpen, setSearchBarOpen] = useState(false)
   const toggle = () => setIsOpen(!isOpen)
@@ -59,12 +59,6 @@ export default function HamburgerMenu(props) {
       setSearchResults([])
     }
   }, [searchTerm, doSearch])
-
-  useEffect(() => {
-    if (props.query) {
-      setSearchTerm(props.query)
-    }
-  }, [props.query])
 
   const linkHelper = (link) => {
     router.push(link)
