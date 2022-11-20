@@ -90,7 +90,7 @@ export default function Home({ announcements, posts, products }) {
   )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   await dbConnect()
   const products = await Product.find({}).lean()
   const posts = await Post.find({}).lean()
