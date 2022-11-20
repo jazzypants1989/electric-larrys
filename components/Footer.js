@@ -117,7 +117,7 @@ const Footer = () => {
         </ul>
         <ul className="text-lg md:text-xs flex flex-col items-center justify-center">
           <h5 className="text-2xl md:text-sm">Around the website</h5>
-          <nav className="underline underline-offset-4 decoration-Red transition-all duration-300 hover:decoration-orange md:p-4 grid grid-cols-2 text-center">
+          <nav className="underline underline-offset-4 decoration-Red transition-all duration-300 hover:decoration-orange hover:scale-105 md:p-4 grid grid-cols-2 text-center">
             <Link href="/" passHref>
               <li className="p-1 font-thin cursor-pointer hover:text-orange">
                 Home

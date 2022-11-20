@@ -11,7 +11,7 @@ const categories = [
 
 const CategoryList = () => {
   return (
-    <div className="mt-3 flex flex-col items-center justify-center">
+    <div className="mt-3 mx-8 flex flex-col items-center justify-center">
       <h1 className="text-2xl font-bold text-center mb-4 drop-shadow">
         Categories
       </h1>

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { RiArrowLeftSFill, RiArrowRightSFill } from "react-icons/ri"
 import Image from "next/image"
 
@@ -9,41 +9,22 @@ const Slider = ({ sliderPosts }) => {
   let left = "animate-swoosh"
   let right = "animate-woosh"
 
-  const useInterval = (callback, delay) => {
-    const savedCallback = useRef()
-
-    useEffect(() => {
-      savedCallback.current = callback
-    }, [callback])
-
-    useEffect(() => {
-      function tick() {
-        savedCallback.current()
-      }
-      if (delay !== null) {
-        let id = setInterval(tick, delay)
-        return () => clearInterval(id)
-      }
-    }, [delay])
-  }
-
-  useInterval(() => {
-    if (current === length - 1) {
-      setCurrent(0)
-    } else {
-      setCurrent(current + 1)
-    }
-  }, 15000)
-
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrent(current === length - 1 ? 0 : current + 1)
     setAnimation(right)
-  }
+  }, [current, length, right])
 
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     setCurrent(current === 0 ? length - 1 : current - 1)
     setAnimation(left)
-  }
+  }, [current, length, left])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide()
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [nextSlide])
 
   if (!Array.isArray(sliderPosts) || sliderPosts.length <= 0) {
     return null
@@ -66,7 +47,7 @@ const Slider = ({ sliderPosts }) => {
         key={index}
       >
         {index === current && (
-          <div className="md:hover:bg-Green hover:bg-opacity-50 hover:text-Black rounded-4xl flex m-auto py-8 text-center items-center justify-center w-64 md:w-128 lg:w-big lg:py-0 gap-6 transition duration-1000 ease-in-out absolute md:bottom-3 left-8 lg:bottom-10">
+          <div className="md:hover:bg-Green hover:bg-opacity-50 hover:text-Black rounded-4xl flex m-auto py-8 text-center items-center justify-center w-64 md:w-128 lg:w-big lg:py-0 gap-6 transition duration-1000 ease-in-out absolute md:bottom-3 left-6 lg:bottom-10">
             <a href={link} target="_blank" rel="noreferrer" className="">
               <Image
                 src={image}
@@ -104,7 +85,7 @@ const Slider = ({ sliderPosts }) => {
         key={index}
       >
         {index === current && (
-          <div className="md:hover:bg-Green hover:bg-opacity-50 hover:text-Black rounded-4xl flex m-auto py-8 text-center items-center justify-center w-64 md:w-128 lg:w-big absolute md:bottom-0 left-8 md:left-12 gap-6 transition duration-1000 ease-in-out">
+          <div className="md:hover:bg-Green hover:bg-opacity-50 hover:text-Black rounded-4xl flex m-auto py-8 text-center items-center justify-center w-64 md:w-128 lg:w-big absolute md:bottom-0 left-6 md:left-12 gap-6 transition duration-1000 ease-in-out">
             <Image
               src={image}
               alt={title}
@@ -136,7 +117,7 @@ const Slider = ({ sliderPosts }) => {
       >
         {index === current && (
           <div
-            className={`md:hover:bg-Green hover:bg-opacity-50 hover:text-Black hover:drop-shadow-lg rounded-4xl h-64 sm:w-64 md:w-144 lg:w-big text-center grid justify-center items-center transition duration-1000 ease-in-out`}
+            className={`md:hover:bg-Green hover:bg-opacity-50 hover:text-Black hover:drop-shadow-lg rounded-4xl h-64 sm:w-64 md:w-144 lg:w-big text-center grid justify-center items-center transition duration-1000 ease-in-out mx-1 -translate-x-3`}
           >
             <a href={link} target="_blank" rel="noreferrer">
               <h2 className="sm:text-lg md:text-3xl text-blue md:hover:text-orange drop-shadow-lg transition-all duration-1000 ease-in-out">
@@ -167,7 +148,7 @@ const Slider = ({ sliderPosts }) => {
       >
         {index === current && (
           <div
-            className={`md:hover:bg-Green hover:bg-opacity-50 hover:text-Black rounded-4xl text-center grid items-center justify-center m-auto translate-x-6 transition duration-1000 ease-in-out`}
+            className={`md:hover:bg-Green hover:bg-opacity-50 hover:text-Black rounded-4xl text-center grid items-center justify-center m-auto translate-x-4 transition duration-1000 ease-in-out`}
           >
             <div className="sm:w-64 md:w-144 lg:w-big text-center grid justify-center items-center p-5 -translate-y-4">
               <h2 className="sm:text-base md:text-2xl text-blue md:hover:text-orange drop-shadow-lg transition duration-1000 ease-in-out">
@@ -193,19 +174,19 @@ const Slider = ({ sliderPosts }) => {
 
   return (
     <>
-      <main className="w-11/12 translate-x-10 bg-orange max-h-full flex rounded-lg rounded-t-2xl -z-10">
+      <main className="w-11/12 translate-x-16 md:translate-x-10 lg:translate-x-16 bg-orange max-h-full flex rounded-lg rounded-t-2xl -z-10">
         <span
-          className="text-3xl relative md:p-2 md:text-5xl h-20 min-w-max opacity-70 z-20 bg-Green text-blue rounded-full flex items-center justify-center top-0 bottom-0 lg:-left-20 m-auto cursor-pointer hover:opacity-100 transition-all duration-1000 ease-in-out hover:text-orange hover:scale-110"
-          onClick={() => prevSlide()}
+          className="text-3xl relative md:p-2 md:text-5xl md:-left-4 h-20 min-w-max opacity-70 z-20 bg-Green text-blue rounded-full flex items-center justify-center top-0 bottom-0 lg:-left-16 m-auto cursor-pointer hover:opacity-100 transition-all duration-1000 ease-in-out hover:text-orange hover:scale-110"
+          onClick={prevSlide}
         >
           <RiArrowLeftSFill />
         </span>
-        <div className="h-64 w-80 md:h-96 md:w-144 lg:w-big lg:h-128 flex items-center justify-center">
+        <div className="-translate-x-2 h-64 w-80 md:h-96 md:w-144 lg:w-big lg:h-128 flex items-center justify-center">
           {sliderPost[current]}
         </div>
         <span
-          className="text-3xl relative md:p-2 md:text-5xl h-20 min-w-max opacity-70 z-20 bg-Green text-blue rounded-full flex items-center justify-center top-0 bottom-0 md:left-12 lg:left-20 m-auto cursor-pointer hover:opacity-100 transition duration-1000 ease-in-out hover:text-orange hover:scale-110"
-          onClick={() => nextSlide()}
+          className="text-3xl relative md:p-2 md:text-5xl -left-8 md:left-4 h-20 min-w-max opacity-70 z-20 bg-Green text-blue rounded-full flex items-center justify-center top-0 bottom-0 lg:left-16 m-auto cursor-pointer hover:opacity-100 transition duration-1000 ease-in-out hover:text-orange hover:scale-110"
+          onClick={nextSlide}
         >
           <RiArrowRightSFill />
         </span>

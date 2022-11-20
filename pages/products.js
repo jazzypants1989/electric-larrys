@@ -272,8 +272,8 @@ export default function Home({ products, queryCategory, queryTag }) {
           </h1>
         </div>
       )}
-      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
-        <div className="z-20 flex flex-col -translate-x-10 col-span-1">
+      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 overflow-hidden">
+        <div className="z-20 flex flex-col -translate-x-2 col-span-1 animate-woosh">
           <SortBox setSort={setSort} setSortOrder={setSortOrder} />
           <CategoryBox
             categories={categories}

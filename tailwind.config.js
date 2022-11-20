@@ -5,7 +5,7 @@ module.exports = {
   ],
   theme: {
     screens: {
-      sm: "325px",
+      sm: "1px",
       md: "850px",
       nb: "1024px",
       lg: "1180px",
@@ -60,6 +60,8 @@ module.exports = {
       width: {
         "big": "48rem",
         "special": "40rem",
+        "84": "22rem",
+        "88": "23rem",
       },
       animation: {
         "swoosh": "swoosh 0.75s ease-in-out 1",

@@ -48,7 +48,7 @@ export default function Cart() {
 
   return (
     <div
-      className={`z-50 min-h-72 bottom-0 rounded-tr-4xl md:rounded-r-cart md:rounded-tr-cart md:min-h-screen w-96 fixed bg-blue shadow-orange shadow-inner md:shadow-3xl-left md:shadow-orange sm:animate-flyUp md:animate-woosh`}
+      className={`z-50 min-h-72 bottom-0 rounded-tr-4xl md:rounded-r-cart md:rounded-tr-cart md:min-h-screen w-88 fixed bg-blue shadow-orange shadow-inner md:shadow-3xl-left md:shadow-orange sm:animate-flyUp md:animate-woosh`}
       onClick={(e) => e.stopPropagation()}
     >
       <div className="flex flex-col items-center md:pr-16 justify-between">
@@ -67,31 +67,40 @@ export default function Cart() {
           </div>
         )}
 
-        {cartItems.length > 0 && cartItems.length < 4 && (
+        {cartItems.length > 0 && (
           <div className="grid grid-cols-2 md:gap-5">
-            <div className="min-w-full ml-12 md:col-span-3">
-              <table className="min-w-full">
+            <div className="min-w-full md:col-span-3">
+              <table className="min-w-full w-84">
                 <tbody>
                   {cartItems.map((item) => (
-                    <tr key={item.slug} className="border-b">
-                      <td>
+                    <tr key={item.slug} className="border-b pr-2">
+                      <td className="p-1">
                         <Link href={`/product/${item.slug}`}>
                           <a
-                            className="m-1"
+                            className="flex items-center justify-center "
                             onClick={() => dispatch({ type: "CART_CLOSE" })}
                           >
                             <Image
                               src={item.image}
                               alt={item.name}
-                              width={50}
-                              height={50}
+                              width={100}
+                              height={100}
                             ></Image>
                             &nbsp;
-                            <p className="md:text-sm">{item.name}</p>
                           </a>
                         </Link>
                       </td>
-                      <td className="px-5 text-right text-Black">
+                      <td className="m-1">
+                        <Link href={`/product/${item.slug}`}>
+                          <a
+                            className="md:text-sm"
+                            onClick={() => dispatch({ type: "CART_CLOSE" })}
+                          >
+                            {item.name}
+                          </a>
+                        </Link>
+                      </td>
+                      <td className="">
                         <select
                           value={item.quantity}
                           onChange={(e) =>
@@ -105,10 +114,10 @@ export default function Cart() {
                           ))}
                         </select>
                       </td>
-                      <td className="px-5 text-right text-base">
+                      <td className="px-3 text-right text-base">
                         ${item.price}
                       </td>
-                      <td className="px-5 text-center">
+                      <td className="px-3 text-center">
                         <button onClick={() => removeItemHandler(item)}>
                           <BsXCircleFill className="delete-button"></BsXCircleFill>
                         </button>
@@ -119,70 +128,6 @@ export default function Cart() {
               </table>
             </div>
             <div className="card relative h-fit w-max right-24 bottom-44 md:right-0 md:left-14 md:bottom-0 border-2 border-orange bg-blue p-5">
-              <ul>
-                <li>
-                  <div className="pb-3 md:text-lg">
-                    Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}) :
-                    ${findTotal()}
-                  </div>
-                </li>
-                <li>
-                  <button
-                    onClick={handleCheckout}
-                    className="primary-button md:w-full"
-                  >
-                    Check Out
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
-        )}
-        {cartItems.length >= 4 && (
-          <div className="grid grid-cols-2 md:gap-5">
-            <div className="min-w-full ml-12 md:col-span-3">
-              <table className="min-w-full">
-                <tbody>
-                  {cartItems.map((item) => (
-                    <tr key={item.slug} className="border-b p-2">
-                      <td>
-                        <Link href={`/product/${item.slug}`}>
-                          <a
-                            className="m-1"
-                            onClick={() => dispatch({ type: "CART_CLOSE" })}
-                          >
-                            {item.name}
-                          </a>
-                        </Link>
-                      </td>
-                      <td className="px-5 text-right text-Black">
-                        <select
-                          value={item.quantity}
-                          onChange={(e) =>
-                            updateCartHandler(item, e.target.value)
-                          }
-                        >
-                          {[...Array(item.countInStock).keys()].map((x) => (
-                            <option key={x + 1} value={x + 1}>
-                              {x + 1}
-                            </option>
-                          ))}
-                        </select>
-                      </td>
-                      <td className="px-5 text-right text-base">
-                        ${item.price}
-                      </td>
-                      <td className="px-5 text-center">
-                        <button onClick={() => removeItemHandler(item)}>
-                          <BsXCircleFill className="delete-button"></BsXCircleFill>
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="card relative h-fit w-max right-24 bottom-44 md:right-0 md:bottom-0 border-2 border-orange bg-blue p-5">
               <ul>
                 <li>
                   <div className="pb-3 md:text-lg">

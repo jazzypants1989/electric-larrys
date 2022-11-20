@@ -54,7 +54,7 @@ export default function Home({ announcements, posts, products }) {
     <>
       <div
         onClick={() => dispatch({ type: "CART_CLOSE" })}
-        className="flex flex-col justify-center items-center min-w-screen bg-blue"
+        className="mx-5 flex flex-col justify-center items-center min-w-full w-96 bg-blue"
       >
         {announcementList}
       </div>
@@ -65,7 +65,7 @@ export default function Home({ announcements, posts, products }) {
         <Categories />
         <main className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <IndexSideBar sideBarPosts={nonFeaturedPosts} />
-          <div className="flex m-2 gap-2 flex-col justify-center items-center">
+          <div className="flex m-2 gap-2 flex-col justify-center items-center overflow-hidden">
             {featuredProducts.length > 0 && (
               <div className="flex flex-col justify-center items-center lg:-translate-y-2">
                 <h1 className="text-3xl font-bold text-center drop-shadow my-4">

@@ -45,7 +45,7 @@ textarea {
 }
 
 .card {
-  @apply mb-5 block rounded-lg border-collapse shadow-lg animate-swoosh transition-all ease-in-out duration-500;
+  @apply mb-5 flex flex-col justify-center items-center text-center rounded-lg border-collapse shadow-lg animate-swoosh transition-all ease-in-out duration-500;
 }
 
 .dingdong {
