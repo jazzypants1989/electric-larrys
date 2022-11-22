@@ -152,11 +152,12 @@ export default function LoginScreen() {
           </div>
           <div className="mb-4 text-sm">
             Already have an account?
-            <Link href={`/login?redirect=${redirect || "/"}`}>
-              <a className="block w-fit primary-button text-Black">
-                {" "}
-                Log-on-in!
-              </a>
+            <Link
+              href={`/login?redirect=${redirect || "/"}`}
+              className="block w-fit primary-button text-Black"
+            >
+              {" "}
+              Log-on-in!
             </Link>
           </div>
         </form>

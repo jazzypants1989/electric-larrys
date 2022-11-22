@@ -77,9 +77,7 @@ export default function Success({ order }) {
             five minutes and see if you get a confirmation e-mail from Stripe.
             If no confirmation email arrives, please try again. If the problem
             persists, please contact us at electriclarrys@gmail.com. <br />
-            <Link href="/">
-              <a>Go back to the home page and try again.</a>
-            </Link>
+            <Link href="/">Go back to the home page and try again.</Link>
           </p>
         </div>
       </Layout>

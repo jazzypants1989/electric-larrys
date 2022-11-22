@@ -34,10 +34,11 @@ export default function Header() {
       className="flex min-w-88 h-16 items-center justify-between shadow-md ml-2"
       aria-label="Top Navigation Bar"
     >
-      <Link href="/">
-        <a className="drop-shadow text-base font-thin md:text-xl lg:text-3xl text-orange hover:text-Green duration-500">
-          Electric Larry&apos;s
-        </a>
+      <Link
+        href="/"
+        className="drop-shadow text-base font-thin md:text-xl lg:text-3xl text-orange hover:text-Green duration-500"
+      >
+        Electric Larry&apos;s
       </Link>
       <Search placeholder="Explore our oddities!" />
       <HamburgerMenu />
@@ -90,8 +91,8 @@ export default function Header() {
             </Menu.Items>
           </Menu>
         ) : (
-          <Link href="/login">
-            <a className="mr-8 hover:text-Green">Login!</a>
+          <Link href="/login" className="mr-8 hover:text-Green">
+            Login!
           </Link>
         )}
       </div>

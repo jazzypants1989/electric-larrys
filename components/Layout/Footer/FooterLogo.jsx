@@ -9,10 +9,11 @@ export default function FooterLogo() {
   return (
     <ul className="flex flex-col items-center justify-start h-full">
       <li>
-        <Link href="/" className="self-center text-center">
-          <a className="p-2 text-lg font-thin lg:text-2xl text-orange hover:text-Green duration-500">
-            Electric Larry&apos;s
-          </a>
+        <Link
+          href="/"
+          className="p-2 text-lg font-thin lg:text-2xl text-orange hover:text-Green duration-500 self-center text-center"
+        >
+          Electric Larry&apos;s
         </Link>
       </li>
       <li>

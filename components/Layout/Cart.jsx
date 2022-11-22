@@ -85,19 +85,19 @@ export default function Cart() {
                   {cartItems.map((item) => (
                     <tr key={item.slug} className="border-b pr-2">
                       <td className="p-1">
-                        <Link href={`/product/${item.slug}`}>
-                          <a
-                            className="flex items-center justify-center "
-                            onClick={() => dispatch({ type: "CART_CLOSE" })}
-                          >
-                            <Image
-                              src={item.image}
-                              alt={item.name}
-                              width={100}
-                              height={100}
-                            ></Image>
-                            &nbsp;
-                          </a>
+                        <Link
+                          href={`/product/${item.slug}`}
+                          passHref
+                          className="flex items-center justify-center "
+                          onClick={() => dispatch({ type: "CART_CLOSE" })}
+                        >
+                          <Image
+                            src={item.image}
+                            alt={item.name}
+                            width={100}
+                            height={100}
+                          ></Image>
+                          &nbsp;
                         </Link>
                       </td>
                       <td className="m-1">

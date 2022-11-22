@@ -54,7 +54,7 @@ const Slider = ({ sliderPosts }) => {
                 alt={title}
                 width={600}
                 height={600}
-                className="rounded-3xl"
+                className="rounded-3xl object-contain"
               />
             </a>
             <div className="">
@@ -89,13 +89,9 @@ const Slider = ({ sliderPosts }) => {
       >
         {index === current && (
           <div className="md:hover:bg-Green hover:bg-opacity-50 hover:text-Black rounded-4xl flex m-auto py-8 text-center items-center justify-center w-64 md:w-128 lg:w-big absolute md:bottom-0 left-6 md:left-12 gap-6 transition duration-1000 ease-in-out">
-            <Image
-              src={image}
-              alt={title}
-              width={700}
-              height={700}
-              className="rounded-3xl"
-            />
+            <div className="rounded-3xl object-contain">
+              <Image src={image} alt={title} width={600} height={600} />
+            </div>
             <div className="">
               <h2 className="sm:text-sm md:text-2xl text-blue md:hover:text-orange drop-shadow-lg transition duration-1000 ease-in-out">
                 {title}

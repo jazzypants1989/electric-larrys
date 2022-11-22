@@ -52,8 +52,8 @@ export default function ProductScreen(props) {
         <Link href="/products" passHref>
           <BiArrowToLeft className="relative text-2xl cursor-pointer hover:text-orange hover:scale-125" />
         </Link>
-        <Link href="/products">
-          <a className="hover:text-Green">back to products</a>
+        <Link href="/products" className="hover:text-Green">
+          back to products
         </Link>
       </div>
       <div className="grid md:grid-cols-4 md:gap-3">
@@ -63,7 +63,7 @@ export default function ProductScreen(props) {
             alt={product.name}
             width={1024}
             height={768}
-            layout="responsive"
+            className="object-contain"
           ></Image>
         </div>
         <div className="leading-10">

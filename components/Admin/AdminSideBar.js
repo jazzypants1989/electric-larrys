@@ -67,16 +67,16 @@ export default function AdminSideBar() {
                     {link.name}
                   </a>
                 ) : (
-                  <Link href={link.href} key={link.name}>
-                    <a
-                      className={`flex items-center px-2 py-2 text-sm font-medium rounded-md transition-all duration-300 ease-out ${
-                        isActive(link.href) || isActive(link.href)
-                          ? "bg-orange text-Green"
-                          : "text-gray-600 hover:bg-Green hover:text-blue"
-                      }`}
-                    >
-                      {link.name}
-                    </a>
+                  <Link
+                    href={link.href}
+                    key={link.name}
+                    className={`flex items-center px-2 py-2 text-sm font-medium rounded-md transition-all duration-300 ease-out ${
+                      isActive(link.href) || isActive(link.href)
+                        ? "bg-orange text-Green"
+                        : "text-gray-600 hover:bg-Green hover:text-blue"
+                    }`}
+                  >
+                    {link.name}
                   </Link>
                 )
               )}
