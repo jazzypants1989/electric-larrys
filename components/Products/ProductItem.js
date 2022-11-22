@@ -20,13 +20,13 @@ export default function ProductItem({ product, addToCartHandler }) {
       <div className="flex flex-col items-center justify-center p-5 hover:scale-110 transition-all duration-300 ease-in-out">
         <Link href={`/product/${product.slug}`}>
           <a>
-            <h2 className="text-xl">{product.name}</h2>
+            <h2 className="text-xl text-orange">{product.name}</h2>
           </a>
         </Link>
         <p className="mb-2">{product.category}</p>
         <p>${product.price}</p>
         <button
-          className="primary-button drop-shadow hover:drop-shadow-none"
+          className="primary-button drop-shadow"
           type="button"
           onClick={() => addToCartHandler(product)}
         >

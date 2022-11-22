@@ -62,6 +62,7 @@ module.exports = {
         "special": "40rem",
         "84": "22rem",
         "88": "23rem",
+        "110": "28rem",
       },
       animation: {
         "swoosh": "swoosh 0.75s ease-in-out 1",

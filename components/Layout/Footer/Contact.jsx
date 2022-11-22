@@ -24,17 +24,19 @@ export default function Contact() {
             <span className="text-Green hover:text-orange">(618) 789-1144</span>
           </a>
         </li>
-        <a
-          href="mailto:electriclarrys@gmail.com"
-          target="_blank"
-          rel="noreferrer"
-          className=""
-        >
-          <TbMail className="hover:animate-searchSlide cursor-pointer m-auto h-7 w-7 text-orange" />{" "}
-          <span className="text-Green hover:text-orange">
-            electriclarrys@gmail.com
-          </span>
-        </a>
+        <li>
+          <a
+            href="mailto:electriclarrys@gmail.com"
+            target="_blank"
+            rel="noreferrer"
+            className=""
+          >
+            <TbMail className="hover:animate-searchSlide cursor-pointer m-auto h-7 w-7 text-orange" />{" "}
+            <span className="text-Green hover:text-orange">
+              electriclarrys@gmail.com
+            </span>
+          </a>
+        </li>
       </ul>
     </div>
   )

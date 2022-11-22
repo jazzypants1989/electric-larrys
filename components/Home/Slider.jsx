@@ -180,7 +180,7 @@ const Slider = ({ sliderPosts }) => {
 
   return (
     <>
-      <main className="w-11/12 translate-x-16 md:translate-x-10 lg:translate-x-16 bg-orange max-h-full flex rounded-lg rounded-t-2xl -z-10">
+      <article className="w-11/12 translate-x-16 md:translate-x-10 lg:translate-x-16 bg-orange max-h-full flex rounded-lg rounded-t-2xl -z-10">
         <span
           className="text-3xl relative md:p-2 md:text-5xl md:-left-4 h-20 min-w-max opacity-70 z-20 bg-Green text-blue rounded-full flex items-center justify-center top-0 bottom-0 lg:-left-16 m-auto cursor-pointer hover:opacity-100 transition-all duration-1000 ease-in-out hover:text-orange hover:scale-110"
           onClick={prevSlide}
@@ -196,7 +196,7 @@ const Slider = ({ sliderPosts }) => {
         >
           <RiArrowRightSFill />
         </span>
-      </main>
+      </article>
     </>
   )
 }

@@ -41,7 +41,10 @@ export default function Layout({
         limit={3}
         theme="colored"
       />
-      <Header />
+
+      <header className="w-full">
+        <Header />
+      </header>
 
       <div
         onClick={cartOpen ? closeCartHandler : null}

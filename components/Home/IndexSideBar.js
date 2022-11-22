@@ -85,7 +85,7 @@ const SideBar = ({ sideBarPosts }) => {
     // NO IMAGE OR LINK
 
     let sideBarPostNoImageOrLink = (
-      <aside
+      <div
         className="bg-orange text-center rounded-3xl min-w-sm max-w-lg p-7 m-7 flex flex-col bg-opacity-90 hover:bg-opacity-100 hover:scale-110 transition-all duration-500 ease-in-out"
         key={id}
       >
@@ -95,7 +95,7 @@ const SideBar = ({ sideBarPosts }) => {
         <p className="text-center md:text-base pt-8 drop-shadow-lg even:drop-shadow-none">
           {description}
         </p>
-      </aside>
+      </div>
     )
 
     if (image !== "no" && link !== "no") {

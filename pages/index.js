@@ -63,7 +63,7 @@ export default function Home({ announcements, posts, products }) {
           <Slider sliderPosts={featuredPosts} />
         </aside>
         <Categories />
-        <main className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="mt-4 md:mt-0 flex gap-2 flex-col justify-center items-center overflow-hidden">
             {featuredProducts.length > 0 && (
               <div className="flex flex-col justify-center items-center md:-translate-y-4 lg:-translate-y-12">
@@ -85,7 +85,7 @@ export default function Home({ announcements, posts, products }) {
           <div className="mx-auto lg:mx-0">
             <IndexSideBar sideBarPosts={nonFeaturedPosts} />
           </div>
-        </main>
+        </section>
         <Newsletter />
       </Layout>
     </>
