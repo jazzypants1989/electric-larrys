@@ -92,7 +92,7 @@ export default function Home({ announcements, posts, products }) {
   )
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   await dbConnect()
   const products = await Product.find({}).lean()
   const posts = await Post.find({}).lean()
@@ -104,5 +104,6 @@ export async function getServerSideProps() {
       posts: JSON.parse(JSON.stringify(posts)),
       announcements: JSON.parse(JSON.stringify(announcements)),
     },
+    revalidate: 600,
   }
 }
