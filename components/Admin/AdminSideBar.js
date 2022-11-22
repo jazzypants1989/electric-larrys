@@ -50,7 +50,10 @@ export default function AdminSideBar() {
               height={200}
             />
           </div>
-          <nav className="flex flex-col flex-1 mt-6">
+          <nav
+            className="flex flex-col flex-1 mt-6"
+            aria-label="Administrative Sidebar"
+          >
             <div className="space-y-1">
               {links.map((link) =>
                 link.name === "Stripe Dashboard" ? (

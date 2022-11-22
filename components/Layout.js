@@ -1,17 +1,10 @@
-import { useContext, useEffect, useState } from "react"
-import { signOut, useSession } from "next-auth/react"
-import Link from "next/link"
-import Cookies from "js-cookie"
+import { useContext } from "react"
 import "react-toastify/dist/ReactToastify.css"
-import { BsCart4 } from "react-icons/bs"
 import { ToastContainer } from "react-toastify"
-import { Menu } from "@headlessui/react"
 
 import HeadComponent from "./Layout/HeadComponent"
 import Cart from "./Layout/Cart"
-import DropdownLink from "./Layout/Header/DropdownLink"
-import Search from "./Layout/Header/SearchWithUseRef"
-import HamburgerMenu from "./Layout/Header/HamburgerMenu"
+import Header from "./Layout/Header/Header"
 import Footer from "./Layout/Footer/Footer"
 import { Store } from "../utils/Store"
 
@@ -23,24 +16,9 @@ export default function Layout({
   tags,
   children,
 }) {
-  const { status, data: session } = useSession()
   const { state, dispatch } = useContext(Store)
-  const { cart, cartOpen } = state
-  const [cartItemsCount, setCartItemsCount] = useState(0)
+  const { cartOpen } = state
 
-  useEffect(() => {
-    setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0))
-  }, [cart.cartItems])
-
-  const logoutClickHandler = () => {
-    Cookies.remove("cart")
-    dispatch({ type: "CART_RESET" })
-    signOut({ callbackUrl: "/login" })
-  }
-
-  const cartClickHandler = () => {
-    dispatch({ type: "CART_OPEN" })
-  }
   const closeCartHandler = () => {
     dispatch({ type: "CART_CLOSE" })
   }
@@ -63,76 +41,12 @@ export default function Layout({
         limit={3}
         theme="colored"
       />
+      <Header />
 
       <div
         onClick={cartOpen ? closeCartHandler : null}
         className="flex bg-blue min-w-fit min-h-screen flex-col justify-between"
       >
-        <header className="">
-          <nav className="flex flex-wrap h-16 items-center justify-between shadow-md ml-2">
-            <Link href="/">
-              <a className="drop-shadow text-base font-thin md:text-xl lg:text-3xl hover:text-Green duration-500">
-                Electric Larry&apos;s
-              </a>
-            </Link>
-            <Search placeholder="Explore our oddities!" />
-            <HamburgerMenu />
-            <div>
-              <BsCart4
-                onClick={cartClickHandler}
-                className="inline h-7 w-7 mx-5 lg:mr-0 lg:-translate-x-2 lg:-translate-y-2 lg:h-10 lg:w-10 text-orange hover:text-Green hover:scale-125 transition-all duration-300 ease-in-out cursor-pointer"
-              />
-              {cartItemsCount > 0 && (
-                <span
-                  onClick={cartClickHandler}
-                  className="absolute -translate-y-3 lg:-translate-y-3 -translate-x-6 lg:ml-2 rounded-full bg-Green font-extralight hover:bg-orange px-1 text-Black hover:text-Green transition-all duration-500 ease-in-out cursor-pointer"
-                >
-                  {cartItemsCount}
-                </span>
-              )}
-
-              {status === "loading" ? (
-                "Loading"
-              ) : session?.user ? (
-                <Menu as="div" className="z-40 relative inline-block">
-                  <Menu.Button className="tracking-wide mr-2 selection:font-thin hover:text-orange lg:text-lg">
-                    {session.user.name}
-                  </Menu.Button>
-                  <Menu.Items className="absolute right-0 w-56 origin-top-right mt-4 shadow-lg bg-blue z-10">
-                    <Menu.Item>
-                      <DropdownLink className="dropdown-link" href="/profile">
-                        Profile / Order History
-                      </DropdownLink>
-                    </Menu.Item>
-                    {session.user.isAdmin && (
-                      <Menu.Item>
-                        <DropdownLink
-                          className="dropdown-link"
-                          href="/admin/dashboard"
-                        >
-                          Admin Dashboard
-                        </DropdownLink>
-                      </Menu.Item>
-                    )}
-                    <Menu.Item>
-                      <a
-                        className="dropdown-link"
-                        href="#"
-                        onClick={logoutClickHandler}
-                      >
-                        Logout
-                      </a>
-                    </Menu.Item>
-                  </Menu.Items>
-                </Menu>
-              ) : (
-                <Link href="/login">
-                  <a className="mr-8 hover:text-Green">Log-in!</a>
-                </Link>
-              )}
-            </div>
-          </nav>
-        </header>
         {cartOpen && <Cart />}
         <main className="m-auto mt-4 px-2">{children}</main>
         <Footer />

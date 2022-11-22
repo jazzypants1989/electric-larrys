@@ -15,10 +15,6 @@ body {
   letter-spacing: 0.15rem;
 }
 
-a {
-  @apply text-orange drop-shadow-lg;
-}
-
 .drop-shadow {
   text-shadow: 0 0 0.5rem #000;
 }

@@ -41,8 +41,6 @@ export default function Search(props) {
     <div className="relative min-w-fit w-1/3 z-10 md:inline sm:hidden">
       <input
         type="text"
-        name="search"
-        id="search"
         aria-label="Search Field"
         placeholder={props.placeholder}
         className={"w-full rounded-md border"}

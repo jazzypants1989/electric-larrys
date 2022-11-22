@@ -6,7 +6,7 @@ import Layout from "../components/Layout"
 import { getError } from "../utils/error"
 import { toast } from "react-toastify"
 import { useRouter } from "next/router"
-import { FcGoogle, FcReddit } from "react-icons/fc"
+import { FcGoogle } from "react-icons/fc"
 import { RiDiscordFill } from "react-icons/ri"
 
 export default function LoginScreen({ providers }) {
@@ -44,7 +44,7 @@ export default function LoginScreen({ providers }) {
     <Layout title="Login">
       <div className="bg1 max-w-screen">
         <form className="mx-auto w-1/2" onSubmit={handleSubmit(submitHandler)}>
-          <h1 className="mb-4 text-xl">Login</h1>
+          <h1 className="mb-4 text-xl text-center">Login</h1>
           <div className="mb-4">
             <label htmlFor="email">Email</label>
             <input
@@ -88,7 +88,7 @@ export default function LoginScreen({ providers }) {
           <div className="mb-4 ">
             <button className="primary-button">Login</button>
           </div>
-          <div className="mb-4 text-base">
+          <div className="mb-4 text-base flex flex-col items-center justify-center">
             Don&apos;t have an account? &nbsp; <hr></hr>
             <button className="default-button">
               <Link href={`/register?redirect=${redirect || "/"}`}>
@@ -98,8 +98,8 @@ export default function LoginScreen({ providers }) {
           </div>
         </form>
 
-        <div className="mx-auto pt-5 bg-Green hover:bg-orange rounded-3xl w-1/2 flex justify-center items-center text-center gap-4 transition-all duration-500 ease-in-out transform hover:scale-110">
-          <h1 className="mb-4 text-xl">Or Login With:</h1>
+        <div className="mx-auto mb-5 pt-5 px-4 w-fit bg-Green hover:bg-orange rounded-3xl flex justify-center items-center text-center gap-2 transition-all duration-500 ease-in-out transform hover:scale-110">
+          <h1 className="mb-4 text-xl">Or:</h1>
           <div className="mb-4 flex bg-transparent">
             <button
               aria-label="Sign in with Google"
@@ -107,15 +107,6 @@ export default function LoginScreen({ providers }) {
               className="transition-all duration-500 ease-in-out transform hover:scale-125"
             >
               <FcGoogle className="inline-block h-10 w-10" />
-            </button>
-          </div>
-          <div className="mb-4">
-            <button
-              aria-label="Login with Reddit"
-              onClick={() => signIn(providers.reddit.id)}
-              className="transition-all duration-500 ease-in-out transform hover:scale-125"
-            >
-              <FcReddit className="inline-block h-10 w-10" />
             </button>
           </div>
           <div className="mb-4">

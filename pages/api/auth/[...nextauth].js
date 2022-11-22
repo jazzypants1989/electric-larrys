@@ -5,7 +5,6 @@ import User from "../../../models/User"
 import dbConnect from "../../../utils/db"
 import GoogleProvider from "next-auth/providers/google"
 import DiscordProvider from "next-auth/providers/discord"
-import RedditProvider from "next-auth/providers/reddit"
 // import EmailProvider from "next-auth/providers/email";
 
 export default NextAuth({
@@ -34,10 +33,6 @@ export default NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
-    }),
-    RedditProvider({
-      clientId: process.env.REDDIT_ID,
-      clientSecret: process.env.TWITTER_SECRET,
     }),
     DiscordProvider({
       clientId: process.env.DISCORD_CLIENT_ID,
