@@ -2,7 +2,7 @@ import { RiBallPenFill } from "react-icons/ri"
 import { toast } from "react-toastify"
 import axios from "axios"
 import { useForm } from "react-hook-form"
-import { getError } from "../utils/error"
+import { getError } from "../../utils/error"
 
 const Newsletter = () => {
   const {
@@ -39,6 +39,7 @@ const Newsletter = () => {
           className="w-full h-full bg-transparent text-orange outline-none placeholder-orange"
           type="email"
           placeholder="I won't spam you, I promise."
+          aria-label="Enter your email address"
           {...register("email", {
             required:
               "It's cool if you don't want be a Larry, just don't fill this out.",
@@ -47,6 +48,7 @@ const Newsletter = () => {
         <button
           className="flex-shrink w-fit p-2 border-none bg-transparent text-orange hover:text-Green md:text-lg cursor-pointer"
           type="submit"
+          aria-label="Submit"
         >
           <RiBallPenFill className="text-2xl" />
         </button>

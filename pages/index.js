@@ -1,18 +1,18 @@
 import axios from "axios"
 import { toast } from "react-toastify"
 import Layout from "../components/Layout"
-import ProductItem from "../components/ProductItem"
-import IndexSideBar from "../components/IndexSideBar"
-import Announcement from "../components/Announcement"
-import Categories from "../components/Categories"
-import Slider from "../components/Slider"
+import ProductItem from "../components/Products/ProductItem"
+import IndexSideBar from "../components/Home/IndexSideBar"
+import Announcement from "../components/Home/Announcement"
+import Categories from "../components/Home/Categories"
+import Slider from "../components/Home/Slider"
+import Newsletter from "../components/Home/Newsletter"
 import AnnouncementModel from "../models/Announcement"
 import Post from "../models/SliderPost"
 import Product from "../models/Product"
 import dbConnect from "../utils/db"
 import { Store, reactions } from "../utils/Store"
 import { useContext } from "react"
-import Newsletter from "../components/Newsletter"
 
 export default function Home({ announcements, posts, products }) {
   const { state, dispatch } = useContext(Store)
@@ -59,16 +59,15 @@ export default function Home({ announcements, posts, products }) {
         {announcementList}
       </div>
       <Layout title="Home">
-        <aside className="-translate-x-4 md:translate-x-2 overflow-hidden">
+        <aside className="mr-6 -translate-x-4 md:translate-x-2 overflow-hidden">
           <Slider sliderPosts={featuredPosts} />
         </aside>
         <Categories />
         <main className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <IndexSideBar sideBarPosts={nonFeaturedPosts} />
-          <div className="flex m-2 gap-2 flex-col justify-center items-center overflow-hidden">
+          <div className="mt-4 md:mt-0 flex gap-2 flex-col justify-center items-center overflow-hidden">
             {featuredProducts.length > 0 && (
-              <div className="flex flex-col justify-center items-center lg:-translate-y-2">
-                <h1 className="text-3xl font-bold text-center drop-shadow my-4">
+              <div className="flex flex-col justify-center items-center md:-translate-y-4 lg:-translate-y-12">
+                <h1 className="text-3xl font-bold text-center drop-shadow mb-4">
                   Featured Products
                 </h1>
                 <div className="bg-orange bg-opacity-70 hover:bg-opacity-80 rounded-l-full flex flex-col justify-center items-center">
@@ -82,6 +81,9 @@ export default function Home({ announcements, posts, products }) {
                 </div>
               </div>
             )}
+          </div>
+          <div className="mx-auto lg:mx-0">
+            <IndexSideBar sideBarPosts={nonFeaturedPosts} />
           </div>
         </main>
         <Newsletter />

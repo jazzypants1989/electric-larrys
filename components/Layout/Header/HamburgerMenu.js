@@ -74,7 +74,7 @@ export default function HamburgerMenu() {
     <>
       <div className="md:hidden pl-2 z-30">
         <div className="flex justify-between items-center">
-          <button onClick={() => toggle()}>
+          <button onClick={() => toggle()} aria-label="Toggle Menu">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -126,6 +126,7 @@ export default function HamburgerMenu() {
             <button
               onClick={handleSearchBar}
               className="text-Green hover:text-orange hover:scale-125 duration-300 ease-in pr-2"
+              aria-label="Open the search bar"
             >
               <RiSearchEyeFill />
             </button>
@@ -175,6 +176,7 @@ export default function HamburgerMenu() {
             <button
               className="text-Red hover:scale-125 text-4xl pt-2 h-12 w-12 cursor-pointer duration-300 ease-in"
               onClick={() => toggle()}
+              aria-label="Close the menu"
             >
               <RiCloseCircleFill />
             </button>

@@ -1,11 +1,11 @@
 import { useContext } from "react"
-import { Store } from "../utils/Store"
+import { Store } from "../../utils/Store"
 import Image from "next/image"
 import Link from "next/link"
 import { BsXCircleFill } from "react-icons/bs"
 import axios from "axios"
 import { toast } from "react-toastify"
-import getStripe from "../utils/getStripe"
+import getStripe from "../../utils/getStripe"
 
 export default function Cart() {
   const { state, dispatch } = useContext(Store)
@@ -23,6 +23,10 @@ export default function Cart() {
     }
     dispatch({ type: "CART_ADD_ITEM", payload: { ...item, quantity } })
     toast.success("Changed your mind, eh? No problemo!")
+  }
+
+  const closeCartHandler = () => {
+    dispatch({ type: "CART_CLOSE" })
   }
 
   const findTotal = () => {
@@ -64,6 +68,12 @@ export default function Cart() {
                 Go get some cool stuff!
               </span>
             </Link>
+            <button
+              onClick={closeCartHandler}
+              className="drop-shadow bg-orange text-blue p-2 rounded-full"
+            >
+              <BsXCircleFill className="text-2xl" />
+            </button>
           </div>
         )}
 
@@ -145,6 +155,12 @@ export default function Cart() {
                 </li>
               </ul>
             </div>
+            <button
+              onClick={closeCartHandler}
+              className="drop-shadow bg-orange text-Red rounded-full h-7 w-7 absolute right-0 top-0 transform translate-x-1 -translate-y-2 md:-translate-x-6 md:translate-y-6 duration-1000"
+            >
+              <BsXCircleFill className="text-xl hover:scale-125 duration-300" />
+            </button>
           </div>
         )}
       </div>

@@ -2,13 +2,13 @@ import axios from "axios"
 import { useContext, useCallback, useState, useEffect } from "react"
 import { toast } from "react-toastify"
 import Layout from "../components/Layout"
-import ProductItem from "../components/ProductItem"
+import ProductItem from "../components/Products/ProductItem"
+import CategoryBox from "../components/Products/CategoryBox"
+import TagBox from "../components/Products/TagBox"
+import SortBox from "../components/Products/SortBox"
 import Product from "../models/Product"
 import dbConnect from "../utils/db"
 import { Store, reactions } from "../utils/Store"
-import CategoryBox from "../components/CategoryBox"
-import TagBox from "../components/TagBox"
-import SortBox from "../components/SortBox"
 
 export default function Home({ products, queryCategory, queryTag }) {
   const { state, dispatch } = useContext(Store)

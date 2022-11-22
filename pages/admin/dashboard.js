@@ -3,7 +3,7 @@ import Link from "next/link"
 import React, { useEffect, useReducer } from "react"
 import Layout from "../../components/Layout"
 import { getError } from "../../utils/error"
-import AdminSideBar from "../../components/AdminSideBar"
+import AdminSideBar from "../../components/Admin/AdminSideBar"
 
 function reducer(state, action) {
   switch (action.type) {

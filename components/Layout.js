@@ -1,18 +1,19 @@
+import { useContext, useEffect, useState } from "react"
 import { signOut, useSession } from "next-auth/react"
 import Link from "next/link"
 import Cookies from "js-cookie"
-import React, { useContext, useEffect, useState } from "react"
-import { ToastContainer } from "react-toastify"
-import { Menu } from "@headlessui/react"
 import "react-toastify/dist/ReactToastify.css"
 import { BsCart4 } from "react-icons/bs"
-import DropdownLink from "./DropdownLink"
-import Footer from "./Footer"
-import HeadComponent from "./HeadComponent"
+import { ToastContainer } from "react-toastify"
+import { Menu } from "@headlessui/react"
+
+import HeadComponent from "./Layout/HeadComponent"
+import Cart from "./Layout/Cart"
+import DropdownLink from "./Layout/Header/DropdownLink"
+import Search from "./Layout/Header/SearchWithUseRef"
+import HamburgerMenu from "./Layout/Header/HamburgerMenu"
+import Footer from "./Layout/Footer/Footer"
 import { Store } from "../utils/Store"
-import Search from "./SearchWithUseRef"
-import HamburgerMenu from "./HamburgerMenu"
-import Cart from "./Cart"
 
 export default function Layout({
   title,
@@ -70,7 +71,7 @@ export default function Layout({
         <header className="">
           <nav className="flex flex-wrap h-16 items-center justify-between shadow-md ml-2">
             <Link href="/">
-              <a className="drop-shadow text-base font-thin md:text-2xl lg:text-3xl hover:text-Green duration-500">
+              <a className="drop-shadow text-base font-thin md:text-xl lg:text-3xl hover:text-Green duration-500">
                 Electric Larry&apos;s
               </a>
             </Link>
@@ -84,7 +85,7 @@ export default function Layout({
               {cartItemsCount > 0 && (
                 <span
                   onClick={cartClickHandler}
-                  className="absolute -translate-y-3 lg:-translate-y-2 -translate-x-5 lg:ml-2 rounded-full bg-Green font-extralight hover:bg-orange px-1 text-Black hover:text-Green transition-all duration-500 ease-in-out cursor-pointer"
+                  className="absolute -translate-y-3 lg:-translate-y-3 -translate-x-6 lg:ml-2 rounded-full bg-Green font-extralight hover:bg-orange px-1 text-Black hover:text-Green transition-all duration-500 ease-in-out cursor-pointer"
                 >
                   {cartItemsCount}
                 </span>

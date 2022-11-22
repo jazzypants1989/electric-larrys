@@ -1,12 +1,8 @@
 import Link from "next/link"
 import { RiFacebookCircleFill } from "react-icons/ri"
-import {
-  AiFillTwitterCircle,
-  AiFillInstagram,
-  AiTwotonePhone,
-} from "react-icons/ai"
-import { TbGps, TbMail } from "react-icons/tb"
-import pengy from "../public/images/default-monochrome.svg"
+import { AiFillInstagram, AiTwotonePhone } from "react-icons/ai"
+import { TbGps, TbMail, TbBrandTiktok } from "react-icons/tb"
+import pengy from "../../../public/images/default-monochrome.svg"
 import Image from "next/image"
 
 const Footer = () => {
@@ -14,74 +10,71 @@ const Footer = () => {
     <div className="max-w-7xl h-fit drop-shadow flex items-center justify-center mx-auto px-4 sm:px-6 lg:px-8">
       <nav className="grid md:grid-cols-3 gap-8">
         <ul className="flex flex-col items-center justify-center">
-          <Link href="/" className="self-center text-center">
-            <a className="p-2 text-lg font-thin lg:text-2xl hover:text-Green duration-500">
-              Electric Larry&apos;s
-            </a>
-          </Link>
-          <p className="pl-4 p-2">
-            Electric Larry&apos;s is an eclectic oddity emporium located in
-            Carbondale, IL. We carry a wide variety of items including movies,
-            music, books, toys, and more.
-          </p>
-          <div className="flex mb-4">
-            <Link
-              href="https://www.facebook.com/electriclarrys/"
-              target="_blank"
-              rel="noreferrer"
-              className="cursor-pointer"
-            >
-              <a>
+          <li>
+            <Link href="/" className="self-center text-center">
+              <a className="p-2 text-lg font-thin lg:text-2xl hover:text-Green duration-500">
+                Electric Larry&apos;s
+              </a>
+            </Link>
+          </li>
+          <li>
+            <p className="pl-4 p-2">
+              Electric Larry&apos;s is an eclectic oddity emporium located in
+              Carbondale, IL. We carry a wide variety of items including movies,
+              music, books, toys, and more.
+            </p>
+          </li>
+          <li>
+            <div className="flex mb-4">
+              <a
+                href="https://www.facebook.com/electriclarrys/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Facebook"
+              >
                 <RiFacebookCircleFill
                   style={{ color: "3b5999" }}
                   className="cursor-pointer w-10 h-10 bg-Green hover:bg-orange rounded-xl hover:rounded-2xl hover:p-1 m-2 transition-all duration-700 ease-in"
                 />
               </a>
-            </Link>
-            <Link
-              href="https://twitter.com/electric_larrys_carbondale"
-              target="_blank"
-              rel="noreferrer"
-              className="cursor-pointer"
-            >
-              <a>
-                <AiFillTwitterCircle
+              <a
+                style={{ color: "e4405f" }}
+                href="https://www.instagram.com/electric_larrys_carbondale/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+              >
+                <AiFillInstagram className="cursor-pointer w-10 h-10 bg-Green hover:bg-orange rounded-xl hover:rounded-2xl m-2 transition-all duration-700 ease-in hover:p-1" />
+              </a>
+              <a
+                href="https://www.tiktok.com/@electric_larrys?lang=en"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="TikTok"
+              >
+                <TbBrandTiktok
                   style={{ color: "55acee" }}
-                  className="cursor-pointer w-10 h-10 bg-Green hover:bg-orange rounded-xl hover:rounded-2xl hover:p-1 m-2 transition-all duration-700 ease-in"
+                  className="cursor-pointer p-1 mr-4 w-10 h-10 bg-Green hover:bg-orange rounded-xl hover:rounded-3xl hover:p-2 m-2 transition-all duration-700 ease-in"
                 />
               </a>
-            </Link>
-            <Link
-              href="https://www.instagram.com/electric_larrys_carbondale/"
-              target="_blank"
-              rel="noreferrer"
-              className="cursor-pointer"
-            >
-              <a>
-                <AiFillInstagram
-                  style={{ color: "e4405f" }}
-                  className="cursor-pointer mr-4 w-10 h-10 bg-Green hover:bg-orange rounded-xl hover:rounded-2xl m-2 transition-all duration-700 ease-in hover:p-1"
-                />
-              </a>
-            </Link>
-            <Link
-              href="https://www.jazzypants.dev"
-              target="_blank"
-              rel="noreferrer"
-              className="cursor-pointer"
-            >
-              <a>
+              <a
+                href="https://www.jazzypants.dev"
+                target="_blank"
+                rel="noreferrer"
+                className="max-h-10 w-10"
+                aria-label="JazzyPants.dev"
+              >
                 <Image
                   src={pengy}
                   alt="pengy"
-                  width={40}
-                  height={40}
+                  width={10}
+                  height={10}
                   style={{ color: "e60023" }}
-                  className="cursor-pointer translate-y-2 hover:translate-y-0 w-10 h-10 bg-Green hover:bg-orange rounded-xl hover:rounded-2xl hover:p-2 transition-all duration-700 ease-in"
+                  className="cursor-pointer translate-y-2 hover:translate-y-0 w-10 max-h-10 bg-Green hover:bg-orange rounded-xl hover:rounded-2xl hover:p-2 transition-all duration-700 ease-in"
                 />
               </a>
-            </Link>
-          </div>
+            </div>
+          </li>
         </ul>
         <ul
           id="contact"
@@ -89,12 +82,24 @@ const Footer = () => {
         >
           <h5 className="text-sm drop-shadow pb-2 md:pt-6">Contact</h5>
           <li className="text-center">
-            <TbGps className="hover:animate-ping mx-auto mb-2 h-8 w-8 text-orange" />{" "}
-            217 West Main Street, Carbondale, IL 62901
+            <a
+              href="https://goo.gl/maps/TkN3yQeaMoPWhdiq8"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <TbGps className="hover:animate-ping mx-auto mb-2 h-8 w-8 text-orange" />{" "}
+              <span className="text-Green hover:text-orange">
+                217 West Main Street, Carbondale, IL 62901
+              </span>
+            </a>
           </li>
           <li>
-            <AiTwotonePhone className="hover:animate-pulse mx-auto mb-2 h-7 w-7 text-orange" />{" "}
-            (618) 789-1144
+            <a href="tel:618-789-1144" target="_blank" rel="noreferrer">
+              <AiTwotonePhone className="hover:animate-pulse mx-auto mb-2 h-7 w-7 text-orange" />{" "}
+              <span className="text-Green hover:text-orange">
+                (618) 789-1144
+              </span>
+            </a>
           </li>
           <a
             href="mailto:electriclarrys@gmail.com"
@@ -103,7 +108,7 @@ const Footer = () => {
             className=""
           >
             <TbMail className="hover:animate-searchSlide cursor-pointer m-auto h-7 w-7 text-orange" />{" "}
-            <span className="cursor-pointer text-Green">
+            <span className="text-Green hover:text-orange">
               electriclarrys@gmail.com
             </span>
           </a>
@@ -117,7 +122,7 @@ const Footer = () => {
         </ul>
         <ul className="text-lg md:text-xs flex flex-col items-center justify-center">
           <h5 className="text-2xl md:text-sm">Around the website</h5>
-          <nav className="underline underline-offset-4 decoration-Red transition-all duration-300 hover:decoration-orange hover:scale-105 md:p-4 grid grid-cols-2 text-center">
+          <nav className="underline underline-offset-4 decoration-Yellow transition-all duration-300 hover:decoration-orange hover:scale-105 md:p-4 grid grid-cols-2 text-center">
             <Link href="/" passHref>
               <li className="p-1 font-thin cursor-pointer hover:text-orange">
                 Home

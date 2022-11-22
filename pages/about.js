@@ -1,5 +1,5 @@
 import Layout from "../components/Layout"
-import About from "../components/About"
+import About from "../components/About/About"
 
 export default function AboutPage() {
   return (

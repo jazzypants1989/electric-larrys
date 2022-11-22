@@ -38,11 +38,12 @@ export default function Search(props) {
     }
   }, [props.query])
   return (
-    <div className="relative w-1/3 z-10 md:inline sm:hidden">
+    <div className="relative min-w-fit w-1/3 z-10 md:inline sm:hidden">
       <input
         type="text"
         name="search"
         id="search"
+        aria-label="Search Field"
         placeholder={props.placeholder}
         className={"w-full rounded-md border"}
         value={searchTerm}
@@ -51,7 +52,7 @@ export default function Search(props) {
         style={{ transition: "all 1s ease" }}
       />
       {searchTerm && (
-        <div className="absolute top-12 left-0 animate-searchSlide w-full bg-blue rounded-md shadow-l">
+        <div className="absolute w-full top-12 left-0 animate-searchSlide bg-blue rounded-md shadow-l">
           {searchLoading ? (
             <div className="animate-searchSlide">I&apos;m a-looking!</div>
           ) : (

@@ -1,7 +1,7 @@
 import { toast } from "react-toastify"
 import { useReducer } from "react"
 import { getError } from "../../utils/error"
-import AdminSideBar from "../../components/AdminSideBar"
+import AdminSideBar from "../../components/Admin/AdminSideBar"
 import Layout from "../../components/Layout"
 import { useForm } from "react-hook-form"
 

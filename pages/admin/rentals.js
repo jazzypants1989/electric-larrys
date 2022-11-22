@@ -1,4 +1,4 @@
-import AdminSideBar from "../../components/AdminSideBar"
+import AdminSideBar from "../../components/Admin/AdminSideBar"
 import Layout from "../../components/Layout"
 
 const rentals = () => {

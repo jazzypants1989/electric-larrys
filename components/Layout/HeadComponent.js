@@ -5,6 +5,7 @@ const HeadComponent = ({ title, description, image, slug, tags }) => {
 
   return (
     <Head>
+      <html lang="en" />
       <title>
         {title ? title + " at Electric Larry's" : "Electric Larry's"}
       </title>
@@ -25,7 +26,6 @@ const HeadComponent = ({ title, description, image, slug, tags }) => {
         }
       />
       <meta name="robots" content="index, follow" />
-      <meta name="language" content="English" />
       <meta name="revisit-after" content="7 days" />
       <meta name="keywords" content={tags} />
       <meta name="author" content="Electric Larry's" />
@@ -41,7 +41,6 @@ const HeadComponent = ({ title, description, image, slug, tags }) => {
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
-      <meta lang="en" />
 
       <link
         rel="apple-touch-icon"
@@ -69,6 +68,7 @@ const HeadComponent = ({ title, description, image, slug, tags }) => {
       ></link>
       <meta name="msapplication-TileColor" content="#0050c0" />
       <meta name="theme-color" content="#0050c0" />
+      <meta lang="en" />
     </Head>
   )
 }
