@@ -31,7 +31,7 @@ export default function Header() {
   }
   return (
     <nav
-      className="flex min-w-full w-110 h-16 items-center justify-between shadow-md ml-2"
+      className="flex min-w-88 h-16 items-center justify-between shadow-md ml-2"
       aria-label="Top Navigation Bar"
     >
       <Link href="/">
@@ -91,7 +91,7 @@ export default function Header() {
           </Menu>
         ) : (
           <Link href="/login">
-            <a className="mr-8 hover:text-Green">Log-in!</a>
+            <a className="mr-8 hover:text-Green">Login!</a>
           </Link>
         )}
       </div>

@@ -62,7 +62,12 @@ module.exports = {
         "special": "40rem",
         "84": "22rem",
         "88": "23rem",
+        "92": "24rem",
+        "100": "26rem",
         "110": "28rem",
+      },
+      minWidth: {
+        "88": "23rem",
       },
       animation: {
         "swoosh": "swoosh 0.75s ease-in-out 1",

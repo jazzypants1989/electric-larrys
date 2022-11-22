@@ -70,7 +70,7 @@ export default function Cart() {
             </Link>
             <button
               onClick={closeCartHandler}
-              className="drop-shadow bg-orange text-blue p-2 rounded-full"
+              className="drop-shadow bg-orange text-blue p-2 rounded-full hover:text-Red hover:p-0 hover:scale-125 duration-300"
             >
               <BsXCircleFill className="text-2xl" />
             </button>

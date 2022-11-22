@@ -5,6 +5,7 @@ const HeadComponent = ({ title, description, image, slug, tags }) => {
 
   return (
     <Head>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
       <title>
         {title ? title + " at Electric Larry's" : "Electric Larry's"}
       </title>
@@ -85,6 +86,7 @@ const HeadComponent = ({ title, description, image, slug, tags }) => {
           image ? image : "https://electriclarrys.vercel.app/images/bg1.jpg"
         }
       />
+      <link rel="canonical" href="https://electriclarrys.vercel.app" />
     </Head>
   )
 }
