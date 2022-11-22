@@ -3,14 +3,12 @@ import Document, { Html, Head, Main, NextScript } from "next/document"
 class MyDocument extends Document {
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
-          <html lang="en" />
           <link
             href="https://fonts.googleapis.com/css2?family=Bangers&display=swap"
             rel="stylesheet"
           />
-
           <link
             rel="apple-touch-icon"
             sizes="180x180"
