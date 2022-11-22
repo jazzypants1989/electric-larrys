@@ -41,8 +41,8 @@ const Slider = ({ sliderPosts }) => {
       <div
         className={
           index === current
-            ? `h-64 sm:w-80 md:w-144 lg:w-big ${animation} absolute bottom-10`
-            : "h-64 sm:w-80 md:w-144 lg:w-big"
+            ? `h-80 sm:w-80 md:w-144 lg:w-big ${animation} absolute`
+            : "h-80 sm:w-80 md:w-144 lg:w-big"
         }
         key={index}
       >
@@ -82,7 +82,7 @@ const Slider = ({ sliderPosts }) => {
       <div
         className={
           index === current
-            ? `h-64 sm:w-80 md:w-144 lg:w-big ${animation} absolute bottom-8`
+            ? `h-64 sm:w-80 md:w-144 lg:w-big ${animation} absolute bottom-6`
             : "h-64 sm:w-80 md:w-144 lg:w-big"
         }
         key={index}

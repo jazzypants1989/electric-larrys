@@ -66,6 +66,8 @@ function reducer(state, action) {
       return { ...state, cartOpen: true }
     case "CART_CLOSE":
       return { ...state, cartOpen: false }
+    case "CART_TOGGLE":
+      return { ...state, cartOpen: !state.cartOpen }
 
     default:
       return state

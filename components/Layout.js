@@ -1,11 +1,15 @@
-import { useContext } from "react"
+import dynamic from "next/dynamic"
+import { Suspense, useContext } from "react"
 import "react-toastify/dist/ReactToastify.css"
 import { ToastContainer } from "react-toastify"
 
 import HeadComponent from "./Layout/HeadComponent"
-import Cart from "./Layout/Cart"
+const DynamicCart = dynamic(() => import("./Layout/Cart"))
 import Header from "./Layout/Header/Header"
-import Footer from "./Layout/Footer/Footer"
+const DynamicFooter = dynamic(() => import("./Layout/Footer/Footer"), {
+  ssr: false,
+})
+import Spinner from "./Layout/Spinner"
 import { Store } from "../utils/Store"
 
 export default function Layout({
@@ -50,9 +54,15 @@ export default function Layout({
         onClick={cartOpen ? closeCartHandler : null}
         className="flex bg-blue min-w-fit min-h-screen flex-col justify-between"
       >
-        {cartOpen && <Cart />}
-        <main className="m-auto mt-4 px-2">{children}</main>
-        <Footer />
+        <Suspense fallback={<Spinner />}>
+          {cartOpen && <DynamicCart />}
+        </Suspense>
+        <Suspense fallback={<Spinner />}>
+          <main className="m-auto w-full mt-4 px-2">{children}</main>
+        </Suspense>
+        <Suspense fallback={<Spinner />}>
+          <DynamicFooter />
+        </Suspense>
       </div>
     </>
   )

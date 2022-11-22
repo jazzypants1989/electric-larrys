@@ -101,13 +101,12 @@ export default function Cart() {
                         </Link>
                       </td>
                       <td className="m-1">
-                        <Link href={`/product/${item.slug}`}>
-                          <a
-                            className="md:text-sm"
-                            onClick={() => dispatch({ type: "CART_CLOSE" })}
-                          >
-                            {item.name}
-                          </a>
+                        <Link
+                          href={`/product/${item.slug}`}
+                          className="md:text-sm"
+                          onClick={() => dispatch({ type: "CART_CLOSE" })}
+                        >
+                          {item.name}
                         </Link>
                       </td>
                       <td className="">

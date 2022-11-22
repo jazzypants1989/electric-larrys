@@ -6,6 +6,13 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <link
+            rel="preload"
+            href="/fonts/Bangers-Regular.ttf"
+            as="font"
+            type="font/ttf"
+            crossOrigin="anonymous"
+          />
+          <link
             rel="apple-touch-icon"
             sizes="180x180"
             href="/apple-touch-icon.png"

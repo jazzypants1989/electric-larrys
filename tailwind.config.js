@@ -32,8 +32,8 @@ module.exports = {
       "5xl": "4rem",
     },
     fontFamily: {
-      sans: ["Bangers", "sans-serif"],
-      serif: ["Bangers", "serif"],
+      sans: ["Bangers"],
+      serif: ["Bangers"],
     },
     extend: {
       boxShadow: {
@@ -67,7 +67,7 @@ module.exports = {
         "110": "28rem",
       },
       minWidth: {
-        "88": "23rem",
+        "100": "26rem",
       },
       animation: {
         "swoosh": "swoosh 0.75s ease-in-out 1",

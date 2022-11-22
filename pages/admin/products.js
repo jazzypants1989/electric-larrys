@@ -137,10 +137,12 @@ export default function AdminProductsScreen() {
                       <td className=" text-center ">{product.category}</td>
                       <td className=" text-center ">{product.countInStock}</td>
                       <td className=" text-center ">
-                        <Link href={`/admin/product/${product._id}`}>
-                          <a type="button" className="default-button">
-                            Edit
-                          </a>
+                        <Link
+                          href={`/admin/product/${product._id}`}
+                          type="button"
+                          className="default-button"
+                        >
+                          Edit
                         </Link>
                         &nbsp;
                         <button

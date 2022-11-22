@@ -27,11 +27,11 @@ export default function Header() {
   }
 
   const cartClickHandler = () => {
-    dispatch({ type: "CART_OPEN" })
+    dispatch({ type: "CART_TOGGLE" })
   }
   return (
     <nav
-      className="flex min-w-88 h-16 items-center justify-between shadow-md ml-2"
+      className="flex min-w-100 h-16 items-center justify-between shadow-md ml-2"
       aria-label="Top Navigation Bar"
     >
       <Link
@@ -66,7 +66,7 @@ export default function Header() {
             <Menu.Items className="absolute right-0 w-56 origin-top-right mt-4 shadow-lg bg-blue z-10">
               <Menu.Item>
                 <DropdownLink className="dropdown-link" href="/profile">
-                  Profile / Order History
+                  Profile / Orders
                 </DropdownLink>
               </Menu.Item>
               {session.user.isAdmin && (

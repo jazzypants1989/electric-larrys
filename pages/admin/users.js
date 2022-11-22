@@ -115,10 +115,12 @@ function AdminUsersScreen() {
                         {user.isEmployee ? "Employee" : "Customer"}
                       </td>
                       <td className=" text-center ">
-                        <Link href={`/admin/users/${user._id}`} passHref>
-                          <a type="button" className="default-button">
-                            Edit
-                          </a>
+                        <Link
+                          href={`/admin/users/${user._id}`}
+                          type="button"
+                          className="default-button"
+                        >
+                          Edit
                         </Link>
                         &nbsp;
                         <button

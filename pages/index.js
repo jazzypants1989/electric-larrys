@@ -54,7 +54,7 @@ export default function Home({ announcements, posts, products }) {
     <>
       <div
         onClick={() => dispatch({ type: "CART_CLOSE" })}
-        className="ml-1 flex flex-col justify-center items-center min-w-88 w-full bg-blue"
+        className="ml-1 flex flex-col justify-center items-center min-w-100 w-full bg-blue"
       >
         {announcementList}
       </div>
