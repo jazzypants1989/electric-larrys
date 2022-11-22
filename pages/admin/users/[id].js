@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import React, { useEffect, useReducer, useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
-import AdminSideBar from "../../../components/AdminSideBar"
+import AdminSideBar from "../../../components/Admin/AdminSideBar"
 import Layout from "../../../components/Layout"
 import { getError } from "../../../utils/error"
 

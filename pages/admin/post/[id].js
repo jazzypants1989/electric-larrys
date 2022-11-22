@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import Layout from "../../../components/Layout"
 import { getError } from "../../../utils/error"
-import AdminSideBar from "../../../components/AdminSideBar"
+import AdminSideBar from "../../../components/Admin/AdminSideBar"
 
 function reducer(state, action) {
   switch (action.type) {
