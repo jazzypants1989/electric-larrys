@@ -1,9 +1,9 @@
 export default function TermsAndConditions() {
   return (
     <>
-      <h1 className="text-3xl text-orange drop-shadow font-bold text-center">
+      <h2 className="text-3xl text-orange drop-shadow font-bold text-center">
         Terms And Conditions
-      </h1>
+      </h2>
       <body className="text-center">
         Last updated November 10, 2022
         <ol className="flex flex-col justify-center items-center">

@@ -63,9 +63,12 @@ const Slider = ({ sliderPosts }) => {
               </h2>
               <p className="text-center drop-shadow">{description}</p>
               <a href={link} target="_blank" rel="noreferrer">
-                <h3 className="text-blue bg-Green hover:text-Black py-1 opacity-70 hover:opacity-100 drop-shadow-lg hover:border-2 hover:bg-orange hover:scale-95 transition-all duration-500 ease-in-out rounded-lg w-8/9 text-center mt-2">
+                <button
+                  aria-label="Follow the link"
+                  className="text-blue w-full bg-Green hover:text-Black py-1 opacity-70 hover:opacity-100 drop-shadow-lg hover:border-2 hover:bg-orange hover:scale-95 transition-all duration-500 ease-in-out rounded-lg w-8/9 text-center mt-2"
+                >
                   Check it out!
-                </h3>
+                </button>
               </a>
             </div>
           </div>
@@ -126,9 +129,12 @@ const Slider = ({ sliderPosts }) => {
             </a>
             <p className="md:text-base drop-shadow">{description}</p>
             <a href={link} target="_blank" rel="noreferrer">
-              <h3 className="text-blue bg-Green hover:text-Black py-1 opacity-70 hover:opacity-100 drop-shadow-lg hover:border-2 hover:bg-orange hover:scale-95 transition-all duration-500 ease-in-out rounded-lg w-7/9 text-center mt-2">
+              <button
+                aria-label="Follow the link"
+                className="text-blue w-full bg-Green hover:text-Black py-1 opacity-70 hover:opacity-100 drop-shadow-lg hover:border-2 hover:bg-orange hover:scale-95 transition-all duration-500 ease-in-out rounded-lg w-7/9 text-center mt-2"
+              >
                 Check it out!
-              </h3>
+              </button>
             </a>
           </div>
         )}

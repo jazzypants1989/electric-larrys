@@ -67,9 +67,9 @@ export default function Home({ announcements, posts, products }) {
           <div className="mt-4 md:mt-0 flex gap-2 flex-col justify-center items-center overflow-hidden">
             {featuredProducts.length > 0 && (
               <div className="flex flex-col justify-center items-center md:-translate-y-4 lg:-translate-y-12">
-                <h1 className="text-3xl font-bold text-center drop-shadow mb-4">
+                <h3 className="text-3xl font-bold text-center drop-shadow mb-4">
                   Featured Products
-                </h1>
+                </h3>
                 <div className="bg-orange bg-opacity-70 hover:bg-opacity-80 rounded-l-full flex flex-col justify-center items-center">
                   {featuredProducts.map((product) => (
                     <ProductItem

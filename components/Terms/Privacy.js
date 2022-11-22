@@ -1,9 +1,9 @@
 export default function Privacy() {
   return (
     <div>
-      <h1 className="text-4xl drop-shadow text-center text-orange">
+      <h2 className="text-4xl drop-shadow text-center text-orange">
         Privacy Policy of Electric Larry&apos;s
-      </h1>
+      </h2>
 
       <p className="text-center drop-shadow md:text-sm lg:text-lg mb-4">
         Electric Larry&apos;s operates the https://electriclarrys.com website,

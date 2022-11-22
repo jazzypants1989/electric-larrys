@@ -139,11 +139,11 @@ export default function Home({ products, queryCategory, queryTag }) {
     case category.length > 0 && tag.length > 2:
       cheese = (
         <>
-          <h1 className="text-3xl mb-4 mt-2 text-center drop-shadow">
+          <h2 className="text-3xl mb-4 mt-2 text-center drop-shadow">
             Oh, so you want some {category}, specifically{" "}
             {tag.map((t) => t + ", ").slice(0, -1)}
             {" and " + tag[tag.length - 1]}? Well, aren&apos;t you picky?
-          </h1>
+          </h2>
           <button
             onClick={clearFilter}
             className="bg-Red primary-button block mx-auto"
@@ -156,10 +156,10 @@ export default function Home({ products, queryCategory, queryTag }) {
     case category.length > 0 && tag.length > 1:
       cheese = (
         <>
-          <h1 className="text-3xl mb-4 mt-2 text-center drop-shadow">
+          <h2 className="text-3xl mb-4 mt-2 text-center drop-shadow">
             Oh, so you want some {category}, specifically{" "}
             {tag[0] + " and " + tag[1]}?
-          </h1>
+          </h2>
           <button
             onClick={clearFilter}
             className="primary-button block mx-auto bg-Red"
@@ -172,9 +172,9 @@ export default function Home({ products, queryCategory, queryTag }) {
     case category.length > 0 && tag.length > 0:
       cheese = (
         <>
-          <h1 className="text-3xl mb-4 mt-2 text-center drop-shadow">
+          <h2 className="text-3xl mb-4 mt-2 text-center drop-shadow">
             Oh, so you want some {category}, specifically {tag[0]}?
-          </h1>
+          </h2>
           <button
             onClick={clearFilter}
             className="primary-button block mx-auto bg-Red"
@@ -187,10 +187,10 @@ export default function Home({ products, queryCategory, queryTag }) {
     case tag.length > 2 && category === "":
       cheese = (
         <>
-          <h1 className="text-3xl mb-4 mt-2 text-center drop-shadow">
+          <h2 className="text-3xl mb-4 mt-2 text-center drop-shadow">
             Oh, so you want some {tag.map((t) => t + ", ").slice(0, -1)}
             {" and " + tag[tag.length - 1]}? Well, aren&apos;t you picky?
-          </h1>
+          </h2>
           <button
             onClick={clearFilter}
             className="primary-button block mx-auto bg-Red"
@@ -203,9 +203,9 @@ export default function Home({ products, queryCategory, queryTag }) {
     case tag.length > 1 && category === "":
       cheese = (
         <>
-          <h1 className="text-3xl mb-4 mt-2 text-center drop-shadow">
+          <h2 className="text-3xl mb-4 mt-2 text-center drop-shadow">
             Oh, so you want some {tag[0]}, specifically with {tag[1]}?
-          </h1>
+          </h2>
           <button
             onClick={clearFilter}
             className="primary-button block mx-auto bg-Red"
@@ -218,9 +218,9 @@ export default function Home({ products, queryCategory, queryTag }) {
     case tag.length > 0 && category === "":
       cheese = (
         <>
-          <h1 className="text-3xl mb-4 mt-2 text-center drop-shadow">
+          <h2 className="text-3xl mb-4 mt-2 text-center drop-shadow">
             Oh, so you want some{tag[0]}?
-          </h1>
+          </h2>
           <button
             onClick={clearFilter}
             className="primary-button block mx-auto bg-Red"
@@ -233,9 +233,9 @@ export default function Home({ products, queryCategory, queryTag }) {
     case category.length > 0:
       cheese = (
         <>
-          <h1 className="text-3xl mb-4 mt-2 text-center drop-shadow">
+          <h2 className="text-3xl mb-4 mt-2 text-center drop-shadow">
             Oh, so you want some {category}?
-          </h1>
+          </h2>
           <button
             onClick={clearFilter}
             className="primary-button block mx-auto bg-Red"
@@ -267,9 +267,9 @@ export default function Home({ products, queryCategory, queryTag }) {
       {cheese}
       {sortedProducts.length === 0 && (
         <div className="flex justify-center">
-          <h1 className="text-3xl m-4 text-center drop-shadow text-Red">
+          <h3 className="text-3xl m-4 text-center drop-shadow text-Red">
             We have a lot of crazy stuff, but we don&apos;t have that.
-          </h1>
+          </h3>
         </div>
       )}
       <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4 overflow-hidden">

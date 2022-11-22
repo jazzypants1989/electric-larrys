@@ -24,9 +24,9 @@ const Newsletter = () => {
 
   return (
     <div className="md:h-96 w-full flex flex-col justify-center items-center bg-transparent">
-      <h1 className="text-4xl drop-shadow text-center text-orange">
+      <h4 className="text-4xl drop-shadow text-center text-orange">
         Become a Larry!
-      </h1>
+      </h4>
       <p className="text-center drop-shadow md:text-sm lg:text-lg mb-4">
         Join the fan club and get semi-sorta-regular updates from our fearless
         leader about new products and stuff going on at the store.

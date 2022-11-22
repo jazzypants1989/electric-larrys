@@ -56,7 +56,7 @@ export default function Cart() {
       onClick={(e) => e.stopPropagation()}
     >
       <div className="flex flex-col items-center md:pr-16 justify-between">
-        <h1 className="drop-shadow m-4 md:text-lg">Cart full of goodies.</h1>
+        <h3 className="drop-shadow m-4 md:text-lg">Cart full of goodies.</h3>
         {cartItems.length === 0 && (
           <div className="items-center justify-center md:min-h-screen w-full gap-10 flex flex-col">
             Aw, shucks. There&apos;s nothing here...{" "}
