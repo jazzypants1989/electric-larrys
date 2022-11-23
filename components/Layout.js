@@ -3,13 +3,16 @@ import { Suspense, useContext } from "react"
 import "react-toastify/dist/ReactToastify.css"
 import { ToastContainer } from "react-toastify"
 
+import Spinner from "./Layout/Spinner"
 import HeadComponent from "./Layout/HeadComponent"
-const DynamicCart = dynamic(() => import("./Layout/Cart"))
+const DynamicCart = dynamic(() => import("./Layout/Cart"), {
+  suspense: true,
+})
+
 import Header from "./Layout/Header/Header"
 const DynamicFooter = dynamic(() => import("./Layout/Footer/Footer"), {
-  ssr: false,
+  suspense: true,
 })
-import Spinner from "./Layout/Spinner"
 import { Store } from "../utils/Store"
 
 export default function Layout({

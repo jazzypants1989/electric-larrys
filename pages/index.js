@@ -1,6 +1,7 @@
 import axios from "axios"
 import { toast } from "react-toastify"
 import Layout from "../components/Layout"
+import Spinner from "../components/Layout/Spinner"
 import ProductItem from "../components/Products/ProductItem"
 import IndexSideBar from "../components/Home/IndexSideBar"
 import Announcement from "../components/Home/Announcement"
@@ -12,7 +13,32 @@ import Post from "../models/SliderPost"
 import Product from "../models/Product"
 import dbConnect from "../utils/db"
 import { Store, reactions } from "../utils/Store"
-import { useContext } from "react"
+import { useContext, Suspense } from "react"
+import dynamic from "next/dynamic"
+
+const DynamicSideBar = dynamic(
+  () => import("../components/Home/IndexSideBar"),
+  {
+    loading: () => (
+      <div className="animate-swoosh w-full h-20 flex justify-center items-center duration-1000 bottom-0 fixed transform -translate-y-3">
+        <Spinner />
+      </div>
+    ),
+    ssr: false,
+  }
+)
+
+const DynamicNewsletter = dynamic(
+  () => import("../components/Home/Newsletter"),
+  {
+    loading: () => (
+      <div className="animate-swoosh w-full h-20 flex justify-center items-center duration-1000 bottom-0 fixed transform -translate-y-3">
+        <Spinner />
+      </div>
+    ),
+    ssr: false,
+  }
+)
 
 export default function Home({ announcements, posts, products }) {
   const { state, dispatch } = useContext(Store)
@@ -83,10 +109,14 @@ export default function Home({ announcements, posts, products }) {
             )}
           </div>
           <div className="mx-auto lg:mx-0">
-            <IndexSideBar sideBarPosts={nonFeaturedPosts} />
+            <Suspense fallback={<Spinner />}>
+              <DynamicSideBar sideBarPosts={nonFeaturedPosts} />
+            </Suspense>
           </div>
         </section>
-        <Newsletter />
+        <Suspense fallback={<Spinner />}>
+          <DynamicNewsletter />
+        </Suspense>
       </Layout>
     </>
   )

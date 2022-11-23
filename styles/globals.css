@@ -57,7 +57,7 @@ textarea {
 }
 
 .primary-button {
-  @apply rounded py-2 px-4 bg-orange font-thin text-sm tracking-widest shadow outline-none hover:rounded-xl hover:bg-Green hover:text-Black transition-all duration-500 ease-in-out;
+  @apply rounded py-2 px-4 bg-orange font-thin text-sm tracking-widest shadow outline-none hover:rounded-xl hover:bg-Green hover:text-Yellow transition-all duration-500 ease-in-out;
 }
 .default-button {
   @apply rounded py-2 px-4 shadow text-base outline-none tracking-widest hover:rounded-xl hover:bg-Green transition-all duration-500 ease-in-out;

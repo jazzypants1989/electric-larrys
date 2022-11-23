@@ -52,13 +52,13 @@ export default function Cart() {
 
   return (
     <div
-      className={`z-50 min-h-72 bottom-0 rounded-tr-4xl md:rounded-r-cart md:rounded-tr-cart md:min-h-screen w-88 fixed bg-blue shadow-orange shadow-inner md:shadow-3xl-left md:shadow-orange sm:animate-flyUp md:animate-woosh`}
+      className={`z-50 min-h-72 bottom-0 rounded-tr-4xl md:rounded-r-cart md:rounded-tr-cart md:min-h-screen w-88 fixed bg-blue shadow-orange shadow-inner md:shadow-3xl-left md:shadow-orange sm:animate-flyUp md:animate-woosh scroll-auto`}
       onClick={(e) => e.stopPropagation()}
     >
       <div className="flex flex-col items-center md:pr-16 justify-between">
         <h3 className="drop-shadow m-4 md:text-lg">Cart full of goodies.</h3>
         {cartItems.length === 0 && (
-          <div className="items-center justify-center md:min-h-screen w-full gap-10 flex flex-col">
+          <div className="items-center justify-center h-fit md:min-h-screen w-full gap-5 flex flex-col">
             Aw, shucks. There&apos;s nothing here...{" "}
             <Link href="/products" passHref>
               <span
@@ -70,7 +70,7 @@ export default function Cart() {
             </Link>
             <button
               onClick={closeCartHandler}
-              className="drop-shadow bg-orange text-blue p-2 rounded-full hover:text-Red hover:p-0 hover:scale-125 duration-300"
+              className="drop-shadow bg-orange text-blue -translate-y-4 rounded-full hover:text-Red hover:scale-125 duration-300"
             >
               <BsXCircleFill className="text-2xl" />
             </button>

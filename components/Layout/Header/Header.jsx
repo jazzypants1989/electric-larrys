@@ -27,7 +27,7 @@ export default function Header() {
   }
 
   const cartClickHandler = () => {
-    dispatch({ type: "CART_TOGGLE" })
+    dispatch({ type: "CART_OPEN" })
   }
   return (
     <nav
