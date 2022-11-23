@@ -1,42 +1,18 @@
 import axios from "axios"
 import { toast } from "react-toastify"
 import Layout from "../components/Layout"
-import Spinner from "../components/Layout/Spinner"
 import ProductItem from "../components/Products/ProductItem"
+import IndexSideBar from "../components/Home/IndexSideBar"
 import Announcement from "../components/Home/Announcement"
 import Categories from "../components/Home/Categories"
 import Slider from "../components/Home/Slider"
+import Newsletter from "../components/Home/Newsletter"
 import AnnouncementModel from "../models/Announcement"
 import Post from "../models/SliderPost"
 import Product from "../models/Product"
 import dbConnect from "../utils/db"
 import { Store, reactions } from "../utils/Store"
-import { useContext, Suspense } from "react"
-import dynamic from "next/dynamic"
-
-const DynamicSideBar = dynamic(
-  () => import("../components/Home/IndexSideBar"),
-  {
-    loading: () => (
-      <div className="animate-swoosh w-full h-20 flex justify-center items-center duration-1000 bottom-0 fixed transform -translate-y-3">
-        <Spinner />
-      </div>
-    ),
-    ssr: false,
-  }
-)
-
-const DynamicNewsletter = dynamic(
-  () => import("../components/Home/Newsletter"),
-  {
-    loading: () => (
-      <div className="animate-swoosh w-full h-20 flex justify-center items-center duration-1000 bottom-0 fixed transform -translate-y-3">
-        <Spinner />
-      </div>
-    ),
-    ssr: false,
-  }
-)
+import { useContext } from "react"
 
 export default function Home({ announcements, posts, products }) {
   const { state, dispatch } = useContext(Store)
@@ -107,14 +83,10 @@ export default function Home({ announcements, posts, products }) {
             )}
           </div>
           <div className="mx-auto lg:mx-0">
-            <Suspense fallback={<Spinner />}>
-              <DynamicSideBar sideBarPosts={nonFeaturedPosts} />
-            </Suspense>
+            <IndexSideBar sideBarPosts={nonFeaturedPosts} />
           </div>
         </section>
-        <Suspense fallback={<Spinner />}>
-          <DynamicNewsletter />
-        </Suspense>
+        <Newsletter />
       </Layout>
     </>
   )
