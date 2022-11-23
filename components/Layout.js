@@ -1,8 +1,6 @@
 import dynamic from "next/dynamic"
-import { Suspense, useContext } from "react"
+import { Suspense, lazy, useContext } from "react"
 import "react-toastify/dist/ReactToastify.css"
-import { ToastContainer } from "react-toastify"
-
 import Spinner from "./Layout/Spinner"
 import HeadComponent from "./Layout/HeadComponent"
 const DynamicCart = dynamic(() => import("./Layout/Cart"), {
@@ -14,6 +12,11 @@ const DynamicFooter = dynamic(() => import("./Layout/Footer/Footer"), {
   suspense: true,
 })
 import { Store } from "../utils/Store"
+
+const ToastContainer = lazy(async () => {
+  const { ToastContainer } = await import("react-toastify")
+  return { default: ToastContainer }
+})
 
 export default function Layout({
   title,
@@ -39,15 +42,18 @@ export default function Layout({
         image={image}
         slug={slug}
       />
-      <ToastContainer
-        autoClose={2500}
-        toastClassName={() =>
-          "bg-blue bg-opacity-80 text-Green drop-shadow shadow-2xl rounded-full p-2 text-center"
-        }
-        position="top-center"
-        limit={3}
-        theme="colored"
-      />
+
+      <Suspense fallback={<Spinner />}>
+        <ToastContainer
+          autoClose={2500}
+          toastClassName={() =>
+            "bg-blue bg-opacity-80 text-Green drop-shadow shadow-2xl rounded-full p-2 text-center"
+          }
+          position="top-center"
+          limit={3}
+          theme="colored"
+        />
+      </Suspense>
 
       <header className="w-full">
         <Header />
