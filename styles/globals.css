@@ -10,17 +10,13 @@
   src: url(/fonts/Bangers-Regular.ttf) format("truetype");
 }
 
-html,
 body {
+  max-width: 100vw;
+  overflow-x: hidden;
   padding: 0;
   margin: 0;
   scroll-behavior: smooth;
   @apply text-Green font-thin tracking-wider bg-blue;
-}
-
-* {
-  box-sizing: border-box;
-  letter-spacing: 0.15rem;
 }
 
 .drop-shadow {
@@ -48,14 +44,6 @@ textarea {
   @apply flex text-Black;
 }
 
-.card {
-  @apply mb-5 flex flex-col justify-center items-center text-center rounded-lg border-collapse shadow-lg animate-swoosh transition-all ease-in-out duration-500;
-}
-
-.dingdong {
-  @apply bg-orange text-xs p-1;
-}
-
 .primary-button {
   @apply rounded py-2 px-4 bg-orange font-thin text-sm tracking-widest shadow outline-none hover:rounded-xl hover:bg-Green hover:text-Yellow transition-all duration-500 ease-in-out;
 }
@@ -65,16 +53,4 @@ textarea {
 
 .delete-button {
   @apply h-7 w-7 hover:scale-150 hover:text-Red transition-all duration-300 ease-in-out;
-}
-
-.dropdown-link {
-  @apply flex p-2 tracking-widest text-Green hover:text-blue hover:bg-Green transition-all ease-in-out duration-300 hover:shadow-none;
-}
-
-.alert-error {
-  @apply my-3 rounded-lg;
-}
-
-.alert-success {
-  @apply my-3 rounded-lg p-3;
 }

@@ -1,0 +1,60 @@
+import User, { IUser } from "../../../../models/User"
+import { NextApiRequest, NextApiResponse } from "next"
+import { getSession } from "next-auth/react"
+import dbConnect from "../../../../utils/db"
+
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const session = await getSession({ req })
+  if (!session || !session.user.isAdmin) {
+    return res.status(401).send("admin signin required")
+  }
+
+  switch (req.method) {
+    case "GET":
+      await getUser(req, res)
+      break
+    case "PATCH":
+      await updateUser(req, res)
+      break
+    case "DELETE":
+      await deleteUser(req, res)
+      break
+    default:
+      res.status(400).send({ message: "Method not allowed" })
+      break
+  }
+}
+
+const getUser = async (req: NextApiRequest, res: NextApiResponse) => {
+  await dbConnect()
+  const user = (await User.findById(req.query.id)) as IUser
+  res.send(user)
+}
+
+const updateUser = async (req: NextApiRequest, res: NextApiResponse) => {
+  await dbConnect()
+  const user = (await User.findById(req.query.id)) as IUser
+  console.log(req.body)
+  if (user) {
+    user.isAdmin = req.body.isAdmin
+    user.isEmployee = req.body.isEmployee
+    user.newsletter = req.body.newsletter
+    const updatedUser = await user.updateOne(user)
+    res.send(updatedUser)
+  } else {
+    res.status(404).send({ message: "User not found" })
+  }
+}
+
+const deleteUser = async (req: NextApiRequest, res: NextApiResponse) => {
+  await dbConnect()
+  const user = await User.findById(req.query.id)
+  if (user) {
+    await user.remove()
+    res.send({ message: "User deleted successfully" })
+  } else {
+    res.status(404).send({ message: "User not found" })
+  }
+}
+
+export default handler

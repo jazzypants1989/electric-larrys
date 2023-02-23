@@ -2,12 +2,11 @@ module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     screens: {
-      sm: "1px",
-      omg: "424px",
-      md: "850px",
+      md: "768px",
       nb: "1024px",
       lg: "1180px",
       xl: "1440px",
@@ -37,6 +36,9 @@ module.exports = {
       serif: ["Bangers"],
     },
     extend: {
+      backgroundImage: {
+        "auth": "url('/images/bg1.jpg')",
+      },
       boxShadow: {
         "3xl-left": "3px 3px 3px 3px rgba(247, 118, 5, 0.5)",
       },
@@ -66,6 +68,7 @@ module.exports = {
         "92": "24rem",
         "100": "26rem",
         "110": "28rem",
+        "120": "30rem",
       },
       minWidth: {
         "100": "26rem",
