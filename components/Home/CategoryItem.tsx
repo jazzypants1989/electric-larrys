@@ -1,21 +1,10 @@
 import Image from "next/image"
-import { buildUrl } from "cloudinary-build-url"
-import { useRouter } from "next/router"
+import Link from "next/link"
 
 function imageLinkBuilder(image: string) {
-  const url = buildUrl(image, {
-    cloud: {
-      cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-    },
-    transformations: {
-      resize: {
-        type: "fill",
-        width: 250,
-        height: 250,
-      },
-    },
-  })
-  return url
+  const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+  const imageLink = `https://res.cloudinary.com/${cloudName}/image/upload/${image}`
+  return imageLink
 }
 
 const boardgames = "boardgames_owxhlz"
@@ -35,31 +24,27 @@ const images = {
 } as const
 
 const CategoryItem = ({ category }: { category: keyof typeof images }) => {
-  const router = useRouter()
-
   let categoryToLowerCase = category.toLowerCase()
-
-  const handleClick = () => {
-    router.push(`/products?category=${categoryToLowerCase}`)
-  }
 
   return (
     <div className="flex animate-swoosh flex-col items-center justify-center">
-      <button
-        onClick={handleClick}
+      <Link
+        href={`/products?category=${categoryToLowerCase}`}
         className="m-1 flex flex-col items-center justify-center"
       >
-        <Image
-          src={imageLinkBuilder(images[category])}
-          alt={category}
-          width={300}
-          height={300}
-          className="invisible rounded-lg object-fill hover:blur-md md:visible md:transition-all md:duration-1000 md:ease-in-out"
-        />
+        <div className="relative h-40 w-40 overflow-hidden rounded-lg md:h-60 md:w-60">
+          <Image
+            src={imageLinkBuilder(images[category])}
+            alt={category}
+            width={400}
+            height={400}
+            className="invisible aspect-square rounded-lg hover:blur-md md:visible md:transition-all md:duration-1000 md:ease-in-out"
+          />
+        </div>
         <h4 className="absolute mt-0 rounded-full bg-orange bg-opacity-50 p-3 text-center text-base drop-shadow transition-all duration-500 ease-in-out hover:scale-125 hover:bg-opacity-100 hover:blur-none md:mt-4 md:bg-blue md:bg-opacity-50">
           {category}
         </h4>
-      </button>
+      </Link>
     </div>
   )
 }

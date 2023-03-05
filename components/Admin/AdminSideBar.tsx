@@ -1,15 +1,17 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/router"
+import { usePathname } from "next/navigation"
 
 export default function AdminSideBar() {
-  const { pathname } = useRouter()
+  const pathname = usePathname()
   const isActive = (r: string) => (r === pathname ? "active" : "")
 
   const links = [
     {
       name: "Dashboard",
-      href: "/admin/dashboard",
+      href: "/admin",
     },
     {
       name: "Users",
@@ -48,6 +50,7 @@ export default function AdminSideBar() {
               alt="Workflow"
               width={200}
               height={200}
+              priority
             />
           </div>
           <nav

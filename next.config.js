@@ -10,6 +10,7 @@ const nextConfig = {
       "i.imgur.com",
       "cdn.discordapp.com",
       "lh3.googleusercontent.com",
+      "picsum.photos",
     ],
   },
 }

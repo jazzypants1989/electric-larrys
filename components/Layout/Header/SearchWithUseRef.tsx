@@ -1,9 +1,10 @@
+"use client"
+
 import { useState, useRef, useMemo, useEffect } from "react"
-import { useRouter } from "next/router"
-import axios from "axios"
-import { BiSearchAlt } from "react-icons/bi"
+import { useRouter } from "next/navigation"
 import Image from "next/image"
-import { IProduct } from "../../../models/Product"
+import { Products } from "../../../utils/dataHooks/getProducts"
+import BiSearchAlt from "./Icons/BiSearchAlt"
 
 export default function Search({
   placeholder,
@@ -13,7 +14,7 @@ export default function Search({
   query?: string
 }) {
   const [searchTerm, setSearchTerm] = useState("")
-  const [searchResults, setSearchResults] = useState<IProduct[] | null>(null)
+  const [searchResults, setSearchResults] = useState<Products | null>(null)
   const [searchLoading, setSearchLoading] = useState(false)
   const router = useRouter()
   const inputRef = useRef(null)
@@ -22,7 +23,8 @@ export default function Search({
     return async () => {
       try {
         setSearchLoading(true)
-        const { data } = await axios.get(`/api/search?query=${searchTerm}`)
+        const res = await fetch(`/api/search?search=${searchTerm}`)
+        const data = await res.json()
         setSearchResults(data)
         setSearchLoading(false)
       } catch (err) {
@@ -31,13 +33,31 @@ export default function Search({
     }
   }, [searchTerm])
 
+  type Timeout = ReturnType<typeof setTimeout>
+
+  const debouncedSearch = useMemo(() => {
+    function debounce(func: () => void, wait: number) {
+      let timeout: Timeout
+      return function executedFunction() {
+        const later = () => {
+          clearTimeout(timeout)
+          func()
+        }
+        clearTimeout(timeout)
+        timeout = setTimeout(later, wait)
+      }
+    }
+
+    return debounce(doSearch, 500)
+  }, [doSearch])
+
   useEffect(() => {
     if (searchTerm) {
-      doSearch()
+      debouncedSearch()
     } else {
       setSearchResults([])
     }
-  }, [searchTerm, doSearch])
+  }, [searchTerm, debouncedSearch])
 
   useEffect(() => {
     if (query) {
@@ -66,7 +86,7 @@ export default function Search({
               {searchResults &&
                 searchResults.slice(0, 10).map((product) => (
                   <li
-                    key={product._id}
+                    key={product.id}
                     className="flex cursor-pointer justify-between p-2 hover:text-Green"
                     onClick={() => {
                       setSearchTerm("")
@@ -82,7 +102,7 @@ export default function Search({
                     <span className="my-auto px-5 text-sm text-Green hover:text-orange">
                       {product.name}
                     </span>
-                    <BiSearchAlt className="max-w-8 my-auto inline h-10 max-h-8 w-10 text-Green hover:text-orange" />
+                    <BiSearchAlt />
                   </li>
                 ))}
             </ul>

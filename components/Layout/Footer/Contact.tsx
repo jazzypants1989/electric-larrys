@@ -1,10 +1,11 @@
-import { AiTwotonePhone } from "react-icons/ai"
-import { TbGps, TbMail } from "react-icons/tb"
+import AiTwotonePhone from "./Icons/AiTwoTonePhone"
+import TbGps from "./Icons/TbGps"
+import TbMail from "./Icons/TbMail"
 
 export default function Contact() {
   return (
-    <div className="flex flex-col items-center text-center h-full">
-      <h5 className="text-lg drop-shadow p-2">Contact</h5>
+    <div className="flex h-full flex-col items-center text-center">
+      <h5 className="p-2 text-lg drop-shadow">Contact</h5>
       <ul id="contact">
         <li className="text-center">
           <a
@@ -12,7 +13,7 @@ export default function Contact() {
             target="_blank"
             rel="noreferrer"
           >
-            <TbGps className="hover:animate-ping mx-auto mb-2 h-8 w-8 text-orange" />{" "}
+            <TbGps />{" "}
             <span className="text-Green hover:text-orange">
               217 West Main Street, Carbondale, IL 62901
             </span>
@@ -20,7 +21,7 @@ export default function Contact() {
         </li>
         <li>
           <a href="tel:618-789-1144" target="_blank" rel="noreferrer">
-            <AiTwotonePhone className="hover:animate-pulse mx-auto mb-2 h-7 w-7 text-orange" />{" "}
+            <AiTwotonePhone />{" "}
             <span className="text-Green hover:text-orange">(618) 789-1144</span>
           </a>
         </li>
@@ -31,7 +32,7 @@ export default function Contact() {
             rel="noreferrer"
             className=""
           >
-            <TbMail className="hover:animate-searchSlide cursor-pointer m-auto h-7 w-7 text-orange" />{" "}
+            <TbMail />{" "}
             <span className="text-Green hover:text-orange">
               electriclarrys@gmail.com
             </span>

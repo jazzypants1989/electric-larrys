@@ -1,6 +1,8 @@
+"use client"
+
 import { ReactNode, useState } from "react"
 import { Combobox, Transition } from "@headlessui/react"
-import { HiCheckCircle } from "react-icons/hi"
+import CheckCircle from "./Icons/CheckCircle"
 
 const Container = ({ children }: { children: ReactNode }) => {
   return (
@@ -97,10 +99,7 @@ export default function TagBox({
                                 }
                                                                 absolute inset-y-0 left-0 flex items-center pl-3`}
                               >
-                                <HiCheckCircle
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
+                                <CheckCircle />
                               </span>
                             )}
                           </div>

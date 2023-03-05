@@ -11,11 +11,11 @@ const categories = [
 
 const CategoryList = () => {
   return (
-    <div className="mt-3 flex flex-col items-center justify-center">
-      <h3 className="mb-4 text-center text-3xl font-bold drop-shadow">
+    <div className="flex flex-col items-center justify-center md:mt-3">
+      <h3 className="text-center text-3xl font-bold drop-shadow md:mb-4">
         Categories
       </h3>
-      <div className="grid grid-cols-3 gap-y-5 gap-x-20 md:m-1 md:gap-0 lg:grid-cols-6">
+      <div className="mx-2 grid grid-cols-3 gap-x-20 md:m-1 md:gap-0 md:gap-y-5 lg:grid-cols-6 lg:gap-x-10">
         {categories.map((category) => (
           <CategoryItem key={category} category={category} />
         ))}

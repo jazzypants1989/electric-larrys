@@ -15,13 +15,13 @@ model Product {
   name      String
   price     Float
   image     String
+  slug      String @unique
   category  String
   countInStock Int
   description String
-  tags      String
+  tags      String[]
   isFeatured Boolean
   isOnSale Boolean
-  isRented Boolean
   salePrice Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

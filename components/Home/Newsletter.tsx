@@ -1,13 +1,16 @@
-import { RiBallPenFill } from "react-icons/ri"
-import { toast } from "react-toastify"
-import axios, { AxiosError } from "axios"
+"use client"
+
+import NewsletterIcon from "./Icons/Newsletter"
 import { useForm, SubmitHandler } from "react-hook-form"
+import { useAtom } from "jotai"
+import toastStore from "../../utils/ToastStore"
 
 type FormValues = {
   email: string
 }
 
 const Newsletter = () => {
+  const [, setToasts] = useAtom(toastStore)
   const {
     register,
     handleSubmit,
@@ -20,36 +23,56 @@ const Newsletter = () => {
     email: string
   }) => {
     try {
-      await axios.post("/api/newsletter", { email })
-      toast.success(
-        "Thanks for signing up! Maybe I'll get around to sending you an email one day."
-      )
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      })
+      const data = await response.json()
+      const { message } = data
+      setToasts((prev) => ({
+        ...prev,
+        toasts: [
+          ...prev.toasts,
+          {
+            id: email,
+            message: `${message}`,
+            success: true,
+          },
+        ],
+      }))
     } catch (err) {
-      if (err instanceof AxiosError) {
-        toast.error(err.response?.data.message)
-      } else {
-        if (err instanceof Error) {
-          toast.error(err.message)
-        }
-      }
+      setToasts((prev) => ({
+        ...prev,
+        toasts: [
+          ...prev.toasts,
+          {
+            id: email,
+            message: `Sorry, something went wrong`,
+            success: false,
+          },
+        ],
+      }))
     }
   }
 
   return (
-    <div className="md:h-96 w-full flex flex-col justify-center items-center bg-transparent">
-      <h4 className="text-4xl drop-shadow text-center text-orange">
+    <div className="bg-transparent flex w-full flex-col items-center justify-center md:h-96">
+      <h4 className="text-center text-4xl text-orange drop-shadow">
         Become a Larry!
       </h4>
-      <p className="text-center drop-shadow md:text-sm lg:text-lg mb-4">
+      <p className="mb-4 text-center drop-shadow md:text-sm lg:text-lg">
         Join the fan club and get semi-sorta-regular updates from our fearless
         leader about new products and stuff going on at the store.
       </p>
       <form
         onSubmit={handleSubmit(submitHandler)}
-        className="w-1/2 h-12 bg-transparent flex justify-center items-center text-orange transition-all outline-none hover:border-2 hover:shadow-2xl hover:-translate-y-1 hover:after:scale-x-110 hover:after:origin-left after:content-none after:absolute after:w-full after:h-full after:z-1 after:bg-orange after:scale-x-0 after:origin-right after:transition-all"
+        className="bg-transparent after:z-1 flex h-12 w-1/2 items-center justify-center text-orange outline-none transition-all after:absolute after:h-full after:w-full after:origin-right after:scale-x-0 after:bg-orange after:transition-all after:content-none hover:-translate-y-1 hover:border-2 hover:shadow-2xl hover:after:origin-left hover:after:scale-x-110"
       >
         <input
-          className="w-full h-full bg-transparent text-orange outline-none placeholder-orange"
+          className="bg-transparent h-full w-full text-orange placeholder-orange outline-none"
           type="email"
           placeholder="I won't spam you, I promise."
           aria-label="Enter your email address"
@@ -59,15 +82,15 @@ const Newsletter = () => {
           })}
         />
         <button
-          className="flex-shrink w-fit p-2 border-none bg-transparent text-orange hover:text-Green md:text-lg cursor-pointer"
+          className="bg-transparent w-fit flex-shrink cursor-pointer border-none p-2 text-orange transition-all duration-500 ease-in-out hover:bg-orange hover:text-Green md:text-lg"
           type="submit"
           aria-label="Submit"
         >
-          <RiBallPenFill className="text-2xl" />
+          <NewsletterIcon />
         </button>
 
         {errors.email && (
-          <p className="text-Red text-center">{errors.email.message}</p>
+          <p className="text-center text-Red">{errors.email.message}</p>
         )}
       </form>
     </div>

@@ -1,17 +1,10 @@
-import { useRouter } from "next/router"
-import dynamic from "next/dynamic"
-import { useState, useEffect } from "react"
-import { RiCloseCircleFill, RiSearchEyeFill } from "react-icons/ri"
-import Spinner from "../Spinner"
+"use client"
 
-const HamburgerSearch = dynamic(() => import("./HamburgerSearch"), {
-  loading: () => (
-    <div className="flex items-center justify-center">
-      <Spinner />
-    </div>
-  ),
-  ssr: false,
-})
+import { useRouter } from "next/navigation"
+import { useState, useEffect } from "react"
+import RiSearchEyeFill from "./Icons/RiSearchEyeFill"
+import RiCloseCircleFill from "./Icons/RiCloseCircleFill"
+import HamburgerSearch from "./HamburgerSearch"
 
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false)
@@ -40,6 +33,14 @@ export default function HamburgerMenu() {
   const linkHelper = (link: string) => {
     router.push(link)
     setIsOpen(false)
+  }
+
+  const contactLink = () => {
+    setIsOpen(false)
+    scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    })
   }
 
   return (
@@ -84,13 +85,13 @@ export default function HamburgerMenu() {
           </button>
           <button
             className="cursor-pointer text-Green duration-300 ease-in hover:text-orange"
-            onClick={() => router.push("/products")}
+            onClick={() => linkHelper("/products")}
           >
             Products
           </button>
           <button
             className="cursor-pointer text-Green duration-300 ease-in hover:text-orange"
-            onClick={() => router.push("#contact")}
+            onClick={() => contactLink()}
           >
             Contact
           </button>
@@ -129,7 +130,7 @@ export default function HamburgerMenu() {
         </button>
         <button
           className="hidden cursor-pointer rounded-md border-x-2 border-orange px-2 text-Green duration-300 ease-in hover:rounded-2xl hover:border-x-4 hover:px-3 hover:text-sm hover:text-orange lg:flex"
-          onClick={() => router.push("#contact")}
+          onClick={() => contactLink()}
         >
           Contact
         </button>

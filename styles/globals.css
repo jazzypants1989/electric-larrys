@@ -2,23 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: "Bangers";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(/fonts/Bangers-Regular.ttf) format("truetype");
-}
-
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  padding: 0;
-  margin: 0;
-  scroll-behavior: smooth;
-  @apply text-Green font-thin tracking-wider bg-blue;
-}
-
 .drop-shadow {
   text-shadow: 0 0 0.5rem #000;
 }
@@ -26,31 +9,16 @@ body {
 input,
 select,
 textarea {
-  @apply rounded border p-2 shadow outline-none text-orange text-sm focus:ring;
-}
-
-.bg1 {
-  background: linear-gradient(
-      rgba(255, 255, 255, 0.6),
-      rgba(255, 255, 255, 0.3)
-    ),
-    url("/images/bg1.jpg");
-  background-size: cover;
-  min-height: 88vh;
-  min-width: 75vw;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  @apply flex text-Black;
+  @apply rounded border p-2 text-sm text-orange shadow outline-none focus:ring;
 }
 
 .primary-button {
-  @apply rounded py-2 px-4 bg-orange font-thin text-sm tracking-widest shadow outline-none hover:rounded-xl hover:bg-Green hover:text-Yellow transition-all duration-500 ease-in-out;
+  @apply rounded bg-orange py-2 px-4 text-sm font-thin tracking-widest shadow outline-none transition-all duration-500 ease-in-out hover:rounded-xl hover:bg-Green hover:text-Yellow;
 }
 .default-button {
-  @apply rounded py-2 px-4 shadow text-base outline-none tracking-widest hover:rounded-xl hover:bg-Green transition-all duration-500 ease-in-out;
+  @apply rounded py-2 px-4 text-base tracking-widest shadow outline-none transition-all duration-500 ease-in-out hover:rounded-xl hover:bg-Green;
 }
 
 .delete-button {
-  @apply h-7 w-7 hover:scale-150 hover:text-Red transition-all duration-300 ease-in-out;
+  @apply h-7 w-7 transition-all duration-300 ease-in-out hover:scale-150 hover:text-Red;
 }

@@ -1,4 +1,6 @@
-import { useRouter } from "next/router"
+"use client"
+
+import { useRouter } from "next/navigation"
 import {
   useState,
   useRef,
@@ -7,9 +9,8 @@ import {
   MutableRefObject,
   FormEvent,
 } from "react"
-import axios from "axios"
 import Image from "next/image"
-import { IProduct } from "../../../models/Product"
+import { Products } from "../../../utils/dataHooks/getProducts"
 
 export default function HamburgerSearch({
   searchBarOpen,
@@ -17,7 +18,7 @@ export default function HamburgerSearch({
   searchBarOpen: boolean
 }) {
   const [searchTerm, setSearchTerm] = useState("")
-  const [searchResults, setSearchResults] = useState<IProduct[] | null>([])
+  const [searchResults, setSearchResults] = useState<Products | null>([])
   const [searchLoading, setSearchLoading] = useState(false)
   const router = useRouter()
   const searchRef = useRef() as MutableRefObject<HTMLInputElement>
@@ -32,7 +33,9 @@ export default function HamburgerSearch({
     return async () => {
       try {
         setSearchLoading(true)
-        const { data } = await axios.get(`/api/search?query=${searchTerm}`)
+        // const { data } = await axios.get(`/api/search?query=${searchTerm}`)
+        const res = await fetch(`/api/search?query=${searchTerm}`)
+        const data = await res.json()
         setSearchResults(data)
         setSearchLoading(false)
       } catch (err) {
@@ -41,13 +44,31 @@ export default function HamburgerSearch({
     }
   }, [searchTerm])
 
+  type Timeout = ReturnType<typeof setTimeout>
+
+  const debouncedSearch = useMemo(() => {
+    function debounce(func: () => void, wait: number) {
+      let timeout: Timeout
+      return function executedFunction() {
+        const later = () => {
+          clearTimeout(timeout)
+          func()
+        }
+        clearTimeout(timeout)
+        timeout = setTimeout(later, wait)
+      }
+    }
+
+    return debounce(doSearch, 500)
+  }, [doSearch])
+
   useEffect(() => {
     if (searchTerm) {
-      doSearch()
+      debouncedSearch()
     } else {
       setSearchResults([])
     }
-  }, [searchTerm, doSearch])
+  }, [searchTerm, debouncedSearch])
 
   const searchHelper = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -71,7 +92,7 @@ export default function HamburgerSearch({
         <div className="absolute bottom-44 w-fit rounded-2xl border-2 border-orange bg-blue p-3">
           {searchResults.map((result) => (
             <div
-              key={result._id}
+              key={result.id}
               className="flex items-center justify-start"
               onClick={() => {
                 setSearchTerm("")

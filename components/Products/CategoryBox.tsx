@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from "react"
 import { Listbox, Transition } from "@headlessui/react"
 import { ReactNode } from "react"

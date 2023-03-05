@@ -1,13 +1,20 @@
+"use client"
+
 import { Menu } from "@headlessui/react"
 import { useState } from "react"
 
-export default function SortBox({ setSort }) {
+export default function SortBox({
+  setSort,
+}: {
+  // eslint-disable-next-line no-unused-vars
+  setSort: (sort: string) => void
+}) {
   const [sortValue, setSortValue] = useState("")
 
   return (
-    <Menu as="div" className="pl-9 mb-4 relative inline-block text-left">
+    <Menu as="div" className="relative mb-4 inline-block pl-9 text-left">
       <div>
-        <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-Green bg-blue border border-Green rounded-md shadow-sm hover:text-orange focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue transition-all duration-300 ease-in-out">
+        <Menu.Button className="inline-flex w-full justify-center rounded-md border border-Green bg-blue px-4 py-2 text-sm font-medium text-Green shadow-sm transition-all duration-300 ease-in-out hover:text-orange focus:outline-none focus-visible:ring-2 focus-visible:ring-blue focus-visible:ring-offset-2">
           Sort By: {sortValue}
           <svg
             className="-mr-1 ml-2 h-5 w-5"
@@ -25,7 +32,7 @@ export default function SortBox({ setSort }) {
         </Menu.Button>
       </div>
 
-      <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-blue divide-y divide-Green rounded-md shadow-lg ring-1 ring-black ring-opacity-5 text-center align-middle justify-center focus:outline-none z-10">
+      <Menu.Items className="ring-black absolute right-0 z-10 mt-2 w-56 origin-top-right justify-center divide-y divide-Green rounded-md bg-blue text-center align-middle shadow-lg ring-1 ring-opacity-5 focus:outline-none">
         <div className="px-1 py-1 ">
           <Menu.Item>
             {({ active }) => (
@@ -36,7 +43,7 @@ export default function SortBox({ setSort }) {
                 }}
                 className={`${
                   active ? "text-orange" : "text-Green"
-                } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
               >
                 Price - Low to High
               </button>
@@ -51,7 +58,7 @@ export default function SortBox({ setSort }) {
                 }}
                 className={`${
                   active ? "text-orange" : "text-Green"
-                } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
               >
                 Price - High to Low
               </button>
@@ -66,7 +73,7 @@ export default function SortBox({ setSort }) {
                 }}
                 className={`${
                   active ? "text-orange" : "text-green"
-                } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
               >
                 What&apos;s New
               </button>
@@ -81,7 +88,7 @@ export default function SortBox({ setSort }) {
                 }}
                 className={`${
                   active ? "text-orange" : "text-Green"
-                } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
               >
                 What&apos;s Old
               </button>

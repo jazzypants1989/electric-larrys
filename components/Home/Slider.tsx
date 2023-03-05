@@ -1,9 +1,12 @@
-import { IPost } from "../../models/SliderPost"
-import { useState, useEffect, useCallback } from "react"
-import { RiArrowLeftSFill, RiArrowRightSFill } from "react-icons/ri"
-import Image from "next/image"
+"use client"
 
-const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
+import { useState, useEffect, useCallback } from "react"
+import RiArrowLeftSFill from "./Icons/RiArrowLeftSFill"
+import RiArrowRightSFill from "./Icons/RiArrowRightSFill"
+import Image from "next/image"
+import { Post } from "@prisma/client"
+
+const Slider = ({ sliderPosts }: { sliderPosts: Post[] }) => {
   const [current, setCurrent] = useState(0)
   const [animation, setAnimation] = useState("animate-woosh")
   const length = sliderPosts.length
@@ -43,14 +46,15 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
       >
         {index === current && (
           <div className="m-auto flex items-center justify-center rounded-4xl py-8 text-center transition duration-1000 ease-in-out hover:bg-Green hover:text-Black">
-            <a href={link} target="_blank" rel="noreferrer">
-              <div className="rounded-3xl object-contain">
+            <a href={link!} target="_blank" rel="noreferrer">
+              <div className="h-auto w-auto rounded-3xl object-contain">
                 <Image
-                  src={image}
+                  src={image!}
                   alt={title}
                   width={600}
                   height={600}
                   priority
+                  className="h-auto w-auto rounded-3xl"
                 />
               </div>
             </a>
@@ -58,8 +62,10 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
               <h2 className="text-sm text-blue drop-shadow-lg transition duration-1000 ease-in-out md:py-4 md:text-2xl md:hover:text-orange">
                 {title}
               </h2>
-              <p className="text-center drop-shadow">{description}</p>
-              <a href={link} target="_blank" rel="noreferrer">
+              <p className="max-h-40 max-w-2xl overflow-hidden text-center drop-shadow">
+                {description}
+              </p>
+              <a href={link!} target="_blank" rel="noreferrer">
                 <button
                   aria-label="Follow the link"
                   className="w-8/9 mt-2 w-full rounded-lg bg-Green py-1 text-center text-blue opacity-70 drop-shadow-lg transition-all duration-500 ease-in-out hover:scale-95 hover:border-2 hover:bg-orange hover:text-Black hover:opacity-100"
@@ -82,20 +88,23 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
       >
         {index === current && (
           <div className="m-auto flex items-center justify-center gap-6 rounded-4xl py-8 text-center transition duration-1000 ease-in-out hover:bg-Green hover:text-Black ">
-            <div className="rounded-3xl object-contain">
+            <div className="h-auto w-auto rounded-3xl object-contain">
               <Image
-                src={image}
+                src={image!}
                 alt={title}
-                width={600}
-                height={600}
+                width={450}
+                height={450}
                 priority
+                className="h-auto w-auto rounded-3xl object-contain"
               />
             </div>
             <div className="">
-              <h2 className="text-sm text-blue drop-shadow-2xl transition duration-1000 ease-in-out md:text-2xl md:hover:text-orange">
+              <h2 className="max-w-2xl text-sm text-blue drop-shadow-2xl transition duration-1000 ease-in-out md:text-2xl md:hover:text-orange">
                 {title}
               </h2>
-              <p className="pt-8 text-center drop-shadow">{description}</p>
+              <p className="max-h-40 max-w-2xl overflow-hidden text-center drop-shadow md:max-h-80">
+                {description}
+              </p>
             </div>
           </div>
         )}
@@ -117,13 +126,15 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
           <div
             className={`mx-1 grid items-center justify-center rounded-4xl text-center transition duration-1000 ease-in-out hover:bg-opacity-50 hover:text-Black hover:drop-shadow-lg md:hover:bg-Green `}
           >
-            <a href={link} target="_blank" rel="noreferrer">
+            <a href={link!} target="_blank" rel="noreferrer">
               <h2 className="text-lg text-blue drop-shadow-lg transition-all duration-1000 ease-in-out md:text-3xl md:hover:text-orange">
                 {title}
               </h2>
             </a>
-            <p className="drop-shadow md:text-base">{description}</p>
-            <a href={link} target="_blank" rel="noreferrer">
+            <p className="max-h-40 max-w-2xl overflow-hidden text-center drop-shadow md:max-h-80">
+              {description}
+            </p>
+            <a href={link!} target="_blank" rel="noreferrer">
               <button
                 aria-label="Follow the link"
                 className="w-7/9 mt-2 w-full rounded-lg bg-Green py-1 text-center text-blue opacity-70 drop-shadow-lg transition-all duration-500 ease-in-out hover:scale-95 hover:border-2 hover:bg-orange hover:text-Black hover:opacity-100"
@@ -155,24 +166,25 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
               <h2 className="text-base text-blue drop-shadow-lg transition duration-1000 ease-in-out md:text-2xl md:hover:text-orange">
                 {title}
               </h2>
-              <p className={`pt-4 drop-shadow md:text-base`}>{description}</p>
+              <p className="max-h-40 max-w-2xl overflow-hidden text-center drop-shadow">
+                {description}
+              </p>
             </div>
           </div>
         )}
       </div>
     )
 
-    if (image !== "no" && link !== "no") {
+    if (image && link) {
       return sliderPostWithImageAndLink
-    } else if (image !== "no") {
+    } else if (image && !link) {
       return sliderPostWithImage
-    } else if (link !== "no") {
+    } else if (!image && link) {
       return sliderPostWithLink
     } else {
       return sliderPostNoImageOrLink
     }
   })
-
   return (
     <>
       <article className="mx-2 flex max-h-full items-center justify-around rounded-lg rounded-t-2xl bg-orange">

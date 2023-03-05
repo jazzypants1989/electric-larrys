@@ -1,23 +1,24 @@
-import { RiFacebookCircleFill } from "react-icons/ri"
-import { AiFillInstagram } from "react-icons/ai"
-import { TbBrandTiktok } from "react-icons/tb"
+import RiFacebookCircleFill from "./Icons/RiFacebookCircleFill"
+import Instagram from "./Icons/Instagram"
+import TbBrandTiktok from "./Icons/TbBrandTiktok"
+
 import pengy from "../../../public/images/default-monochrome.svg"
 import Image from "next/image"
 import Link from "next/link"
 
 export default function FooterLogo() {
   return (
-    <ul className="flex flex-col items-center justify-start h-full">
+    <ul className="flex h-full flex-col items-center justify-start">
       <li>
         <Link
           href="/"
-          className="p-2 text-lg font-thin lg:text-2xl text-orange hover:text-Green duration-500 self-center text-center"
+          className="self-center p-2 text-center text-lg font-thin text-orange duration-500 hover:text-Green lg:text-2xl"
         >
           Electric Larry&apos;s
         </Link>
       </li>
       <li>
-        <p className="pl-4 p-2 text-center">
+        <p className="p-2 pl-4 text-center">
           Electric Larry&apos;s is an eclectic oddity emporium located in
           Carbondale, IL. We carry a wide variety of items including movies,
           music, books, toys, and more.
@@ -31,10 +32,7 @@ export default function FooterLogo() {
             rel="noreferrer"
             aria-label="Facebook"
           >
-            <RiFacebookCircleFill
-              style={{ color: "3b5999" }}
-              className="cursor-pointer w-10 h-10 bg-Green hover:bg-orange rounded-xl hover:rounded-2xl hover:p-1 m-2 transition-all duration-700 ease-in"
-            />
+            <RiFacebookCircleFill />
           </a>
           <a
             href="https://www.instagram.com/electric_larrys_carbondale/"
@@ -42,10 +40,7 @@ export default function FooterLogo() {
             rel="noreferrer"
             aria-label="Instagram"
           >
-            <AiFillInstagram
-              style={{ color: "d94840" }}
-              className="cursor-pointer w-10 h-10 bg-Green hover:bg-orange rounded-xl hover:rounded-2xl m-2 transition-all duration-700 ease-in hover:p-1"
-            />
+            <Instagram />
           </a>
           <a
             href="https://www.tiktok.com/@electric_larrys?lang=en"
@@ -53,10 +48,7 @@ export default function FooterLogo() {
             rel="noreferrer"
             aria-label="TikTok"
           >
-            <TbBrandTiktok
-              style={{ color: "fe2c55" }}
-              className="cursor-pointer p-1 mr-4 w-10 h-10 bg-Green hover:bg-orange rounded-xl hover:rounded-3xl hover:p-2 m-2 transition-all duration-700 ease-in"
-            />
+            <TbBrandTiktok />
           </a>
           <a
             href="https://www.jazzypants.dev"
@@ -70,7 +62,7 @@ export default function FooterLogo() {
               alt="pengy"
               width={100}
               height={100}
-              className="cursor-pointer translate-y-2 hover:translate-y-0 w-10 max-h-10 bg-Green hover:bg-orange rounded-xl hover:rounded-2xl hover:p-2 transition-all duration-700 ease-in"
+              className="max-h-10 w-10 translate-y-2 cursor-pointer rounded-xl bg-Green transition-all duration-700 ease-in hover:translate-y-0 hover:rounded-2xl hover:bg-orange hover:p-2"
             />
           </a>
         </div>
