@@ -2,7 +2,7 @@ import Stripe from "stripe"
 import { getSession } from "next-auth/react"
 import { NextApiRequest, NextApiResponse } from "next"
 
-const stripe = new Stripe(`${process.env.NEXT_PUBLIC_STRIPE_SECRET}`, {
+const stripe = new Stripe(`${process.env.STRIPE_SECRET}`, {
   apiVersion: "2022-11-15",
 })
 

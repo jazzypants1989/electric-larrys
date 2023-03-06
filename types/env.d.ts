@@ -13,7 +13,7 @@ declare global {
       NEXT_CLOUDINARY_URL: string
       CLOUDINARY_SECRET: string
       NEXT_PUBLIC_STRIPE_KEY: string
-      NEXT_PUBLIC_STRIPE_SECRET: string
+      STRIPE_SECRET: string
       GOOGLE_ID: string
       GOOGLE_SECRET: string
       DISCORD_CLIENT_ID: string
