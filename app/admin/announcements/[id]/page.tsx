@@ -1,12 +1,11 @@
 import { getAnnouncementByID } from "../../../../utils/dataHooks/getAnnouncementByID"
 import AnnouncementPage from "./Announcement"
 import { notFound } from "next/navigation"
-import type { Announcement } from "@prisma/client"
 
 export default async function AdminAnnouncementPage({
   params,
 }: {
-  // params: { id: string }
+  params: { id: string }
 }) {
   const { id } = params
 
