@@ -5,7 +5,10 @@ import Categories from "../components/Home/Categories"
 import Newsletter from "../components/Home/Newsletter"
 import FeaturedProducts from "../components/Home/FeaturedProducts"
 
-import { getAllAnnouncements } from "../utils/dataHooks/getAllAnnouncements"
+import {
+  getAllAnnouncements,
+  IAnnouncement,
+} from "../utils/dataHooks/getAllAnnouncements"
 import { getFeaturedPosts } from "../utils/dataHooks/getFeaturedPosts"
 import { getNonFeaturedPosts } from "../utils/dataHooks/getNonFeaturedPosts"
 import { getFeaturedProducts } from "../utils/dataHooks/getFeaturedProducts"
@@ -41,7 +44,7 @@ export default async function Route() {
   const nonFeaturedPosts = await getNonFeaturedPosts()
   const featuredProducts = await getFeaturedProducts()
 
-  const announcementList = announcements.map((announcement) => (
+  const announcementList = announcements.map((announcement: IAnnouncement) => (
     <Announcement key={announcement.id} announcement={announcement} />
   ))
 
