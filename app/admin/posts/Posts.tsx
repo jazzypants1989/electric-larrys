@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation"
 import React, { useEffect, useReducer } from "react"
 import { useAtom } from "jotai"
 import toastStore from "../../../utils/ToastStore"
-import { Post } from "@prisma/client"
+
+import type { Post } from "./[id]/Post"
 
 type State = {
   loadingCreate: boolean
@@ -179,7 +180,7 @@ export default function Posts({ posts }: { posts: Post[] }) {
                 </Link>
                 <button
                   className="btn btn-danger"
-                  onClick={() => deletePostHandler(post.id)}
+                  onClick={() => deletePostHandler(post.id!)}
                   disabled={loadingDelete}
                 >
                   Delete

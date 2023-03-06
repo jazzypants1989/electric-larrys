@@ -4,9 +4,10 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { ChangeEvent, useEffect, useReducer } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
+import { useAtom } from "jotai"
+
 import { Product } from "../../../../utils/dataHooks/getProducts"
 import toastStore from "../../../../utils/ToastStore"
-import { useAtom } from "jotai"
 
 type State = {
   loadingUpdate: boolean

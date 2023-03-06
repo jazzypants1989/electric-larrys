@@ -4,8 +4,17 @@ import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useAtom } from "jotai"
 import toastStore from "../../../../utils/ToastStore"
-import { Post } from "@prisma/client"
 import { useState } from "react"
+
+export type Post = {
+  id: string | null
+  title: string | null
+  link: string | null
+  description: string | null
+  image: string | null
+  isFeatured: boolean | null
+  isPublished: boolean | null
+}
 
 const randomID = Math.random().toString(36).substring(2, 15)
 

@@ -7,11 +7,11 @@ import { useAtom } from "jotai"
 import toastStore from "../../../utils/ToastStore"
 
 export type Announcement = {
-  id: string
-  title: string
-  link: string
-  description: string
-  isPublished: boolean
+  id: string | null
+  title: string | null
+  link: string | null
+  description: string | null
+  isPublished: boolean | null
 }
 
 type State = {

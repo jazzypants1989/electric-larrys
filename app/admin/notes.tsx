@@ -1,9 +1,17 @@
 "use client"
 
 import Image from "next/image"
-import { Note } from "@prisma/client"
 import { FormEvent, useRef } from "react"
 import { useRouter } from "next/navigation"
+
+type Note = {
+  id: string | null
+  title: string | null
+  description: string | null
+  image: string | null
+  link: string | null
+  isPublished: boolean | null
+}
 
 export default function Notes({ notes }: { notes: Note[] }) {
   const router = useRouter()
@@ -48,26 +56,8 @@ export default function Notes({ notes }: { notes: Note[] }) {
     }
   }
 
-  // const updatePublishedHandler = async (id: number, isPublished: boolean) => {
-  //   try {
-  //     await fetch("/api/admin/notes", {
-  //       method: "PUT",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         id,
-  //         isPublished,
-  //       }),
-  //     })
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-
-  //   router.refresh()
-  // }
-
-  const deleteNoteHandler = async (id: number) => {
+  const deleteNoteHandler = async (id: string | null) => {
+    if (!id) return
     try {
       await fetch("/api/admin/notes", {
         method: "DELETE",
@@ -100,7 +90,7 @@ export default function Notes({ notes }: { notes: Note[] }) {
             {note.image && (
               <Image
                 src={note.image}
-                alt={note.title}
+                alt="Note Image"
                 width={200}
                 height={200}
               />
@@ -115,7 +105,7 @@ export default function Notes({ notes }: { notes: Note[] }) {
                 </a>
               </p>
             )}
-            <button onClick={() => deleteNoteHandler(note.id)}>Delete</button>
+            <button onClick={() => deleteNoteHandler(note!.id)}>Delete</button>
           </div>
         ))}
       </div>
@@ -149,13 +139,6 @@ export default function Notes({ notes }: { notes: Note[] }) {
           ref={imageRef}
           className="mb-2 w-1/2"
         />
-        {/* <label htmlFor="isPublished">Published</label>
-        <input
-          type="checkbox"
-          name="isPublished"
-          id="isPublished"
-          ref={isPublishedRef}
-        /> */}
         <label htmlFor="link">Link</label>
         <input
           type="text"

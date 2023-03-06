@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import React, { useEffect, useReducer } from "react"
 import { useAtom } from "jotai"
+
 import toastStore from "../../../utils/ToastStore"
 import type { Product } from "../../../utils/dataHooks/getProducts"
 

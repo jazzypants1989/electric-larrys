@@ -2,9 +2,9 @@
 
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useState } from "react"
-import { User } from "@prisma/client"
 import { useAtom } from "jotai"
 import toastStore from "../../../utils/ToastStore"
+import { User } from "../../../utils/dataHooks/getUserByID"
 
 type FormValues = {
   user: string
@@ -93,7 +93,7 @@ export default function Newsletter({ users }: { users: User[] }) {
               className="rounded-md border border-orange p-2"
             >
               {users.map((user) => (
-                <option key={user.id}>{user.email}</option>
+                <option key={user!.id}>{user!.email}</option>
               ))}
             </select>
             {errors.user && <p className="text-Red">This field is required</p>}

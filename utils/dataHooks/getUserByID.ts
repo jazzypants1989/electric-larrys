@@ -13,3 +13,5 @@ export const getUserByID = cache(async (id: string) => {
   })
   return user
 })
+
+export type User = Awaited<ReturnType<typeof getUserByID>>

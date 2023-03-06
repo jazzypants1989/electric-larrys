@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useAtom } from "jotai"
 import toastStore from "../../../../utils/ToastStore"
-import { User } from "@prisma/client"
 import { useState } from "react"
+import { User } from "../../../../utils/dataHooks/getUserByID"
 
 const randomID = Math.random().toString(36).substring(2, 15)
 
@@ -15,13 +15,13 @@ export default function UserPage({ user }: { user: User }) {
   const [error, setError] = useState("")
   const router = useRouter()
 
-  const { id, name, email, isAdmin, isEmployee, newsletter } = user
+  const { id, name, email, isAdmin, isEmployee, newsletter } = user!
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<User>({
+  } = useForm<NonNullable<User>>({
     defaultValues: {
       name,
       email,
@@ -30,6 +30,8 @@ export default function UserPage({ user }: { user: User }) {
       newsletter,
     },
   })
+
+  //@ts-ignore
 
   const onSubmit: SubmitHandler<User> = async (data) => {
     setLoading(true)
