@@ -108,7 +108,7 @@ export default function AdminProductEditScreen({
     setValue("price", price)
     setValue("image", image)
     setValue("category", category)
-    setValue("tags", tags.map((tag) => tag).join(", "))
+    setValue("tags", tags.map((tag: string) => tag).join(", "))
     setValue("countInStock", countInStock.toString())
     setValue("description", description)
     setValue("isFeatured", isFeatured)
