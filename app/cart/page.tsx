@@ -3,12 +3,12 @@
 import Store, { CartItem } from "../../utils/Store"
 import Image from "next/image"
 import Link from "next/link"
-import RiCloseCircleFill from "../../components/layout/Header/Icons/RiCloseCircleFill"
 import getStripe from "../../utils/getStripe"
-import Card from "../../components/layout/Card"
 import { useAtom } from "jotai"
 import { Product } from "../../utils/dataHooks/getProducts"
 import toastStore from "../../utils/ToastStore"
+import Card from "../../components/Layout/Card"
+import RiCloseCircleFill from "../../components/Layout/Header/Icons/RiCloseCircleFill"
 
 const Cart = () => {
   const [cart, setCart] = useAtom(Store)
