@@ -40,7 +40,8 @@ export default function ProductsComponent({
   const filterProducts = (products: Products) => {
     if (category) {
       products = products.filter(
-        (product) => product.category.toLowerCase() === category.toLowerCase()
+        (product: Product) =>
+          product.category.toLowerCase() === category.toLowerCase()
       )
     }
     if (tag) {
