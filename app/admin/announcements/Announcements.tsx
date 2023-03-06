@@ -5,7 +5,9 @@ import { useRouter } from "next/navigation"
 import React, { useEffect, useReducer } from "react"
 import { useAtom } from "jotai"
 import toastStore from "../../../utils/ToastStore"
-import { Announcement } from "@prisma/client"
+import { getAnnouncementByID } from "../../../utils/dataHooks/getAnnouncementByID"
+
+type Announcement = Awaited<ReturnType<typeof getAnnouncementByID>>
 
 type State = {
   loadingCreate: boolean
@@ -91,7 +93,6 @@ export default function Announcements({
   }
 
   const deleteAnnouncementHandler = async (id: string) => {
-    console.log(id)
     if (!window.confirm("Delete this announcement?")) return
     try {
       dispatch({ type: "DELETE_REQUEST" })
@@ -165,22 +166,26 @@ export default function Announcements({
         )}
         <tbody>
           {announcements.map((announcement) => (
-            <tr key={announcement.id}>
-              <td className="border-b p-4">{announcement.title}</td>
-              <td className="border-b p-4">{announcement.description}</td>
+            <tr key={announcement?.id}>
+              <td className="border-b p-4">{announcement?.title}</td>
+              <td className="border-b p-4">{announcement?.description}</td>
               <td className="border-b p-4 text-lg">
-                {!announcement.link ? "❌" : "💯"}
+                {!announcement?.link ? "❌" : "💯"}
               </td>
               <td className="border-b p-4 text-lg">
-                {!announcement.isPublished ? "❌" : "💯"}
+                {!announcement?.isPublished ? "❌" : "💯"}
               </td>
               <td className="border-b p-4">
-                <Link href={`/admin/announcements/${announcement.id}`}>
+                <Link href={`/admin/announcements/${announcement?.id}`}>
                   Edit
                 </Link>
                 <button
                   className="btn btn-danger"
-                  onClick={() => deleteAnnouncementHandler(announcement.id)}
+                  onClick={() => {
+                    if (announcement?.id) {
+                      deleteAnnouncementHandler(announcement.id)
+                    }
+                  }}
                 >
                   Delete
                 </button>
