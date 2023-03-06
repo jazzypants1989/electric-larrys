@@ -5,9 +5,14 @@ import { useRouter } from "next/navigation"
 import React, { useEffect, useReducer } from "react"
 import { useAtom } from "jotai"
 import toastStore from "../../../utils/ToastStore"
-import { getAnnouncementByID } from "../../../utils/dataHooks/getAnnouncementByID"
 
-type Announcement = Awaited<ReturnType<typeof getAnnouncementByID>>
+export type Announcement = {
+  id: string
+  title: string
+  link: string
+  description: string
+  isPublished: boolean
+}
 
 type State = {
   loadingCreate: boolean

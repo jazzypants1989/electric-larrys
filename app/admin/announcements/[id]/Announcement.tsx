@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useAtom } from "jotai"
 import toastStore from "../../../../utils/ToastStore"
-import { Announcement } from "@prisma/client"
 import { useState } from "react"
+import type { Announcement } from "../Announcements"
 
 const randomID = Math.random().toString(36).substring(2, 15)
 
