@@ -45,7 +45,7 @@ export default function ProductsComponent({
       )
     }
     if (tag) {
-      products = products.filter((product) =>
+      products = products.filter((product: Product) =>
         tag.every(
           (t) =>
             product.tags.filter((tag) => tag.toLowerCase() === t.toLowerCase())
