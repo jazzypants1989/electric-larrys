@@ -48,8 +48,9 @@ export default function ProductsComponent({
       products = products.filter((product: Product) =>
         tag.every(
           (t) =>
-            product.tags.filter((tag) => tag.toLowerCase() === t.toLowerCase())
-              .length > 0
+            product.tags.filter(
+              (tag: string) => tag.toLowerCase() === t.toLowerCase()
+            ).length > 0
         )
       )
     }
@@ -151,11 +152,11 @@ export default function ProductsComponent({
           )}
         </div>
         {page === 1 &&
-          sortedProducts.map((product) => (
+          sortedProducts.map((product: Product) => (
             <ProductItem key={product.id} product={product} />
           ))}
         {page > 1 &&
-          shownProducts.map((product) => (
+          shownProducts.map((product: Product) => (
             <ProductItem key={product.id} product={product} />
           ))}
 
