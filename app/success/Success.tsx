@@ -7,9 +7,7 @@ import Image from "next/image"
 import Link from "next/link"
 import Store from "../../utils/Store"
 
-const stripe = require("stripe")(process.env.NEXT_PUBLIC_STRIPE_SECRET)
-
-export default function Success() {
+export default function Success({ stripe }: { stripe: any }) {
   const [cart, setCart] = useAtom(Store)
 
   const searchParams = useSearchParams()
