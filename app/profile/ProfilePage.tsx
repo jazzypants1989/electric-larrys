@@ -274,7 +274,7 @@ export default function ProfilePage({
       </div>
       <h2 className="text-center text-lg drop-shadow">Orders</h2>
       <ul className="flex flex-col items-center justify-center">
-        {orders.map((order) => (
+        {orders.map((order: Order) => (
           <div
             className="border-black border-b-3 border-r-3 border-l-3 border-t-3 m-2 flex w-full flex-col items-center justify-center gap-2 rounded-md border-4 p-2 shadow-md transition duration-500 ease-in-out hover:scale-105 hover:border-orange hover:bg-Green hover:text-blue hover:underline-offset-2"
             key={order.id}

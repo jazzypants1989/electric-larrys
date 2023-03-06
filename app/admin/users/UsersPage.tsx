@@ -139,7 +139,7 @@ export default function Users({ users }: { users: User[] }) {
         </button>
       </div>
       <div className="mt-4 flex flex-col">
-        {users.map((user) => (
+        {users.map((user: User) => (
           <div
             key={user?.id}
             className="flex items-center justify-between border-b border-Green p-4"

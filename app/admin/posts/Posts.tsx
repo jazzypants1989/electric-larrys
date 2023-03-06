@@ -155,7 +155,7 @@ export default function Posts({ posts }: { posts: Post[] }) {
           </tr>
         </thead>
         <tbody>
-          {posts.map((post) => (
+          {posts.map((post: Post) => (
             <tr key={post.id} className="border-b">
               <td className="px-4 py-2 text-center">{post.title}</td>
               <td className="px-4 py-2 text-center">{post.description}</td>

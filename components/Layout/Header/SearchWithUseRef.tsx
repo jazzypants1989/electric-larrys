@@ -3,7 +3,7 @@
 import { useState, useRef, useMemo, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
-import { Products } from "../../../utils/dataHooks/getProducts"
+import { Product, Products } from "../../../utils/dataHooks/getProducts"
 import BiSearchAlt from "./Icons/BiSearchAlt"
 
 export default function Search({
@@ -84,7 +84,7 @@ export default function Search({
           ) : (
             <ul>
               {searchResults &&
-                searchResults.slice(0, 10).map((product) => (
+                searchResults.slice(0, 10).map((product: Product) => (
                   <li
                     key={product.id}
                     className="flex cursor-pointer justify-between p-2 hover:text-Green"

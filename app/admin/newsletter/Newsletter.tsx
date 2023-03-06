@@ -92,7 +92,7 @@ export default function Newsletter({ users }: { users: User[] }) {
               {...register("user", { required: true })}
               className="rounded-md border border-orange p-2"
             >
-              {users.map((user) => (
+              {users.map((user: User) => (
                 <option key={user!.id}>{user!.email}</option>
               ))}
             </select>

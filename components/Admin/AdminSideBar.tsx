@@ -4,6 +4,11 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
+type ILink = {
+  name: string
+  href: string
+}
+
 export default function AdminSideBar() {
   const pathname = usePathname()
   const isActive = (r: string) => (r === pathname ? "active" : "")
@@ -58,7 +63,7 @@ export default function AdminSideBar() {
             aria-label="Administrative Sidebar"
           >
             <div className="space-y-1">
-              {links.map((link) =>
+              {links.map((link: ILink) =>
                 link.name === "Stripe Dashboard" ? (
                   <a
                     key={link.name}

@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useAtom } from "jotai"
 
 import Card from "../../../components/Layout/Card"
-import Store, { reactions } from "../../../utils/Store"
+import Store, { CartItem, reactions } from "../../../utils/Store"
 import { Product } from "../../../utils/dataHooks/getProducts"
 import toastStore from "../../../utils/ToastStore"
 
@@ -50,7 +50,7 @@ export default function ProductPage({
     setCart((prev) => ({
       ...prev,
       cartItems: existItem
-        ? prev.cartItems.map((x) =>
+        ? prev.cartItems.map((x: CartItem) =>
             x.product.slug === product.slug ? { ...existItem, quantity } : x
           )
         : [...prev.cartItems, { product, quantity }],

@@ -4,7 +4,7 @@ import type { IPost } from "../../utils/dataHooks/getFeaturedPosts"
 const SideBar = ({ sideBarPosts }: { sideBarPosts: IPost[] }) => {
   // check sideBarPosts for images and links, then make dynamic styles based on their presence
 
-  const sideBarPost = sideBarPosts.map((sideBarPost) => {
+  const sideBar = sideBarPosts.map((sideBarPost: IPost) => {
     const { title, description, link, image, id } = sideBarPost
 
     // LINK AND IMAGE PRESENT
@@ -126,11 +126,7 @@ const SideBar = ({ sideBarPosts }: { sideBarPosts: IPost[] }) => {
     }
   })
 
-  return (
-    <>
-      <div>{sideBarPost}</div>
-    </>
-  )
+  return <>{sideBar}</>
 }
 
 export default SideBar

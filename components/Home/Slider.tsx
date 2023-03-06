@@ -34,7 +34,7 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
     return null
   }
 
-  const sliderPost = sliderPosts.map((sliderPost, index) => {
+  const sliderPost = sliderPosts.map((sliderPost: IPost, index: number) => {
     const { title, description, link, image } = sliderPost
 
     // LINK AND IMAGE PRESENT

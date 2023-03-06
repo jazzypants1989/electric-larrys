@@ -70,9 +70,11 @@ export default function TagBox({
                   className="absolute mt-1 max-h-60 w-48 overflow-y-auto overflow-x-hidden rounded border border-Green bg-blue leading-6 shadow-lg"
                 >
                   {uniqueList
-                    .sort((a, b) => a.localeCompare(b.toLowerCase()))
-                    .filter((tag) => tag !== "")
-                    .map((tag) => (
+                    .sort((a: string, b: string) =>
+                      a.localeCompare(b.toLowerCase())
+                    )
+                    .filter((tag: string) => tag !== "")
+                    .map((tag: string) => (
                       <Combobox.Option key={tag} value={tag}>
                         {({ selected, active }) => (
                           <div
@@ -115,7 +117,7 @@ export default function TagBox({
       {selectedTag.length > 0 && selectedTag.join("") !== "" && (
         <ul className="grid-cols m-1 mt-3 grid p-1">
           {selectedTag.map(
-            (tag) =>
+            (tag: string) =>
               tag.length > 0 && (
                 <li key={tag} className="flex items-center justify-between">
                   <span className="mt-1 rounded-full bg-orange px-3 py-1 text-sm font-medium text-Green">

@@ -82,7 +82,7 @@ export default function Notes({ notes }: { notes: Note[] }) {
         <h3 className="text-xl drop-shadow">
           {notes.length} {notes.length === 1 ? "Note" : "Notes"}
         </h3>
-        {notes.map((note) => (
+        {notes.map((note: Note) => (
           <div
             key={note.id}
             className="flex flex-col items-center justify-center"

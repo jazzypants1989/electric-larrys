@@ -2,7 +2,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Product } from "../../utils/dataHooks/getProducts"
-import Store, { reactions } from "../../utils/Store"
+import Store, { CartItem, reactions } from "../../utils/Store"
 import toastStore from "../../utils/ToastStore"
 import { useAtom } from "jotai"
 import Card from "../Layout/Card"
@@ -38,7 +38,7 @@ export default function ProductItem({ product }: { product: Product }) {
     if (cartItem) {
       setCart({
         ...cart,
-        cartItems: cart.cartItems.map((item) =>
+        cartItems: cart.cartItems.map((item: CartItem) =>
           item.product.id === product.id
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : item

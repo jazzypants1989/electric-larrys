@@ -34,12 +34,14 @@ const Cart = () => {
       if (quantity === 0) {
         setCart((prev) => ({
           ...prev,
-          cartItems: prev.cartItems.filter((x) => x.product.id !== item.id),
+          cartItems: prev.cartItems.filter(
+            (x: CartItem) => x.product.id !== item.id
+          ),
         }))
       } else {
         setCart((prev) => ({
           ...prev,
-          cartItems: prev.cartItems.map((x) =>
+          cartItems: prev.cartItems.map((x: CartItem) =>
             x.product.id === item.id ? { ...product, quantity } : x
           ),
         }))
@@ -154,7 +156,7 @@ const Cart = () => {
             <div className="min-w-full md:col-span-3">
               <table className="w-84 min-w-full">
                 <tbody>
-                  {cart.cartItems.map((item) => (
+                  {cart.cartItems.map((item: CartItem) => (
                     <tr key={item.product.slug} className="border-b pr-2">
                       <td className="p-1">
                         <Link
@@ -192,7 +194,7 @@ const Cart = () => {
                           }
                         >
                           {[...Array(item.product.countInStock).keys()].map(
-                            (x) => (
+                            (x: number) => (
                               <option key={x + 1} value={x + 1}>
                                 {x + 1}
                               </option>

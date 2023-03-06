@@ -12,7 +12,7 @@ export default function FeaturedProducts({
         Featured Products
       </h3>
       <div className="flex aspect-auto w-auto flex-col items-center justify-center rounded-4xl bg-orange bg-opacity-70 object-contain transition-all duration-1000 hover:bg-opacity-80 md:rounded-l-full">
-        {featuredProducts.map((product) => (
+        {featuredProducts.map((product: Product) => (
           <ProductItem key={product.id} product={product} />
         ))}
       </div>

@@ -10,7 +10,7 @@ import {
   FormEvent,
 } from "react"
 import Image from "next/image"
-import { Products } from "../../../utils/dataHooks/getProducts"
+import { Product, Products } from "../../../utils/dataHooks/getProducts"
 
 export default function HamburgerSearch({
   searchBarOpen,
@@ -90,7 +90,7 @@ export default function HamburgerSearch({
       {searchLoading && <div className="text-xl text-Green">Loading...</div>}
       {searchResults && searchResults.length > 0 && (
         <div className="absolute bottom-44 w-fit rounded-2xl border-2 border-orange bg-blue p-3">
-          {searchResults.map((result) => (
+          {searchResults.map((result: Product) => (
             <div
               key={result.id}
               className="flex items-center justify-start"

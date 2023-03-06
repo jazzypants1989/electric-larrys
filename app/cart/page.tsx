@@ -49,7 +49,7 @@ const Cart = () => {
       } else {
         setCart((prev) => ({
           ...prev,
-          cartItems: prev.cartItems.map((x) =>
+          cartItems: prev.cartItems.map((x: CartItem) =>
             x.product.id === item.id ? { ...product, quantity } : x
           ),
         }))
@@ -145,7 +145,7 @@ const Cart = () => {
             </Link>
           </div>
         ) : (
-          cart.cartItems.map((item) => (
+          cart.cartItems.map((item: CartItem) => (
             <Card key={item.product.id} className="h-auto w-full">
               <div className="flex flex-row items-center justify-between">
                 <div className="flex flex-row items-center justify-start">

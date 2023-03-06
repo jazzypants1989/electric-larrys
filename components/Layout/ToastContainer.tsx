@@ -23,7 +23,7 @@ export default function ToastContainer() {
 
   return (
     <div className="pointer-events-none fixed top-0 z-50 mt-4 flex h-full w-full flex-col items-center">
-      {toasts.map((toast) => (
+      {toasts.map((toast: IToast) => (
         <Toast
           key={toast.id}
           success={toast.success}

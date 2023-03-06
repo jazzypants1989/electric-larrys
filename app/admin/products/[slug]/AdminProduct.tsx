@@ -185,7 +185,7 @@ export default function AdminProductEditScreen({
     isOnSale,
     salePrice,
   }) => {
-    const tagArray = tags.split(",").map((tag) => tag.trim())
+    const tagArray = tags.split(",").map((tag: string) => tag.trim())
 
     try {
       dispatch({ type: "UPDATE_REQUEST" })

@@ -170,7 +170,7 @@ export default function Announcements({
           </tr>
         )}
         <tbody>
-          {announcements.map((announcement) => (
+          {announcements.map((announcement: Announcement) => (
             <tr key={announcement?.id}>
               <td className="border-b p-4">{announcement?.title}</td>
               <td className="border-b p-4">{announcement?.description}</td>

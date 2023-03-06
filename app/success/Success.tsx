@@ -74,7 +74,7 @@ export default function Success({ stripe }: { stripe: any }) {
               <th className="p-4">Price</th>
             </tr>
           </thead>
-          {order.line_items.data.map((item) => (
+          {order.line_items.data.map((item: LineItem) => (
             <tr key={item.id} className="p-4">
               <td className="border-b border-orange p-4 ">{item.name}</td>
               <td className="border-b border-orange p-4">{item.quantity}</td>
@@ -188,4 +188,13 @@ export type Order = {
     amount_total: number
   }
   amount_total: number
+}
+
+type LineItem = {
+  id: string
+  name: string
+  description: string
+  amount_total: number
+  currency: string
+  quantity: number
 }

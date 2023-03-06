@@ -17,7 +17,7 @@ export default function Cheese({
         <>
           <h2 className="mb-4 mt-2 text-center text-lg drop-shadow md:text-3xl">
             Oh, so you want some {category}, specifically{" "}
-            {tag.map((t) => t + ", ").slice(0, -1)}
+            {tag.map((t: string) => t + ", ").slice(0, -1)}
             {" and " + tag[tag.length - 1]}? Well, aren&apos;t you picky?
           </h2>
           <button
@@ -64,7 +64,7 @@ export default function Cheese({
       cheese = (
         <>
           <h2 className="mb-4 mt-2 text-center text-lg drop-shadow md:text-3xl">
-            Oh, so you want some {tag.map((t) => t + ", ").slice(0, -1)}
+            Oh, so you want some {tag.map((t: string) => t + ", ").slice(0, -1)}
             {" and " + tag[tag.length - 1]}? Well, aren&apos;t you picky?
           </h2>
           <button

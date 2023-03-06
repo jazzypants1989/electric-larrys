@@ -68,7 +68,7 @@ export default function CategoryBox({
                   className="absolute z-10 mt-1 max-h-60 w-48 overflow-y-auto overflow-x-hidden rounded border border-Green bg-blue leading-6 shadow-lg"
                 >
                   {categories &&
-                    categories.map((category) => (
+                    categories.map((category: string) => (
                       <Listbox.Option key={category} value={category}>
                         {({ selected, active }) => (
                           <div
