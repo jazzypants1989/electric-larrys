@@ -1,5 +1,7 @@
 "use client"
 
+export const revalidate = 0
+
 import { useAtom } from "jotai"
 import { use, useEffect } from "react"
 import { useSearchParams } from "next/navigation"
