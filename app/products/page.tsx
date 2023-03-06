@@ -1,3 +1,5 @@
+export const revalidate = 30
+
 import { Suspense } from "react"
 import { getProducts, Product } from "../../utils/dataHooks/getProducts"
 import Spinner from "./loading"
