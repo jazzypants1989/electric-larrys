@@ -4,9 +4,9 @@ import { useState, useEffect, useCallback } from "react"
 import RiArrowLeftSFill from "./Icons/RiArrowLeftSFill"
 import RiArrowRightSFill from "./Icons/RiArrowRightSFill"
 import Image from "next/image"
-import { Post } from "@prisma/client"
+import type { IPost } from "../../utils/dataHooks/getFeaturedPosts"
 
-const Slider = ({ sliderPosts }: { sliderPosts: Post[] }) => {
+const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
   const [current, setCurrent] = useState(0)
   const [animation, setAnimation] = useState("animate-woosh")
   const length = sliderPosts.length

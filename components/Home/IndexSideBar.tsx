@@ -1,5 +1,6 @@
 import Image from "next/image"
-import { IPost } from "../../app/page"
+import type { IPost } from "../../utils/dataHooks/getFeaturedPosts"
+
 const SideBar = ({ sideBarPosts }: { sideBarPosts: IPost[] }) => {
   // check sideBarPosts for images and links, then make dynamic styles based on their presence
 

@@ -1,4 +1,4 @@
-import type { Product } from "@prisma/client"
+import type { Product } from "../../utils/dataHooks/getProducts"
 import ProductItem from "../Products/ProductItem"
 
 export default function FeaturedProducts({
