@@ -17,11 +17,19 @@ export default function UserPage({ user }: { user: User }) {
 
   const { id, name, email, isAdmin, isEmployee, newsletter } = user!
 
+  type FormValues = {
+    name: string | null
+    email: string | null
+    isAdmin: boolean | null
+    isEmployee: boolean | null
+    newsletter: boolean | null
+  }
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<NonNullable<User>>({
+  } = useForm<FormValues>({
     defaultValues: {
       name,
       email,
@@ -33,7 +41,7 @@ export default function UserPage({ user }: { user: User }) {
 
   //@ts-ignore
 
-  const onSubmit: SubmitHandler<User> = async (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     setLoading(true)
     setError("")
     try {
