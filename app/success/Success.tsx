@@ -3,24 +3,29 @@
 export const revalidate = 0
 
 import { useAtom } from "jotai"
-import { use, useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import Store from "../../utils/Store"
 
-export default function Success({ stripe }: { stripe: any }) {
+export default function Success() {
   const [cart, setCart] = useAtom(Store)
+  const [order, setOrder] = useState<Order | null>(null)
 
   const searchParams = useSearchParams()
 
   const session = searchParams?.get("session_id")
 
-  const order: Order = use(
-    stripe.checkout.sessions.retrieve(session, {
-      expand: ["line_items", "payment_intent"],
-    })
-  )
+  useEffect(() => {
+    async function fetchOrder() {
+      const res = await fetch(`/api/success/${session}`)
+      const data = await res.json()
+      setOrder(data)
+    }
+
+    fetchOrder()
+  }, [session]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const cartItems = cart.cartItems

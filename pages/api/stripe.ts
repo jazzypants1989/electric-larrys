@@ -91,13 +91,15 @@ export default async function handler(
         ],
         allow_promotion_codes: true,
         line_items: createLineItems(),
-        success_url: `${req.headers.origin}/success?&session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${req.headers.origin}/`,
+        success_url: `https://electric-larrys.vercel.app/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `https://electric-larrys.vercel.app/checkout`,
       })
       res.status(200).json({ id: session.id })
     } catch (error) {
       if (error instanceof Stripe.errors.StripeError) {
-        res.status(500).json({ statusCode: 500, message: error.message })
+        res
+          .status(500)
+          .json({ statusCode: 500, message: `${(error as Error).message}` })
       } else {
         res.status(404).json({ statusCode: 404, message: "Not found" })
       }
