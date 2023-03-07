@@ -87,14 +87,14 @@ const Cart = () => {
   const handleCheckout = async () => {
     const stripe = await getStripe()
 
+    const { cartItems } = cart
+
     const response = await fetch("/api/stripe", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        cartItems: cart.cartItems,
-      }),
+      body: JSON.stringify({ cartItems }),
     })
 
     const session = await response.json()
@@ -131,6 +131,20 @@ const Cart = () => {
         ],
       }))
     }
+
+    setCart((prev) => ({ ...prev, cartOpen: false }))
+
+    setToasts((prev) => ({
+      ...prev,
+      toasts: [
+        ...prev.toasts,
+        {
+          message: `Thanks for your purchase! Redirecting to checkout...`,
+          success: true,
+          id: Math.random() * 1000 + "",
+        },
+      ],
+    }))
   }
 
   return (

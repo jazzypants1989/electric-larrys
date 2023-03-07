@@ -11,6 +11,20 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  function createLineItems() {
+    return req.body.cartItems.map((item: CartItem) => ({
+      price_data: {
+        currency: "usd",
+        product_data: {
+          name: item.product.name,
+          images: [item.product.image],
+        },
+        unit_amount: item.product.price * 100,
+      },
+      quantity: item.quantity,
+    }))
+  }
+
   const session = await getSession({ req })
   const user = session?.user
   const stripeId = user
@@ -70,17 +84,7 @@ export default async function handler(
           },
         ],
         allow_promotion_codes: true,
-        line_items: req.body.cartItems.map((item: CartItem) => ({
-          price_data: {
-            currency: "usd",
-            product_data: {
-              name: item.product.name,
-              images: [item.product.image],
-            },
-            unit_amount: item.product.price * 100,
-          },
-          quantity: item.quantity,
-        })),
+        line_items: createLineItems(),
         success_url: `${req.headers.origin}/success?&session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}/`,
       })

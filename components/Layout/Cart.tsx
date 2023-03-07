@@ -81,6 +81,8 @@ const Cart = () => {
 
     const { cartItems } = cart
 
+    console.log("cartItems", cartItems)
+
     const response = await fetch("/api/stripe", {
       method: "POST",
       headers: {
@@ -90,6 +92,8 @@ const Cart = () => {
     })
 
     const session = await response.json()
+
+    console.log("session", session)
 
     if (!stripe) {
       setToasts((prev) => ({
@@ -123,6 +127,22 @@ const Cart = () => {
         ],
       }))
     }
+
+    console.log("result", result)
+
+    setCart((prev) => ({ ...prev, cartOpen: false }))
+
+    setToasts((prev) => ({
+      ...prev,
+      toasts: [
+        ...prev.toasts,
+        {
+          message: `Thanks for your purchase! Redirecting to checkout...`,
+          success: true,
+          id: Math.random() * 1000 + "",
+        },
+      ],
+    }))
   }
 
   return (
