@@ -1,6 +1,7 @@
 import Stripe from "stripe"
 import { getSession } from "next-auth/react"
 import { NextApiRequest, NextApiResponse } from "next"
+import { CartItem } from "../../utils/Store"
 
 const stripe = new Stripe(`${process.env.STRIPE_SECRET}`, {
   apiVersion: "2022-11-15",
@@ -69,29 +70,17 @@ export default async function handler(
           },
         ],
         allow_promotion_codes: true,
-        line_items: req.body.cartItems.map(
-          (item: {
-            name: any
-            image: any
-            price: number
-            price_data: {
-              currency: string
-              product_data: { name: any; images: any[] }
-              unit_amount: number
-            }
-            quantity: any
-          }) => ({
-            price_data: {
-              currency: "usd",
-              product_data: {
-                name: item.name,
-                images: [item.image],
-              },
-              unit_amount: item.price * 100,
+        line_items: req.body.cartItems.map((item: CartItem) => ({
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: item.product.name,
+              images: [item.product.image],
             },
-            quantity: item.quantity,
-          })
-        ),
+            unit_amount: item.product.price * 100,
+          },
+          quantity: item.quantity,
+        })),
         success_url: `${req.headers.origin}/success?&session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${req.headers.origin}/`,
       })
