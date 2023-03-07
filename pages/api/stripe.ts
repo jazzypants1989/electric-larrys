@@ -92,7 +92,7 @@ export default async function handler(
         allow_promotion_codes: true,
         line_items: createLineItems(),
         success_url: `https://electric-larrys.vercel.app/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `https://electric-larrys.vercel.app/checkout`,
+        cancel_url: `https://electric-larrys.vercel.app/cart`,
       })
       res.status(200).json({ id: session.id })
     } catch (error) {
