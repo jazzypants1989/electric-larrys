@@ -14,6 +14,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const checkout_session_id = req.query.session_id as string
+
   function createLineItems() {
     return req.body.cartItems.map((item: CartItem) => ({
       price_data: {
@@ -32,8 +34,8 @@ export default async function handler(
     try {
       const session = await stripe.checkout.sessions.create({
         line_items: createLineItems(),
-        success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${req.headers.origin}/cart`,
+        success_url: `https://electric-larrys.vercel.app/success?session_id=${checkout_session_id}`,
+        cancel_url: "https://electric-larrys.vercel.app/carts",
         submit_type: "pay",
         mode: "payment",
         payment_method_types: ["card"],
@@ -88,9 +90,11 @@ export default async function handler(
       res.status(200).json({ id: session.id })
     } catch (error) {
       if (error instanceof Stripe.errors.StripeError) {
-        res
-          .status(500)
-          .json({ statusCode: 500, message: `${(error as Error).message}` })
+        res.status(500).json({
+          statusCode: 500,
+          message: `${(error as Error).message}`,
+          hatred: true,
+        })
       } else {
         res.status(404).json({ statusCode: 404, message: "Not found" })
       }
