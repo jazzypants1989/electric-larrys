@@ -35,7 +35,7 @@ export default async function handler(
       const session = await stripe.checkout.sessions.create({
         line_items: createLineItems(),
         success_url: `https://electric-larrys.vercel.app/success?session_id=${checkout_session_id}`,
-        cancel_url: "https://electric-larrys.vercel.app/carts",
+        cancel_url: "https://electric-larrys.vercel.app/cart",
         submit_type: "pay",
         mode: "payment",
         payment_method_types: ["card"],
