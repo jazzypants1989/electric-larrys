@@ -1,5 +1,4 @@
 import Stripe from "stripe"
-import { getSession } from "next-auth/react"
 import { NextApiRequest, NextApiResponse } from "next"
 import { CartItem } from "../../utils/Store"
 
@@ -29,20 +28,14 @@ export default async function handler(
     }))
   }
 
-  console.log(req.headers.origin)
-
-  const session = await getSession({ req })
-  const user = session?.user
-  const stripeId = user
-    ? user["http://localhost:3000/stripe_customer_id"]
-    : undefined
-
   if (req.method === "POST") {
     try {
       const session = await stripe.checkout.sessions.create({
+        line_items: createLineItems(),
+        success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${req.headers.origin}/cart`,
         submit_type: "pay",
         mode: "payment",
-        customer: stripeId,
         payment_method_types: ["card"],
         shipping_address_collection: {
           allowed_countries: ["US", "CA"],
@@ -90,10 +83,8 @@ export default async function handler(
           },
         ],
         allow_promotion_codes: true,
-        line_items: createLineItems(),
-        success_url: `https://electric-larrys.vercel.app/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `https://electric-larrys.vercel.app/cart`,
       })
+
       res.status(200).json({ id: session.id })
     } catch (error) {
       if (error instanceof Stripe.errors.StripeError) {
