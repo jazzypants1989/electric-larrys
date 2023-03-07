@@ -29,6 +29,8 @@ export default async function handler(
     }))
   }
 
+  console.log(req.headers.origin)
+
   const session = await getSession({ req })
   const user = session?.user
   const stripeId = user
