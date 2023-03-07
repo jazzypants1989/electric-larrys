@@ -5,11 +5,6 @@ import { Product } from "../../../../utils/dataHooks/getProducts"
 import { CartItem } from "../../../../utils/Store"
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const session = await getSession({ req })
-  if (!session || !session.user.isAdmin) {
-    return res.status(401).send("admin signin required")
-  }
-  // const { user } = session;
   if (req.method === "POST") {
     return postHandler(req, res)
   } else if (req.method === "PUT") {
@@ -20,6 +15,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const session = await getSession({ req })
+  if (!session || !session.user.isAdmin) {
+    return res.status(401).send("admin signin required")
+  }
   const product = await db.product.create({
     data: {
       name: "sample name",
