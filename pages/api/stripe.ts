@@ -3,11 +3,11 @@ import { getSession } from "next-auth/react"
 import { NextApiRequest, NextApiResponse } from "next"
 import { CartItem } from "../../utils/Store"
 
-if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error("Missing the STRIPE_SECRET_KEY environment variable.")
+if (!process.env.STRIPE_SECRET) {
+  throw new Error("Missing the STRIPE_SECRET environment variable.")
 }
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+const stripe = new Stripe(process.env.STRIPE_SECRET, {
   apiVersion: "2022-11-15",
 })
 
