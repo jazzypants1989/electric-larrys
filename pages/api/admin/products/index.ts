@@ -1,6 +1,8 @@
 import { getSession } from "next-auth/react"
 import { NextApiRequest, NextApiResponse } from "next"
 import db from "../../../../utils/prisma"
+import { Product } from "../../../../utils/dataHooks/getProducts"
+import { CartItem } from "../../../../utils/Store"
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req })
@@ -10,6 +12,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // const { user } = session;
   if (req.method === "POST") {
     return postHandler(req, res)
+  } else if (req.method === "PUT") {
+    return putHandler(req, res)
   } else {
     return res.status(400).send({ message: "Method not allowed" })
   }
@@ -34,4 +38,34 @@ const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   res.send({ message: "Product created successfully", product })
 }
+
+const putHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { cartItems } = req.body
+
+  const productsInDb = await db.product.findMany({
+    where: {
+      id: {
+        in: cartItems.map((cartItem: CartItem) => cartItem.product.id),
+      },
+    },
+  })
+
+  const updatedProductsInDb = await Promise.all(
+    productsInDb.map((productInDb: Product) => {
+      const cartItem: CartItem = cartItems.find(
+        (cartItem: CartItem) => cartItem.product.id === productInDb.id
+      )
+
+      const countInStock = productInDb.countInStock - cartItem.quantity
+
+      return db.product.update({
+        where: { id: productInDb.id },
+        data: { countInStock },
+      })
+    })
+  )
+
+  res.send({ message: "Products updated successfully", updatedProductsInDb })
+}
+
 export default handler

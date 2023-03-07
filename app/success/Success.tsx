@@ -23,9 +23,26 @@ export default function Success({ stripe }: { stripe: any }) {
   )
 
   useEffect(() => {
+    const cartItems = cart.cartItems
+
+    const updateDB = async () => {
+      const res = await fetch("/api/admin/products", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cartItems),
+      })
+
+      const data = await res.json()
+      console.log(data)
+    }
+
+    updateDB()
+
     setCart({
+      ...cart,
       cartItems: [],
-      cartOpen: false,
     })
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 

@@ -32,7 +32,7 @@ const CategoryItem = ({ category }: { category: keyof typeof images }) => {
         href={`/products?category=${categoryToLowerCase}`}
         className="m-1 flex flex-col items-center justify-center"
       >
-        <div className="relative h-40 w-40 overflow-hidden rounded-lg md:h-60 md:w-60">
+        <div className="relative aspect-square h-40 w-40 overflow-hidden rounded-lg md:h-60 md:w-60">
           <Image
             src={imageLinkBuilder(images[category])}
             alt={category}
