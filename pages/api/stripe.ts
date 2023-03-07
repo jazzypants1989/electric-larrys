@@ -3,7 +3,11 @@ import { getSession } from "next-auth/react"
 import { NextApiRequest, NextApiResponse } from "next"
 import { CartItem } from "../../utils/Store"
 
-const stripe = new Stripe(`${process.env.STRIPE_SECRET}`, {
+if (!process.env.STRIPE_SECRET_KEY) {
+  throw new Error("Missing the STRIPE_SECRET_KEY environment variable.")
+}
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2022-11-15",
 })
 
@@ -13,6 +17,7 @@ export default async function handler(
 ) {
   function createLineItems() {
     return req.body.cartItems.map((item: CartItem) => ({
+      amount: item.product.price * 100,
       price_data: {
         currency: "usd",
         product_data: {
