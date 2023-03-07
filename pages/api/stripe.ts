@@ -17,7 +17,6 @@ export default async function handler(
 ) {
   function createLineItems() {
     return req.body.cartItems.map((item: CartItem) => ({
-      amount: item.product.price * 100,
       price_data: {
         currency: "usd",
         product_data: {
