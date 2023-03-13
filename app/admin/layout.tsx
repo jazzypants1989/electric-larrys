@@ -1,4 +1,4 @@
-import { ReactNode, Suspense } from "react"
+import { ReactNode } from "react"
 import AdminSideBar from "../../components/Admin/AdminSideBar"
 import { getCurrentUser } from "../../utils/session"
 import AuthProvider from "../../components/Auth/AuthProvider"

@@ -1,5 +1,3 @@
-"use client"
-
 import React, { useState, useRef, useLayoutEffect } from "react"
 import { IToast } from "../../utils/ToastStore"
 

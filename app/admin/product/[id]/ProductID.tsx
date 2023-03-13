@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { ChangeEvent, FormEvent, useState, useTransition } from "react"
+import { ChangeEvent, FormEvent, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Product } from "../../../../utils/dataHooks/getProducts"
 import useToast from "../../../../utils/useToast"
@@ -12,7 +12,7 @@ export default function ProductID({ product }: { product: Product }) {
 
   const { id } = product
 
-  const { name, description, price, image, slug } = product
+  const { name, image, slug } = product
 
   const [newSlug, setSlug] = useState(slug)
 
