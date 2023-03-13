@@ -14,8 +14,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const checkout_session_id = req.query.session_id as string
-
   function createLineItems() {
     return req.body.cartItems.map((item: CartItem) => ({
       price_data: {
@@ -34,8 +32,8 @@ export default async function handler(
     try {
       const session = await stripe.checkout.sessions.create({
         line_items: createLineItems(),
-        success_url: `https://electric-larrys.vercel.app/success?session_id=${checkout_session_id}`,
-        cancel_url: "https://electric-larrys.vercel.app/cart",
+        success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${req.headers.origin}/cart`,
         submit_type: "pay",
         mode: "payment",
         payment_method_types: ["card"],

@@ -1,8 +1,10 @@
 "use client"
 
-import Image from "next/image"
 import { FormEvent, useRef } from "react"
 import { useRouter } from "next/navigation"
+import useToast from "../../utils/useToast"
+import { User } from "../../utils/dataHooks/getUserByID"
+import Button from "../../components/Layout/Button"
 
 type Note = {
   id: string | null
@@ -13,8 +15,9 @@ type Note = {
   isPublished: boolean | null
 }
 
-export default function Notes({ notes }: { notes: Note[] }) {
+export default function Notes({ notes, user }: { notes: Note[]; user: User }) {
   const router = useRouter()
+  const addToast = useToast()
 
   const titleRef = useRef<HTMLInputElement>(null)
   const descriptionRef = useRef<HTMLTextAreaElement>(null)
@@ -28,6 +31,20 @@ export default function Notes({ notes }: { notes: Note[] }) {
     const description = descriptionRef.current?.value
     const image = imageRef.current?.value
     const link = linkRef.current?.value
+
+    if (!title) {
+      addToast("Title is required", false)
+      titleRef.current!.focus()
+      titleRef.current!.select()
+      return
+    }
+
+    if (!description) {
+      addToast("Description is required", false)
+      descriptionRef.current!.focus()
+      descriptionRef.current!.select()
+      return
+    }
 
     if (title && description) {
       try {
@@ -43,8 +60,10 @@ export default function Notes({ notes }: { notes: Note[] }) {
             link,
           }),
         })
+        addToast("Note created", true)
       } catch (error) {
         console.error(error)
+        addToast("Note creation failed", false)
       }
 
       titleRef.current!.value = ""
@@ -58,6 +77,7 @@ export default function Notes({ notes }: { notes: Note[] }) {
 
   const deleteNoteHandler = async (id: string | null) => {
     if (!id) return
+    if (!window.confirm("Are you sure you want to delete this note?")) return
     try {
       await fetch("/api/admin/notes", {
         method: "DELETE",
@@ -68,8 +88,10 @@ export default function Notes({ notes }: { notes: Note[] }) {
           id,
         }),
       })
+      addToast("Note deleted", true)
     } catch (error) {
       console.error(error)
+      addToast("Note deletion failed", false)
     }
 
     router.refresh()
@@ -85,27 +107,40 @@ export default function Notes({ notes }: { notes: Note[] }) {
         {notes.map((note: Note) => (
           <div
             key={note.id}
-            className="flex flex-col items-center justify-center"
+            className="m-2 flex flex-col items-center justify-center rounded-md border-2 border-Red p-2"
           >
             {note.image && (
-              <Image
+              <img // eslint-disable-line @next/next/no-img-element
                 src={note.image}
                 alt="Note Image"
                 width={200}
                 height={200}
+                className="rounded-lg border-b-2 border-Red p-2"
               />
             )}
-            <h1>{note.title}</h1>
-            <p>{note.description}</p>
+            <h1 className="text-lg drop-shadow">{note.title}</h1>
+            <p className="text-sm drop-shadow">{note.description}</p>
             {note.link && (
               <p>
                 Link:{" "}
-                <a href={note.link} target="_blank" rel="noopener noreferrer">
+                <a
+                  className="text-orange drop-shadow hover:text-Red"
+                  href={note.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   {note.link}
                 </a>
               </p>
             )}
-            <button onClick={() => deleteNoteHandler(note!.id)}>Delete</button>
+            {user?.isAdmin && (
+              <Button
+                className="m-1 bg-Red hover:text-Red"
+                onClick={() => deleteNoteHandler(note!.id)}
+              >
+                Delete
+              </Button>
+            )}
           </div>
         ))}
       </div>
@@ -147,9 +182,9 @@ export default function Notes({ notes }: { notes: Note[] }) {
           ref={linkRef}
           className="mb-2 w-1/2"
         />
-        <button type="submit" className="primary-button">
+        <Button type="submit" className="mb-2">
           Create
-        </button>
+        </Button>
       </form>
     </div>
   )

@@ -2,9 +2,10 @@
 
 import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { useAtom } from "jotai"
-import toastStore from "../../../../utils/ToastStore"
+import useToast from "../../../../utils/useToast"
 import { useState } from "react"
+import AdminGallery from "../../../../components/Admin/AdminGallery"
+import Button from "../../../../components/Layout/Button"
 
 export type Post = {
   id: string | null
@@ -16,12 +17,18 @@ export type Post = {
   isPublished: boolean | null
 }
 
-const randomID = Math.random().toString(36).substring(2, 15)
-
-export default function PostPage({ post }: { post: Post }) {
-  const [, setToasts] = useAtom(toastStore)
+export default function PostPage({
+  post,
+  pictures,
+}: {
+  post: Post
+  pictures: string[]
+}) {
+  const addToast = useToast()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+  const [show, setShow] = useState(false)
+  const [picture, setPicture] = useState("")
   const router = useRouter()
 
   const { id, title, link, description, image, isFeatured, isPublished } = post
@@ -54,30 +61,30 @@ export default function PostPage({ post }: { post: Post }) {
       })
       const json = await res.json()
       if (!res.ok) throw Error(json.message)
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: randomID,
-            message: "Post updated successfully",
-            success: true,
-          },
-        ],
-      }))
+      addToast("Post updated successfully", true)
+      router.refresh()
       router.push("/admin/posts")
     } catch (e) {
       console.error(e)
       setError((e as Error).message)
+      addToast((e as Error).message, false)
     } finally {
       setLoading(false)
     }
   }
 
+  const modalButtonHandler = () => {
+    setShow(!show)
+  }
+
+  const imageValueHandler = (picture: string) => {
+    setPicture(picture)
+  }
+
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center py-2 drop-shadow">
       <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">Edit Post</h1>
+        <h1 className="text-4xl font-bold">Edit Post</h1>
         <form
           className="mt-3 flex w-full max-w-2xl flex-col items-center justify-center"
           onSubmit={handleSubmit(onSubmit)}
@@ -115,55 +122,62 @@ export default function PostPage({ post }: { post: Post }) {
             <label htmlFor="link" className="text-xl">
               Link
             </label>
+            <span className="text-xs">Optional</span>
             <input
               id="link"
               type="text"
               className="w-full rounded-md border p-2"
               {...register("link")}
             />
-            <span className="text-xs">Optional</span>
           </div>
           <div className="mt-3 flex w-full flex-col items-center justify-center">
             <label htmlFor="image" className="text-xl">
               Image
             </label>
+            <span className="text-xs">Optional</span>
             <input
               id="image"
               type="text"
               className="w-full rounded-md border p-2"
               {...register("image")}
+              value={picture}
+              onChange={(e) => setPicture(e.target.value)}
             />
-            <span className="text-xs">Optional</span>
+            <Button className="mt-3" onClick={modalButtonHandler}>
+              Pick from gallery!
+            </Button>
+            <AdminGallery
+              show={show}
+              setPicture={imageValueHandler}
+              setShow={setShow}
+              pictures={pictures}
+            />
           </div>
-          <div className="mt-3 flex w-full flex-col items-center justify-center">
+          <div className="m-3 flex w-full flex-col items-center justify-center p-2">
             <label htmlFor="isFeatured" className="text-xl">
               Featured
             </label>
             <input
               id="isFeatured"
               type="checkbox"
-              className="w-full rounded-md border p-2"
+              className="mb-3 h-8 w-8 rounded-md border p-2 drop-shadow"
               {...register("isFeatured")}
             />
           </div>
-          <div className="mt-3 flex w-full flex-col items-center justify-center">
+          <div className="flex w-full flex-col items-center justify-center">
             <label htmlFor="isPublished" className="text-xl">
               Published
             </label>
             <input
               id="isPublished"
               type="checkbox"
-              className="w-full rounded-md border p-2"
+              className="mb-3 h-8 w-8 rounded-md border p-2 drop-shadow"
               {...register("isPublished")}
             />
           </div>
-          <button
-            type="submit"
-            className="text-white bg-blue-500 mt-3 w-full rounded-md p-2"
-            disabled={loading}
-          >
+          <Button type="submit" className="mt-3" disabled={loading}>
             {loading ? "Loading..." : "Update Post"}
-          </button>
+          </Button>
           {error && <span className="text-Red">{error}</span>}
         </form>
       </main>

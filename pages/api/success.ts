@@ -16,7 +16,12 @@ export default async function handler(
   const session = await stripe.checkout.sessions.retrieve(
     req.query.session_id as string,
     {
-      expand: ["line_items", "payment_intent"],
+      expand: [
+        "line_items",
+        "payment_intent",
+        "customer_details",
+        "shipping_details",
+      ],
     }
   )
 
@@ -25,12 +30,20 @@ export default async function handler(
     return
   }
 
-  const line_items = session.line_items.data
+  const line_items = session.line_items
   const payment_intent = session.payment_intent
+  const customer_details = session.customer_details
+  const shipping_details = session.shipping_details
+  const shipping_cost = session.shipping_cost
+  const amount_total = session.amount_total
 
   const order = {
     line_items,
     payment_intent,
+    customer_details,
+    shipping_details,
+    shipping_cost,
+    amount_total,
   }
 
   res.status(200).json(order)

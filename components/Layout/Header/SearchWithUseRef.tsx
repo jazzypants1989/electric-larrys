@@ -1,10 +1,11 @@
 "use client"
 
-import { useState, useRef, useMemo, useEffect } from "react"
+import { useState, useRef, useCallback, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { Product, Products } from "../../../utils/dataHooks/getProducts"
 import BiSearchAlt from "./Icons/BiSearchAlt"
+import useDebounce from "../../../utils/useDebounce"
 
 export default function Search({
   placeholder,
@@ -13,51 +14,37 @@ export default function Search({
   placeholder: string
   query?: string
 }) {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [searchResults, setSearchResults] = useState<Products | null>(null)
-  const [searchLoading, setSearchLoading] = useState(false)
   const router = useRouter()
-  const inputRef = useRef(null)
+  const [searchTerm, setSearchTerm] = useState("")
+  const [searchResults, setSearchResults] = useState<Products>([])
+  const [searchLoading, setSearchLoading] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
 
-  const doSearch = useMemo(() => {
-    return async () => {
-      try {
-        setSearchLoading(true)
-        const res = await fetch(`/api/search?search=${searchTerm}`)
-        const data = await res.json()
-        setSearchResults(data)
-        setSearchLoading(false)
-      } catch (err) {
-        setSearchLoading(false)
-      }
+  const debouncedSearchTerm = useDebounce(searchTerm, 500)
+
+  const search = useCallback(async () => {
+    console.log("The search function is running")
+    setSearchLoading(true)
+    const res = await fetch(`/api/search?search=${debouncedSearchTerm}`)
+
+    if (res.ok) {
+      const data = await res.json()
+      setSearchResults(data)
+      setSearchLoading(false)
     }
-  }, [searchTerm])
-
-  type Timeout = ReturnType<typeof setTimeout>
-
-  const debouncedSearch = useMemo(() => {
-    function debounce(func: () => void, wait: number) {
-      let timeout: Timeout
-      return function executedFunction() {
-        const later = () => {
-          clearTimeout(timeout)
-          func()
-        }
-        clearTimeout(timeout)
-        timeout = setTimeout(later, wait)
-      }
-    }
-
-    return debounce(doSearch, 500)
-  }, [doSearch])
+  }, [debouncedSearchTerm])
 
   useEffect(() => {
-    if (searchTerm) {
-      debouncedSearch()
+    if (
+      debouncedSearchTerm &&
+      debouncedSearchTerm.length > 2 &&
+      debouncedSearchTerm === searchTerm
+    ) {
+      search()
     } else {
       setSearchResults([])
     }
-  }, [searchTerm, debouncedSearch])
+  }, [debouncedSearchTerm, search, searchTerm])
 
   useEffect(() => {
     if (query) {
@@ -65,17 +52,41 @@ export default function Search({
     }
   }, [query])
 
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus()
+    }
+  }, [])
+
+  //check for clicks outside of the search input
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        inputRef.current &&
+        !inputRef.current.contains(event.target as Node)
+      ) {
+        setSearchResults([])
+        setSearchTerm("")
+      }
+    }
+
+    document.addEventListener("click", handleClickOutside)
+    return () => {
+      document.removeEventListener("click", handleClickOutside)
+    }
+  }, [])
+
   return (
     <div className="relative z-10 hidden w-1/3 min-w-fit md:inline">
       <input
-        type="text"
-        aria-label="Search Field"
-        placeholder={placeholder}
-        className={"w-full rounded-md border"}
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
         ref={inputRef}
-        style={{ transition: "all 1s ease" }}
+        type="text"
+        placeholder={placeholder}
+        className="w-full rounded-md"
+        value={searchTerm}
+        onChange={(e) => {
+          setSearchTerm(e.target.value)
+        }}
       />
       {searchTerm && (
         <div className="shadow-l absolute top-12 left-0 w-full animate-searchSlide rounded-md bg-blue">
@@ -89,8 +100,7 @@ export default function Search({
                     key={product.id}
                     className="flex cursor-pointer justify-between p-2 hover:text-Green"
                     onClick={() => {
-                      setSearchTerm("")
-                      router.push(`/product/${product.slug}`)
+                      router.push(`/products/${product.slug}`)
                     }}
                   >
                     <Image
@@ -102,9 +112,29 @@ export default function Search({
                     <span className="my-auto px-5 text-sm text-Green hover:text-orange">
                       {product.name}
                     </span>
+                    <span className="my-auto px-5 text-sm text-Green hover:text-orange">
+                      {product.price.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                      })}
+                    </span>
                     <BiSearchAlt />
                   </li>
                 ))}
+              {searchResults.length === 0 && searchTerm.length > 2 && (
+                <li className="flex cursor-pointer justify-between p-2 hover:text-Green">
+                  <span className="my-auto px-5 text-sm text-Green hover:text-orange">
+                    No results found
+                  </span>
+                </li>
+              )}
+              {searchTerm.length < 3 && (
+                <li className="flex cursor-pointer justify-between p-2 hover:text-Green">
+                  <span className="my-auto px-5 text-sm text-Green hover:text-orange">
+                    Gimme more letters!
+                  </span>
+                </li>
+              )}
             </ul>
           )}
         </div>

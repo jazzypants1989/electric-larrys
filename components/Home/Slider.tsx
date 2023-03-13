@@ -47,16 +47,14 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
         {index === current && (
           <div className="m-auto flex items-center justify-center rounded-4xl py-8 text-center transition duration-1000 ease-in-out hover:bg-Green hover:text-Black">
             <a href={link!} target="_blank" rel="noreferrer">
-              <div className="h-auto w-auto rounded-3xl object-contain">
-                <Image
-                  src={image!}
-                  alt={title}
-                  width={600}
-                  height={600}
-                  priority
-                  className="h-auto w-auto rounded-3xl"
-                />
-              </div>
+              <Image
+                src={image!}
+                alt={title}
+                width={450}
+                height={450}
+                priority
+                className="aspect-auto rounded-4xl"
+              />
             </a>
             <div className="">
               <h2 className="text-sm text-blue drop-shadow-lg transition duration-1000 ease-in-out md:py-4 md:text-2xl md:hover:text-orange">
@@ -88,16 +86,14 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
       >
         {index === current && (
           <div className="m-auto flex items-center justify-center gap-6 rounded-4xl py-8 text-center transition duration-1000 ease-in-out hover:bg-Green hover:text-Black ">
-            <div className="h-auto w-auto rounded-3xl object-contain">
-              <Image
-                src={image!}
-                alt={title}
-                width={450}
-                height={450}
-                priority
-                className="h-auto w-auto rounded-3xl object-contain"
-              />
-            </div>
+            <Image
+              src={image!}
+              alt={title}
+              width={450}
+              height={450}
+              priority
+              className="aspect-auto rounded-4xl"
+            />
             <div className="">
               <h2 className="max-w-2xl text-sm text-blue drop-shadow-2xl transition duration-1000 ease-in-out md:text-2xl md:hover:text-orange">
                 {title}

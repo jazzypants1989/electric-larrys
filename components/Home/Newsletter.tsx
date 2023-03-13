@@ -2,15 +2,14 @@
 
 import NewsletterIcon from "./Icons/Newsletter"
 import { useForm, SubmitHandler } from "react-hook-form"
-import { useAtom } from "jotai"
-import toastStore from "../../utils/ToastStore"
+import useToast from "../../utils/useToast"
 
 type FormValues = {
   email: string
 }
 
 const Newsletter = () => {
-  const [, setToasts] = useAtom(toastStore)
+  const addToast = useToast()
   const {
     register,
     handleSubmit,
@@ -32,29 +31,9 @@ const Newsletter = () => {
       })
       const data = await response.json()
       const { message } = data
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: email,
-            message: `${message}`,
-            success: true,
-          },
-        ],
-      }))
+      addToast(message, true)
     } catch (err) {
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: email,
-            message: `Sorry, something went wrong`,
-            success: false,
-          },
-        ],
-      }))
+      addToast("Error subscribing to newsletter", false)
     }
   }
 

@@ -12,7 +12,10 @@ export default function useCartClick(
         ref.current.contains(event.target as Node) ||
         ((event.target as HTMLElement).className &&
           (event.target as HTMLElement).className.includes &&
-          (event.target as HTMLElement).className.includes("add-to-cart"))
+          (event.target as HTMLElement).className.includes("add-to-cart")) ||
+        ((event.target as HTMLElement).className &&
+          (event.target as HTMLElement).className.includes &&
+          (event.target as HTMLElement).className.includes("cart-buttons"))
       ) {
         return
       }

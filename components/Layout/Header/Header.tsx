@@ -28,10 +28,7 @@ function Header() {
     setCart((prev) => ({ ...prev, cartOpen: !prev.cartOpen }))
   }
 
-  const cartItems = cart.cartItems.reduce(
-    (ack: number, item) => ack + item.quantity,
-    0
-  )
+  const cartItems = cart.cartItems.reduce((acc, item) => acc + item.quantity, 0)
 
   function resetCart() {
     cart.cartItems = []
@@ -64,7 +61,7 @@ function Header() {
           {cartItems > 0 && (
             <span
               onClick={cartClickHandler}
-              className="absolute -translate-y-3 -translate-x-6 cursor-pointer rounded-full bg-Green px-1 font-extralight text-Black transition-all duration-500 ease-in-out hover:bg-orange hover:text-Green lg:ml-2 lg:-translate-y-1"
+              className="cart-buttons absolute -translate-y-3 -translate-x-6 cursor-pointer rounded-full bg-Green px-1 font-extralight text-Black transition-all duration-500 ease-in-out hover:bg-orange hover:text-Green lg:ml-2 lg:-translate-y-1"
             >
               {cartItems}
             </span>

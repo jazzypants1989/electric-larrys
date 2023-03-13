@@ -2,9 +2,9 @@
 
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useState } from "react"
-import { useAtom } from "jotai"
-import toastStore from "../../../utils/ToastStore"
 import { User } from "../../../utils/dataHooks/getUserByID"
+import useToast from "../../../utils/useToast"
+import Button from "../../../components/Layout/Button"
 
 type FormValues = {
   user: string
@@ -14,12 +14,10 @@ type FormValues = {
   image: string
 }
 
-const randomID = Math.random().toString(36).substring(2, 15)
-
 export default function Newsletter({ users }: { users: User[] }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
-  const [, setToasts] = useAtom(toastStore)
+  const addToast = useToast()
 
   const {
     register,
@@ -48,31 +46,11 @@ export default function Newsletter({ users }: { users: User[] }) {
         body: JSON.stringify(mail),
       })
       setLoading(false)
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: randomID,
-            message: "Newsletter sent",
-            success: true,
-          },
-        ],
-      }))
+      addToast("Newsletter sent successfully", true)
     } catch (error) {
       setLoading(false)
       setError((error as Error).message)
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: randomID,
-            message: "Failed to send newsletter",
-            success: false,
-          },
-        ],
-      }))
+      addToast("Error sending newsletter", false)
     }
   }
 
@@ -91,6 +69,9 @@ export default function Newsletter({ users }: { users: User[] }) {
             <select
               {...register("user", { required: true })}
               className="rounded-md border border-orange p-2"
+              multiple
+              size={users.length}
+              style={{ height: "auto" }}
             >
               {users.map((user: User) => (
                 <option key={user!.id}>{user!.email}</option>
@@ -138,13 +119,7 @@ export default function Newsletter({ users }: { users: User[] }) {
           </div>
           <div className="mt-4 mb-4 flex flex-col items-center justify-center">
             {error && <p className="text-Red">{error}</p>}
-            {loading ? (
-              <p>Loading...</p>
-            ) : (
-              <button type="submit" className="primary-button">
-                Send
-              </button>
-            )}
+            {loading ? <p>Loading...</p> : <Button type="submit">Send</Button>}
           </div>
         </form>
       </div>

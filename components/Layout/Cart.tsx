@@ -10,11 +10,12 @@ import { useAtom } from "jotai"
 import { Product } from "../../utils/dataHooks/getProducts"
 import useCartClick from "../../utils/useCartClick"
 import { useRef } from "react"
-import toastStore from "../../utils/ToastStore"
+import useToast from "../../utils/useToast"
+import Button from "./Button"
 
 const Cart = () => {
   const [cart, setCart] = useAtom(Store)
-  const [, setToasts] = useAtom(toastStore)
+  const addToast = useToast()
   const ref = useRef<HTMLDivElement>(null)
 
   useCartClick(ref, () => setCart({ ...cart, cartOpen: false }))
@@ -54,17 +55,10 @@ const Cart = () => {
       ...prev,
       cartItems: prev.cartItems.filter((x) => x.product.id !== item.id),
     }))
-    setToasts((prev) => ({
-      ...prev,
-      toasts: [
-        ...prev.toasts,
-        {
-          message: `Changed your mind, eh? No problem! ${item.name} removed from cart`,
-          success: true,
-          id: Math.random() * 1000 + "",
-        },
-      ],
-    }))
+    addToast(
+      `Changed your mind, eh? No problem! ${item.name} removed from cart`,
+      true
+    )
   }
 
   const findTotal = () => {
@@ -96,17 +90,7 @@ const Cart = () => {
     console.log("session", session)
 
     if (!stripe) {
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            message: "Stripe is not loaded",
-            success: false,
-            id: Math.random() * 1000 + "",
-          },
-        ],
-      }))
+      addToast("Stripe is not loaded", false)
       return
     }
 
@@ -115,34 +99,14 @@ const Cart = () => {
     })
 
     if (result?.error.message) {
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            message: `${result.error.message}`,
-            success: false,
-            id: Math.random() * 1000 + "",
-          },
-        ],
-      }))
+      addToast(result.error.message, false)
     }
 
     console.log("result", result)
 
     setCart((prev) => ({ ...prev, cartOpen: false }))
 
-    setToasts((prev) => ({
-      ...prev,
-      toasts: [
-        ...prev.toasts,
-        {
-          message: `Thanks for your purchase! Redirecting to checkout...`,
-          success: true,
-          id: Math.random() * 1000 + "",
-        },
-      ],
-    }))
+    addToast("Thanks for your purchase! Redirecting to checkout...", true)
   }
 
   return (
@@ -180,7 +144,7 @@ const Cart = () => {
                     <tr key={item.product.slug} className="border-b pr-2">
                       <td className="p-1">
                         <Link
-                          href={`/product/${item.product.slug}`}
+                          href={`/products/${item.product.slug}`}
                           passHref
                           className="flex items-center justify-center "
                           onClick={() => toggleCart()}
@@ -196,7 +160,7 @@ const Cart = () => {
                       </td>
                       <td className="m-1">
                         <Link
-                          href={`/product/${item.product.slug}`}
+                          href={`/products/${item.product.slug}`}
                           className="md:text-sm"
                           onClick={() => toggleCart()}
                         >
@@ -248,12 +212,9 @@ const Cart = () => {
                   </div>
                 </li>
                 <li>
-                  <button
-                    onClick={handleCheckout}
-                    className="primary-button md:w-full"
-                  >
+                  <Button onClick={handleCheckout} className="md:w-full">
                     Check Out
-                  </button>
+                  </Button>
                 </li>
               </ul>
             </Card>

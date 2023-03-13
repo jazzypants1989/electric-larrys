@@ -6,6 +6,7 @@ import { signIn, useSession } from "next-auth/react"
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useRouter } from "next/navigation"
 import AuthContainer from "../../components/Auth/AuthContainer"
+import Button from "../../components/Layout/Button"
 
 type FormValues = {
   name: string
@@ -45,6 +46,7 @@ export default function RegisterScreen() {
 
   useEffect(() => {
     if (session) {
+      router.refresh()
       router.push("/")
     }
   }, [session, router])
@@ -86,12 +88,12 @@ export default function RegisterScreen() {
 
   return (
     <AuthContainer>
-      <div className="bg1 flex w-full flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center bg-blue bg-opacity-50 p-2">
         <form
           className="mx-auto max-w-screen-md"
           onSubmit={handleSubmit(submitHandler)}
         >
-          <h1 className="mb-4 text-xl">Create Account</h1>
+          <h1 className="mb-4 text-center text-xl">Create Account</h1>
           <div className="mb-4">
             <label htmlFor="name">Name</label>
             <input
@@ -171,33 +173,21 @@ export default function RegisterScreen() {
               <input
                 type="checkbox"
                 id="newsletter"
-                className="mr-2"
+                className="mr-2 h-4 w-4"
                 {...register("newsletter")}
               />
-              <span
-                className="
-              text-sm
-              "
-              >
-                Subscribe to newsletter
-              </span>
+              <span className="mr-2 text-sm">Subscribe to newsletter</span>
             </label>
-          </div>
-
-          <div className="mb-4 ">
-            <button className="primary-button">Register</button>
-          </div>
-          <div className="mb-4 text-sm">
-            Already have an account?
-            <Link
-              href={`/login`}
-              className="primary-button block w-fit text-Black"
-            >
-              {" "}
-              Log-on-in!
-            </Link>
+            <Button type="submit">Register</Button>
           </div>
         </form>
+
+        <div className="mb-4 text-sm">
+          Already have an account?
+          <Link href={`/login`} passHref className="block w-fit">
+            <Button>Log-on-in!</Button>
+          </Link>
+        </div>
       </div>
     </AuthContainer>
   )

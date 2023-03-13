@@ -1,10 +1,9 @@
 "use client"
 
-import Link from "next/link"
 import { useRouter } from "next/navigation"
 import React, { useEffect, useReducer } from "react"
-import { useAtom } from "jotai"
-import toastStore from "../../../utils/ToastStore"
+import Button from "../../../components/Layout/Button"
+import useToast from "../../../utils/useToast"
 
 import type { Post } from "./[id]/Post"
 
@@ -44,11 +43,9 @@ const reducer = (state: State, action: Action): State => {
   }
 }
 
-const randomID = Math.random().toString(36).substring(2, 15)
-
 export default function Posts({ posts }: { posts: Post[] }) {
   const router = useRouter()
-  const [, setToasts] = useAtom(toastStore)
+  const addToast = useToast()
 
   const [state, dispatch] = useReducer(reducer, {
     loadingCreate: false,
@@ -70,20 +67,11 @@ export default function Posts({ posts }: { posts: Post[] }) {
       }).then((res) => res.json())
 
       dispatch({ type: "CREATE_SUCCESS" })
+      router.refresh()
       router.push(`/admin/posts/${data.id}`)
     } catch (error) {
       dispatch({ type: "CREATE_FAIL" })
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: randomID,
-            message: "Failed to create post",
-            success: false,
-          },
-        ],
-      }))
+      addToast("Failed to create post", false)
     }
   }
 
@@ -95,31 +83,11 @@ export default function Posts({ posts }: { posts: Post[] }) {
         method: "DELETE",
       })
       dispatch({ type: "DELETE_SUCCESS" })
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: randomID,
-            message: "Post deleted successfully",
-            success: true,
-          },
-        ],
-      }))
+      addToast("Post deleted successfully", true)
       router.refresh()
     } catch (error) {
       dispatch({ type: "DELETE_FAIL" })
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: randomID,
-            message: "Failed to delete post",
-            success: false,
-          },
-        ],
-      }))
+      addToast("Failed to delete post", false)
     }
   }
 
@@ -134,13 +102,9 @@ export default function Posts({ posts }: { posts: Post[] }) {
       <div className="m-2 flex items-center justify-between">
         <h1 className="mx-auto mb-4 text-xl">Posts</h1>
         {loadingDelete && <div>Deleting item...</div>}
-        <button
-          className="btn btn-primary"
-          onClick={createPostHandler}
-          disabled={loadingCreate}
-        >
+        <Button onClick={createPostHandler} disabled={loadingCreate}>
           Create Post
-        </button>
+        </Button>
       </div>
       <table className="w-full table-auto">
         <thead className="m-6 border-b p-4">
@@ -172,19 +136,19 @@ export default function Posts({ posts }: { posts: Post[] }) {
                 {!post.isPublished ? "❌" : "💯"}
               </td>
               <td className="px-4 py-2 text-center">
-                <Link
-                  href={`/admin/posts/${post.id}`}
-                  className="primary-button"
+                <Button
+                  onClick={() => router.push(`/admin/posts/${post.id}`)}
+                  className="m-1"
                 >
                   Edit
-                </Link>
-                <button
-                  className="btn btn-danger"
+                </Button>
+                <Button
+                  className="m-1 bg-Red hover:text-Red"
                   onClick={() => deletePostHandler(post.id!)}
                   disabled={loadingDelete}
                 >
                   Delete
-                </button>
+                </Button>
               </td>
             </tr>
           ))}

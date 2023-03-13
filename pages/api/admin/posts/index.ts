@@ -19,7 +19,7 @@ const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     data: {
       title: "sample title",
       link: "https://www.google.com",
-      image: "no",
+      image: "https://electric-larrys.vercel.app/images/bg1.jpg",
       description: "sample description",
       isPublished: false,
       isFeatured: false,

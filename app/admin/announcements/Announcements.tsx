@@ -3,8 +3,8 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import React, { useEffect, useReducer } from "react"
-import { useAtom } from "jotai"
-import toastStore from "../../../utils/ToastStore"
+import Button from "../../../components/Layout/Button"
+import useToast from "../../../utils/useToast"
 
 export type Announcement = {
   id: string | null
@@ -50,15 +50,13 @@ const reducer = (state: State, action: Action): State => {
   }
 }
 
-const randomID = Math.random().toString(36).substring(2, 15)
-
 export default function Announcements({
   announcements,
 }: {
   announcements: Announcement[]
 }) {
   const router = useRouter()
-  const [, setToasts] = useAtom(toastStore)
+  const addToast = useToast()
 
   const [state, dispatch] = useReducer(reducer, {
     loadingCreate: false,
@@ -78,22 +76,13 @@ export default function Announcements({
           "Content-Type": "application/json",
         },
       }).then((res) => res.json())
-
+      const { announcement } = data
       dispatch({ type: "CREATE_SUCCESS" })
-      router.push(`/admin/announcements/${data.id}`)
+      addToast("Announcement created successfully", true)
+      router.push(`/admin/announcements/${announcement.id}`)
     } catch (error) {
       dispatch({ type: "CREATE_FAIL" })
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: randomID,
-            message: "Failed to create announcement",
-            success: false,
-          },
-        ],
-      }))
+      addToast("Failed to create announcement", false)
     }
   }
 
@@ -105,31 +94,11 @@ export default function Announcements({
         method: "DELETE",
       })
       dispatch({ type: "DELETE_SUCCESS" })
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: randomID,
-            message: "Announcement deleted successfully",
-            success: true,
-          },
-        ],
-      }))
+      addToast("Announcement deleted successfully", true)
       router.refresh()
     } catch (error) {
       dispatch({ type: "DELETE_FAIL" })
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: randomID,
-            message: "Failed to delete announcement",
-            success: false,
-          },
-        ],
-      }))
+      addToast("Failed to delete announcement", false)
     }
   }
 
@@ -141,16 +110,12 @@ export default function Announcements({
 
   return (
     <div className="w-full overflow-x-auto drop-shadow md:col-span-3">
-      <div className="m-2 flex items-center justify-between">
+      <div className="m-2 flex flex-col items-center justify-between md:flex-row">
         <h1 className="mx-auto mb-4 text-xl">Announcements</h1>
         {loadingDelete && <div>Deleting item...</div>}
-        <button
-          className="primary-button"
-          onClick={createAnnouncementHandler}
-          disabled={loadingCreate}
-        >
+        <Button onClick={createAnnouncementHandler} disabled={loadingCreate}>
           Create Announcement
-        </button>
+        </Button>
       </div>
       <table className="mx-auto w-full table-auto">
         <thead className="m-6 border-b p-4">

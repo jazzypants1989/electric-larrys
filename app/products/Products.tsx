@@ -8,6 +8,7 @@ import SortBox from "../../components/Products/SortBox"
 import Cheese from "../../components/Products/Cheese"
 import CategoryBox from "../../components/Products/CategoryBox"
 import TagBox from "../../components/Products/TagBox"
+import Button from "../../components/Layout/Button"
 
 export default function ProductsComponent({
   products,
@@ -142,13 +143,13 @@ export default function ProductsComponent({
           />
           <TagBox tags={tags} setTag={setTag} />
           {showClearFilter() && (
-            <button
+            <Button
               type="button"
               onClick={clearFilter}
-              className="default-button -z-10 w-3/5 translate-x-8 items-center text-sm font-thin text-orange"
+              className="-z-10 w-3/5 translate-x-8 items-center bg-Yellow text-sm font-thin text-orange"
             >
               Clear Filter
-            </button>
+            </Button>
           )}
         </div>
         {page === 1 &&
@@ -161,23 +162,22 @@ export default function ProductsComponent({
           ))}
 
         {showClearFilter() && (
-          <button
+          <Button
             type="button"
             onClick={clearFilter}
-            className="primary-button mx-auto mt-4 flex w-3/5 justify-center text-sm font-thin"
+            className="mx-auto mt-4 flex h-10 justify-center bg-Yellow text-sm font-thin text-orange"
           >
             Clear Filter
-          </button>
+          </Button>
         )}
-        {filteredProducts.length > 20 && (
-          <div className="flex h-auto w-full items-center justify-center">
-            <button
-              onClick={() => getProducts(page + 1)}
-              className="primary-button"
-            >
-              Load More
-            </button>
-          </div>
+        {sortedProducts.length > 20 && (
+          <Button
+            onClick={() => getProducts(page + 1)}
+            className=""
+            type="button"
+          >
+            Load More
+          </Button>
         )}
       </div>
     </>

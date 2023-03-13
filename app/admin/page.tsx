@@ -3,10 +3,12 @@ import Card from "../../components/Layout/Card"
 import { getCounts } from "../../utils/dataHooks/getCounts"
 import { getNotes } from "../../utils/dataHooks/getNotes"
 import Notes from "./notes"
+import { getCurrentUser } from "../../utils/session"
 
 export default async function AdminDashboardScreen() {
   const notes = await getNotes()
   const summary = await getCounts()
+  const user = await getCurrentUser()
   return (
     <>
       <div className="flex h-full w-full flex-col items-center justify-center">
@@ -39,7 +41,7 @@ export default async function AdminDashboardScreen() {
           </Card>
         </div>
         <div className="text-center">
-          <Notes notes={notes} />
+          <Notes notes={notes} user={user} />
         </div>
       </div>
     </>

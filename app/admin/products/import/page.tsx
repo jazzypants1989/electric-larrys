@@ -1,24 +1,30 @@
 "use client"
 
 import { ChangeEvent, useState } from "react"
+import Button from "../../../../components/Layout/Button"
 
 function FileUploadSingle() {
   const [file, setFile] = useState<File>()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+  const [success, setSuccess] = useState(false)
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setFile(e.target.files[0])
+      setError("")
+      setSuccess(false)
     }
   }
 
   const handleUploadClick = () => {
-    if (!file) {
+    if (!file || success) {
       return
     }
 
     setLoading(true)
+    setError("")
+    setSuccess(false)
 
     fetch("/api/admin/products/import", {
       method: "POST",
@@ -27,6 +33,9 @@ function FileUploadSingle() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data)
+        setSuccess(true)
+        setError("")
+        setFile(undefined)
       })
       .catch((err) => {
         console.log(err)
@@ -43,7 +52,7 @@ function FileUploadSingle() {
       <input
         type="file"
         onChange={handleFileChange}
-        className="rounded-md border border-orange p-2"
+        className="cursor-pointer rounded-md border border-orange p-2 hover:bg-orange hover:text-Green"
       />
 
       {file && (
@@ -52,15 +61,30 @@ function FileUploadSingle() {
         </div>
       )}
 
-      {file && !loading && (
-        <button onClick={handleUploadClick} className="primary-button">
+      {file && !loading && !success && (
+        <Button
+          className="border border-orange bg-orange text-Green hover:bg-Green hover:text-orange"
+          onClick={handleUploadClick}
+        >
           Upload
-        </button>
+        </Button>
       )}
 
       {loading && (
-        <div className="text-xl text-orange drop-shadow">
-          Your file is uploading...
+        <>
+          <div className="text-xl text-orange drop-shadow">
+            Your file is uploading...
+          </div>
+          <p className="text-xl text-orange drop-shadow">
+            With a large file, this could take a couple minutes. Usually,
+            it&apos;s only around 10-30 seconds.
+          </p>
+        </>
+      )}
+
+      {success && (
+        <div className="text-xl text-Green drop-shadow">
+          Your file has been uploaded, and the products have been created!
         </div>
       )}
 

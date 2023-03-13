@@ -3,10 +3,12 @@
 import { User } from "next-auth"
 import Image from "next/image"
 import Store from "../../utils/Store"
-import toastStore from "../../utils/ToastStore"
 import { useAtom } from "jotai"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { signOut } from "next-auth/react"
+import useToast from "../../utils/useToast"
+import { useRouter } from "next/navigation"
+import Button from "../../components/Layout/Button"
 
 export default function ProfilePage({
   orders,
@@ -16,7 +18,8 @@ export default function ProfilePage({
   user: User
 }) {
   const [, setCart] = useAtom(Store)
-  const [, setToasts] = useAtom(toastStore)
+  const addToast = useToast()
+  const router = useRouter()
 
   type FormValues = {
     name: string
@@ -61,42 +64,12 @@ export default function ProfilePage({
       console.log(data)
 
       if (data.error) {
-        setToasts((prev) => ({
-          ...prev,
-          toasts: [
-            ...prev.toasts,
-            {
-              message: data.message,
-              success: false,
-              id: Math.random() * 1000 + "",
-            },
-          ],
-        }))
+        addToast(data.error, false)
       } else {
-        setToasts((prev) => ({
-          ...prev,
-          toasts: [
-            ...prev.toasts,
-            {
-              message: "Profile updated successfully",
-              success: true,
-              id: Math.random() * 1000 + "",
-            },
-          ],
-        }))
+        addToast("Profile updated successfully", true)
       }
     } catch (err) {
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            message: "Error updating profile",
-            success: false,
-            id: Math.random() * 1000 + "",
-          },
-        ],
-      }))
+      addToast("Error updating profile", false)
     }
   }
 
@@ -122,31 +95,10 @@ export default function ProfilePage({
         }),
       })
 
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            message:
-              "Newsletter updated successfully. Sorry, we have to log you out.",
-            success: false,
-            id: Math.random() * 1000 + "",
-          },
-        ],
-      }))
-      signOut({ callbackUrl: "/login" })
+      addToast("Newsletter updated successfully", true)
+      router.refresh()
     } catch (err) {
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            message: "Error updating newsletter",
-            success: false,
-            id: Math.random() * 1000 + "",
-          },
-        ],
-      }))
+      addToast("Error updating newsletter", false)
     }
   }
 
@@ -263,15 +215,13 @@ export default function ProfilePage({
               <div className="text-red-500 ">Password do not match</div>
             )}
         </div>
-        <div className="mb-4">
-          <button className="primary-button">Change Password</button>
-        </div>
+        <Button type="submit" className="mb-4">
+          Change Password
+        </Button>
       </form>
-      <div className="mb-4">
-        <button className="primary-button" onClick={newsletterClickHandler}>
-          {user.newsletter ? "Unsubscribe" : "Subscribe"} to Newsletter
-        </button>
-      </div>
+      <Button className="mb-4" onClick={newsletterClickHandler}>
+        {user.newsletter ? "Unsubscribe" : "Subscribe"} to Newsletter
+      </Button>
       <h2 className="text-center text-lg drop-shadow">Orders</h2>
       <ul className="flex flex-col items-center justify-center">
         {orders.map((order: Order) => (
@@ -330,13 +280,9 @@ export default function ProfilePage({
           orders. We hope you&apos;ve enjoyed us because we&apos;ve enjoyed you!
         </h3>
 
-        <button
-          type="button"
-          className="primary-button"
-          onClick={logoutClickHandler}
-        >
+        <Button type="button" onClick={logoutClickHandler}>
           Log Out
-        </button>
+        </Button>
       </ul>
     </div>
   )

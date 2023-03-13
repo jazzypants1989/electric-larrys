@@ -6,13 +6,16 @@ import Link from "next/link"
 import getStripe from "../../utils/getStripe"
 import { useAtom } from "jotai"
 import { Product } from "../../utils/dataHooks/getProducts"
-import toastStore from "../../utils/ToastStore"
+import useToast from "../../utils/useToast"
 import Card from "../../components/Layout/Card"
 import RiCloseCircleFill from "../../components/Layout/Header/Icons/RiCloseCircleFill"
+import Button from "../../components/Layout/Button"
+import { useRouter } from "next/navigation"
 
 const Cart = () => {
   const [cart, setCart] = useAtom(Store)
-  const [, setToasts] = useAtom(toastStore)
+  const router = useRouter()
+  const addToast = useToast()
 
   const updateCartHandler = (item: Product, quantity: number) => {
     const { cartItems } = cart
@@ -23,29 +26,23 @@ const Cart = () => {
           ...prev,
           cartItems: prev.cartItems.filter((x) => x.product.id !== item.id),
         }))
-        setToasts((prev) => ({
-          ...prev,
-          toasts: [
-            ...prev.toasts,
-            {
-              message: `Changed your mind, eh? No problem! ${item.name} removed from cart`,
-              success: true,
-              id: Math.random() * 1000 + "",
-            },
-          ],
-        }))
+        addToast(
+          `Changed your mind, eh? No problem! ${item.name} removed from cart`,
+          true
+        )
       } else if (item.countInStock < quantity) {
-        setToasts((prev) => ({
+        setCart((prev) => ({
           ...prev,
-          toasts: [
-            ...prev.toasts,
-            {
-              message: `Sorry, we only have ${item.countInStock} of ${item.name} in stock`,
-              success: false,
-              id: Math.random() * 1000 + "",
-            },
-          ],
+          cartItems: prev.cartItems.map((x: CartItem) =>
+            x.product.id === item.id
+              ? { ...product, quantity: item.countInStock }
+              : x
+          ),
         }))
+        addToast(
+          `Sorry, we only have ${item.countInStock} of ${item.name} in stock.`,
+          false
+        )
       } else {
         setCart((prev) => ({
           ...prev,
@@ -62,17 +59,7 @@ const Cart = () => {
       ...prev,
       cartItems: prev.cartItems.filter((x) => x.product.id !== item.id),
     }))
-    setToasts((prev) => ({
-      ...prev,
-      toasts: [
-        ...prev.toasts,
-        {
-          message: `Changed your mind, eh? No problem! ${item.name} removed from cart`,
-          success: true,
-          id: Math.random() * 1000 + "",
-        },
-      ],
-    }))
+    addToast(`${item.name} removed from cart`, true)
   }
 
   const findTotal = () => {
@@ -100,17 +87,7 @@ const Cart = () => {
     const session = await response.json()
 
     if (!stripe) {
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            message: "Stripe is not loaded",
-            success: false,
-            id: Math.random() * 1000 + "",
-          },
-        ],
-      }))
+      addToast("Stripe is not loaded", false)
       return
     }
 
@@ -119,32 +96,12 @@ const Cart = () => {
     })
 
     if (result?.error.message) {
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            message: `${result.error.message}`,
-            success: false,
-            id: Math.random() * 1000 + "",
-          },
-        ],
-      }))
+      addToast(result.error.message, false)
     }
 
     setCart((prev) => ({ ...prev, cartOpen: false }))
 
-    setToasts((prev) => ({
-      ...prev,
-      toasts: [
-        ...prev.toasts,
-        {
-          message: `Thanks for your purchase! Redirecting to checkout...`,
-          success: true,
-          id: Math.random() * 1000 + "",
-        },
-      ],
-    }))
+    addToast("Thanks for shopping with us!", true)
   }
 
   return (
@@ -154,9 +111,9 @@ const Cart = () => {
         {cart.cartItems.length === 0 ? (
           <div className="flex flex-col items-center justify-center">
             <h1 className="text-2xl font-bold">Your cart is empty</h1>
-            <Link className="primary-button" href="/products">
-              Go buy some cool stuff!!
-            </Link>
+            <Button onClick={() => router.push("/products")}>
+              <Link href="/products">Go get some cool stuff!!</Link>
+            </Button>
           </div>
         ) : (
           cart.cartItems.map((item: CartItem) => (
@@ -210,12 +167,12 @@ const Cart = () => {
       </div>
       <div className="flex h-auto w-full flex-row items-center justify-between p-4">
         <h1 className="text-xl font-bold">Total: {findTotal()}$</h1>
-        <button
-          className="primary-button flex h-12 w-32 items-center justify-center rounded-full font-bold"
+        <Button
+          className="h-12 w-32 rounded-full font-bold"
           onClick={handleCheckout}
         >
           Checkout
-        </button>
+        </Button>
       </div>
     </div>
   )

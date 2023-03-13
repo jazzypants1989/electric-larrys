@@ -67,7 +67,7 @@ export default function HamburgerMenu() {
         <div
           className={`${
             isOpen
-              ? "absolute left-60 flex max-h-screen w-fit animate-fasterDropDown flex-col items-center justify-center rounded-2xl border-orange bg-blue p-5 text-xl duration-300 ease-in hover:rounded-4xl hover:border-4"
+              ? "absolute flex max-h-screen w-fit animate-fasterDropDown flex-col items-center justify-center rounded-2xl border-orange bg-blue p-5 text-xl duration-300 ease-in hover:rounded-4xl hover:border-4"
               : "hidden"
           }`}
         >

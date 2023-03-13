@@ -51,14 +51,29 @@ function csvToJson(csv: string) {
   return JSON.stringify(result)
 }
 
+const potentialSlug = (product: DBProduct) => {
+  console.log(product["Reference Handle"])
+  const slug = product["Reference Handle"].substring(1)
+
+  if (slug.charAt(slug.length - 1) === "-") {
+    return slug.slice(0, -1)
+  } else if (slug === "" || slug === " " || slug === "  ") {
+    return product["Item Name"].toLowerCase().replace(/ /g, "-")
+  } else if (slug.startsWith(" ") || slug.startsWith("-")) {
+    return slug.substring(1)
+  } else {
+    return slug
+  }
+}
+
 function transformProduct(product: DBProduct) {
   return {
     name: product["Item Name"],
-    slug: product["Reference Handle"].substring(1),
-    image: "/images/bg1.jpg",
+    slug: potentialSlug(product),
+    image: "https://electric-larrys.vercel.app/images/bg1.jpg",
     price: Number(product["Price"]),
     category: product["Category"],
-    tags: ["Oddities"],
+    tags: ["oddities"],
     countInStock: Number(product["Current Quantity Electric Larry's LLC"]),
     description: "This is a product! You want to buy it!",
     isFeatured: false,

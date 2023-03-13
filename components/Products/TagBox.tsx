@@ -127,7 +127,7 @@ export default function TagBox({
               )
           )}
           <button
-            className="delete-button pt-2"
+            className="h-7 w-7 pt-2 transition-all duration-300 ease-in-out hover:scale-150 hover:text-Red"
             type="button"
             onClick={() => (setSelectedTag([]), setTag([]))}
           >

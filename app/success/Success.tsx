@@ -2,35 +2,42 @@
 
 export const revalidate = 0
 
-import { useAtom } from "jotai"
-import { useEffect, useState } from "react"
+import { useEffect, useLayoutEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
-import Store from "../../utils/Store"
+import { useAtom } from "jotai"
+import cartAtom from "../../utils/Store"
+import Button from "../../components/Layout/Button"
 
 export default function Success() {
-  const [cart, setCart] = useAtom(Store)
+  const [, setCart] = useAtom(cartAtom)
+  const [cartItems, setCartItems] = useState([])
   const [order, setOrder] = useState<Order | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
 
   const searchParams = useSearchParams()
 
   const session = searchParams?.get("session_id")
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     async function fetchOrder() {
-      const res = await fetch(`/api/success/${session}`)
+      const res = await fetch(`/api/success?session_id=${session}`)
       const data = await res.json()
       setOrder(data)
+      setCartItems(data.line_items.data)
     }
 
-    fetchOrder()
+    if (session) {
+      fetchOrder()
+    } else {
+      setError(true)
+    }
   }, [session]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    const cartItems = cart.cartItems
-
-    const updateDB = async () => {
+    async function updateStock() {
       const res = await fetch("/api/admin/products", {
         method: "PUT",
         headers: {
@@ -38,22 +45,31 @@ export default function Success() {
         },
         body: JSON.stringify(cartItems),
       })
-
       const data = await res.json()
       console.log(data)
     }
 
-    updateDB()
+    if (order) {
+      setLoading(false)
+      updateStock()
+      setCart({
+        cartItems: [],
+        cartOpen: false,
+      })
+    }
+  }, [order]) // eslint-disable-line react-hooks/exhaustive-deps
 
-    setCart({
-      ...cart,
-      cartItems: [],
-    })
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <h1 className="text-center text-3xl font-bold drop-shadow">
+          Loading...
+        </h1>
+      </div>
+    )
+  }
 
-  console.log(cart)
-
-  if (!order) {
+  if (error) {
     return (
       <div className="flex flex-col items-center justify-center">
         <h1 className="text-center text-3xl font-bold drop-shadow">
@@ -82,12 +98,12 @@ export default function Success() {
         <h2 className="mt-4 text-xl underline drop-shadow">
           Order &quot;Number&quot;
         </h2>
-        <span className="text-lg">{order.payment_intent.id}</span>
+        <span className="text-lg">{order?.payment_intent.id}</span>
 
         <h2 className="mt-2 text-xl underline drop-shadow">
           Confirmation Email
         </h2>
-        <span className="text-lg">{order.customer_details.email}</span>
+        <span className="text-lg">{order?.customer_details.email}</span>
 
         <h4 className="mt-2 text-xl underline drop-shadow">Items Ordered:</h4>
         <table className="mt-2 table-auto border-2 border-orange">
@@ -96,11 +112,15 @@ export default function Success() {
               <th className="p-4">Item</th>
               <th className="p-4">Quantity</th>
               <th className="p-4">Price</th>
+              <th className="p-4">Total</th>
             </tr>
           </thead>
-          {order.line_items.data.map((item: LineItem) => (
+          {order?.line_items.data.map((item: LineItem) => (
             <tr key={item.id} className="p-4">
-              <td className="border-b border-orange p-4 ">{item.name}</td>
+              <td className="border-b border-orange p-4 ">
+                {item.description}
+              </td>
+              <td className="border-b border-orange p-4">{item.quantity}</td>
               <td className="border-b border-orange p-4">{item.quantity}</td>
               <td className="border-b border-orange p-4 drop-shadow">
                 ${item.amount_total / 100}
@@ -112,24 +132,25 @@ export default function Success() {
               <td colSpan={3}>
                 <strong className="mr-3 p-2 text-sm drop-shadow">
                   Subtotal: $
-                  {order.line_items.data.reduce(
-                    (a, c) => a + c.quantity * c.amount_total,
-                    0
-                  ) / 100}
+                  {order &&
+                    order.line_items.data.reduce(
+                      (a, c) => a + c.quantity * c.amount_total,
+                      0
+                    ) / 100}
                 </strong>
               </td>
             </tr>
             <tr>
               <td colSpan={3}>
                 <strong className="mr-3 border-b border-orange p-2 pb-0 text-sm drop-shadow">
-                  Shipping: ${order.shipping_cost.amount_total / 100}
+                  Shipping: ${order && order.shipping_cost.amount_total / 100}
                 </strong>
               </td>
             </tr>
             <tr>
               <td colSpan={3}>
                 <strong className="mr-3 p-2 text-sm drop-shadow">
-                  Total: ${order.amount_total / 100}
+                  Total: ${order && order.amount_total / 100}
                 </strong>
               </td>
             </tr>
@@ -144,22 +165,22 @@ export default function Success() {
           </h2>
           <div className="flex w-full max-w-sm flex-col items-center justify-center space-y-2">
             <p className="text-sm">
-              {order.shipping_details.address.line1} <br />
+              {order && order.shipping_details.address.line1} <br />
             </p>
-            {order.shipping_details.address.line2 && (
+            {order && order.shipping_details.address.line2 && (
               <p className="text-sm">
-                {order.shipping_details.address.line2}
+                {order && order.shipping_details.address.line2}
                 <br />
               </p>
             )}
             <p className="text-sm">
-              {order.shipping_details.address.city},{" "}
-              {order.shipping_details.address.state}
+              {order?.shipping_details.address.city},{" "}
+              {order?.shipping_details.address.state}
             </p>
             <p className="text-sm">
-              {order.shipping_details.address.postal_code}
+              {order?.shipping_details.address.postal_code}
             </p>
-            <p className="text-sm">{order.shipping_details.address.country}</p>
+            <p className="text-sm">{order?.shipping_details.address.country}</p>
           </div>
         </div>
         <p className="m-4 max-w-sm text-center">
@@ -170,7 +191,7 @@ export default function Success() {
           </button>
         </p>
         <Link href="/" passHref>
-          <button className="primary-button">Continue Shopping</button>
+          <Button>Continue Shopping</Button>
         </Link>
       </div>
     </>

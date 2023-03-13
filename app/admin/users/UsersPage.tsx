@@ -1,12 +1,11 @@
 "use client"
 
-import Link from "next/link"
 import { useRouter } from "next/navigation"
-import React, { useEffect, useReducer } from "react"
-import { useAtom } from "jotai"
-import toastStore from "../../../utils/ToastStore"
+import { useEffect, useReducer } from "react"
+import useToast from "../../../utils/useToast"
 import Image from "next/image"
 import { User } from "../../../utils/dataHooks/getUserByID"
+import Button from "../../../components/Layout/Button"
 
 type State = {
   loadingCreate: boolean
@@ -44,11 +43,9 @@ const reducer = (state: State, action: Action): State => {
   }
 }
 
-const randomID = Math.random().toString(36).substring(2, 15)
-
 export default function Users({ users }: { users: User[] }) {
   const router = useRouter()
-  const [, setToasts] = useAtom(toastStore)
+  const addToast = useToast()
 
   const [state, dispatch] = useReducer(reducer, {
     loadingCreate: false,
@@ -68,22 +65,12 @@ export default function Users({ users }: { users: User[] }) {
           "Content-Type": "application/json",
         },
       }).then((res) => res.json())
-
       dispatch({ type: "CREATE_SUCCESS" })
+      addToast("User created successfully", true)
       router.push(`/admin/users/${data.id}`)
     } catch (error) {
       dispatch({ type: "CREATE_FAIL" })
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: randomID,
-            message: "Failed to create user",
-            success: false,
-          },
-        ],
-      }))
+      addToast("Failed to create user", false)
     }
   }
 
@@ -96,31 +83,11 @@ export default function Users({ users }: { users: User[] }) {
         method: "DELETE",
       })
       dispatch({ type: "DELETE_SUCCESS" })
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: randomID,
-            message: "User deleted successfully",
-            success: true,
-          },
-        ],
-      }))
+      addToast("User deleted successfully", true)
       router.refresh()
     } catch (error) {
       dispatch({ type: "DELETE_FAIL" })
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: randomID,
-            message: "Failed to delete user",
-            success: false,
-          },
-        ],
-      }))
+      addToast("Failed to delete user", false)
     }
   }
 
@@ -134,9 +101,9 @@ export default function Users({ users }: { users: User[] }) {
     <div className="flex flex-col">
       <div className="flex items-center justify-between">
         <h1 className="mx-auto text-2xl font-semibold">Users</h1>
-        <button className="primary-button" onClick={createUserHandler}>
+        <Button onClick={createUserHandler}>
           {loadingCreate ? "Creating..." : "Create"}
-        </button>
+        </Button>
       </div>
       <div className="mt-4 flex flex-col">
         {users.map((user: User) => (
@@ -164,18 +131,18 @@ export default function Users({ users }: { users: User[] }) {
               <p>{user?.isEmployee ? "Employee" : "Customer"}</p>
             </div>
             <div className="flex items-center px-4">
-              <Link
-                href={`/admin/users/${user?.id}`}
-                className="primary-button mr-4"
+              <Button
+                onClick={() => router.push(`/admin/users/${user?.id}`)}
+                className="mr-4"
               >
                 Edit
-              </Link>
-              <button
-                className="text-Red"
+              </Button>
+              <Button
+                className="m-1 bg-Red hover:text-Red"
                 onClick={() => deleteUserHandler(user!.id)}
               >
                 {loadingDelete ? "Deleting..." : "Delete"}
-              </button>
+              </Button>
             </div>
           </div>
         ))}

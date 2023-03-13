@@ -1,4 +1,5 @@
 import { ReactNode } from "react"
+import Button from "../Layout/Button"
 
 export default function Cheese({
   category,
@@ -20,12 +21,12 @@ export default function Cheese({
             {tag.map((t: string) => t + ", ").slice(0, -1)}
             {" and " + tag[tag.length - 1]}? Well, aren&apos;t you picky?
           </h2>
-          <button
+          <Button
             onClick={clearFilter}
-            className="primary-button mx-auto block bg-Red"
+            className="mx-auto block bg-Yellow text-orange"
           >
             Clear Filter
-          </button>
+          </Button>
         </>
       )
       break
@@ -36,12 +37,12 @@ export default function Cheese({
             Oh, so you want some {category}, specifically{" "}
             {tag[0] + " and " + tag[1]}?
           </h2>
-          <button
+          <Button
             onClick={clearFilter}
-            className="primary-button mx-auto block bg-Red"
+            className="mx-auto block bg-Yellow text-orange hover:text-Black"
           >
             Clear Filter
-          </button>
+          </Button>
         </>
       )
       break
@@ -51,12 +52,12 @@ export default function Cheese({
           <h2 className="mb-4 mt-2 text-center text-lg drop-shadow md:text-3xl">
             Oh, so you want some {category}, specifically {tag[0]}?
           </h2>
-          <button
+          <Button
             onClick={clearFilter}
-            className="primary-button mx-auto block bg-Red"
+            className="mx-auto block bg-Yellow text-orange"
           >
             Clear Filter
-          </button>
+          </Button>
         </>
       )
       break
@@ -67,12 +68,12 @@ export default function Cheese({
             Oh, so you want some {tag.map((t: string) => t + ", ").slice(0, -1)}
             {" and " + tag[tag.length - 1]}? Well, aren&apos;t you picky?
           </h2>
-          <button
+          <Button
             onClick={clearFilter}
-            className="primary-button mx-auto block bg-Red"
+            className="mx-auto block bg-Yellow text-orange"
           >
             Clear Filter
-          </button>
+          </Button>
         </>
       )
       break
@@ -82,12 +83,12 @@ export default function Cheese({
           <h2 className="mb-4 mt-2 text-center text-lg drop-shadow md:text-3xl">
             Oh, so you want some {tag[0]}, specifically with {tag[1]}?
           </h2>
-          <button
+          <Button
             onClick={clearFilter}
-            className="primary-button mx-auto block bg-Red"
+            className="mx-auto block bg-Yellow text-orange"
           >
             Clear Filter
-          </button>
+          </Button>
         </>
       )
       break
@@ -97,12 +98,12 @@ export default function Cheese({
           <h2 className="mb-4 mt-2 text-center text-lg drop-shadow md:text-3xl">
             Oh, so you want some {tag[0]}?
           </h2>
-          <button
+          <Button
             onClick={clearFilter}
-            className="primary-button mx-auto block bg-Red"
+            className="mx-auto block bg-Yellow text-orange"
           >
             Clear Filter
-          </button>
+          </Button>
         </>
       )
       break
@@ -112,12 +113,12 @@ export default function Cheese({
           <h2 className="mb-4 mt-2 text-center text-lg drop-shadow md:text-3xl">
             Oh, so you want some {category}?
           </h2>
-          <button
+          <Button
             onClick={clearFilter}
-            className="primary-button mx-auto block bg-Red"
+            className="mx-auto block bg-Yellow text-orange"
           >
             Clear Filter
-          </button>
+          </Button>
         </>
       )
       break

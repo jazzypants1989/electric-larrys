@@ -7,20 +7,17 @@ function imageLinkBuilder(image: string) {
   return imageLink
 }
 
-const boardgames = "boardgames_owxhlz"
-const books = "books_l4ph7g"
-const movies = "movies_e5cayu"
-const music = "music_umetmu"
-const oddities = "oddities_n8vvjp"
-const vidya = "vidya_jh1fbk"
-
 const images = {
-  "Movies / TV": movies,
-  "Video Games": vidya,
-  "Music": music,
-  "Books": books,
-  "Board Games": boardgames,
-  "Oddities": oddities,
+  "Media": "e_improve/v1678404453/movies.jpg",
+  "Games":
+    "/w_1000,ar_1:1,c_fill,g_auto,e_improve/v1678403245/319125505_482600527344181_1113826939205737358_n_rtvr7q.jpg",
+  "Toys": "/w_1000,ar_1:1,c_fill,g_auto,e_improve/v1678403245/toys.jpg",
+  "Books":
+    "/w_1000,ar_1:1,c_fill,g_auto,e_improve/v1678403244/319660582_1598822214284266_1561878818922412587_n_lvbe5v.jpg",
+  "Clothing":
+    "/w_1000,ar_1:1,c_fill,g_auto,e_improve/v1678403243/319366372_687543296306301_323657085684437234_n_b32qgv.jpg",
+  "Oddities":
+    "w_1000,ar_1:1,c_fill,g_auto,e_improve/v1678403245/318657359_1319492078883086_4891519022965311904_n_icfdeo.jpg",
 } as const
 
 const CategoryItem = ({ category }: { category: keyof typeof images }) => {

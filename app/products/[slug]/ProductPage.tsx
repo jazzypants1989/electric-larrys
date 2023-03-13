@@ -7,7 +7,8 @@ import { useAtom } from "jotai"
 import Card from "../../../components/Layout/Card"
 import Store, { CartItem, reactions } from "../../../utils/Store"
 import { Product } from "../../../utils/dataHooks/getProducts"
-import toastStore from "../../../utils/ToastStore"
+import useToast from "../../../utils/useToast"
+import Button from "../../../components/Layout/Button"
 
 export default function ProductPage({
   product,
@@ -17,7 +18,7 @@ export default function ProductPage({
   isAdmin: boolean
 }) {
   const [cart, setCart] = useAtom(Store)
-  const [, setToasts] = useAtom(toastStore)
+  const addToast = useToast()
 
   if (!product) {
     return (
@@ -34,17 +35,10 @@ export default function ProductPage({
     const quantity = existItem ? existItem.quantity + 1 : 1
 
     if (product.countInStock < quantity) {
-      return setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: product.id,
-            message: `Sorry, I guess that item was too cool, cuz it looks like we just sold out! We only have ${product.countInStock} ${product.name} in stock.`,
-            success: false,
-          },
-        ],
-      }))
+      addToast(
+        `Sorry, that's so cool that it is flying off the shelf! We only have ${product.countInStock} of ${product.name} in stock.`,
+        false
+      )
     }
 
     setCart((prev) => ({
@@ -56,19 +50,12 @@ export default function ProductPage({
         : [...prev.cartItems, { product, quantity }],
       cartOpen: true,
     }))
-    setToasts((prev) => ({
-      ...prev,
-      toasts: [
-        ...prev.toasts,
-        {
-          id: product.id,
-          message: `${product.name} added to your cart! ${
-            reactions[Math.floor(Math.random() * reactions.length)]
-          }`,
-          success: true,
-        },
-      ],
-    }))
+    addToast(
+      `${product.name} added to your cart! ${
+        reactions[Math.floor(Math.random() * reactions.length)]
+      }`,
+      true
+    )
   }
   return (
     <>
@@ -98,7 +85,7 @@ export default function ProductPage({
             passHref
             className="cursor-pointer hover:text-orange"
           >
-            <button className="primary-button">Edit</button>
+            <Button>Edit</Button>
           </Link>
         )}
       </div>
@@ -149,12 +136,9 @@ export default function ProductPage({
                   : "Dang Nabbit, I think we sold 'em all!"}
               </div>
             </div>
-            <button
-              className="primary-button w-full"
-              onClick={addToCartHandler}
-            >
+            <Button className="w-full" onClick={addToCartHandler}>
               Add to cart
-            </button>
+            </Button>
           </div>
         </Card>
       </div>

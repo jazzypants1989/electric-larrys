@@ -8,6 +8,9 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { useRouter } from "next/navigation"
 import Google from "../../components/Auth/Icons/Google"
 import Discord from "../../components/Auth/Icons/Discord"
+import Button from "../../components/Layout/Button"
+import AuthContainer from "../../components/Auth/AuthContainer"
+import useToast from "../../utils/useToast"
 
 type FormValues = {
   email: string
@@ -16,11 +19,13 @@ type FormValues = {
 
 function LoginScreen({ providers }: { providers: Record<string, any> }) {
   const { data: session } = useSession()
+  const addToast = useToast()
 
   const router = useRouter()
 
   useEffect(() => {
     if (session) {
+      router.refresh()
       router.push("/")
     }
   }, [session, router])
@@ -41,25 +46,19 @@ function LoginScreen({ providers }: { providers: Record<string, any> }) {
         email,
         password,
       })
+      addToast("You have successfully logged in!", true)
       console.log(result)
     } catch (err) {
       console.log(err)
+      addToast("Something went wrong, please try again.", false)
     }
   }
-  //       if (result?.error) {
-  //         toast.error(result.error)
-  //       }
-  //     } catch (err) {
-  //       if (err instanceof Error) {
-  //         toast.error(err.message)
-  //       } else if (err instanceof AxiosError) {
-  //         toast.error(err.response?.data.message)
-  //       }
-  //     }
-  //   }
   return (
-    <>
-      <form className="mx-auto w-1/2" onSubmit={handleSubmit(submitHandler)}>
+    <AuthContainer>
+      <form
+        className="mx-auto w-1/2 bg-blue bg-opacity-50"
+        onSubmit={handleSubmit(submitHandler)}
+      >
         <h1 className="mb-4 text-center text-xl">Login</h1>
         <div className="mb-4">
           <label htmlFor="email">Email</label>
@@ -100,14 +99,14 @@ function LoginScreen({ providers }: { providers: Record<string, any> }) {
             <div className="text-Red ">{errors.password.message}</div>
           )}
         </div>
-        <div className="mb-4 ">
-          <button className="primary-button">Login</button>
+        <div className="mb-4 flex flex-col items-center justify-center text-base">
+          <Button className="mx-auto">Login</Button>
         </div>
         <div className="mb-4 flex flex-col items-center justify-center text-base">
           Don&apos;t have an account? &nbsp; <hr></hr>
-          <button className="default-button">
+          <Button onClick={() => router.push(`/register?redirect=${"/"}`)}>
             <Link href={`/register?redirect=${"/"}`}>Register</Link>
-          </button>
+          </Button>
         </div>
       </form>
 
@@ -132,7 +131,7 @@ function LoginScreen({ providers }: { providers: Record<string, any> }) {
           </button>
         </div>
       </div>
-    </>
+    </AuthContainer>
   )
 }
 

@@ -3,10 +3,9 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import React, { useEffect, useReducer } from "react"
-import { useAtom } from "jotai"
-
-import toastStore from "../../../utils/ToastStore"
+import Button from "../../../components/Layout/Button"
 import type { Product } from "../../../utils/dataHooks/getProducts"
+import useToast from "../../../utils/useToast"
 
 type State = {
   loadingCreate: boolean
@@ -44,15 +43,13 @@ const reducer = (state: State, action: Action): State => {
   }
 }
 
-const randomID = Math.random().toString(36).substring(2, 15)
-
 export default function AdminProductsScreen({
   products,
 }: {
   products: Product[]
 }) {
   const router = useRouter()
-  const [, setToasts] = useAtom(toastStore)
+  const addToast = useToast()
 
   const [state, dispatch] = useReducer(reducer, {
     loadingCreate: false,
@@ -73,31 +70,12 @@ export default function AdminProductsScreen({
       })
       const product: Product = await data.json()
       dispatch({ type: "CREATE_SUCCESS" })
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: product.id,
-            message: `Product ${product.name} created successfully`,
-            success: true,
-          },
-        ],
-      }))
+      addToast("Product created successfully", true)
+      router.refresh()
       router.push(`/admin/products/${product.slug}`)
     } catch (err) {
       dispatch({ type: "CREATE_FAIL" })
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: randomID,
-            message: `Sorry, something went wrong`,
-            success: false,
-          },
-        ],
-      }))
+      addToast("Sorry, something went wrong", false)
     }
   }
 
@@ -111,30 +89,10 @@ export default function AdminProductsScreen({
         method: "DELETE",
       })
       dispatch({ type: "DELETE_SUCCESS" })
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: slug,
-            message: `Product deleted successfully`,
-            success: true,
-          },
-        ],
-      }))
+      addToast("Product deleted successfully", true)
     } catch (err) {
       dispatch({ type: "DELETE_FAIL" })
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: randomID,
-            message: `Sorry, something went wrong`,
-            success: false,
-          },
-        ],
-      }))
+      addToast("Sorry, something went wrong", false)
     }
   }
 
@@ -147,23 +105,18 @@ export default function AdminProductsScreen({
 
   return (
     <div className="overflow-x-auto md:col-span-3">
-      <div className="m-2 flex items-center justify-between">
-        <h1 className="mb-4 text-xl">Products</h1>
+      <div className="m-2 flex flex-col items-center justify-center gap-2 md:flex-row md:justify-between">
+        <h1 className="text-xl">Products</h1>
         {loadingDelete && <div>Deleting item...</div>}
-        <button
-          disabled={loadingCreate}
-          onClick={createHandler}
-          className="primary-button"
-        >
+        <Button disabled={loadingCreate} onClick={createHandler}>
           {loadingCreate ? "Loading" : "Create One"}
-        </button>
-        <button
+        </Button>
+        <Button
           disabled={loadingCreate}
           onClick={() => router.push("/admin/products/import")}
-          className="primary-button"
         >
           Import a CSV
-        </button>
+        </Button>
       </div>
       <div className="overflow-auto rounded-lg border-b shadow">
         <table className="min-w-full overflow-x-auto">
@@ -219,22 +172,23 @@ export default function AdminProductsScreen({
                 <td className="border-r-2 border-r-orange text-center md:px-4">
                   {!product.isFeatured ? "❌" : "💯"}
                 </td>
-                <td className=" text-center ">
-                  <Link
-                    href={`/admin/products/${product.slug}`}
+                <td className="text-center">
+                  <Button
+                    onClick={() =>
+                      router.push(`/admin/products/${product.slug}`)
+                    }
+                    className="m-1"
                     type="button"
-                    className="primary-button"
                   >
-                    Edit
-                  </Link>
-                  &nbsp;
-                  <button
+                    <Link href={`/admin/products/${product.slug}`}>Edit</Link>
+                  </Button>
+                  <Button
                     onClick={() => deleteHandler(product.slug)}
-                    className="default-button hover:bg-Red"
+                    className="m-1 bg-Red hover:text-Red"
                     type="button"
                   >
                     Delete
-                  </button>
+                  </Button>
                 </td>
               </tr>
             ))}

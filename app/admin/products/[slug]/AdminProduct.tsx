@@ -3,17 +3,19 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { ChangeEvent, useEffect, useReducer } from "react"
-import { SubmitHandler, useForm } from "react-hook-form"
-import { useAtom } from "jotai"
-
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form"
+import useToast from "../../../../utils/useToast"
 import { Product } from "../../../../utils/dataHooks/getProducts"
-import toastStore from "../../../../utils/ToastStore"
+import Button from "../../../../components/Layout/Button"
+import TagGuy from "./TagGuy"
+import Image from "next/image"
 
 type State = {
   loadingUpdate: boolean
   loadingUpload: boolean
   errorUpdate: string
   errorUpload: string
+  imageDifferent: boolean
 }
 
 type Action =
@@ -30,7 +32,7 @@ type FormValues = {
   price: number
   image: string
   category: string
-  tags: string
+  tags: string[]
   countInStock: string
   description: string
   isFeatured: boolean
@@ -38,14 +40,17 @@ type FormValues = {
   salePrice: number
 }
 
-const randomID = Math.random().toString(36).substring(2, 15)
-
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "UPDATE_REQUEST":
       return { ...state, loadingUpdate: true, errorUpdate: "" }
     case "UPDATE_SUCCESS":
-      return { ...state, loadingUpdate: false, errorUpdate: "" }
+      return {
+        ...state,
+        loadingUpdate: false,
+        errorUpdate: "",
+        imageDifferent: false,
+      }
     case "UPDATE_FAIL":
       return { ...state, loadingUpdate: false, errorUpdate: action.payload }
 
@@ -56,6 +61,7 @@ const reducer = (state: State, action: Action): State => {
         ...state,
         loadingUpload: false,
         errorUpload: "",
+        imageDifferent: true,
       }
     case "UPLOAD_FAIL":
       return { ...state, loadingUpload: false, errorUpload: action.payload }
@@ -67,10 +73,15 @@ const reducer = (state: State, action: Action): State => {
 
 export default function AdminProductEditScreen({
   product,
+  namedTags,
+  categories,
 }: {
   product: Product
+  namedTags: string[]
+  categories: string[]
 }) {
   const {
+    id,
     name,
     slug,
     price,
@@ -84,36 +95,44 @@ export default function AdminProductEditScreen({
     salePrice,
   } = product
 
-  const [, setToasts] = useAtom(toastStore)
+  console.log(tags)
+
+  const addToast = useToast()
 
   const [state, dispatch] = useReducer(reducer, {
     loadingUpdate: false,
     loadingUpload: false,
     errorUpdate: "",
     errorUpload: "",
+    imageDifferent: false,
   })
 
   const { loadingUpdate, loadingUpload } = state
+
+  const methods = useForm<FormValues>()
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm<FormValues>()
+  } = methods
 
   useEffect(() => {
     setValue("name", name)
     setValue("slug", slug)
     setValue("price", price)
-    setValue("image", image)
     setValue("category", category)
-    setValue("tags", tags.map((tag: string) => tag).join(", "))
+    setValue("tags", tags)
     setValue("countInStock", countInStock.toString())
     setValue("description", description)
     setValue("isFeatured", isFeatured)
     setValue("isOnSale", isOnSale)
     setValue("salePrice", salePrice)
+
+    if (!state.imageDifferent) {
+      setValue("image", image)
+    }
   }, [product]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const router = useRouter()
@@ -123,9 +142,9 @@ export default function AdminProductEditScreen({
     try {
       dispatch({ type: "UPLOAD_REQUEST" })
 
-      const {
-        data: { signature, timestamp },
-      } = await fetch("/api/cloudinary").then((res) => res.json())
+      const { signature, timestamp } = await fetch(
+        "/api/admin/cloudinary-sign"
+      ).then((res) => res.json())
 
       const file = e.target.files![0]
 
@@ -136,7 +155,7 @@ export default function AdminProductEditScreen({
       formData.append("timestamp", timestamp)
       formData.append("api_key", process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY!)
 
-      const { data } = await fetch(url, {
+      const data = await fetch(url, {
         method: "POST",
         body: formData,
       }).then((res) => res.json())
@@ -145,30 +164,13 @@ export default function AdminProductEditScreen({
 
       setValue("image", data.secure_url)
 
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: randomID,
-            message: "Image uploaded successfully",
-            success: true,
-          },
-        ],
-      }))
+      addToast("Image uploaded successfully", true)
+      router.refresh()
     } catch (err) {
       dispatch({ type: "UPLOAD_FAIL", payload: (err as Error).message })
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: randomID,
-            message: "Image upload failed",
-            success: false,
-          },
-        ],
-      }))
+      addToast(`Image upload failed: ${(err as Error).message}`, false)
+      console.log(err)
+      router.refresh()
     }
   }
 
@@ -185,63 +187,77 @@ export default function AdminProductEditScreen({
     isOnSale,
     salePrice,
   }) => {
-    const tagArray = tags.split(",").map((tag: string) => tag.trim())
+    if (name === "" || slug === "" || price === 0 || image === "") {
+      addToast("Please fill in all required fields", false)
+      return
+    }
+    if (countInStock === "" || Number(countInStock) < 0) {
+      addToast("Please enter a valid count in stock", false)
+      return
+    }
+    if (isOnSale && salePrice === 0) {
+      addToast("Please enter a valid sale price", false)
+      return
+    }
+    if (isOnSale && salePrice >= price) {
+      addToast("Sale price must be less than the regular price", false)
+      return
+    } else {
+      try {
+        dispatch({ type: "UPDATE_REQUEST" })
+        const res = await fetch(`/api/admin/products/${slug}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            slug,
+            price: Number(price),
+            category,
+            image,
+            tags,
+            countInStock: Number(countInStock),
+            description,
+            isFeatured,
+            isOnSale,
+            salePrice: Number(salePrice),
+          }),
+        })
 
-    try {
-      dispatch({ type: "UPDATE_REQUEST" })
-      await fetch(`/api/admin/products/${slug}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+        if (!res.ok) {
+          const error = await res.json()
+          throw new Error(error.message)
+        }
+
+        dispatch({ type: "UPDATE_SUCCESS" })
+
+        console.log({
           name,
           slug,
           price: Number(price),
           category,
           image,
-          tags: tagArray,
+          tags,
           countInStock: Number(countInStock),
           description,
           isFeatured,
           isOnSale,
           salePrice: Number(salePrice),
-        }),
-      }).then((res) => res.json())
-
-      dispatch({ type: "UPDATE_SUCCESS" })
-
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: randomID,
-            message: "Product updated successfully",
-            success: true,
-          },
-        ],
-      }))
-      router.push("/admin/products")
-    } catch (err) {
-      dispatch({ type: "UPDATE_FAIL", payload: (err as Error).message })
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: randomID,
-            message: "Product update failed",
-            success: false,
-          },
-        ],
-      }))
+        })
+        addToast(`Product ${name} updated successfully`, true)
+        router.refresh()
+        router.push("/admin/products")
+      } catch (err) {
+        dispatch({ type: "UPDATE_FAIL", payload: (err as Error).message })
+        addToast(`Product update failed: ${(err as Error).message}`, false)
+      }
     }
   }
 
   return (
-    <div className="grid md:grid-cols-4 md:gap-5">
-      <div className="md:col-span-3">
+    <FormProvider {...methods}>
+      <div className="flex h-full w-full flex-col items-center justify-center">
         <form
           className="mx-auto max-w-screen-md"
           onSubmit={handleSubmit(submitHandler)}
@@ -267,11 +283,16 @@ export default function AdminProductEditScreen({
             <input
               type="text"
               className="w-full"
+              disabled
               id="slug"
               {...register("slug", {
                 required: "Please enter slug",
               })}
             />
+            <Link className="text-Red" href={`/admin/product/${id}`}>
+              Slug cannot be changed on this screen. Click here to go to slug
+              edit screen
+            </Link>
             {errors.slug && (
               <div className="text-Red">{errors.slug.message}</div>
             )}
@@ -294,6 +315,20 @@ export default function AdminProductEditScreen({
             )}
           </div>
           <div className="mb-4">
+            {image && (
+              <Image
+                src={image}
+                alt={name}
+                width={200}
+                height={200}
+                className="mb-4"
+              />
+            )}
+            {state.imageDifferent && (
+              <h1 className="text-lg text-Red">
+                This is the old image. Update the product to see the new image
+              </h1>
+            )}
             <label htmlFor="image">image</label>
             <input
               type="text"
@@ -332,20 +367,36 @@ export default function AdminProductEditScreen({
               <div className="text-Red">{errors.category.message}</div>
             )}
           </div>
-          <div className="mb-4">
-            <label htmlFor="tags">tags</label>
-            <input
-              type="text"
-              className="w-full"
-              id="tags"
-              {...register("tags", {
-                required: "Please enter tags",
-              })}
-            />
-            {errors.tags && (
-              <div className="text-Red">{errors.tags.message}</div>
-            )}
+          <div className="mb-4 flex flex-col items-start">
+            <p className="text-orange drop-shadow">Categories</p>
+            <div className="flex max-h-40 flex-row flex-wrap overflow-y-auto">
+              {categories
+                .map((category) => (
+                  <div
+                    key={category}
+                    className="mr-2 mb-2 flex flex-row items-center justify-center"
+                  >
+                    <button
+                      className="rounded-md border-2 border-orange bg-orange px-2 py-1"
+                      onClick={() => setValue("category", category)}
+                      type="button"
+                    >
+                      {category}
+                    </button>
+                  </div>
+                ))
+                .sort((a: any, b: any) => {
+                  if (a.key < b.key) {
+                    return -1
+                  }
+                  if (a.key > b.key) {
+                    return 1
+                  }
+                  return 0
+                })}
+            </div>
           </div>
+          <TagGuy tags={tags} namedTags={namedTags} />
           <div className="mb-4">
             <label htmlFor="countInStock">Amount in stock</label>
             <input
@@ -399,15 +450,15 @@ export default function AdminProductEditScreen({
           </div>
 
           <div className="mb-4">
-            <button disabled={loadingUpdate} className="primary-button">
+            <Button disabled={loadingUpdate} type="submit">
               {loadingUpdate ? "Loading" : "Update"}
-            </button>
+            </Button>
           </div>
           <div className="mb-4">
             <Link href={`/admin/products`}>Back</Link>
           </div>
         </form>
       </div>
-    </div>
+    </FormProvider>
   )
 }

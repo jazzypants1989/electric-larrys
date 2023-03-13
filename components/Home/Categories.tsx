@@ -1,11 +1,11 @@
 import CategoryItem from "./CategoryItem"
 
 const categories = [
-  "Movies / TV",
-  "Video Games",
-  "Music",
+  "Media",
+  "Games",
+  "Toys",
   "Books",
-  "Board Games",
+  "Clothing",
   "Oddities",
 ] as const
 

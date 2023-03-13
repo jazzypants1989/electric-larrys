@@ -2,19 +2,17 @@
 
 import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { useAtom } from "jotai"
-import toastStore from "../../../../utils/ToastStore"
 import { useState } from "react"
 import type { Announcement } from "../Announcements"
-
-const randomID = Math.random().toString(36).substring(2, 15)
+import useToast from "../../../../utils/useToast"
+import Button from "../../../../components/Layout/Button"
 
 export default function AnnouncementPage({
   announcement,
 }: {
   announcement: Announcement
 }) {
-  const [, setToasts] = useAtom(toastStore)
+  const addToast = useToast()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const router = useRouter()
@@ -37,6 +35,7 @@ export default function AnnouncementPage({
   const onSubmit: SubmitHandler<Announcement> = async (data) => {
     setLoading(true)
     setError("")
+
     try {
       const res = await fetch(`/api/admin/announcements/${id}`, {
         method: "PUT",
@@ -47,17 +46,8 @@ export default function AnnouncementPage({
       })
       const json = await res.json()
       if (!res.ok) throw Error(json.message)
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: randomID,
-            message: "Announcement updated successfully",
-            success: true,
-          },
-        ],
-      }))
+      addToast("Announcement updated successfully", true)
+      router.refresh()
       router.push("/admin/announcements")
     } catch (e) {
       console.error(e)
@@ -77,17 +67,8 @@ export default function AnnouncementPage({
       })
       const json = await res.json()
       if (!res.ok) throw Error(json.message)
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: randomID,
-            message: "Announcement deleted successfully",
-            success: true,
-          },
-        ],
-      }))
+      addToast("Announcement deleted successfully", true)
+      router.refresh()
       router.push("/admin/announcements")
     } catch (e) {
       console.error(e)
@@ -98,84 +79,71 @@ export default function AnnouncementPage({
   }
 
   return (
-    <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-      <h1 className="text-6xl font-bold">Announcement</h1>
-      {error && <p className="text-red-500">{error}</p>}
+    <main className="flex w-full flex-col items-center justify-center px-20 text-center">
+      <h1 className="text-3xl font-bold">Announcement: {title}</h1>
+      {error && <p className="text-Red">{error}</p>}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center"
+        className="flex w-full flex-col items-center justify-center px-20 text-center"
       >
-        <div className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
+        <div className="flex w-full flex-col items-center justify-center px-20 text-center">
           <label htmlFor="title" className="text-2xl font-bold">
             Title
           </label>
           <input
             id="title"
             type="text"
-            className="border-gray-300 w-full rounded-md border p-2"
+            className="w-full rounded-md border border-orange p-2"
             {...register("title", { required: true })}
           />
           {errors.title && (
-            <span className="text-red-500">This field is required</span>
+            <span className="text-Red">This field is required</span>
           )}
         </div>
-        <div className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
+        <div className="flex w-full flex-col items-center justify-center px-20 text-center">
           <label htmlFor="link" className="text-2xl font-bold">
             Link
           </label>
           <input
             id="link"
             type="text"
-            className="border-gray-300 w-full rounded-md border p-2"
-            {...register("link", { required: true })}
+            className="w-full rounded-md border border-orange p-2"
+            {...(register("link"), { required: false })}
           />
-          {errors.link && (
-            <span className="text-red-500">This field is required</span>
-          )}
         </div>
-        <div className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
+        <div className="flex w-full flex-col items-center justify-center px-20 text-center">
           <label htmlFor="description" className="text-2xl font-bold">
             Description
           </label>
           <textarea
             id="description"
-            className="border-gray-300 w-full rounded-md border p-2"
-            {...register("description", { required: true })}
+            className="w-full rounded-md border border-orange p-2"
+            {...(register("description"), { required: false })}
           />
-          {errors.description && (
-            <span className="text-red-500">This field is required</span>
-          )}
         </div>
-        <div className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
+        <div className="flex w-full flex-col items-center justify-center px-20 text-center">
           <label htmlFor="isPublished" className="text-2xl font-bold">
             Published
           </label>
           <input
             id="isPublished"
             type="checkbox"
-            className="border-gray-300 w-full rounded-md border p-2"
-            {...register("isPublished", { required: true })}
+            className="m-2 h-10 w-10 rounded-md border border-orange"
+            {...register("isPublished")}
           />
-          {errors.isPublished && (
-            <span className="text-red-500">This field is required</span>
-          )}
         </div>
-        <div className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-          <button
-            type="submit"
-            disabled={loading}
-            className="bg-blue-500 rounded-md p-2"
-          >
+        <div className="flex w-full flex-col items-center justify-center gap-4 px-20 text-center">
+          <Button type="submit" disabled={loading}>
             {loading ? "Loading..." : "Update"}
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
             onClick={deleteHandler}
             disabled={loading}
-            className="bg-red-500 rounded-md p-2"
+            className="rounded-md bg-Red p-2"
           >
             {loading ? "Loading..." : "Delete"}
-          </button>
+          </Button>
         </div>
       </form>
     </main>

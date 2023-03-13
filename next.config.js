@@ -11,6 +11,7 @@ const nextConfig = {
       "cdn.discordapp.com",
       "lh3.googleusercontent.com",
       "picsum.photos",
+      "electric-larrys.vercel.app",
     ],
   },
 }

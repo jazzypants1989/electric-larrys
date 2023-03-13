@@ -1,8 +1,39 @@
 import { getSession } from "next-auth/react"
 import { NextApiRequest, NextApiResponse } from "next"
 import db from "../../../../utils/prisma"
-import { Product } from "../../../../utils/dataHooks/getProducts"
-import { CartItem } from "../../../../utils/Store"
+import { Product, Products } from "../../../../utils/dataHooks/getProducts"
+type CartItem = {
+  id: string
+  object: string
+  amount_discount: number
+  amount_subtotal: number
+  amount_tax: number
+  amount_total: number
+  currency: string
+  description: string
+  price: {
+    id: string
+    object: string
+    active: boolean
+    billing_scheme: string
+    created: number
+    currency: string
+    custom_unit_amount: null
+    livemode: boolean
+    lookup_key: null
+    metadata: {}
+    nickname: null
+    product: string
+    recurring: null
+    tax_behavior: string
+    tiers_mode: null
+    transform_quantity: null
+    type: string
+    unit_amount: number
+    unit_amount_decimal: string
+  }
+  quantity: number
+}
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
@@ -39,32 +70,53 @@ const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 const putHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { cartItems } = req.body
+  const cartItems = req.body
 
-  const productsInDb = await db.product.findMany({
+  console.log(cartItems)
+
+  const products = await db.product.findMany({
     where: {
-      id: {
-        in: cartItems.map((cartItem: CartItem) => cartItem.product.id),
+      name: {
+        in: cartItems.map((item: CartItem) => item.description),
       },
     },
   })
 
-  const updatedProductsInDb = await Promise.all(
-    productsInDb.map((productInDb: Product) => {
-      const cartItem: CartItem = cartItems.find(
-        (cartItem: CartItem) => cartItem.product.id === productInDb.id
-      )
+  const updatedProducts = products.map((product: Product) => {
+    const cartItem = cartItems.find(
+      (item: CartItem) => item.description === product.name
+    )
+    if (!cartItem) {
+      return product
+    }
 
-      const countInStock = productInDb.countInStock - cartItem.quantity
+    if (product.countInStock < 1) {
+      console.log(`Product ${product.name} is out of stock`)
+      return product
+    }
 
-      return db.product.update({
-        where: { id: productInDb.id },
-        data: { countInStock },
+    console.log(
+      `Product ${product.name} has ${product.countInStock} left, ${cartItem.quantity} ordered`
+    )
+
+    return {
+      ...product,
+      countInStock: product.countInStock - cartItem.quantity,
+    }
+  })
+
+  async function updateDB(products: Products) {
+    for (const product of products) {
+      await db.product.update({
+        where: { id: product.id },
+        data: { countInStock: product.countInStock },
       })
-    })
-  )
+    }
+  }
 
-  res.send({ message: "Products updated successfully", updatedProductsInDb })
+  await updateDB(updatedProducts)
+
+  res.send({ message: "Products updated successfully", updatedProducts })
 }
 
 export default handler

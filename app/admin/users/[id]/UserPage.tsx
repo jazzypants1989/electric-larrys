@@ -2,15 +2,12 @@
 
 import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { useAtom } from "jotai"
-import toastStore from "../../../../utils/ToastStore"
+import useToast from "../../../../utils/useToast"
 import { useState } from "react"
 import { User } from "../../../../utils/dataHooks/getUserByID"
 
-const randomID = Math.random().toString(36).substring(2, 15)
-
 export default function UserPage({ user }: { user: User }) {
-  const [, setToasts] = useAtom(toastStore)
+  const addToast = useToast()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const router = useRouter()
@@ -54,21 +51,13 @@ export default function UserPage({ user }: { user: User }) {
       })
       const json = await res.json()
       if (!res.ok) throw Error(json.message)
-      setToasts((prev) => ({
-        ...prev,
-        toasts: [
-          ...prev.toasts,
-          {
-            id: randomID,
-            message: "User updated successfully",
-            success: true,
-          },
-        ],
-      }))
+      addToast("User updated successfully", true)
+      router.refresh()
       router.push("/admin/users")
     } catch (error) {
       console.error(error)
       setError((error as Error).message), setLoading(false)
+      addToast((error as Error).message, false)
     }
   }
 

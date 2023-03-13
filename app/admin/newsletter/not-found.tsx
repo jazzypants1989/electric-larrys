@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Button from "../../../components/Layout/Button"
 
 export default function Custom404() {
   return (
@@ -7,9 +8,9 @@ export default function Custom404() {
         No one is signed up for the newsletter yet!
       </h1>
       <p className="text-center text-lg drop-shadow">
-        <Link className="primary-button" href="/admin/users">
-          Want to force them? 😈
-        </Link>
+        <Button>
+          <Link href="/admin/users">Want to force them? 😈</Link>
+        </Button>
       </p>
     </div>
   )

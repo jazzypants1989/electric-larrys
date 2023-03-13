@@ -9,16 +9,5 @@
 input,
 select,
 textarea {
-  @apply rounded border p-2 text-sm text-orange shadow outline-none focus:ring;
-}
-
-.primary-button {
-  @apply rounded bg-orange py-2 px-4 text-sm font-thin tracking-widest shadow outline-none transition-all duration-500 ease-in-out hover:rounded-xl hover:bg-Green hover:text-Yellow;
-}
-.default-button {
-  @apply rounded py-2 px-4 text-base tracking-widest shadow outline-none transition-all duration-500 ease-in-out hover:rounded-xl hover:bg-Green;
-}
-
-.delete-button {
-  @apply h-7 w-7 transition-all duration-300 ease-in-out hover:scale-150 hover:text-Red;
+  @apply rounded border p-2 text-sm text-orange shadow outline-none focus:ring active:ring-2;
 }
