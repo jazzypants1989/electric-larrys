@@ -96,6 +96,7 @@ export default function ProductPage({
           width={500}
           height={500}
           className="rounded-md object-contain"
+          priority
         ></Image>
         <div className="leading-10">
           <ul>

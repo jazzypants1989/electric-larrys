@@ -50,7 +50,7 @@ export default async function Route() {
 
   return (
     <main className="flex flex-col items-center justify-center overflow-x-hidden">
-      <div className="max-w-screen flex w-full flex-col items-center justify-center gap-1 bg-blue px-2">
+      <div className="max-w-screen flex w-full flex-col items-center justify-center gap-1 px-2">
         {announcementList}
       </div>
       {featuredPosts.length > 0 && (

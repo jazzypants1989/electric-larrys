@@ -14,7 +14,10 @@ const bangers = Bangers({
 })
 
 export const metadata = {
-  title: `${siteConfig.title}`,
+  title: {
+    default: `${siteConfig.title}`,
+    template: `%s at ${siteConfig.title}`,
+  },
   applicationName: `${siteConfig.title}`,
   description: `${siteConfig.description}`,
   keywords:
@@ -25,7 +28,7 @@ export const metadata = {
   publisher: "Jesse Pence",
   referrer: "origin-when-cross-origin",
   generator: "Next.js",
-  manifest: `${process.env.NEXT_PUBLIC_BASE_URL}/site.webmanifest`,
+  manifest: `${siteConfig.siteUrl}/site.webmanifest`,
   robots: {
     index: true,
     follow: true,
@@ -38,7 +41,7 @@ export const metadata = {
     type: "website",
     title: `${siteConfig.title}`,
     description: `${siteConfig.description}`,
-    url: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+    url: `${siteConfig.siteUrl}`,
     siteName: `${siteConfig.title}`,
     countryName: "United States",
     locale: `${siteConfig.siteLocale}`,
