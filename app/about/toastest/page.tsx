@@ -17,7 +17,7 @@ export default function Page() {
         onChange={(e) => setMessage(e.target.value)}
       />
       <label className="mx-2 text-sm" htmlFor="success">
-        Success
+        Success, yeah?
       </label>
       <input
         type="checkbox"
