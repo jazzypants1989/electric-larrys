@@ -32,7 +32,7 @@ export default function Page() {
         className="mx-2"
         type="button"
       >
-        Add toast
+        Add toast (success: {success.toString()})
       </Button>
     </div>
   )
