@@ -50,10 +50,10 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
               <Image
                 src={image!}
                 alt={title}
-                width={450}
-                height={450}
+                width={333}
+                height={333}
                 priority
-                className="aspect-auto rounded-4xl"
+                className="rounded-4xl"
               />
             </a>
             <div className="">
@@ -89,10 +89,10 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
             <Image
               src={image!}
               alt={title}
-              width={450}
-              height={450}
+              width={333}
+              height={333}
               priority
-              className="aspect-auto rounded-4xl"
+              className="rounded-4xl"
             />
             <div className="">
               <h2 className="max-w-2xl text-sm text-blue drop-shadow-2xl transition duration-1000 ease-in-out md:text-2xl md:hover:text-orange">
@@ -183,7 +183,7 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
   })
   return (
     <>
-      <article className="mx-2 flex max-h-full items-center justify-around rounded-lg rounded-t-2xl bg-orange">
+      <article className="mx-2 flex max-h-full max-w-7xl items-center justify-around rounded-lg rounded-t-2xl bg-orange lg:mx-auto">
         <span
           className="relative top-0 bottom-0 z-20 m-auto ml-2 flex cursor-pointer items-center justify-center rounded-full bg-Green p-1 text-3xl text-blue opacity-70 transition-all duration-1000 ease-in-out hover:scale-110 hover:text-orange hover:opacity-100 md:p-2 md:text-5xl"
           onClick={prevSlide}

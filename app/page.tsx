@@ -61,7 +61,7 @@ export default async function Route() {
       <Categories />
       <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {featuredProducts.length > 0 && (
-          <div className="mt-4 flex flex-col items-center justify-center gap-2 overflow-hidden md:mt-0">
+          <div className="mt-4 flex flex-col items-center justify-center gap-2 overflow-hidden md:mt-0 md:justify-start">
             <FeaturedProducts featuredProducts={featuredProducts} />
           </div>
         )}

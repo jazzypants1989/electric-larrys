@@ -51,7 +51,7 @@ const Newsletter = () => {
         className="bg-transparent after:z-1 flex h-12 w-1/2 items-center justify-center text-orange outline-none transition-all after:absolute after:h-full after:w-full after:origin-right after:scale-x-0 after:bg-orange after:transition-all after:content-none hover:-translate-y-1 hover:border-2 hover:shadow-2xl hover:after:origin-left hover:after:scale-x-110"
       >
         <input
-          className="bg-transparent h-full w-full text-orange placeholder-orange outline-none"
+          className="bg-transparent h-full w-full max-w-7xl text-orange placeholder-orange outline-none"
           type="email"
           placeholder="I won't spam you, I promise."
           aria-label="Enter your email address"
