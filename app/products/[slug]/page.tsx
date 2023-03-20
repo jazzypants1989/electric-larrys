@@ -28,6 +28,8 @@ export default async function ProductScreen({
   }
 }
 
+export const revalidate = 10
+
 export async function generateMetadata({
   params,
 }: {

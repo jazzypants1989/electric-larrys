@@ -8,7 +8,7 @@ client.setApiKey(`${process.env.NEXT_PUBLIC_SENDGRID_API_KEY}`)
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req })
-  if (!session || (session && !session.user.isAdmin)) {
+  if (!session || (session && !session.user.isEmployee)) {
     return res.status(401).send("signin required")
   }
 

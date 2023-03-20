@@ -6,6 +6,7 @@ import Image from "next/image"
 import { Product, Products } from "../../../utils/dataHooks/getProducts"
 import BiSearchAlt from "./Icons/BiSearchAlt"
 import useDebounce from "../../../utils/useDebounce"
+import Button from "../Button"
 
 export default function Search({
   placeholder,
@@ -94,38 +95,62 @@ export default function Search({
             <div className="animate-searchSlide">I&apos;m a-looking!</div>
           ) : (
             <ul>
-              {searchResults &&
-                searchResults.slice(0, 10).map((product: Product) => (
-                  <li
-                    key={product.id}
-                    className="flex cursor-pointer justify-between p-2 hover:text-Green"
+              {searchResults && searchResults.length > 0 && (
+                <>
+                  {searchResults.slice(0, 10).map((product: Product) => (
+                    <li
+                      key={product.id}
+                      className="flex cursor-pointer justify-between p-2 hover:text-Green"
+                      onClick={() => {
+                        router.push(`/products/${product.slug}`)
+                      }}
+                    >
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        width={50}
+                        height={50}
+                      />
+                      <span className="my-auto px-5 text-sm text-Green hover:text-orange">
+                        {product.name}
+                      </span>
+                      <span className="my-auto px-5 text-sm text-Green hover:text-orange">
+                        {product.price.toLocaleString("en-US", {
+                          style: "currency",
+                          currency: "USD",
+                        })}
+                      </span>
+                      <BiSearchAlt />
+                    </li>
+                  ))}
+                  <Button
                     onClick={() => {
-                      router.push(`/products/${product.slug}`)
+                      router.push(`/products?search=${searchTerm}`)
+                      setSearchResults([])
+                      setSearchTerm("")
+                      router.refresh()
                     }}
+                    className="w-full"
                   >
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      width={50}
-                      height={50}
-                    />
-                    <span className="my-auto px-5 text-sm text-Green hover:text-orange">
-                      {product.name}
-                    </span>
-                    <span className="my-auto px-5 text-sm text-Green hover:text-orange">
-                      {product.price.toLocaleString("en-US", {
-                        style: "currency",
-                        currency: "USD",
-                      })}
-                    </span>
-                    <BiSearchAlt />
-                  </li>
-                ))}
+                    See all results
+                  </Button>
+                </>
+              )}
               {searchResults.length === 0 && searchTerm.length > 2 && (
                 <li className="flex cursor-pointer justify-between p-2 hover:text-Green">
                   <span className="my-auto px-5 text-sm text-Green hover:text-orange">
                     No results found
                   </span>
+                  <Button
+                    onClick={() => {
+                      router.push(`/products?search=${searchTerm}`)
+                      setSearchResults([])
+                      setSearchTerm("")
+                      router.refresh()
+                    }}
+                  >
+                    Try a fuzzy search
+                  </Button>
                 </li>
               )}
               {searchTerm.length < 3 && (

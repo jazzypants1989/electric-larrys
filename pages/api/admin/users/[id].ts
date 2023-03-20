@@ -4,7 +4,7 @@ import db from "../../../../utils/prisma"
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req })
-  if (!session || !session.user.isAdmin) {
+  if (!session || !session.user.isEmployee) {
     return res.status(401).send("admin signin required")
   }
 

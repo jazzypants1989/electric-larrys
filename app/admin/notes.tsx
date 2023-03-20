@@ -107,7 +107,7 @@ export default function Notes({ notes, user }: { notes: Note[]; user: User }) {
         {notes.map((note: Note) => (
           <div
             key={note.id}
-            className="m-2 flex flex-col items-center justify-center rounded-md border-2 border-Red p-2"
+            className="m-2 flex flex-col items-center justify-center rounded-md border-2 border-Yellow p-2"
           >
             {note.image && (
               <img // eslint-disable-line @next/next/no-img-element
@@ -115,7 +115,7 @@ export default function Notes({ notes, user }: { notes: Note[]; user: User }) {
                 alt="Note Image"
                 width={200}
                 height={200}
-                className="rounded-lg border-b-2 border-Red p-2"
+                className="rounded-lg border-b-2 border-Yellow p-2"
               />
             )}
             <h1 className="text-lg drop-shadow">{note.title}</h1>

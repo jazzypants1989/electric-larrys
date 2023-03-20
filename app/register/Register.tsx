@@ -88,7 +88,7 @@ export default function RegisterScreen() {
 
   return (
     <AuthContainer>
-      <div className="flex flex-col items-center justify-center bg-blue bg-opacity-50 p-2">
+      <div className="flex flex-col items-center justify-center rounded-md bg-blue bg-opacity-50 p-2">
         <form
           className="mx-auto max-w-screen-md"
           onSubmit={handleSubmit(submitHandler)}

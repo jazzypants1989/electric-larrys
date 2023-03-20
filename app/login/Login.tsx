@@ -1,8 +1,7 @@
 "use client"
 
-import AuthProvider from "../../components/Auth/AuthProvider"
 import Link from "next/link"
-import React, { useEffect } from "react"
+import { useEffect } from "react"
 import { signIn, useSession } from "next-auth/react"
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useRouter } from "next/navigation"
@@ -56,7 +55,7 @@ function LoginScreen({ providers }: { providers: Record<string, any> }) {
   return (
     <AuthContainer>
       <form
-        className="mx-auto w-1/2 bg-blue bg-opacity-50"
+        className="mx-auto w-1/2 rounded-3xl bg-blue bg-opacity-50 p-5"
         onSubmit={handleSubmit(submitHandler)}
       >
         <h1 className="mb-4 text-center text-xl">Login</h1>
@@ -100,7 +99,9 @@ function LoginScreen({ providers }: { providers: Record<string, any> }) {
           )}
         </div>
         <div className="mb-4 flex flex-col items-center justify-center text-base">
-          <Button className="mx-auto">Login</Button>
+          <Button type="submit" className="mx-auto">
+            Login
+          </Button>
         </div>
         <div className="mb-4 flex flex-col items-center justify-center text-base">
           Don&apos;t have an account? &nbsp; <hr></hr>
@@ -140,9 +141,5 @@ export default function Login({
 }: {
   providers: Record<string, any>
 }) {
-  return (
-    <AuthProvider>
-      <LoginScreen providers={providers} />
-    </AuthProvider>
-  )
+  return <LoginScreen providers={providers} />
 }

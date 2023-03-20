@@ -42,7 +42,7 @@ const Newsletter = () => {
       <h4 className="text-center text-4xl text-orange drop-shadow">
         Become a Larry!
       </h4>
-      <p className="mb-4 text-center drop-shadow md:text-sm lg:text-lg">
+      <p className="mx-2 mb-4 text-center drop-shadow md:text-sm lg:text-lg">
         Join the fan club and get semi-sorta-regular updates from our fearless
         leader about new products and stuff going on at the store.
       </p>

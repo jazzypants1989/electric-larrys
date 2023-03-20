@@ -122,16 +122,10 @@ export default function AdminProductsScreen({
         <table className="min-w-full overflow-x-auto">
           <thead className="border-b bg-orange">
             <tr>
-              <th
-                className="border-r-2 border-r-orange text-center md:px-4
-              "
-              >
+              <th className="border-r-2 border-r-orange text-center md:px-4">
                 NAME
               </th>
-              <th
-                className="border-r-2 border-r-orange text-center md:px-4
-              "
-              >
+              <th className="border-r-2 border-r-orange text-center md:px-4">
                 SLUG
               </th>
               <th className="border-r-2 border-r-orange text-center md:px-2">

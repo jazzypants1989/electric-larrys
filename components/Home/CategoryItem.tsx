@@ -24,25 +24,21 @@ const CategoryItem = ({ category }: { category: keyof typeof images }) => {
   let categoryToLowerCase = category.toLowerCase()
 
   return (
-    <div className="flex animate-swoosh flex-col items-center justify-center">
-      <Link
-        href={`/products?category=${categoryToLowerCase}`}
-        className="m-auto flex flex-col items-center justify-center"
-      >
-        <div className="relative aspect-square h-40 w-40 overflow-hidden rounded-lg p-1 md:h-fit md:w-fit">
-          <Image
-            src={imageLinkBuilder(images[category])}
-            alt={category}
-            width={250}
-            height={200}
-            className="hidden aspect-square rounded-lg hover:blur-md md:block md:transition-all md:duration-1000 md:ease-in-out"
-          />
-        </div>
-        <h4 className="absolute rounded-full bg-orange bg-opacity-50 p-3 text-center text-base drop-shadow transition-all duration-500 ease-in-out hover:scale-125 hover:bg-opacity-100 hover:blur-none md:bg-blue md:bg-opacity-50">
-          {category}
-        </h4>
-      </Link>
-    </div>
+    <Link
+      href={`/products?category=${categoryToLowerCase}`}
+      className="flex animate-swoosh flex-col items-center justify-center"
+    >
+      <Image
+        src={imageLinkBuilder(images[category])}
+        alt={category}
+        width={250}
+        height={200}
+        className="hidden aspect-square rounded-2xl hover:blur-md md:mx-4 md:block md:transition-all md:duration-1000 md:ease-in-out"
+      />
+      <h4 className="rounded-full bg-orange bg-opacity-30 p-6 text-center text-base drop-shadow transition-all duration-500 ease-in-out hover:scale-125 hover:bg-opacity-100 hover:blur-none md:absolute md:m-0 md:bg-blue md:bg-opacity-50">
+        {category}
+      </h4>
+    </Link>
   )
 }
 

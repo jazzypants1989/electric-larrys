@@ -6,6 +6,7 @@ import "../styles/globals.css"
 import siteConfig from "../utils/siteConfig"
 
 import { Bangers } from "next/font/google"
+import AuthProvider from "../components/Auth/AuthProvider"
 
 const bangers = Bangers({
   weight: "400",
@@ -79,8 +80,10 @@ export default function RootLayout({
     <html lang="en" className={bangers.className}>
       <head />
       <body className="m-0 max-w-full overflow-x-hidden scroll-smooth bg-blue p-0 font-thin tracking-wider text-Green">
-        <Header />
-        {children}
+        <AuthProvider>
+          <Header />
+          {children}
+        </AuthProvider>
         <Footer />
         <ToastContainer />
       </body>
