@@ -29,10 +29,10 @@ export default function Page() {
         onClick={() => {
           addToast(message, success)
         }}
-        className="mx-2"
+        className={success ? "animate-bounce" : "bg-Red"}
         type="button"
       >
-        Add toast (success: {success.toString()})
+        Add toast (success: {success ? "👌" : "👎"})
       </Button>
     </div>
   )

@@ -143,7 +143,7 @@ export default function AdminProductEditScreen({
       dispatch({ type: "UPLOAD_REQUEST" })
 
       const { signature, timestamp } = await fetch(
-        "/api/admin/cloudinary-sign"
+        "/api/admin/cloudinary"
       ).then((res) => res.json())
 
       const file = e.target.files![0]

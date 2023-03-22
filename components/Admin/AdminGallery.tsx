@@ -68,7 +68,7 @@ export default function AdminGallery(props: {
 
     try {
       const { signature, timestamp } = await fetch(
-        "/api/admin/cloudinary-sign"
+        "/api/admin/cloudinary"
       ).then((res) => res.json())
 
       const formData = new FormData()

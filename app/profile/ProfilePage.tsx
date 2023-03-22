@@ -95,8 +95,12 @@ export default function ProfilePage({
         }),
       })
 
-      addToast("Newsletter updated successfully", true)
-      router.refresh()
+      addToast(
+        "Newsletter updated successfully. We have to log you out to refresh the cookie. Sorry!",
+        true
+      )
+      signOut({ callbackUrl: "/login" })
+      router.push("/login")
     } catch (err) {
       addToast("Error updating newsletter", false)
     }
@@ -219,9 +223,14 @@ export default function ProfilePage({
           Change Password
         </Button>
       </form>
-      <Button className="mb-4" onClick={newsletterClickHandler}>
-        {user.newsletter ? "Unsubscribe" : "Subscribe"} to Newsletter
-      </Button>
+      <div className="flex flex-col items-center justify-center">
+        <Button className="mt-4" onClick={newsletterClickHandler}>
+          {user.newsletter ? "Unsubscribe" : "Subscribe"} to Newsletter
+        </Button>
+        <Button className="mt-4" onClick={logoutClickHandler}>
+          Logout
+        </Button>
+      </div>
       <h2 className="text-center text-lg drop-shadow">Orders</h2>
       <ul className="flex flex-col items-center justify-center">
         {orders.map((order: Order) => (

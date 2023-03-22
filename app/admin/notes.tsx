@@ -1,6 +1,6 @@
 "use client"
 
-import { FormEvent, useRef } from "react"
+import { FormEvent, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import useToast from "../../utils/useToast"
 import { User } from "../../utils/dataHooks/getUserByID"
@@ -19,6 +19,9 @@ export default function Notes({ notes, user }: { notes: Note[]; user: User }) {
   const router = useRouter()
   const addToast = useToast()
 
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
+
   const titleRef = useRef<HTMLInputElement>(null)
   const descriptionRef = useRef<HTMLTextAreaElement>(null)
   const imageRef = useRef<HTMLInputElement>(null)
@@ -34,6 +37,7 @@ export default function Notes({ notes, user }: { notes: Note[]; user: User }) {
 
     if (!title) {
       addToast("Title is required", false)
+      setError("Title is required")
       titleRef.current!.focus()
       titleRef.current!.select()
       return
@@ -41,12 +45,14 @@ export default function Notes({ notes, user }: { notes: Note[]; user: User }) {
 
     if (!description) {
       addToast("Description is required", false)
+      setError("Description is required")
       descriptionRef.current!.focus()
       descriptionRef.current!.select()
       return
     }
 
     if (title && description) {
+      setLoading(true)
       try {
         await fetch("/api/admin/notes", {
           method: "POST",
@@ -58,12 +64,15 @@ export default function Notes({ notes, user }: { notes: Note[]; user: User }) {
             description,
             image,
             link,
+            User: user,
           }),
         })
         addToast("Note created", true)
+        setLoading(false)
       } catch (error) {
         console.error(error)
         addToast("Note creation failed", false)
+        setLoading(false)
       }
 
       titleRef.current!.value = ""
@@ -133,6 +142,13 @@ export default function Notes({ notes, user }: { notes: Note[]; user: User }) {
                 </a>
               </p>
             )}
+            {/** @ts-ignore */}
+            {note.User && (
+              <p className="text-sm drop-shadow">
+                {/** @ts-ignore */}
+                Created by: {note.User.name}
+              </p>
+            )}
             {user?.isAdmin && (
               <Button
                 className="m-1 bg-Red hover:text-Red"
@@ -149,6 +165,7 @@ export default function Notes({ notes, user }: { notes: Note[]; user: User }) {
         The image and link are optional.
       </span>
       <form onSubmit={submitHandler} className="flex flex-col items-center">
+        {error && <span className="text-sm text-Red">{error}</span>}
         <label htmlFor="title">Title</label>
         <input
           type="text"
@@ -182,9 +199,13 @@ export default function Notes({ notes, user }: { notes: Note[]; user: User }) {
           ref={linkRef}
           className="mb-2 w-1/2"
         />
-        <Button type="submit" className="mb-2">
-          Create
-        </Button>
+        {loading ? (
+          <h3 className="text-lg drop-shadow">Loading...</h3>
+        ) : (
+          <Button type="submit" className="mb-2">
+            Create
+          </Button>
+        )}
       </form>
     </div>
   )
