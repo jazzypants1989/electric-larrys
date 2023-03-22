@@ -28,6 +28,7 @@
     "stripe": "^11.1.0"
   },
   "devDependencies": {
+    "@builder.io/partytown": "^0.7.6",
     "@types/bcryptjs": "^2.4.2",
     "@types/react": "^18.0.8",
     "autoprefixer": "^10.4.5",
