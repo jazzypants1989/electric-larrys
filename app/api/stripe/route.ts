@@ -6,6 +6,10 @@ if (!process.env.STRIPE_SECRET) {
   throw new Error("Missing the STRIPE_SECRET environment variable.")
 }
 
+if (!process.env.NEXT_PUBLIC_BASE_URL) {
+  throw new Error("Missing the NEXT_PUBLIC_BASE_URL environment variable.")
+}
+
 const stripe = new Stripe(process.env.STRIPE_SECRET, {
   apiVersion: "2022-11-15",
 })
