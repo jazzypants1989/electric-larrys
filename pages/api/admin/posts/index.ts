@@ -18,8 +18,8 @@ const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const newSliderPost = await db.post.create({
     data: {
       title: "sample title",
-      link: "https://www.google.com",
-      image: "https://electric-larrys.vercel.app/images/bg1.jpg",
+      link: "",
+      image: "",
       description: "sample description",
       isPublished: false,
       isFeatured: false,

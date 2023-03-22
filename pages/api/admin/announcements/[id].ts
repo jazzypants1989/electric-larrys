@@ -22,6 +22,8 @@ const putHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(400).send({ message: "Invalid announcement id" })
   }
 
+  console.log(req.body)
+
   const id = req.query.id.toString()
 
   const announcement = await db.announcement.findUnique({

@@ -85,20 +85,22 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
         key={index}
       >
         {index === current && (
-          <div className="m-auto flex items-center justify-center gap-6 rounded-4xl py-8 text-center transition duration-1000 ease-in-out hover:bg-Green hover:text-Black ">
-            <Image
-              src={image!}
-              alt={title}
-              width={333}
-              height={333}
-              priority
-              className="rounded-4xl"
-            />
+          <div className="m-auto flex items-center justify-center rounded-4xl py-8 text-center transition duration-1000 ease-in-out hover:bg-Green hover:text-Black ">
+            <div className="aspect-auto object-cover">
+              <Image
+                src={image!}
+                alt={title}
+                width={333}
+                height={333}
+                priority
+                className="rounded-4xl"
+              />
+            </div>
             <div className="">
               <h2 className="max-w-2xl text-sm text-blue drop-shadow-2xl transition duration-1000 ease-in-out md:text-2xl md:hover:text-orange">
                 {title}
               </h2>
-              <p className="max-h-40 max-w-2xl overflow-hidden text-center drop-shadow md:max-h-80">
+              <p className="max-h-40 w-full overflow-hidden text-center drop-shadow md:max-h-80">
                 {description}
               </p>
             </div>
@@ -123,11 +125,11 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
             className={`mx-1 grid items-center justify-center rounded-4xl text-center transition duration-1000 ease-in-out hover:bg-opacity-50 hover:text-Black hover:drop-shadow-lg md:hover:bg-Green `}
           >
             <a href={link!} target="_blank" rel="noreferrer">
-              <h2 className="text-lg text-blue drop-shadow-lg transition-all duration-1000 ease-in-out md:text-3xl md:hover:text-orange">
+              <h2 className="p-2 text-lg text-blue drop-shadow-lg transition-all duration-1000 ease-in-out md:text-3xl md:hover:text-orange">
                 {title}
               </h2>
             </a>
-            <p className="max-h-40 max-w-2xl overflow-hidden text-center drop-shadow md:max-h-80">
+            <p className="max-h-40 w-full overflow-hidden drop-shadow md:max-h-80">
               {description}
             </p>
             <a href={link!} target="_blank" rel="noreferrer">
@@ -159,10 +161,10 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
             className={`m-auto grid items-center justify-center rounded-4xl text-center transition duration-1000 ease-in-out hover:bg-opacity-50 hover:text-Black md:hover:bg-Green`}
           >
             <div className="grid items-center justify-center p-5 text-center  ">
-              <h2 className="text-base text-blue drop-shadow-lg transition duration-1000 ease-in-out md:text-2xl md:hover:text-orange">
+              <h2 className="p-2 text-base text-blue drop-shadow-2xl transition duration-1000 ease-in-out md:text-2xl md:hover:text-orange">
                 {title}
               </h2>
-              <p className="max-h-40 max-w-2xl overflow-hidden text-center drop-shadow">
+              <p className="max-h-40 w-full overflow-hidden text-center drop-shadow">
                 {description}
               </p>
             </div>
@@ -183,7 +185,7 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
   })
   return (
     <>
-      <article className="mx-2 flex max-h-full max-w-7xl items-center justify-around rounded-lg rounded-t-2xl bg-orange lg:mx-auto">
+      <article className="mx-2 flex max-h-full max-w-7xl items-center justify-around rounded-lg rounded-t-2xl bg-orange drop-shadow-2xl lg:mx-auto">
         <span
           className="relative top-0 bottom-0 z-20 m-auto ml-2 flex cursor-pointer items-center justify-center rounded-full bg-Green p-1 text-3xl text-blue opacity-70 transition-all duration-1000 ease-in-out hover:scale-110 hover:text-orange hover:opacity-100 md:p-2 md:text-5xl"
           onClick={prevSlide}

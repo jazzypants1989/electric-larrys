@@ -146,11 +146,14 @@ export default function Announcements({
                 {!announcement?.isPublished ? "❌" : "💯"}
               </td>
               <td className="border-b p-4">
-                <Link href={`/admin/announcements/${announcement?.id}`}>
-                  Edit
+                <Link
+                  passHref
+                  href={`/admin/announcements/${announcement?.id}`}
+                >
+                  <Button>Edit</Button>
                 </Link>
-                <button
-                  className="btn btn-danger"
+                <Button
+                  className="bg-Red"
                   onClick={() => {
                     if (announcement?.id) {
                       deleteAnnouncementHandler(announcement.id)
@@ -158,7 +161,7 @@ export default function Announcements({
                   }}
                 >
                   Delete
-                </button>
+                </Button>
               </td>
             </tr>
           ))}

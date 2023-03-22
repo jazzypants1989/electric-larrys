@@ -1,7 +1,7 @@
 import { v2 as cloudinary } from "cloudinary"
-import { NextApiRequest, NextApiResponse } from "next"
+import { NextResponse } from "next/server"
 
-export default function signature(req: NextApiRequest, res: NextApiResponse) {
+export async function GET() {
   if (!process.env.CLOUDINARY_SECRET) {
     throw new Error("Missing the CLOUDINARY_SECRET environment variable.")
   }
@@ -16,8 +16,7 @@ export default function signature(req: NextApiRequest, res: NextApiResponse) {
   console.log("signature", signature)
   console.log("timestamp", timestamp)
 
-  res.statusCode = 200
-  res.json({
+  return NextResponse.json({
     signature,
     timestamp,
   })

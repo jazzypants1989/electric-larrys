@@ -36,6 +36,8 @@ export default function AnnouncementPage({
     setLoading(true)
     setError("")
 
+    console.log(data)
+
     try {
       const res = await fetch(`/api/admin/announcements/${id}`, {
         method: "PUT",
@@ -108,8 +110,12 @@ export default function AnnouncementPage({
             id="link"
             type="text"
             className="w-full rounded-md border border-orange p-2"
-            {...(register("link"), { required: false })}
+            {...register("link")}
           />
+          <span className="text-Red">
+            Make sure you put &quot;https://&quot; if it&apos;s an outside link
+            or it won&apos;t work!
+          </span>
         </div>
         <div className="flex w-full flex-col items-center justify-center px-20 text-center">
           <label htmlFor="description" className="text-2xl font-bold">
@@ -118,7 +124,7 @@ export default function AnnouncementPage({
           <textarea
             id="description"
             className="w-full rounded-md border border-orange p-2"
-            {...(register("description"), { required: false })}
+            {...register("description")}
           />
         </div>
         <div className="flex w-full flex-col items-center justify-center px-20 text-center">

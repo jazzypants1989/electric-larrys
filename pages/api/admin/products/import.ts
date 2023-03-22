@@ -19,74 +19,109 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  // Grab the CSV from the request body
   const csv = req.body
+  // Convert CSV to JSON
   const json = csvToJson(csv)
+  // Parse JSON into an object
   const products = JSON.parse(json)
+  // Get all products in the database
   const current = await currentProducts()
 
+  // Filter out products that already exist
   const newProducts = products.filter((product: DBProduct) => {
+    // Generate a potential slug for the product
     const slug = potentialSlug(product)
 
+    // Check if the slug already exists in the database
     return !current.some((p: Product) => p.slug === slug)
   })
 
+  // Create the new products
   await createProducts(newProducts)
 
   res.send({ message: "Products created successfully" })
 }
 
 const putHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  // get the csv from the request body
   const csv = req.body
+  // convert the csv to json
   const json = csvToJson(csv)
+  // parse the json to an array of products
   const products = JSON.parse(json)
+  // get the current products from the database
   const current = await currentProducts()
 
+  // find products that have a matching slug
   const updatedProducts = products.filter((product: DBProduct) => {
+    // get the slug of the product
     const slug = potentialSlug(product)
 
+    // return true if the slug is in the current products array
     return current.some((p: Product) => p.slug === slug)
   })
 
+  // update the found products
   await updateProducts(updatedProducts)
 
+  // send a response
   res.send({ message: "Products updated successfully" })
 }
 
 function csvToJson(csv: string) {
+  // 1. Split the csv string into an array of lines
   const lines = csv.split("\n")
+
+  // 2. Split the first line into an array of headers
   const headers = lines[0].split(",")
+
+  // 3. Create the result array
   const result = []
 
+  // 4. Loop through the rest of the lines
   for (let i = 1; i < lines.length; i++) {
+    // 4.1. Create an object for this line
     const obj = {}
+
+    // 4.2. Split the line into an array of values
     const currentLine = lines[i].split(",")
 
+    // 4.3. Loop through the headers and use them as keys for the object
     for (let j = 0; j < headers.length; j++) {
       // @ts-ignore
       obj[headers[j]] = currentLine[j]
     }
 
+    // 4.4. Push the object to the result array
     result.push(obj)
   }
 
+  // 5. Return the result as a JSON string
   return JSON.stringify(result)
 }
 
 function potentialSlug(product: DBProduct) {
-  console.log(product["Reference Handle"])
-  const slug = product["Reference Handle"].substring(1)
+  // Get the slug from the Reference Handle
+  const slug = product["Reference Handle"].substring(1) // remove the hash at the beginning
 
+  // If the slug ends with a dash, remove it
   if (slug.charAt(slug.length - 1) === "-") {
     return slug.slice(0, -1)
+    // If the slug is empty or only contains a space, use the product name instead
   } else if (slug === "" || slug === " " || slug === "  ") {
-    return product["Item Name"].toLowerCase().replace(/ /g, "-")
+    return product["Item Name"].toLowerCase().replace(/ /g, "-") // replace spaces with dashes
+    // If the slug starts with a space or dash, remove it
   } else if (slug.startsWith(" ") || slug.startsWith("-")) {
     return slug.substring(1)
+    // Otherwise, return the slug as-is
   } else {
     return slug
   }
 }
 
+// This function takes a product from the database and transforms it into a product that can be used in the frontend
+// Note: The image, description, isFeatured, isOnSale, and salePrice properties are hardcoded because they are not included in the csv
 function transformProduct(product: DBProduct) {
   return {
     name: product["Item Name"],

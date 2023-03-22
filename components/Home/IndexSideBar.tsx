@@ -15,24 +15,24 @@ const SideBar = ({ sideBarPosts }: { sideBarPosts: IPost[] }) => {
       >
         <div>
           <a
+            className="flex items-center justify-center"
             href={link!}
             target="_blank"
             rel="noreferrer"
-            className="h-auto w-auto"
           >
             <Image
               src={image!}
               alt={title}
-              width={500}
-              height={500}
-              className="h-auto w-auto rounded-3xl"
+              width={350}
+              height={350}
+              className="rounded-3xl"
             />
           </a>
           <div className="pt-4 text-center drop-shadow-lg">
             <h2 className="text-sm text-blue drop-shadow-xl md:text-2xl">
               {title}
             </h2>
-            <p className="pt-8 text-center drop-shadow-lg">{description}</p>
+            <p className="text-center drop-shadow-lg">{description}</p>
           </div>
           <a
             href={link!}
@@ -66,7 +66,7 @@ const SideBar = ({ sideBarPosts }: { sideBarPosts: IPost[] }) => {
             <h2 className="text-sm text-blue drop-shadow-xl md:text-2xl">
               {title}
             </h2>
-            <p className="pt-8 text-center drop-shadow-lg">{description}</p>
+            <p className="text-center drop-shadow-lg">{description}</p>
           </div>
         </div>
       </div>
@@ -115,11 +115,11 @@ const SideBar = ({ sideBarPosts }: { sideBarPosts: IPost[] }) => {
       </div>
     )
 
-    if (image !== "no" && link !== "no") {
+    if (image !== "" && link !== "") {
       return sideBarPostWithImageAndLink
-    } else if (image !== "no") {
+    } else if (image !== "") {
       return sideBarPostWithImage
-    } else if (link !== "no") {
+    } else if (link !== "") {
       return sideBarPostWithLink
     } else {
       return sideBarPostNoImageOrLink
