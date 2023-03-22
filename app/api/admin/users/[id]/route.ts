@@ -14,7 +14,7 @@ export async function GET(
 ) {
   const employee = await getCurrentUser()
 
-  if (!employee || (employee && !employee.isEmployee)) {
+  if (!employee || (employee && !employee.isAdmin)) {
     return NextResponse.json(
       { message: "You are not authorized to perform this action" },
       { status: 401 }
@@ -51,7 +51,7 @@ export async function PUT(
 ) {
   const employee = await getCurrentUser()
 
-  if (!employee || (employee && !employee.isEmployee)) {
+  if (!employee || (employee && !employee.isAdmin)) {
     return NextResponse.json(
       { message: "You are not authorized to perform this action" },
       { status: 401 }

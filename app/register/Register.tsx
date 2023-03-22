@@ -179,6 +179,9 @@ export default function RegisterScreen() {
               <span className="mr-2 text-sm">Subscribe to newsletter</span>
             </label>
             <Button type="submit">Register</Button>
+            <Link href={`/terms`} className="block w-fit text-center text-sm">
+              Terms and Conditions
+            </Link>
           </div>
         </form>
 
