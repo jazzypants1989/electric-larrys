@@ -31,9 +31,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const toUpdateUser = await db.user.findFirst({
     where: {
-      name,
-      email,
-      password: password ? bcryptjs.hashSync(password) : undefined,
+      id: user.id,
     },
   })
 
@@ -42,9 +40,18 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return
   }
 
+  const userEmail = toUpdateUser?.email
+  const userID = toUpdateUser?.id
+
+  if (!userEmail || !userID) {
+    res.status(422).json({ message: "User does not exist!" })
+    return
+  }
+
   const updatedUser = await db.user.update({
     where: {
-      id: user.id,
+      id: userID,
+      email: userEmail,
     },
     data: {
       name,
@@ -52,6 +59,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       password: password ? bcryptjs.hashSync(password) : undefined,
     },
   })
+
+  console.log(updatedUser)
 
   res.send({
     message: `Updated user ${updatedUser.name}!`,

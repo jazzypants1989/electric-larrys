@@ -5,7 +5,7 @@ const Announcement = ({ announcement }: { announcement: IAnnouncement }) => {
     <>
       {announcement.isPublished && (
         <div className="max-w-screen mx-auto mb-1 flex max-h-fit animate-dropDown flex-col items-center justify-center gap-1 rounded-t-2xl rounded-b-lg bg-Green px-2 text-blue even:bg-orange even:text-Green even:drop-shadow md:mb-1">
-          <h1 className="border-b-2 text-center text-sm font-medium shadow-sm lg:text-2xl">
+          <h1 className="text-center text-sm font-medium shadow-sm lg:text-2xl">
             {announcement.title}
           </h1>
 

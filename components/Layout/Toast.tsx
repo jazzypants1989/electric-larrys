@@ -1,6 +1,4 @@
-"use client"
-
-import React, { useState, useRef, useLayoutEffect } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import { IToast } from "../../utils/ToastStore"
 
 interface IProps extends IToast {
@@ -14,14 +12,11 @@ export default function Toast({ success, message, onClose }: IProps) {
   const [timeouts, setTimeouts] = useState<Timeout[]>([])
   const timeout = useRef<Timeout>()
 
-  useLayoutEffect(() => {
-    console.log("useLayoutEffect")
+  useEffect(() => {
     setShow(true)
     timeout.current = setTimeout(() => {
-      console.log("timeout #1")
       setShow(false)
       timeout.current = setTimeout(() => {
-        console.log("timeout #2")
         onClose()
       }, 500)
     }, 6000)
@@ -29,7 +24,6 @@ export default function Toast({ success, message, onClose }: IProps) {
     setTimeouts((prev) => [...prev, timeout.current!])
 
     return () => {
-      console.log("cleanup")
       timeouts.forEach((timeout) => clearTimeout(timeout))
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps

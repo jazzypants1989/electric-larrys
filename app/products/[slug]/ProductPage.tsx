@@ -89,13 +89,14 @@ export default function ProductPage({
           </Link>
         )}
       </div>
-      <div className="mx-auto flex flex-col items-center justify-center rounded-md px-5 shadow-md md:flex-row md:items-start md:justify-between md:shadow-xl">
+      <div className="mx-auto flex flex-col items-center justify-center rounded-md px-5 shadow-md md:flex-row md:items-start md:justify-between md:gap-5 md:shadow-xl">
         <Image
           src={product.image}
           alt={product.name}
           width={500}
           height={500}
           className="rounded-md object-contain"
+          priority
         ></Image>
         <div className="leading-10">
           <ul>

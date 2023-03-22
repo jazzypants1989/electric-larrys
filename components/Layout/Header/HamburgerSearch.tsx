@@ -5,6 +5,7 @@ import { useState, useRef, useEffect, MutableRefObject, FormEvent } from "react"
 import Image from "next/image"
 import { Product, Products } from "../../../utils/dataHooks/getProducts"
 import useDebounce from "../../../utils/useDebounce"
+import Button from "../Button"
 
 export default function HamburgerSearch({
   searchBarOpen,
@@ -89,7 +90,19 @@ export default function HamburgerSearch({
         searchResults.length === 0 &&
         debouncedSearchTerm.length >= 3 &&
         !searchLoading && (
-          <div className="text-xl text-orange">No results found</div>
+          <>
+            <span className="text-xl text-orange">No results found</span>
+            <Button
+              onClick={() => {
+                setSearchResults([])
+                setSearchTerm("")
+                router.push(`/products/?search=${debouncedSearchTerm}`)
+                window.scrollTo(0, 0)
+              }}
+            >
+              Try a fuzzy search
+            </Button>
+          </>
         )}
 
       {searchResults &&
@@ -102,31 +115,43 @@ export default function HamburgerSearch({
           </div>
         )}
       {searchResults && searchResults.length > 0 && (
-        <div className="relative right-10 w-full rounded-2xl border-2 border-orange bg-blue p-2">
-          {searchResults.map((result: Product) => (
-            <div
-              key={result.id}
-              className="flex cursor-pointer items-center justify-between rounded-2xl border-b-2 border-orange p-2 transition-all duration-1000 ease-in-out hover:rounded-4xl hover:bg-orange hover:p-2 hover:text-blue"
-              onClick={() => {
-                handleSearchResultClick(result)
-              }}
-            >
-              <Image
-                src={result.image}
-                alt={result.name}
-                width={50}
-                height={50}
-                className="cursor-pointer rounded-2xl"
-              />
-              <div>{result.name}</div>
-              <span className="text-xl text-orange drop-shadow">
-                {result.price.toLocaleString("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                })}
-              </span>
-            </div>
-          ))}
+        <div className="relative right-10 w-full max-w-xs rounded-2xl border-2 border-orange bg-blue p-2">
+          {searchResults
+            .map((result: Product) => (
+              <div
+                key={result.id}
+                className="flex cursor-pointer items-center justify-between rounded-2xl border-b-2 border-orange p-2 transition-all duration-1000 ease-in-out hover:rounded-4xl hover:bg-orange hover:p-2 hover:text-blue"
+                onClick={() => {
+                  handleSearchResultClick(result)
+                }}
+              >
+                <Image
+                  src={result.image}
+                  alt={result.name}
+                  width={50}
+                  height={50}
+                  className="cursor-pointer rounded-2xl"
+                />
+                <div>{result.name}</div>
+                <span className="text-xl text-orange drop-shadow">
+                  {result.price.toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  })}
+                </span>
+              </div>
+            ))
+            .slice(0, 5)}
+          <Button
+            onClick={() => {
+              setSearchResults([])
+              setSearchTerm("")
+              router.push(`/products/?search=${debouncedSearchTerm}`)
+              window.scrollTo(0, 0)
+            }}
+          >
+            See all results
+          </Button>
         </div>
       )}
     </div>

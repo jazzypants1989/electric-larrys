@@ -23,20 +23,12 @@ export default function ProductsComponent({
 
   const queryCategory = searchParams?.get("category")
   const queryTag = searchParams?.get("tag")
+  const querySearch = searchParams?.get("search")
 
   const [category, setCategory] = useState(queryCategory || "")
   const [tag, setTag] = useState(queryTag ? queryTag.split(",") : [])
   const [sort, setSort] = useState("")
   const [page, setPage] = useState(1)
-
-  useEffect(() => {
-    if (queryCategory) {
-      setCategory(queryCategory)
-    }
-    if (queryTag) {
-      setTag(queryTag.split(","))
-    }
-  }, [queryCategory, queryTag])
 
   const filterProducts = (products: Products) => {
     if (category) {
@@ -123,6 +115,33 @@ export default function ProductsComponent({
     setPage(pageParam)
   }
 
+  const searchProducts = (searchTerm: string) => {
+    const newProducts = products.filter(
+      (product: Product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.tags.some((tag: string) =>
+          tag.toLowerCase().includes(searchTerm.toLowerCase())
+        ) ||
+        product.category.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    setShownProducts(newProducts)
+  }
+
+  useEffect(() => {
+    if (queryCategory) {
+      setCategory(queryCategory)
+    }
+    if (queryTag) {
+      setTag(queryTag.split(","))
+    }
+    if (querySearch) {
+      searchProducts(querySearch)
+      setPage(2)
+      setSort("")
+    }
+  }, [queryCategory, queryTag, querySearch]) // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <>
       <Cheese category={category} tag={tag} clearFilter={clearFilter} />
@@ -131,6 +150,18 @@ export default function ProductsComponent({
           <h3 className="m-4 text-center text-lg text-Yellow drop-shadow md:text-3xl">
             We have a lot of crazy stuff, but we don&apos;t have that.
           </h3>
+        </div>
+      )}
+
+      {shownProducts.length === 0 && querySearch && (
+        <div className="flex justify-center">
+          <h3 className="m-4 text-center text-lg text-Yellow drop-shadow md:text-3xl">
+            We have a lot of crazy stuff, but it looks like we don&apos;t have{" "}
+            {`${querySearch}`} in our inventory.
+          </h3>
+          <Button type="button" onClick={() => getProducts(1)}>
+            Clear Search
+          </Button>
         </div>
       )}
       <div className="mt-4 grid grid-cols-1 gap-4 overflow-hidden md:grid-cols-3 lg:grid-cols-4">
@@ -165,7 +196,7 @@ export default function ProductsComponent({
           <Button
             type="button"
             onClick={clearFilter}
-            className="mx-auto mt-4 flex h-10 justify-center bg-Yellow text-sm font-thin text-orange"
+            className="mx-auto h-10 bg-Yellow text-sm font-thin text-orange"
           >
             Clear Filter
           </Button>

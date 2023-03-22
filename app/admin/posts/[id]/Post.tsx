@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from "react-hook-form"
 import useToast from "../../../../utils/useToast"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import AdminGallery from "../../../../components/Admin/AdminGallery"
 import Button from "../../../../components/Layout/Button"
 
@@ -31,12 +31,16 @@ export default function PostPage({
   const [picture, setPicture] = useState("")
   const router = useRouter()
 
+  // "image" is the name of the input field in the form-- and it is pre-populated with the current image
+  // "picture" is the name of the state variable that holds the new image
+
   const { id, title, link, description, image, isFeatured, isPublished } = post
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<Post>({
     defaultValues: {
       title,
@@ -49,6 +53,7 @@ export default function PostPage({
   })
 
   const onSubmit: SubmitHandler<Post> = async (data) => {
+    console.log(data)
     setLoading(true)
     setError("")
     try {
@@ -60,6 +65,7 @@ export default function PostPage({
         body: JSON.stringify(data),
       })
       const json = await res.json()
+      console.log(json)
       if (!res.ok) throw Error(json.message)
       addToast("Post updated successfully", true)
       router.refresh()
@@ -80,6 +86,12 @@ export default function PostPage({
   const imageValueHandler = (picture: string) => {
     setPicture(picture)
   }
+
+  useEffect(() => {
+    if (picture) {
+      setValue("image", picture)
+    }
+  }, [picture, setValue])
 
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center py-2 drop-shadow">
@@ -129,6 +141,10 @@ export default function PostPage({
               className="w-full rounded-md border p-2"
               {...register("link")}
             />
+            <span className="text-xs text-Red">
+              Make sure to include the https:// if it is an outside link or it
+              will not work!
+            </span>
           </div>
           <div className="mt-3 flex w-full flex-col items-center justify-center">
             <label htmlFor="image" className="text-xl">
@@ -140,7 +156,7 @@ export default function PostPage({
               type="text"
               className="w-full rounded-md border p-2"
               {...register("image")}
-              value={picture}
+              value={picture || image || ""}
               onChange={(e) => setPicture(e.target.value)}
             />
             <Button className="mt-3" onClick={modalButtonHandler}>

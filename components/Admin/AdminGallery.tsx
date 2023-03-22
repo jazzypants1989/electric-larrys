@@ -15,7 +15,7 @@ export default function AdminGallery(props: {
   // eslint-disable-next-line no-unused-vars
   setShow: (show: boolean) => void
 }) {
-  const { pictures } = props
+  const { setPicture, show, setShow, pictures } = props
   const standardImageGallery = [
     "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403245/318953984_879797270130664_8991242814924628092_n_ld6ce6.jpg",
     "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403245/319125505_482600527344181_1113826939205737358_n_rtvr7q.jpg",
@@ -41,25 +41,24 @@ export default function AdminGallery(props: {
   ]
 
   const allImagesState = [...standardImageGallery, ...pictures]
-  const [image, setImage] = useState("")
+  const [chosenImage, setChosenImage] = useState("")
   const [allImages, setAllImages] = useState(allImagesState)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const addToast = useToast()
 
-  const activeImageCheck = (chosenOne: string) => {
-    if (chosenOne === image) {
+  const activeImageCheck = (thisImage: string) => {
+    if (thisImage === chosenImage) {
+      console.log(`thisImage: ${thisImage} === chosenImage: ${chosenImage}`)
       return "border-4 border-orange p-1"
     } else {
       return "p-2 rounded-2xl"
     }
   }
 
-  const { setPicture, show, setShow } = props
-
   function showImageToUpload(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files![0]
-    setImage(URL.createObjectURL(file))
+    setChosenImage(URL.createObjectURL(file))
   }
 
   async function uploadImage() {
@@ -69,7 +68,7 @@ export default function AdminGallery(props: {
 
     try {
       const { signature, timestamp } = await fetch(
-        "/api/admin/cloudinary-sign"
+        "/api/admin/cloudinary"
       ).then((res) => res.json())
 
       const formData = new FormData()
@@ -139,17 +138,17 @@ export default function AdminGallery(props: {
                 </h3>
                 <div className="mt-2">
                   <div className="flex max-h-80 flex-wrap justify-center overflow-y-auto">
-                    {allImages.map((picture, index) => (
+                    {allImages.map((galleryImage, index) => (
                       <div key={index} className="w-1/4 p-2">
                         <Image
-                          src={picture}
-                          alt="picture"
+                          src={galleryImage}
+                          alt="Gallery Image"
                           width={200}
                           height={200}
                           className={`aspect-square cursor-pointer rounded-lg object-cover transition-all duration-200 ease-in-out ${activeImageCheck(
-                            picture
+                            galleryImage
                           )}`}
-                          onClick={() => setImage(picture)}
+                          onClick={() => setChosenImage(galleryImage)}
                         />
                       </div>
                     ))}
@@ -163,7 +162,7 @@ export default function AdminGallery(props: {
               type="button"
               className="border-transparent ml-3 inline-flex w-auto justify-center rounded-md border px-4 py-2 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 md:w-full md:text-base"
               onClick={() => {
-                setPicture(image)
+                setPicture(chosenImage)
                 setShow(false)
               }}
             >
@@ -189,16 +188,16 @@ export default function AdminGallery(props: {
                 className="rounded-lg border-2 border-blue p-2 text-blue"
                 onChange={showImageToUpload}
               />
-              {image && (
+              {chosenImage && !loading && !error && (
                 <Image
                   width={200}
                   height={200}
-                  src={image}
+                  src={chosenImage}
                   alt="picture"
                   className="aspect-square rounded-lg object-cover"
                 />
               )}
-              {image && !loading && (
+              {chosenImage && !loading && !error && (
                 <Button onClick={uploadImage}>Upload</Button>
               )}
               {loading && <p>Loading...</p>}

@@ -15,29 +15,6 @@ import { getFeaturedProducts } from "../utils/dataHooks/getFeaturedProducts"
 
 export const revalidate = 10
 
-export const metadata = {
-  title: "Electric Larry's",
-  applicationName: "Electric Larry's",
-  description:
-    "Electric Larry's is a small business in Carbondale, Illinois. We sell a variety of oddities, antiques, and collectibles.",
-  keywords:
-    "antiques, collectibles, oddities, Carbondale, Illinois, small business",
-  authors: { name: "Jesse Pence", url: "https://jazzypants.dev" },
-  themeColor: "#0050C0",
-  creator: "Jesse Pence, Randall Majors, Meagan Majors",
-  publisher: "Jesse Pence",
-  generator: "electriclarrys.vercel.app",
-  referrer: "origin-when-cross-origin",
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-    },
-  },
-}
-
 export default async function Route() {
   const announcements = await getAllAnnouncements()
   const featuredPosts = await getFeaturedPosts()
@@ -50,7 +27,7 @@ export default async function Route() {
 
   return (
     <main className="flex flex-col items-center justify-center overflow-x-hidden">
-      <div className="max-w-screen flex w-full flex-col items-center justify-center gap-1 bg-blue px-2">
+      <div className="max-w-screen flex w-full flex-col items-center justify-center gap-1 px-2">
         {announcementList}
       </div>
       {featuredPosts.length > 0 && (
@@ -61,7 +38,7 @@ export default async function Route() {
       <Categories />
       <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {featuredProducts.length > 0 && (
-          <div className="mt-4 flex flex-col items-center justify-center gap-2 overflow-hidden md:mt-0">
+          <div className="mt-4 flex flex-col items-center justify-center gap-2 overflow-hidden md:mt-0 md:justify-start">
             <FeaturedProducts featuredProducts={featuredProducts} />
           </div>
         )}

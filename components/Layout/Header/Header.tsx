@@ -11,7 +11,6 @@ import Search from "./SearchWithUseRef"
 import HamburgerMenu from "./HamburgerMenu"
 import Loading from "../../../app/loading"
 import dynamic from "next/dynamic"
-import AuthProvider from "../../Auth/AuthProvider"
 
 // import Cart from "../Cart"
 const DynamicCart = dynamic(() => import("../Cart"), {
@@ -79,11 +78,11 @@ function Header() {
                   <DropdownLink href="/profile">Profile / Orders</DropdownLink>
                 </Menu.Item>
 
-                {session.user.isAdmin && (
+                {session.user.isEmployee || session.user.isAdmin ? (
                   <Menu.Item>
                     <DropdownLink href="/admin/">Admin Dashboard</DropdownLink>
                   </Menu.Item>
-                )}
+                ) : null}
                 <Menu.Item>
                   <a
                     className="flex p-2 tracking-widest text-Green transition-all duration-300 ease-in-out hover:bg-Green hover:text-blue hover:shadow-none"
@@ -106,12 +105,4 @@ function Header() {
   )
 }
 
-function HeaderWithSession() {
-  return (
-    <AuthProvider>
-      <Header />
-    </AuthProvider>
-  )
-}
-
-export default HeaderWithSession
+export default Header

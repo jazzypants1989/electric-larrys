@@ -51,13 +51,13 @@ export default function ProductItem({ product }: { product: Product }) {
 
   return (
     <Card className="m-2 p-2 drop-shadow transition-all duration-500 ease-in-out hover:translate-y-1 hover:shadow-2xl hover:shadow-orange">
-      <Link href={`/products/${product.slug}`} passHref>
+      <Link href={`/products/${product.slug}`} className="w-fit" passHref>
         <Image
           src={product.image}
           alt={product.name}
-          width={600}
-          height={600}
-          className="aspect-auto rounded-4xl"
+          width={333}
+          height={333}
+          className="rounded-2xl"
         />
       </Link>
       <div className="flex flex-col items-center justify-center p-5 transition-all duration-300 ease-in-out hover:scale-110">

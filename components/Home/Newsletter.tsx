@@ -42,7 +42,7 @@ const Newsletter = () => {
       <h4 className="text-center text-4xl text-orange drop-shadow">
         Become a Larry!
       </h4>
-      <p className="mb-4 text-center drop-shadow md:text-sm lg:text-lg">
+      <p className="mx-2 mb-4 text-center drop-shadow md:text-sm lg:text-lg">
         Join the fan club and get semi-sorta-regular updates from our fearless
         leader about new products and stuff going on at the store.
       </p>
@@ -51,7 +51,7 @@ const Newsletter = () => {
         className="bg-transparent after:z-1 flex h-12 w-1/2 items-center justify-center text-orange outline-none transition-all after:absolute after:h-full after:w-full after:origin-right after:scale-x-0 after:bg-orange after:transition-all after:content-none hover:-translate-y-1 hover:border-2 hover:shadow-2xl hover:after:origin-left hover:after:scale-x-110"
       >
         <input
-          className="bg-transparent h-full w-full text-orange placeholder-orange outline-none"
+          className="bg-transparent h-full w-full max-w-7xl text-orange placeholder-orange outline-none"
           type="email"
           placeholder="I won't spam you, I promise."
           aria-label="Enter your email address"

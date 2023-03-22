@@ -67,6 +67,7 @@ export default function Posts({ posts }: { posts: Post[] }) {
       }).then((res) => res.json())
 
       dispatch({ type: "CREATE_SUCCESS" })
+      addToast("Post created successfully", true)
       router.refresh()
       router.push(`/admin/posts/${data.id}`)
     } catch (error) {
@@ -101,7 +102,12 @@ export default function Posts({ posts }: { posts: Post[] }) {
     <div className="overflow-x-auto drop-shadow md:col-span-3">
       <div className="m-2 flex items-center justify-between">
         <h1 className="mx-auto mb-4 text-xl">Posts</h1>
-        {loadingDelete && <div>Deleting item...</div>}
+        {loadingDelete && (
+          <div className="text-center text-Red">Deleting Post...</div>
+        )}
+        {loadingCreate && (
+          <div className="text-center text-Yellow">Creating Post...</div>
+        )}
         <Button onClick={createPostHandler} disabled={loadingCreate}>
           Create Post
         </Button>

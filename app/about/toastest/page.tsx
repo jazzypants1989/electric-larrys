@@ -17,7 +17,7 @@ export default function Page() {
         onChange={(e) => setMessage(e.target.value)}
       />
       <label className="mx-2 text-sm" htmlFor="success">
-        Success
+        Success, yeah?
       </label>
       <input
         type="checkbox"
@@ -29,10 +29,10 @@ export default function Page() {
         onClick={() => {
           addToast(message, success)
         }}
-        className="mx-2"
+        className={success ? "animate-bounce" : "bg-Red"}
         type="button"
       >
-        Add toast
+        Add toast (success: {success ? "👌" : "👎"})
       </Button>
     </div>
   )

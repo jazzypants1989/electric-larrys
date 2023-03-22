@@ -2,7 +2,7 @@
 
 export const revalidate = 0
 
-import { useEffect, useLayoutEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
@@ -21,9 +21,11 @@ export default function Success() {
 
   const session = searchParams?.get("session_id")
 
-  useLayoutEffect(() => {
+  const fetchURL = `/api/success?session_id=${session}`
+
+  useEffect(() => {
     async function fetchOrder() {
-      const res = await fetch(`/api/success?session_id=${session}`)
+      const res = await fetch(fetchURL)
       const data = await res.json()
       setOrder(data)
       setCartItems(data.line_items.data)

@@ -9,12 +9,14 @@ import Card from "./Card"
 import { useAtom } from "jotai"
 import { Product } from "../../utils/dataHooks/getProducts"
 import useCartClick from "../../utils/useCartClick"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import useToast from "../../utils/useToast"
 import Button from "./Button"
+import Spinner from "./Spinner"
 
 const Cart = () => {
   const [cart, setCart] = useAtom(Store)
+  const [checkoutLoading, setCheckoutLoading] = useState(false)
   const addToast = useToast()
   const ref = useRef<HTMLDivElement>(null)
 
@@ -71,6 +73,7 @@ const Cart = () => {
   }
 
   const handleCheckout = async () => {
+    setCheckoutLoading(true)
     const stripe = await getStripe()
 
     const { cartItems } = cart
@@ -85,9 +88,11 @@ const Cart = () => {
       body: JSON.stringify({ cartItems }),
     })
 
-    const session = await response.json()
+    const data = await response.json()
 
-    console.log("session", session)
+    const { session } = data
+
+    console.log(session.id)
 
     if (!stripe) {
       addToast("Stripe is not loaded", false)
@@ -107,6 +112,8 @@ const Cart = () => {
     setCart((prev) => ({ ...prev, cartOpen: false }))
 
     addToast("Thanks for your purchase! Redirecting to checkout...", true)
+
+    setCheckoutLoading(false)
   }
 
   return (
@@ -212,9 +219,16 @@ const Cart = () => {
                   </div>
                 </li>
                 <li>
-                  <Button onClick={handleCheckout} className="md:w-full">
-                    Check Out
-                  </Button>
+                  {checkoutLoading ? (
+                    <div className="flex flex-col items-center justify-center gap-5">
+                      <p className="md:text-lg">Redirecting to checkout...</p>
+                      <Spinner />
+                    </div>
+                  ) : (
+                    <Button onClick={handleCheckout} className="md:w-full">
+                      Check Out
+                    </Button>
+                  )}
                 </li>
               </ul>
             </Card>

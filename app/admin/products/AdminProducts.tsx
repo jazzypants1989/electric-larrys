@@ -70,12 +70,12 @@ export default function AdminProductsScreen({
       })
       const product: Product = await data.json()
       dispatch({ type: "CREATE_SUCCESS" })
-      addToast("Product created successfully", true)
+      addToast(`Product ${product.name} created successfully`, true)
       router.refresh()
       router.push(`/admin/products/${product.slug}`)
     } catch (err) {
       dispatch({ type: "CREATE_FAIL" })
-      addToast("Sorry, something went wrong", false)
+      addToast(`Sorry, something went wrong.. ${err}`, false)
     }
   }
 
@@ -89,10 +89,11 @@ export default function AdminProductsScreen({
         method: "DELETE",
       })
       dispatch({ type: "DELETE_SUCCESS" })
-      addToast("Product deleted successfully", true)
+      addToast(`Product with slug: ${slug} deleted successfully`, true)
+      router.refresh()
     } catch (err) {
       dispatch({ type: "DELETE_FAIL" })
-      addToast("Sorry, something went wrong", false)
+      addToast(`Sorry, something went wrong.. ${err}`, false)
     }
   }
 
@@ -115,23 +116,17 @@ export default function AdminProductsScreen({
           disabled={loadingCreate}
           onClick={() => router.push("/admin/products/import")}
         >
-          Import a CSV
+          {loadingCreate ? "Loading..." : "Import a CSV"}
         </Button>
       </div>
       <div className="overflow-auto rounded-lg border-b shadow">
         <table className="min-w-full overflow-x-auto">
           <thead className="border-b bg-orange">
             <tr>
-              <th
-                className="border-r-2 border-r-orange text-center md:px-4
-              "
-              >
+              <th className="border-r-2 border-r-orange text-center md:px-4">
                 NAME
               </th>
-              <th
-                className="border-r-2 border-r-orange text-center md:px-4
-              "
-              >
+              <th className="border-r-2 border-r-orange text-center md:px-4">
                 SLUG
               </th>
               <th className="border-r-2 border-r-orange text-center md:px-2">
@@ -186,8 +181,9 @@ export default function AdminProductsScreen({
                     onClick={() => deleteHandler(product.slug)}
                     className="m-1 bg-Red hover:text-Red"
                     type="button"
+                    disabled={loadingDelete}
                   >
-                    Delete
+                    {loadingDelete ? "Deleting..." : "Delete"}
                   </Button>
                 </td>
               </tr>

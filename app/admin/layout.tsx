@@ -1,8 +1,8 @@
 import { ReactNode, Suspense } from "react"
 import AdminSideBar from "../../components/Admin/AdminSideBar"
 import { getCurrentUser } from "../../utils/session"
-import AuthProvider from "../../components/Auth/AuthProvider"
 import EmployeeProvider from "../../components/Auth/EmployeeProvider"
+import Spinner from "../../components/Layout/Spinner"
 
 export const metadata = {
   title: "Admin Page",
@@ -33,13 +33,13 @@ export default async function AdminLayout({
   }
 
   return (
-    <AuthProvider>
-      <EmployeeProvider>
+    <EmployeeProvider>
+      <Suspense fallback={<Spinner />}>
         <div className="flex flex-row">
           <AdminSideBar />
           {children}
         </div>
-      </EmployeeProvider>
-    </AuthProvider>
+      </Suspense>
+    </EmployeeProvider>
   )
 }

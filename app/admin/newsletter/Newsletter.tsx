@@ -38,13 +38,18 @@ export default function Newsletter({ users }: { users: User[] }) {
         link: link,
         image: image,
       }
-      fetch("/api/admin/newsletter", {
+      const res = await fetch("/api/admin/newsletter", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(mail),
       })
+      if (!res.ok) {
+        throw new Error("Error sending newsletter")
+      }
+      const json = await res.json()
+      console.log(json)
       setLoading(false)
       addToast("Newsletter sent successfully", true)
     } catch (error) {
@@ -119,7 +124,22 @@ export default function Newsletter({ users }: { users: User[] }) {
           </div>
           <div className="mt-4 mb-4 flex flex-col items-center justify-center">
             {error && <p className="text-Red">{error}</p>}
-            {loading ? <p>Loading...</p> : <Button type="submit">Send</Button>}
+            {loading ? (
+              <>
+                <h3
+                  className="animate-pulse text-2xl font-bold"
+                  style={{ color: "#FFA500" }}
+                >
+                  Sending...
+                </h3>
+                <p className="animate-bounce text-2xl font-bold">
+                  This may take a while, because I schedule a one second delay
+                  for each email... This is to keep you off the spam list.
+                </p>
+              </>
+            ) : (
+              <Button type="submit">Send</Button>
+            )}
           </div>
         </form>
       </div>

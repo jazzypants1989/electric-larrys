@@ -7,6 +7,11 @@ export const preload = () => {
 
 export const getNotes = cache(async () => {
   console.log("getNotes")
-  const posts = await db.note.findMany()
+  const posts = await db.note.findMany({
+    orderBy: { createdAt: "desc" },
+    include: {
+      User: true,
+    },
+  })
   return posts
 })
