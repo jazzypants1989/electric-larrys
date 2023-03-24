@@ -14,8 +14,8 @@ const images = {
   "Toys": "/w_1000,ar_1:1,c_fill,g_auto,e_improve/v1678403245/toys.jpg",
   "Books":
     "/w_1000,ar_1:1,c_fill,g_auto,e_improve/v1678403244/319660582_1598822214284266_1561878818922412587_n_lvbe5v.jpg",
-  "Clothing":
-    "/w_1000,ar_1:1,c_fill,g_auto,e_improve/v1678403243/319366372_687543296306301_323657085684437234_n_b32qgv.jpg",
+  "Electronics":
+    "/w_1000,ar_1:1,c_fill,g_auto,e_improve/v1678403243/319328724_564363195510578_5093038599162007092_n_fvgf0m.jpg",
   "Oddities":
     "w_1000,ar_1:1,c_fill,g_auto,e_improve/v1678403245/318657359_1319492078883086_4891519022965311904_n_icfdeo.jpg",
 } as const
@@ -25,7 +25,11 @@ const CategoryItem = ({ category }: { category: keyof typeof images }) => {
 
   return (
     <Link
-      href={`/products?category=${categoryToLowerCase}`}
+      href={
+        categoryToLowerCase === "oddities"
+          ? "/products?tag=oddities"
+          : `/products?category=${categoryToLowerCase}`
+      }
       className="flex animate-swoosh flex-col items-center justify-center"
     >
       <Image

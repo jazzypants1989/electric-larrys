@@ -45,7 +45,7 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
         key={index}
       >
         {index === current && (
-          <div className="m-auto flex items-center justify-center rounded-4xl py-8 text-center transition duration-1000 ease-in-out hover:bg-Green hover:text-Black">
+          <div className="m-auto flex items-center justify-center gap-2 rounded-4xl bg-orange py-8 px-2 text-center text-Black transition duration-1000 ease-in-out hover:bg-blue">
             <a href={link!} target="_blank" rel="noreferrer">
               <Image
                 src={image!}
@@ -57,16 +57,16 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
               />
             </a>
             <div className="">
-              <h2 className="text-sm text-blue drop-shadow-lg transition duration-1000 ease-in-out md:py-4 md:text-2xl md:hover:text-orange">
+              <h2 className="text-sm text-Yellow transition duration-1000 ease-in-out md:py-4 md:text-2xl md:hover:text-orange">
                 {title}
               </h2>
-              <p className="max-h-40 max-w-2xl overflow-hidden text-center drop-shadow">
+              <p className="max-h-40 max-w-2xl overflow-hidden text-center text-Green">
                 {description}
               </p>
               <a href={link!} target="_blank" rel="noreferrer">
                 <button
                   aria-label="Follow the link"
-                  className="w-8/9 mt-2 w-full rounded-lg bg-Green py-1 text-center text-blue opacity-70 drop-shadow-lg transition-all duration-500 ease-in-out hover:scale-95 hover:border-2 hover:bg-orange hover:text-Black hover:opacity-100"
+                  className="w-8/9 mt-2 w-full rounded-lg bg-orange py-1 text-center text-Green opacity-90 drop-shadow-lg transition-all duration-500 ease-in-out hover:scale-95 hover:border-2 hover:bg-Green hover:text-blue hover:opacity-100"
                 >
                   Check it out!
                 </button>
@@ -85,7 +85,7 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
         key={index}
       >
         {index === current && (
-          <div className="m-auto flex items-center justify-center rounded-4xl py-8 text-center transition duration-1000 ease-in-out hover:bg-Green hover:text-Black ">
+          <div className="m-auto flex items-center justify-center rounded-4xl bg-orange py-8 text-center opacity-100 transition duration-1000 ease-in-out hover:bg-Green hover:text-Black ">
             <div className="aspect-auto object-cover">
               <Image
                 src={image!}
@@ -97,7 +97,7 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
               />
             </div>
             <div className="">
-              <h2 className="max-w-2xl text-sm text-blue drop-shadow-2xl transition duration-1000 ease-in-out md:text-2xl md:hover:text-orange">
+              <h2 className="max-w-2xl text-sm text-Yellow drop-shadow-2xl transition duration-1000 ease-in-out md:text-2xl md:hover:text-orange">
                 {title}
               </h2>
               <p className="max-h-40 w-full overflow-hidden text-center drop-shadow md:max-h-80">
@@ -122,10 +122,10 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
       >
         {index === current && (
           <div
-            className={`mx-1 grid items-center justify-center rounded-4xl text-center transition duration-1000 ease-in-out hover:bg-opacity-50 hover:text-Black hover:drop-shadow-lg md:hover:bg-Green `}
+            className={`mx-1 grid items-center justify-center rounded-4xl bg-orange bg-opacity-100 text-center transition duration-1000 ease-in-out hover:bg-opacity-50 hover:text-Black hover:drop-shadow-lg md:hover:bg-Green `}
           >
             <a href={link!} target="_blank" rel="noreferrer">
-              <h2 className="p-2 text-lg text-blue drop-shadow-lg transition-all duration-1000 ease-in-out md:text-3xl md:hover:text-orange">
+              <h2 className="p-2 text-lg text-Yellow drop-shadow-lg transition-all duration-1000 ease-in-out md:text-3xl md:hover:text-orange">
                 {title}
               </h2>
             </a>
@@ -158,10 +158,10 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
       >
         {index === current && (
           <div
-            className={`m-auto grid items-center justify-center rounded-4xl text-center transition duration-1000 ease-in-out hover:bg-opacity-50 hover:text-Black md:hover:bg-Green`}
+            className={`m-auto grid items-center justify-center rounded-4xl bg-orange text-center transition duration-1000 ease-in-out hover:bg-opacity-50 hover:text-Black md:hover:bg-Green`}
           >
             <div className="grid items-center justify-center p-5 text-center  ">
-              <h2 className="p-2 text-base text-blue drop-shadow-2xl transition duration-1000 ease-in-out md:text-2xl md:hover:text-orange">
+              <h2 className="p-2 text-base text-Yellow drop-shadow-2xl transition duration-1000 ease-in-out md:text-2xl md:hover:text-orange">
                 {title}
               </h2>
               <p className="max-h-40 w-full overflow-hidden text-center drop-shadow">
@@ -185,7 +185,7 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
   })
   return (
     <>
-      <article className="mx-2 flex max-h-full max-w-7xl items-center justify-around rounded-lg rounded-t-2xl bg-orange drop-shadow-2xl lg:mx-auto">
+      <article className="mx-2 flex max-h-full max-w-7xl items-center justify-around rounded-lg rounded-t-2xl bg-orange bg-opacity-70 drop-shadow-2xl lg:mx-auto">
         <span
           className="relative top-0 bottom-0 z-20 m-auto ml-2 flex cursor-pointer items-center justify-center rounded-full bg-Green p-1 text-3xl text-blue opacity-70 transition-all duration-1000 ease-in-out hover:scale-110 hover:text-orange hover:opacity-100 md:p-2 md:text-5xl"
           onClick={prevSlide}

@@ -49,7 +49,6 @@ export default function AdminGallery(props: {
 
   const activeImageCheck = (thisImage: string) => {
     if (thisImage === chosenImage) {
-      console.log(`thisImage: ${thisImage} === chosenImage: ${chosenImage}`)
       return "border-4 border-orange p-1"
     } else {
       return "p-2 rounded-2xl"
@@ -197,9 +196,10 @@ export default function AdminGallery(props: {
                   className="aspect-square rounded-lg object-cover"
                 />
               )}
-              {chosenImage && !loading && !error && (
-                <Button onClick={uploadImage}>Upload</Button>
-              )}
+              {chosenImage &&
+                !chosenImage.startsWith("http") &&
+                !loading &&
+                !error && <Button onClick={uploadImage}>Upload</Button>}
               {loading && <p>Loading...</p>}
               {error && <p>{error}</p>}
             </form>

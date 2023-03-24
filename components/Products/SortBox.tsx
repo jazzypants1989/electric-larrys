@@ -12,7 +12,7 @@ export default function SortBox({
   const [sortValue, setSortValue] = useState("")
 
   return (
-    <Menu as="div" className="relative mb-4 inline-block pl-9 text-left">
+    <Menu as="div" className="relative mb-4 inline-block text-left">
       <div>
         <Menu.Button className="inline-flex w-full justify-center rounded-md border border-Green bg-blue px-4 py-2 text-sm font-medium text-Green shadow-sm transition-all duration-300 ease-in-out hover:text-orange focus:outline-none focus-visible:ring-2 focus-visible:ring-blue focus-visible:ring-offset-2">
           Sort By: {sortValue}

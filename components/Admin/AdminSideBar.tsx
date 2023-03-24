@@ -19,10 +19,6 @@ export default function AdminSideBar() {
       href: "/admin",
     },
     {
-      name: "Users",
-      href: "/admin/users",
-    },
-    {
       name: "Products",
       href: "/admin/products",
     },
@@ -33,6 +29,14 @@ export default function AdminSideBar() {
     {
       name: "Announcements",
       href: "/admin/announcements",
+    },
+    {
+      name: "About Page",
+      href: "/admin/about",
+    },
+    {
+      name: "Users",
+      href: "/admin/users",
     },
     {
       name: "Newsletter",

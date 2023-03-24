@@ -2,17 +2,12 @@
 
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import React, { useEffect, useReducer } from "react"
+import { useEffect, useReducer } from "react"
+
 import Button from "../../../components/Layout/Button"
 import useToast from "../../../utils/useToast"
 
-export type Announcement = {
-  id: string | null
-  title: string | null
-  link: string | null
-  description: string | null
-  isPublished: boolean | null
-}
+import type { Announcement } from "@prisma/client"
 
 type State = {
   loadingCreate: boolean

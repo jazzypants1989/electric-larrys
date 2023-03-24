@@ -3,9 +3,10 @@
 import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useState } from "react"
-import type { Announcement } from "../Announcements"
 import useToast from "../../../../utils/useToast"
 import Button from "../../../../components/Layout/Button"
+
+import type { Announcement } from "@prisma/client"
 
 export default function AnnouncementPage({
   announcement,

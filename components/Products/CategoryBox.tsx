@@ -1,12 +1,10 @@
-"use client"
-
 import { useEffect, useState } from "react"
 import { Listbox, Transition } from "@headlessui/react"
 import { ReactNode } from "react"
 
 const Container = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="flex items-center justify-center py-4 pl-7">
+    <div className="flex items-center justify-center py-4">
       <div className="mx-auto w-full max-w-xs">{children}</div>
     </div>
   )
@@ -47,7 +45,7 @@ export default function CategoryBox({
       >
         {({ open }) => (
           <>
-            <div className="ml-2 w-48">
+            <div className="w-48">
               <span className="inline-block w-48">
                 <Listbox.Label className="font-base w-full text-sm">
                   Category

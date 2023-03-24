@@ -76,6 +76,11 @@ export default function UserPage({ user }: { user: User }) {
           <h2 className="mt-6 text-center text-3xl font-extrabold">
             Edit User
           </h2>
+          <p className="mt-2 text-center text-sm text-Black">
+            (Until they change their password on the profile page, it will be
+            &quot;jellybeans&quot; because I'm cheeky. That&apos;s all
+            lowercase. Don&apos;t believe your eyes.)
+          </p>
         </div>
         <form
           className="mt-8 space-y-6"

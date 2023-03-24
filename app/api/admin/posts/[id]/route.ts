@@ -72,7 +72,7 @@ export async function PUT(
 
   const body = await request.json()
 
-  const { title, description, link, isPublished } = body
+  const { title, description, link, isPublished, image, isFeatured } = body
 
   if (post) {
     await db.post.update({
@@ -84,6 +84,8 @@ export async function PUT(
         description: description,
         link: link,
         isPublished: isPublished,
+        image: image,
+        isFeatured: isFeatured,
       },
     })
     return NextResponse.json({ message: "Post updated successfully" })

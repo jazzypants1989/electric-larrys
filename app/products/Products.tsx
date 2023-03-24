@@ -30,6 +30,8 @@ export default function ProductsComponent({
   const [sort, setSort] = useState("")
   const [page, setPage] = useState(1)
 
+  const [expand, setExpand] = useState(true)
+
   const filterProducts = (products: Products) => {
     if (category) {
       products = products.filter(
@@ -95,7 +97,7 @@ export default function ProductsComponent({
   }
 
   const showClearFilter = () => {
-    if (category.length > 0 || tag.length > 0) {
+    if (category.length > 0 && tag.length > 0) {
       return true
     } else {
       return false
@@ -165,22 +167,42 @@ export default function ProductsComponent({
         </div>
       )}
       <div className="mt-4 grid grid-cols-1 gap-4 overflow-hidden md:grid-cols-3 lg:grid-cols-4">
-        <div className="z-20 col-span-1 flex -translate-x-2 animate-woosh flex-col">
-          <SortBox setSort={setSort} />
-          <CategoryBox
-            categories={categories}
-            category={category}
-            setCategory={setCategory}
-          />
-          <TagBox tags={tags} setTag={setTag} />
-          {showClearFilter() && (
-            <Button
-              type="button"
-              onClick={clearFilter}
-              className="-z-10 w-3/5 translate-x-8 items-center bg-Yellow text-sm font-thin text-orange"
-            >
-              Clear Filter
-            </Button>
+        <div className="z-20 col-span-1 flex animate-woosh flex-col items-center justify-start md:items-center">
+          <Button
+            type="button"
+            onClick={() => setExpand(!expand)}
+            className="m-4 w-fit bg-Yellow text-sm font-thin text-orange md:hidden"
+          >
+            {expand ? "Hide Filters" : "Show Filters"}
+          </Button>
+          {expand && (
+            <>
+              <SortBox setSort={setSort} />
+              <CategoryBox
+                categories={categories}
+                category={category}
+                setCategory={setCategory}
+              />
+              {category !== "all" && category !== "" && (
+                <Button
+                  type="button"
+                  onClick={() => setCategory("")}
+                  className="-z-10 w-3/5 items-center bg-Yellow text-sm font-thin text-orange"
+                >
+                  Clear Category
+                </Button>
+              )}
+              <TagBox tags={tags} setTag={setTag} tag={tag} />
+              {showClearFilter() && (
+                <Button
+                  type="button"
+                  onClick={clearFilter}
+                  className="-z-10 m-2 w-3/5 bg-Yellow text-sm font-thin text-orange"
+                >
+                  Clear All Filters
+                </Button>
+              )}
+            </>
           )}
         </div>
         {page === 1 &&
@@ -191,16 +213,6 @@ export default function ProductsComponent({
           shownProducts.map((product: Product) => (
             <ProductItem key={product.id} product={product} />
           ))}
-
-        {showClearFilter() && (
-          <Button
-            type="button"
-            onClick={clearFilter}
-            className="mx-auto h-10 bg-Yellow text-sm font-thin text-orange"
-          >
-            Clear Filter
-          </Button>
-        )}
         {sortedProducts.length > 20 && (
           <Button
             onClick={() => getProducts(page + 1)}

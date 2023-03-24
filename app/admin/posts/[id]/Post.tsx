@@ -81,10 +81,7 @@ export default function PostPage({
 
   const modalButtonHandler = () => {
     setShow(!show)
-  }
-
-  const imageValueHandler = (picture: string) => {
-    setPicture(picture)
+    scrollTo(0, 0)
   }
 
   useEffect(() => {
@@ -164,7 +161,7 @@ export default function PostPage({
             </Button>
             <AdminGallery
               show={show}
-              setPicture={imageValueHandler}
+              setPicture={setPicture}
               setShow={setShow}
               pictures={pictures}
             />

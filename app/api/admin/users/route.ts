@@ -1,5 +1,6 @@
 import { getCurrentUser } from "../../../../utils/session"
 import { NextResponse } from "next/server"
+import { hashSync } from "bcryptjs"
 import db from "../../../../utils/prisma"
 
 export async function POST() {
@@ -19,6 +20,7 @@ export async function POST() {
       isAdmin: false,
       isEmployee: true,
       newsletter: true,
+      password: hashSync("jellybeans"),
     },
   })
   if (user) {

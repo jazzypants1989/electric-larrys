@@ -130,11 +130,14 @@ function LoginScreen({ providers }: { providers: Record<string, any> }) {
           >
             <Discord />
           </button>
-          <Link href={`/terms`} className="block w-fit text-center text-sm">
-            Terms and Conditions
-          </Link>
         </div>
       </div>
+      <Link
+        href={`/terms`}
+        className="mx-auto block w-fit rounded-3xl bg-blue p-2 text-center text-sm text-orange"
+      >
+        Terms and Conditions
+      </Link>
     </AuthContainer>
   )
 }

@@ -50,7 +50,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const updatedUser = await db.user.update({
     where: {
-      id: userID,
       email: userEmail,
     },
     data: {

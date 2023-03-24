@@ -1,18 +1,8 @@
-import { getAllUsers } from "../../../utils/dataHooks/getAllUsers"
-import UsersPage from "./UsersPage"
 import { getCurrentUser } from "../../../utils/session"
+import getAllAbouts from "../../../utils/dataHooks/getAllAbouts"
+import AdminAbout from "./AdminAbout"
 
-export default async function AdminUsersPage() {
-  const users = await getAllUsers()
-
-  if (!users) {
-    return (
-      <h1 className="text-4xl font-bold drop-shadow">
-        Something went wrong. Please try again.
-      </h1>
-    )
-  }
-
+export default async function AdminAboutPage() {
   const user = await getCurrentUser()
 
   if (!user || !user.isAdmin) {
@@ -25,5 +15,7 @@ export default async function AdminUsersPage() {
     )
   }
 
-  return <UsersPage users={users} />
+  const abouts = await getAllAbouts()
+
+  return <AdminAbout abouts={abouts} />
 }

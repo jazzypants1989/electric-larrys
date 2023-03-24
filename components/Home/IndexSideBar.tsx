@@ -63,7 +63,7 @@ const SideBar = ({ sideBarPosts }: { sideBarPosts: IPost[] }) => {
             className="h-auto w-auto rounded-3xl"
           />
           <div className="pt-4 text-center drop-shadow-lg">
-            <h2 className="text-sm text-blue drop-shadow-xl md:text-2xl">
+            <h2 className="text-sm text-Yellow drop-shadow-xl md:text-2xl">
               {title}
             </h2>
             <p className="text-center drop-shadow-lg">{description}</p>
@@ -106,7 +106,7 @@ const SideBar = ({ sideBarPosts }: { sideBarPosts: IPost[] }) => {
         className="min-w-sm m-7 flex max-w-lg flex-col rounded-3xl bg-orange bg-opacity-90 p-7 text-center transition-all duration-500 ease-in-out hover:scale-110 hover:bg-opacity-100"
         key={id}
       >
-        <h2 className="text-base text-blue drop-shadow-xl md:text-2xl">
+        <h2 className="text-base text-Yellow drop-shadow-xl md:text-2xl">
           {title}
         </h2>
         <p className="pt-8 text-center drop-shadow-lg even:drop-shadow-none md:text-base">

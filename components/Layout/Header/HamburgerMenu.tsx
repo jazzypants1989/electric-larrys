@@ -115,7 +115,7 @@ export default function HamburgerMenu() {
         </div>
       </div>
 
-      <div className="hidden w-1/5 justify-between md:flex">
+      <div className="hidden w-1/5 justify-between text-base md:flex">
         <button
           className="cursor-pointer rounded-md border-x-2 border-orange px-2 text-Green duration-300 ease-in hover:rounded-2xl hover:border-x-4 hover:px-3 hover:text-sm hover:text-orange"
           onClick={() => router.push("/about")}

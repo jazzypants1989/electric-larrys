@@ -1,27 +1,31 @@
-"use client"
-
-import { ReactNode, useState } from "react"
+import { ReactNode, useEffect, useState } from "react"
 import { Combobox, Transition } from "@headlessui/react"
 import CheckCircle from "./Icons/CheckCircle"
 
 const Container = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="flex items-center justify-center py-4 pl-7">
+    <div className="flex items-center justify-center py-4">
       <div className="mx-auto w-full max-w-xs">{children}</div>
     </div>
   )
 }
 
 export default function TagBox({
+  tag,
   tags,
   setTag,
 }: {
+  tag: string[]
   tags: string[]
   // eslint-disable-next-line no-unused-vars
   setTag: (tag: string[]) => void
 }) {
   const [selectedTag, setSelectedTag] = useState<string[]>([])
   const [query, setQuery] = useState("")
+
+  useEffect(() => {
+    setSelectedTag(tag)
+  }, [tag])
 
   const filteredTag =
     query.length === 0
