@@ -3,7 +3,11 @@ import { Product } from "../../../../../utils/dataHooks/getProducts"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function POST(req: NextRequest) {
-  const csv = await req.json()
+  const csvArray = await req.arrayBuffer()
+  const csv = new TextDecoder("utf-8").decode(csvArray)
+
+  console.log("POST", csv)
+
   // Convert CSV to JSON
   const json = csvToJson(csv)
   // Parse JSON into an object
@@ -14,7 +18,7 @@ export async function POST(req: NextRequest) {
   // Filter out products that already exist
   const newProducts = products.filter((product: DBProduct) => {
     // Generate a potential slug for the product
-    const slug = potentialSlug(product)
+    const slug = createSlug(product)
 
     // Check if the slug already exists in the database
     return !current.some((p: Product) => p.slug === slug)
@@ -24,12 +28,18 @@ export async function POST(req: NextRequest) {
   await createProducts(newProducts)
 
   // Send a response
-  NextResponse.json({ message: "Products imported successfully" })
+  return new Response(JSON.stringify("Products imported successfully"), {
+    // Yes, ladies and gentlemen. It's the old stringify a string maneuver.
+    status: 200,
+  })
 }
 
 export async function PUT(req: NextRequest) {
   // get the csv from the request body
-  const csv = await req.json()
+  const csvArray = await req.arrayBuffer()
+  const csv = new TextDecoder("utf-8").decode(csvArray)
+
+  console.log("PUT", csv)
   // convert the csv to json
   const json = csvToJson(csv)
   // parse the json to an array of products
@@ -40,7 +50,7 @@ export async function PUT(req: NextRequest) {
   // find products that have a matching slug
   const updatedProducts = products.filter((product: DBProduct) => {
     // get the slug of the product
-    const slug = potentialSlug(product)
+    const slug = createSlug(product)
 
     // return true if the slug is in the current products array
     return current.some((p: Product) => p.slug === slug)
@@ -50,7 +60,9 @@ export async function PUT(req: NextRequest) {
   await updateProducts(updatedProducts)
 
   // send a response
-  NextResponse.json({ message: "Products updated successfully" })
+  return new Response(JSON.stringify("Products updated successfully"), {
+    status: 200,
+  })
 }
 
 function csvToJson(csv: string) {
@@ -85,7 +97,7 @@ function csvToJson(csv: string) {
   return JSON.stringify(result)
 }
 
-function potentialSlug(product: DBProduct) {
+function createSlug(product: DBProduct) {
   // Get the slug from the Reference Handle
   const slug = product["Reference Handle"].substring(1) // remove the hash at the beginning
 
@@ -109,7 +121,7 @@ function potentialSlug(product: DBProduct) {
 function transformProduct(product: DBProduct) {
   return {
     name: product["Item Name"],
-    slug: potentialSlug(product),
+    slug: createSlug(product),
     image:
       "https://res.cloudinary.com/jovial-penguin/image/upload/c_thumb,w_400,g_face/v1678403244/319886454_675169010823442_2415112957092316693_n_wurxol.jpg",
     price: Number(product["Price"]),
@@ -141,7 +153,7 @@ async function createProducts(products: DBProduct[]) {
 async function updateProducts(products: DBProduct[]) {
   for (let i = 0; i < products.length; i++) {
     const product = await db.product.update({
-      where: { slug: potentialSlug(products[i]) },
+      where: { slug: createSlug(products[i]) },
       data: transformProduct(products[i]),
     })
 

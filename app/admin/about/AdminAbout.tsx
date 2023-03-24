@@ -123,7 +123,17 @@ export default function AdminAbout({ abouts }: { abouts: About[] }) {
     <div className="flex h-full w-full flex-col items-center justify-center">
       <div className="flex h-full w-full flex-col items-center justify-center">
         <h1 className="text-4xl font-bold drop-shadow">About Templates</h1>
-        <table className="table-auto">
+        <details className="my-4 self-baseline">
+          <summary className="text-base font-bold text-orange drop-shadow">
+            Can I publish more than one?
+          </summary>
+          <span className="text-lg font-bold drop-shadow">
+            Remember, the DB is dumb-- it just publishes the first one it finds
+            with the published flag checked. So, try to only have one published
+            at a time.
+          </span>
+        </details>
+        <table className="m-1 table-auto tracking-widest">
           <thead>
             <tr>
               <th className="px-4 py-2">Title</th>
