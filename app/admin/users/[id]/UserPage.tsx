@@ -77,9 +77,9 @@ export default function UserPage({ user }: { user: User }) {
             Edit User
           </h2>
           <p className="mt-2 text-center text-sm text-Black">
-            (Until they change their password on the profile page, it will be
-            &quot;jellybeans&quot; because I'm cheeky. That&apos;s all
-            lowercase. Don&apos;t believe your eyes.)
+            (Until they change their password on the profile page, each new
+            user&apos;s password will be &quot;jellybeans&quot; because I&apos;m
+            cheeky. That&apos;s all lowercase. Don&apos;t believe your eyes.)
           </p>
         </div>
         <form
