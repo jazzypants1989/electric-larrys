@@ -6,12 +6,12 @@ import { useState } from "react"
 import useToast from "../../../../utils/useToast"
 import Button from "../../../../components/Layout/Button"
 
-import type { Announcement } from "@prisma/client"
+import type { IAnnouncement } from "../../../../utils/dataHooks/getAllAnnouncements"
 
 export default function AnnouncementPage({
   announcement,
 }: {
-  announcement: Announcement
+  announcement: IAnnouncement
 }) {
   const addToast = useToast()
   const [loading, setLoading] = useState(false)
@@ -24,7 +24,7 @@ export default function AnnouncementPage({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Announcement>({
+  } = useForm<IAnnouncement>({
     defaultValues: {
       title,
       link,
@@ -33,7 +33,7 @@ export default function AnnouncementPage({
     },
   })
 
-  const onSubmit: SubmitHandler<Announcement> = async (data) => {
+  const onSubmit: SubmitHandler<IAnnouncement> = async (data) => {
     setLoading(true)
     setError("")
 

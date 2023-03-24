@@ -4,9 +4,9 @@ import { useRouter } from "next/navigation"
 import React, { useEffect, useReducer } from "react"
 import Button from "../../../components/Layout/Button"
 import useToast from "../../../utils/useToast"
-
-import type { About } from "@prisma/client"
 import Spinner from "../../../components/Layout/Spinner"
+
+import type { About } from "../../../utils/dataHooks/getAbout"
 
 type State = {
   loadingCreate: boolean
@@ -89,7 +89,8 @@ export default function AdminAbout({ abouts }: { abouts: About[] }) {
     }
   }
 
-  const deleteAboutHandler = async (id: string) => {
+  const deleteAboutHandler = async (id: string | undefined) => {
+    if (!id) return
     if (!window.confirm("Delete this about template?")) return
     try {
       dispatch({ type: "DELETE_REQUEST" })
@@ -133,15 +134,15 @@ export default function AdminAbout({ abouts }: { abouts: About[] }) {
           </thead>
           <tbody>
             {abouts.map((about) => (
-              <tr key={about.id}>
-                <td className="border px-4 py-2">{about.title}</td>
-                <td className="border px-4 py-2">{about.heroText}</td>
+              <tr key={about?.id}>
+                <td className="border px-4 py-2">{about?.title}</td>
+                <td className="border px-4 py-2">{about?.heroText}</td>
                 <td className="border px-4 py-2 text-center text-2xl">
-                  {about.isPublished ? "💯" : "❌"}
+                  {about?.isPublished ? "💯" : "❌"}
                 </td>
                 <td className="border px-4 py-2">
                   <Button
-                    onClick={() => router.push(`/admin/about/${about.id}`)}
+                    onClick={() => router.push(`/admin/about/${about?.id}`)}
                   >
                     Edit
                   </Button>
@@ -152,7 +153,7 @@ export default function AdminAbout({ abouts }: { abouts: About[] }) {
                   ) : (
                     <Button
                       className="bg-Red"
-                      onClick={() => deleteAboutHandler(about.id)}
+                      onClick={() => deleteAboutHandler(about?.id)}
                       disabled={loadingDelete}
                     >
                       Delete

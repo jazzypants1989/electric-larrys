@@ -15,3 +15,5 @@ export const preload = () => {
 }
 
 export default getAbout
+
+export type About = Awaited<ReturnType<typeof getAbout>>

@@ -7,7 +7,7 @@ import { useEffect, useReducer } from "react"
 import Button from "../../../components/Layout/Button"
 import useToast from "../../../utils/useToast"
 
-import type { Announcement } from "@prisma/client"
+import type { IAnnouncement } from "../../../utils/dataHooks/getAllAnnouncements"
 
 type State = {
   loadingCreate: boolean
@@ -48,7 +48,7 @@ const reducer = (state: State, action: Action): State => {
 export default function Announcements({
   announcements,
 }: {
-  announcements: Announcement[]
+  announcements: IAnnouncement[]
 }) {
   const router = useRouter()
   const addToast = useToast()
@@ -130,7 +130,7 @@ export default function Announcements({
           </tr>
         )}
         <tbody>
-          {announcements.map((announcement: Announcement) => (
+          {announcements.map((announcement: IAnnouncement) => (
             <tr key={announcement?.id}>
               <td className="border-b p-4">{announcement?.title}</td>
               <td className="border-b p-4">{announcement?.description}</td>

@@ -5,14 +5,18 @@ import { SubmitHandler, useForm } from "react-hook-form"
 import { useState } from "react"
 import useToast from "../../../../utils/useToast"
 import Button from "../../../../components/Layout/Button"
-
-import type { About } from "@prisma/client"
 import AdminGallery from "../../../../components/Admin/AdminGallery"
 
-export default function AboutEdit({ about }: { about: About }) {
+import type { About } from "../../../../utils/dataHooks/getAbout"
+
+type AboutNN = NonNullable<About>
+
+export default function AboutEdit({ about }: { about: AboutNN }) {
   const addToast = useToast()
   const [loading, setLoading] = useState(false)
-  const [numberOfImages, setNumberOfImages] = useState(about.otherImages.length)
+  const [numberOfImages, setNumberOfImages] = useState(
+    about?.otherImages.length
+  )
   const [galleryOpen, setGalleryOpen] = useState(false)
   const [gallery, setGallery] = useState("hero")
   const [currentlyActiveImage, setCurrentlyActiveImage] = useState(0)
@@ -34,7 +38,7 @@ export default function AboutEdit({ about }: { about: About }) {
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm<About>({
+  } = useForm<AboutNN>({
     defaultValues: {
       title,
       heroText,
@@ -45,7 +49,7 @@ export default function AboutEdit({ about }: { about: About }) {
     },
   })
 
-  const onSubmit: SubmitHandler<About> = async (data) => {
+  const onSubmit: SubmitHandler<AboutNN> = async (data) => {
     setLoading(true)
     setError("")
     console.log(data)
