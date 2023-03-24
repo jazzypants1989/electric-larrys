@@ -1,6 +1,8 @@
 import Image from "next/image"
 import getAbout from "../../utils/dataHooks/getAbout"
 
+export const revalidate = 60
+
 export default async function About() {
   const about = await getAbout()
   if (!about)
