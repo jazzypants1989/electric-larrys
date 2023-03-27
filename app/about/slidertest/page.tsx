@@ -5,8 +5,12 @@ import RiArrowLeftSFill from "../../../components/Home/Icons/RiArrowLeftSFill"
 import RiArrowRightSFill from "../../../components/Home/Icons/RiArrowRightSFill"
 import Button from "../../../components/Layout/Button"
 import ProductItem from "../../../components/Products/ProductItem"
+import { Product } from "../../../utils/dataHooks/getProducts"
 
-const product = {
+const today = new Date(Date.now())
+const yesterday = new Date(Date.now() - 86400000)
+
+const product: Product = {
   id: "1",
   slug: "product-1",
   name: "Product 1",
@@ -14,12 +18,11 @@ const product = {
   price: 100,
   image: "/images/bg1.jpg",
   isFeatured: true,
-  isPublished: true,
   category: "category-1",
   tags: ["tag-1", "tag-2"],
   countInStock: 10,
-  createdAt: "2021-08-01T00:00:00.000Z",
-  updatedAt: "2021-08-01T00:00:00.000Z",
+  createdAt: yesterday,
+  updatedAt: today,
   isOnSale: false,
   salePrice: 0,
 }
