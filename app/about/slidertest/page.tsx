@@ -126,7 +126,8 @@ export default function TestPage() {
               className={`bg-${buttonBG} text-${buttonTC} ${buttonDropShadow} hover:bg-${buttonHoverBG} hover:text-${buttonHoverTC} rounded-lg p-2`}
               onClick={updateButtonDropShadow}
             >
-              Toggle Button Drop Shadow
+              Toggle Button Drop Shadow (Current:{" "}
+              {buttonDropShadow ? "On" : "Off"})
             </Button>
           </div>
           <div className="flex flex-col items-center justify-center">
@@ -166,12 +167,12 @@ export default function TestPage() {
                 </a>
                 <div>
                   <h2
-                    className={`text-sm transition duration-1000 ease-in-out md:py-4 md:text-2xl text-${cardTC} hover:text-${cardHoverTC}`}
+                    className={`text-sm transition duration-1000 ease-in-out md:py-4 md:text-2xl text-${cardTC} hover:text-${cardHoverTC} ${titleDropShadow}`}
                   >
                     This is the title!!
                   </h2>
                   <p
-                    className={`max-h-40 max-w-2xl overflow-hidden text-center text-${cardDC} hover:text-${cardHoverDC}`}
+                    className={`max-h-40 max-w-2xl overflow-hidden text-center text-${cardDC} hover:text-${cardHoverDC} ${descriptionDropShadow}`}
                   >
                     This is the description. I made it longer because that is
                     the way it likely will be. I am not sure what else to say. I
@@ -321,12 +322,12 @@ export default function TestPage() {
             </a>
             <div className="pt-4 text-center drop-shadow-lg">
               <h2
-                className={`text-sm md:text-2xl text-${cardTC} hover:text-${cardHoverTC}`}
+                className={`text-sm md:text-2xl text-${cardTC} hover:text-${cardHoverTC} ${titleDropShadow}`}
               >
                 This is a test tite
               </h2>
               <p
-                className={`text-center text-${cardDC} hover:text-${cardHoverDC}`}
+                className={`text-center text-${cardDC} hover:text-${cardHoverDC} ${descriptionDropShadow}`}
               >
                 This is a test description. It is noticeably longer than the
                 title. I am not sure what else to say. I am just typing random
