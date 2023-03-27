@@ -2,6 +2,8 @@
 
 import { ChangeEvent, useState } from "react"
 import Button from "../../../../components/Layout/Button"
+import useToast from "../../../../utils/useToast"
+import { useRouter } from "next/navigation"
 
 function FileUploadSingle() {
   const [file, setFile] = useState<File>()
@@ -9,6 +11,9 @@ function FileUploadSingle() {
   const [error, setError] = useState("")
   const [success, setSuccess] = useState(false)
   const [type, setType] = useState("Upload New Products and Ignore Existing")
+
+  const router = useRouter()
+  const addToast = useToast()
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -38,6 +43,8 @@ function FileUploadSingle() {
           setSuccess(true)
           setError("")
           setFile(undefined)
+          router.refresh()
+          addToast("Products created!", true)
         })
         .catch((err) => {
           console.log(err)
@@ -57,6 +64,8 @@ function FileUploadSingle() {
           setSuccess(true)
           setError("")
           setFile(undefined)
+          router.refresh()
+          addToast("Products updated!", true)
         })
         .catch((err) => {
           console.log(err)
