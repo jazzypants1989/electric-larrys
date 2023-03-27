@@ -108,19 +108,19 @@ export default function TestPage() {
       <div className="hidden bg-opacity-70 hover:bg-opacity-100"></div>
       <div className="hidden bg-opacity-100 hover:bg-opacity-70"></div>
       <main className="flex flex-col items-center justify-start">
-        <h1 className="text-4xl font-bold">Button</h1>
+        <h1 className="text-4xl font-bold text-orange drop-shadow">Button</h1>
         <Button
           className={`bg-${buttonBG} text-${buttonTC} ${buttonDropShadow} hover:bg-${buttonHoverBG} hover:text-${buttonHoverTC} rounded-lg p-2`}
         >
           Button
         </Button>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="flex flex-col items-center justify-center">
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-2xl font-bold">Button BG</h1>
+            <h1 className="text-lg font-bold">Button BG</h1>
             {colorSelectFactory(updateButtonBG)}
           </div>
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-2xl font-bold">Button Text Color</h1>
+            <h1 className="text-lg font-bold">Button Text Color</h1>
             {colorSelectFactory(updateButtonTC)}
             <Button
               className={`bg-${buttonBG} text-${buttonTC} ${buttonDropShadow} hover:bg-${buttonHoverBG} hover:text-${buttonHoverTC} rounded-lg p-2`}
@@ -131,18 +131,18 @@ export default function TestPage() {
             </Button>
           </div>
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-2xl font-bold">Button Hover BG</h1>
+            <h1 className="text-lg font-bold">Button Hover BG</h1>
             {colorSelectFactory(updateButtonHoverBG)}
           </div>
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-2xl font-bold">Button Hover Text Color</h1>
+            <h1 className="text-lg font-bold">Button Hover Text Color</h1>
             {colorSelectFactory(updateButtonHoverTC)}
           </div>
         </div>
         <div className="flex flex-col items-center justify-center">
-          <h1 className="text-4xl font-bold">Card</h1>
+          <h1 className="text-4xl font-bold text-orange drop-shadow">Card</h1>
           <article
-            className={`bg-opacity-${carouselOpacity} mx-2 flex max-h-full max-w-7xl items-center justify-around rounded-lg rounded-t-2xl bg-orange drop-shadow-2xl lg:mx-auto`}
+            className={`bg-opacity-${carouselOpacity} mx-2 flex max-h-full max-w-7xl items-center justify-around rounded-lg rounded-t-lg bg-orange drop-shadow-lg lg:mx-auto`}
           >
             <span className="relative top-0 bottom-0 z-20 m-auto ml-2 flex cursor-pointer items-center justify-center rounded-full bg-Green p-1 text-3xl text-blue opacity-70 transition-all duration-1000 ease-in-out hover:scale-110 hover:text-orange hover:opacity-100 md:p-2 md:text-5xl">
               <RiArrowLeftSFill />
@@ -167,12 +167,12 @@ export default function TestPage() {
                 </a>
                 <div>
                   <h2
-                    className={`text-sm transition duration-1000 ease-in-out md:py-4 md:text-2xl text-${cardTC} hover:text-${cardHoverTC} ${titleDropShadow}`}
+                    className={`text-sm transition duration-1000 ease-in-out md:py-4 md:text-lg text-${cardTC} hover:text-${cardHoverTC} ${titleDropShadow}`}
                   >
                     This is the title!!
                   </h2>
                   <p
-                    className={`max-h-40 max-w-2xl overflow-hidden text-center text-${cardDC} hover:text-${cardHoverDC} ${descriptionDropShadow}`}
+                    className={`max-h-40 max-w-lg overflow-hidden text-center text-${cardDC} hover:text-${cardHoverDC} ${descriptionDropShadow}`}
                   >
                     This is the description. I made it longer because that is
                     the way it likely will be. I am not sure what else to say. I
@@ -231,11 +231,11 @@ export default function TestPage() {
 
         <div className="grid grid-cols-2 gap-4">
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-2xl font-bold">Card BG</h1>
+            <h1 className="text-lg font-bold">Card BG</h1>
             {colorSelectFactory(updateCardBG)}
           </div>
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-2xl font-bold">Card Title Color</h1>
+            <h1 className="text-lg font-bold">Card Title Color</h1>
             {colorSelectFactory(updateCardTC)}
             <Button
               onClick={
@@ -249,7 +249,7 @@ export default function TestPage() {
             </Button>
           </div>
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-2xl font-bold">Card Description Color</h1>
+            <h1 className="text-lg font-bold">Card Description Color</h1>
             {colorSelectFactory(updateCardDC)}
             <Button
               onClick={
@@ -263,28 +263,29 @@ export default function TestPage() {
             </Button>
           </div>
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-2xl font-bold">Card Hover BG</h1>
+            <h1 className="text-lg font-bold">Card Hover BG</h1>
             {colorSelectFactory(updateCardHoverBG)}
           </div>
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-2xl font-bold">Card Hover Text Color</h1>
+            <h1 className="text-lg font-bold">Card Hover Text Color</h1>
             {colorSelectFactory(updateCardHoverTC)}
           </div>
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-2xl font-bold">Card Hover Description Color</h1>
+            <h1 className="text-lg font-bold">Card Hover Description Color</h1>
             {colorSelectFactory(updateCardHoverDC)}
           </div>
         </div>
+
+        <h1 className="text-2xl font-bold text-orange drop-shadow">
+          Other Examples (announcement and non-featured posts)
+        </h1>
         <div className="grid grid-cols-2 gap-4">
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-2xl font-bold">
-              Other Examples (announcement and featured products)
-            </h1>
             <div
-              className={`max-w-screen mx-auto mb-1 flex max-h-fit animate-dropDown flex-col items-center justify-center gap-1 rounded-t-2xl rounded-b-lg bg-${cardBG} bg-opacity-${cardBGOpacity} px-2 even:drop-shadow md:mb-1 hover:bg-${cardHoverBG}`}
+              className={`max-w-screen mx-auto mb-1 flex max-h-fit animate-dropDown flex-col items-center justify-center gap-1 rounded-t-lg rounded-b-lg bg-${cardBG} bg-opacity-${cardBGOpacity} px-2 even:drop-shadow md:mb-1 hover:bg-${cardHoverBG}`}
             >
               <h1
-                className={`text-center text-sm font-medium shadow-sm lg:text-2xl text-${cardTC} hover:text-${cardHoverTC} ${titleDropShadow}`}
+                className={`text-center text-sm font-medium shadow-sm lg:text-lg text-${cardTC} hover:text-${cardHoverTC} ${titleDropShadow}`}
               >
                 Announcement Title
               </h1>
@@ -322,7 +323,7 @@ export default function TestPage() {
             </a>
             <div className="pt-4 text-center drop-shadow-lg">
               <h2
-                className={`text-sm md:text-2xl text-${cardTC} hover:text-${cardHoverTC} ${titleDropShadow}`}
+                className={`text-sm md:text-lg text-${cardTC} hover:text-${cardHoverTC} ${titleDropShadow}`}
               >
                 This is a test tite
               </h2>
