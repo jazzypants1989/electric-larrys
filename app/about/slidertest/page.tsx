@@ -95,12 +95,10 @@ export default function TestPage() {
 
   // eslint-disable-next-line
   function colorSelectFactory(updateFunction: (e: ChangeEvent) => void) {
-    const defaultColor = updateFunction.name.split("update")[1].toLowerCase()
     return (
       <select
         className="rounded-lg bg-blue p-2 text-Green"
         onChange={updateFunction}
-        defaultValue={defaultColor}
       >
         {colors.map((color, index) => (
           <option key={index} value={color}>
