@@ -4,6 +4,25 @@ import { ChangeEvent, useState } from "react"
 import RiArrowLeftSFill from "../../../components/Home/Icons/RiArrowLeftSFill"
 import RiArrowRightSFill from "../../../components/Home/Icons/RiArrowRightSFill"
 import Button from "../../../components/Layout/Button"
+import ProductItem from "../../../components/Products/ProductItem"
+
+const product = {
+  id: "1",
+  slug: "product-1",
+  name: "Product 1",
+  description: "This is a product",
+  price: 100,
+  image: "/images/bg1.jpg",
+  isFeatured: true,
+  isPublished: true,
+  category: "category-1",
+  tags: ["tag-1", "tag-2"],
+  countInStock: 10,
+  createdAt: "2021-08-01T00:00:00.000Z",
+  updatedAt: "2021-08-01T00:00:00.000Z",
+  isOnSale: false,
+  salePrice: 0,
+}
 
 export default function TestPage() {
   const [buttonBG, setButtonBG] = useState("orange")
@@ -274,6 +293,41 @@ export default function TestPage() {
           <div className="flex flex-col items-center justify-center">
             <h1 className="text-2xl font-bold">Card Hover Description Color</h1>
             {colorSelectFactory(updateCardHoverDC)}
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="flex flex-col items-center justify-center">
+            <h1 className="text-2xl font-bold">
+              Other Examples (announcement and featured products)
+            </h1>
+            <div
+              className={`max-w-screen mx-auto mb-1 flex max-h-fit animate-dropDown flex-col items-center justify-center gap-1 rounded-t-2xl rounded-b-lg bg-${cardBG} bg-opacity-${cardBGOpacity} px-2 even:drop-shadow md:mb-1`}
+            >
+              <h1
+                className={`text-center text-sm font-medium shadow-sm lg:text-2xl text-${cardTC}`}
+              >
+                Announcement Title
+              </h1>
+              <p className={`max-w-screen text-center text-${cardDC}`}>
+                Announcement Description. I made it longer because that is the
+                way it likely will be. I am not sure what else to say. I am just
+                typing random words to fill up the space.
+              </p>
+              <a
+                href="http://www.google.com"
+                className="text-center text-Black opacity-70 hover:scale-110 hover:opacity-100"
+              >
+                Click here to learn more!
+              </a>
+            </div>
+          </div>
+          <div className="flex flex-col items-center justify-center">
+            <h1 className="text-2xl font-bold">Featured Products</h1>
+            <div
+              className={`flex w-auto transform flex-col items-center justify-center rounded-4xl object-contain transition-all duration-1000 ease-in-out hover:scale-110 bg-${cardBG} bg-opacity-${cardBGOpacity} p-2`}
+            >
+              <ProductItem product={product} />
+            </div>
           </div>
         </div>
       </main>
