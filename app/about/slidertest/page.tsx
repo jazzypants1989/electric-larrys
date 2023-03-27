@@ -126,7 +126,7 @@ export default function TestPage() {
               className={`bg-${buttonBG} text-${buttonTC} ${buttonDropShadow} hover:bg-${buttonHoverBG} hover:text-${buttonHoverTC} rounded-lg p-2`}
               onClick={updateButtonDropShadow}
             >
-              Button Drop Shadow
+              Toggle Button Drop Shadow
             </Button>
           </div>
           <div className="flex flex-col items-center justify-center">
@@ -280,14 +280,16 @@ export default function TestPage() {
               Other Examples (announcement and featured products)
             </h1>
             <div
-              className={`max-w-screen mx-auto mb-1 flex max-h-fit animate-dropDown flex-col items-center justify-center gap-1 rounded-t-2xl rounded-b-lg bg-${cardBG} bg-opacity-${cardBGOpacity} px-2 even:drop-shadow md:mb-1`}
+              className={`max-w-screen mx-auto mb-1 flex max-h-fit animate-dropDown flex-col items-center justify-center gap-1 rounded-t-2xl rounded-b-lg bg-${cardBG} bg-opacity-${cardBGOpacity} px-2 even:drop-shadow md:mb-1 hover:bg-${cardHoverBG}`}
             >
               <h1
-                className={`text-center text-sm font-medium shadow-sm lg:text-2xl text-${cardTC}`}
+                className={`text-center text-sm font-medium shadow-sm lg:text-2xl text-${cardTC} hover:text-${cardHoverTC} ${titleDropShadow}`}
               >
                 Announcement Title
               </h1>
-              <p className={`max-w-screen text-center text-${cardDC}`}>
+              <p
+                className={`max-w-screen text-center text-${cardDC} ${descriptionDropShadow} hover:text-${cardHoverDC}`}
+              >
                 Announcement Description. I made it longer because that is the
                 way it likely will be. I am not sure what else to say. I am just
                 typing random words to fill up the space.
@@ -318,10 +320,14 @@ export default function TestPage() {
               />
             </a>
             <div className="pt-4 text-center drop-shadow-lg">
-              <h2 className={`text-sm md:text-2xl text-${cardTC}`}>
+              <h2
+                className={`text-sm md:text-2xl text-${cardTC} hover:text-${cardHoverTC}`}
+              >
                 This is a test tite
               </h2>
-              <p className={`text-center text-${cardDC}`}>
+              <p
+                className={`text-center text-${cardDC} hover:text-${cardHoverDC}`}
+              >
                 This is a test description. It is noticeably longer than the
                 title. I am not sure what else to say. I am just typing random
                 words to fill up the space.
