@@ -4,28 +4,6 @@ import { ChangeEvent, useState } from "react"
 import RiArrowLeftSFill from "../../../components/Home/Icons/RiArrowLeftSFill"
 import RiArrowRightSFill from "../../../components/Home/Icons/RiArrowRightSFill"
 import Button from "../../../components/Layout/Button"
-import ProductItem from "../../../components/Products/ProductItem"
-import { Product } from "../../../utils/dataHooks/getProducts"
-
-const today = new Date(Date.now())
-const yesterday = new Date(Date.now() - 86400000)
-
-const product: Product = {
-  id: "1",
-  slug: "product-1",
-  name: "Product 1",
-  description: "This is a product",
-  price: 100,
-  image: "/images/bg1.jpg",
-  isFeatured: true,
-  category: "category-1",
-  tags: ["tag-1", "tag-2"],
-  countInStock: 10,
-  createdAt: yesterday,
-  updatedAt: today,
-  isOnSale: false,
-  salePrice: 0,
-}
 
 export default function TestPage() {
   const [buttonBG, setButtonBG] = useState("orange")
@@ -322,13 +300,43 @@ export default function TestPage() {
               </a>
             </div>
           </div>
-          <div className="flex flex-col items-center justify-center">
-            <h1 className="text-2xl font-bold">Featured Products</h1>
-            <div
-              className={`flex w-auto transform flex-col items-center justify-center rounded-4xl object-contain transition-all duration-1000 ease-in-out hover:scale-110 bg-${cardBG} bg-opacity-${cardBGOpacity} p-2`}
+          <div
+            className={`m-7 max-w-lg rounded-3xl p-7 transition-all duration-700 ease-in-out hover:scale-105 md:m-9 bg-${cardBG} bg-opacity-${cardBGOpacity} hover:bg-${cardHoverBG}`}
+          >
+            <a
+              className="flex items-center justify-center"
+              href="http://www.google.com"
+              target="_blank"
+              rel="noreferrer"
             >
-              <ProductItem product={product} />
+              <Image
+                src="/images/bg1.jpg"
+                alt="Picture of the SOME STUPID GODDAMN BULLSHIT"
+                width={350}
+                height={350}
+                className="rounded-3xl"
+              />
+            </a>
+            <div className="pt-4 text-center drop-shadow-lg">
+              <h2 className={`text-sm md:text-2xl text-${cardTC}`}>
+                This is a test tite
+              </h2>
+              <p className={`text-center text-${cardDC}`}>
+                This is a test description. It is noticeably longer than the
+                title. I am not sure what else to say. I am just typing random
+                words to fill up the space.
+              </p>
             </div>
+            <a
+              href="http://www.google.com"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Follow the link"
+            >
+              <h3 className="w-8/9 mt-2 rounded-lg py-1 text-center text-orange opacity-70 drop-shadow-lg transition-all duration-500 ease-in-out hover:scale-110 hover:border-2 hover:bg-orange hover:text-Black hover:opacity-100">
+                Check it out!
+              </h3>
+            </a>
           </div>
         </div>
       </main>
