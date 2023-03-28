@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useState } from "react"
-import { useSearchParams } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { Product, Products } from "../../utils/dataHooks/getProducts"
 import ProductItem from "../../components/Products/ProductItem"
 import SortBox from "../../components/Products/SortBox"
@@ -9,6 +9,7 @@ import Cheese from "../../components/Products/Cheese"
 import CategoryBox from "../../components/Products/CategoryBox"
 import TagBox from "../../components/Products/TagBox"
 import Button from "../../components/Layout/Button"
+import Spinner from "../../components/Layout/Spinner"
 
 export default function ProductsComponent({
   products,
@@ -29,32 +30,11 @@ export default function ProductsComponent({
   const [tag, setTag] = useState(queryTag ? queryTag.split(",") : [])
   const [sort, setSort] = useState("")
   const [page, setPage] = useState(1)
-
   const [expand, setExpand] = useState(true)
 
-  const filterProducts = (products: Products) => {
-    if (category) {
-      products = products.filter(
-        (product: Product) =>
-          product.category.toLowerCase() === category.toLowerCase()
-      )
-    }
-    if (tag) {
-      products = products.filter((product: Product) =>
-        tag.every(
-          (t) =>
-            product.tags.filter(
-              (tag: string) => tag.toLowerCase() === t.toLowerCase()
-            ).length > 0
-        )
-      )
-    }
-    if (sort) {
-      products = products.sort(sortCallback)
-    }
+  const [searching, setSearching] = useState(false)
 
-    return products
-  }
+  const filteredProducts = filterProducts(products)
 
   const sortCallback = useCallback(
     (a: Product, b: Product) => {
@@ -83,10 +63,33 @@ export default function ProductsComponent({
     [sort]
   )
 
-  const filteredProducts = filterProducts(products)
   const sortedProducts = filteredProducts.sort(sortCallback).slice(0, 20)
 
   const [shownProducts, setShownProducts] = useState(() => sortedProducts)
+
+  function filterProducts(products: Products) {
+    if (category) {
+      products = products.filter(
+        (product: Product) =>
+          product.category.toLowerCase() === category.toLowerCase()
+      )
+    }
+    if (tag) {
+      products = products.filter((product: Product) =>
+        tag.every(
+          (t) =>
+            product.tags.filter(
+              (tag: string) => tag.toLowerCase() === t.toLowerCase()
+            ).length > 0
+        )
+      )
+    }
+    if (sort) {
+      products = products.sort(sortCallback)
+    }
+
+    return products
+  }
 
   const clearFilter = () => {
     setCategory("")
@@ -104,6 +107,8 @@ export default function ProductsComponent({
     }
   }
 
+  const router = useRouter()
+
   const getProducts = (pageParam: number) => {
     console.log(`page is ${page}, pageParam is ${pageParam}`)
     if (pageParam === 1) {
@@ -117,17 +122,12 @@ export default function ProductsComponent({
     setPage(pageParam)
   }
 
-  const searchProducts = (searchTerm: string) => {
-    const newProducts = products.filter(
-      (product: Product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.tags.some((tag: string) =>
-          tag.toLowerCase().includes(searchTerm.toLowerCase())
-        ) ||
-        product.category.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+  const searchProducts = async (searchTerm: string) => {
+    const data = await fetch(`/api/search?search=${searchTerm}`)
+    const newProducts = await data.json()
+
     setShownProducts(newProducts)
+    setSearching(false)
   }
 
   useEffect(() => {
@@ -138,15 +138,46 @@ export default function ProductsComponent({
       setTag(queryTag.split(","))
     }
     if (querySearch) {
+      setSearching(true)
       searchProducts(querySearch)
       setPage(2)
       setSort("")
     }
   }, [queryCategory, queryTag, querySearch]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  if (searching) {
+    return (
+      <div className="flex items-center justify-center">
+        <h3 className="m-4 text-center text-lg text-Yellow drop-shadow md:text-3xl">
+          Searching...
+        </h3>
+        <Spinner />
+      </div>
+    )
+  }
+
   return (
     <>
-      <Cheese category={category} tag={tag} clearFilter={clearFilter} />
+      <Cheese
+        search={querySearch}
+        category={category}
+        tag={tag}
+        clearFilter={clearFilter}
+      />
+      {querySearch && querySearch.length > 0 && (
+        <div className="flex items-center justify-center">
+          <Button
+            type="button"
+            onClick={() => {
+              router.push("/products")
+              getProducts(1)
+            }}
+            className="bg-Yellow text-sm font-thin text-orange"
+          >
+            Clear Search
+          </Button>
+        </div>
+      )}
       {sortedProducts.length === 0 && (
         <div className="flex justify-center">
           <h3 className="m-4 text-center text-lg text-Yellow drop-shadow md:text-3xl">
@@ -161,9 +192,6 @@ export default function ProductsComponent({
             We have a lot of crazy stuff, but it looks like we don&apos;t have{" "}
             {`${querySearch}`} in our inventory.
           </h3>
-          <Button type="button" onClick={() => getProducts(1)}>
-            Clear Search
-          </Button>
         </div>
       )}
       <div className="mt-4 grid grid-cols-1 gap-4 overflow-hidden md:grid-cols-3 lg:grid-cols-4">
@@ -197,7 +225,7 @@ export default function ProductsComponent({
                 <Button
                   type="button"
                   onClick={clearFilter}
-                  className="-z-10 m-2 w-3/5 bg-Yellow text-sm font-thin text-orange"
+                  className="-z-10 m-2 w-3/5 bg-Yellow text-sm font-thin text-orange "
                 >
                   Clear All Filters
                 </Button>

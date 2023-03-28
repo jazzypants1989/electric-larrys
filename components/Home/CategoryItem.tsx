@@ -8,16 +8,15 @@ function imageLinkBuilder(image: string) {
 }
 
 const images = {
-  "Media": "e_improve/v1678404453/movies.jpg",
-  "Games":
-    "/w_1000,ar_1:1,c_fill,g_auto,e_improve/v1678403245/319125505_482600527344181_1113826939205737358_n_rtvr7q.jpg",
+  "Movies/TV": "e_improve/v1678404453/movies.jpg",
+  "Video Games":
+    "/w_1000,ar_1:1,c_fill,g_auto,e_improve/v1678403243/video-games.jpg",
+  "Board Games":
+    "/w_1000,ar_1:1,c_fill,g_auto,e_improve/v1678403244/board-games.jpg",
   "Toys": "/w_1000,ar_1:1,c_fill,g_auto,e_improve/v1678403245/toys.jpg",
-  "Books":
-    "/w_1000,ar_1:1,c_fill,g_auto,e_improve/v1678403244/319660582_1598822214284266_1561878818922412587_n_lvbe5v.jpg",
-  "Electronics":
-    "/w_1000,ar_1:1,c_fill,g_auto,e_improve/v1678403243/319328724_564363195510578_5093038599162007092_n_fvgf0m.jpg",
-  "Oddities":
-    "w_1000,ar_1:1,c_fill,g_auto,e_improve/v1678403245/318657359_1319492078883086_4891519022965311904_n_icfdeo.jpg",
+  "Books": "/w_1000,ar_1:1,c_fill,g_auto,e_improve/v1678403245/books.jpg",
+  "Pop Culture":
+    "/w_1000,ar_1:1,c_fill,g_auto,e_improve/v1678403245/pop-culture.jpg",
 } as const
 
 const CategoryItem = ({ category }: { category: keyof typeof images }) => {
@@ -25,11 +24,7 @@ const CategoryItem = ({ category }: { category: keyof typeof images }) => {
 
   return (
     <Link
-      href={
-        categoryToLowerCase === "oddities"
-          ? "/products?tag=oddities"
-          : `/products?category=${categoryToLowerCase}`
-      }
+      href={`/products?category=${categoryToLowerCase}`}
       className="flex animate-swoosh flex-col items-center justify-center"
     >
       <Image

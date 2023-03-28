@@ -1,12 +1,9 @@
-import { NextApiRequest, NextApiResponse } from "next"
 import db from "../../../../utils/prisma"
 
-const deleteHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+export async function DELETE() {
   const products = await db.product.deleteMany()
 
-  console.log(products)
-
-  res.send({ message: "Products deleted successfully" })
+  return new Response(JSON.stringify(products), {
+    status: 200,
+  })
 }
-
-export default deleteHandler

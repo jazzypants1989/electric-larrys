@@ -97,6 +97,32 @@ export default function AdminProductsScreen({
     }
   }
 
+  const exportHandler = async () => {
+    fetch("/api/admin/products/export", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/pdf",
+      },
+    })
+      .then((response) => response.blob())
+      .then((blob) => {
+        // Create blob link to download
+        const url = window.URL.createObjectURL(new Blob([blob]))
+        const link = document.createElement("a")
+        link.href = url
+        link.setAttribute("download", "products.csv")
+
+        // Append to html link element page
+        document.body.appendChild(link)
+
+        // Start download
+        link.click()
+
+        // Clean up and remove the link
+        link.parentNode?.removeChild(link)
+      })
+  }
+
   useEffect(() => {
     if (successDelete) {
       dispatch({ type: "DELETE_RESET" })
@@ -117,6 +143,9 @@ export default function AdminProductsScreen({
           onClick={() => router.push("/admin/products/import")}
         >
           {loadingCreate ? "Loading..." : "Import a CSV"}
+        </Button>
+        <Button disabled={loadingCreate} onClick={exportHandler}>
+          {loadingCreate ? "Loading..." : "Export a CSV"}
         </Button>
       </div>
       <div className="overflow-auto rounded-lg border-b shadow">
@@ -140,6 +169,7 @@ export default function AdminProductsScreen({
               </th>
               <th className="text-center md:px-2">COUNT IN STOCK</th>
               <th className="text-center md:px-2">FEATURED</th>
+              <th className="text-center md:px-2">ON SALE</th>
               <th className="text-center md:px-2">ACTIONS</th>
             </tr>
           </thead>
@@ -165,7 +195,10 @@ export default function AdminProductsScreen({
                   {product.countInStock}
                 </td>
                 <td className="border-r-2 border-r-orange text-center md:px-4">
-                  {!product.isFeatured ? "❌" : "💯"}
+                  {product.isFeatured ? "💯" : "❌"}
+                </td>
+                <td className="border-r-2 border-r-orange text-center md:px-4">
+                  {product.isOnSale ? "💯" : "❌"}
                 </td>
                 <td className="text-center">
                   <Button

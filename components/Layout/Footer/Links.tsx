@@ -19,10 +19,10 @@ export default function Links() {
             <Link href="/products">All products</Link>
           </li>
           <li className="p-1 font-thin hover:scale-125 hover:text-Yellow">
-            <Link href="/products?category=media">Media</Link>
+            <Link href="/products?category=movies/tv">Movies/TV</Link>
           </li>
           <li className="p-1 font-thin hover:scale-125 hover:text-Yellow">
-            <Link href="/products?category=games">Games</Link>
+            <Link href="/products?category=board%20games">Board Games</Link>
           </li>
           <li className="p-1 font-thin hover:scale-125 hover:text-Yellow">
             <Link href="/products?category=toys">Toys</Link>
@@ -31,7 +31,7 @@ export default function Links() {
             <Link href="/products?category=books">Books</Link>
           </li>
           <li className="p-1 font-thin hover:scale-125 hover:text-Yellow">
-            <Link href="/products?category=electronics">Electronics</Link>
+            <Link href="/products?category=pop%20culture">Pop Culture</Link>
           </li>
           <li className="p-1 font-thin hover:scale-125 hover:text-Yellow">
             <Link href="/profile">My Account</Link>

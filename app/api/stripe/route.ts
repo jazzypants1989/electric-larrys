@@ -18,6 +18,30 @@ export async function POST(req: NextRequest) {
   const data = await req.json()
   const cartItems = data.cartItems as CartItem[]
 
+  function computeShipping(cartItems: CartItem[]) {
+    // compute the total price of the cart
+    const total = cartItems.reduce((acc, item) => {
+      return acc + item.product.price * item.quantity
+    }, 0)
+
+    // if total is greater than $100, free shipping
+    if (total > 100) {
+      return 0
+    }
+
+    console.log("total", total)
+
+    // otherwise, $4.99 shipping per item
+    return cartItems.reduce((acc, item) => {
+      return acc + item.quantity * 499
+    }, 0)
+  }
+
+  const shipping = computeShipping(cartItems)
+
+  const displayName =
+    shipping === 0 ? "Free Shipping (over $100)" : "Total Cost (4.99 per item)"
+
   function createLineItems() {
     return cartItems.map((item) => ({
       price_data: {
@@ -48,10 +72,10 @@ export async function POST(req: NextRequest) {
           shipping_rate_data: {
             type: "fixed_amount",
             fixed_amount: {
-              amount: 1000,
+              amount: shipping,
               currency: "usd",
             },
-            display_name: "Standard Shipping",
+            display_name: displayName,
             delivery_estimate: {
               minimum: {
                 unit: "business_day",
@@ -60,26 +84,6 @@ export async function POST(req: NextRequest) {
               maximum: {
                 unit: "business_day",
                 value: 20,
-              },
-            },
-          },
-        },
-        {
-          shipping_rate_data: {
-            type: "fixed_amount",
-            fixed_amount: {
-              amount: 4000,
-              currency: "usd",
-            },
-            display_name: "Express Shipping",
-            delivery_estimate: {
-              minimum: {
-                unit: "business_day",
-                value: 1,
-              },
-              maximum: {
-                unit: "business_day",
-                value: 5,
               },
             },
           },

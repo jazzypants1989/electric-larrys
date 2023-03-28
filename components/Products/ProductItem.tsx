@@ -50,24 +50,35 @@ export default function ProductItem({ product }: { product: Product }) {
   }
 
   return (
-    <Card className="m-2 p-2 drop-shadow transition-all duration-500 ease-in-out hover:translate-y-1 hover:shadow-2xl hover:shadow-orange">
+    <Card className="m-2 p-2 drop-shadow-xl transition-all duration-500 ease-in-out hover:translate-y-1 hover:shadow-2xl hover:shadow-orange">
       <Link href={`/products/${product.slug}`} className="w-fit" passHref>
         <Image
           src={product.image}
           alt={product.name}
-          width={333}
-          height={333}
+          width={200}
+          height={150}
           className="rounded-2xl"
         />
       </Link>
       <div className="flex flex-col items-center justify-center p-5 transition-all duration-300 ease-in-out hover:scale-110">
         <Link href={`/products/${product.slug}`} passHref>
-          <h2 className="text-xl text-orange">{product.name}</h2>
+          <h2 className="text-xl text-Yellow">{product.name}</h2>
         </Link>
-        <p className="mb-2">{product.category}</p>
-        <p>${product.price}</p>
+        <p className="mb-2 text-Black">{product.category}</p>
+        {product.isOnSale ? (
+          <>
+            <p className="mb-2 text-lg text-Red line-through">
+              ${product.price}
+            </p>
+            <p className="mb-2 text-lg text-Yellow">
+              On Sale! ${product.salePrice}
+            </p>
+          </>
+        ) : (
+          <p className="text-lg">${product.price}</p>
+        )}
         <Button
-          className="add-to-cart drop-shadow"
+          className="add-to-cart"
           type="button"
           onClick={() => addToCartHandler(product)}
         >

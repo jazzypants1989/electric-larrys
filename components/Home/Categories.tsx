@@ -1,12 +1,12 @@
 import CategoryItem from "./CategoryItem"
 
 const categories = [
-  "Media",
-  "Games",
+  "Movies/TV",
+  "Video Games",
+  "Board Games",
   "Toys",
   "Books",
-  "Electronics",
-  "Oddities",
+  "Pop Culture",
 ] as const
 
 const CategoryList = () => {

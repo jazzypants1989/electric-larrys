@@ -127,7 +127,19 @@ export default function ProductPage({
           <div className="card p-5">
             <div className="mb-2 flex justify-center">
               <div className="p-2 text-orange">Price</div>
-              <div className="p-2 text-lg">${product.price}</div>
+              {product.isOnSale ? (
+                <>
+                  <div className="p-2 text-base text-Red line-through drop-shadow-md">
+                    ${product.price}
+                  </div>
+                  <div className="p-2 text-lg text-Yellow">
+                    ${product.salePrice}
+                  </div>
+                  <span className="p-2 text-sm text-orange">On Sale Now!</span>
+                </>
+              ) : (
+                <div className="p-2 text-lg text-Yellow">${product.price}</div>
+              )}
             </div>
             <div className="mb-2 flex justify-center">
               <div className="p-2 text-left text-orange">In Stock? </div>

@@ -5,14 +5,23 @@ export default function Cheese({
   category,
   tag,
   clearFilter,
+  search,
 }: {
   category: string
   tag: string[]
   clearFilter: () => void
+  search: string | null | undefined
 }) {
   let cheese: ReactNode
 
   switch (true) {
+    case search && search.length > 0:
+      cheese = (
+        <h2 className="mb-4 mt-2 text-center text-lg drop-shadow md:text-3xl">
+          Oh, so you want some {search}?
+        </h2>
+      )
+      break
     case category.length > 0 && tag.length > 2:
       cheese = (
         <>

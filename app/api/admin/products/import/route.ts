@@ -97,9 +97,62 @@ function csvToJson(csv: string) {
   return JSON.stringify(result)
 }
 
+export async function GET() {
+  // get the current products from the database
+  const current = await currentProducts()
+
+  // convert the products to csv
+  const csv = jsonToCsv(JSON.stringify(current))
+
+  // send the response as a file
+
+  return new Response(csv, {
+    headers: {
+      "Content-Type": "text/csv",
+      "Content-Disposition": "attachment; filename=products.csv",
+    },
+  })
+}
+
+function jsonToCsv(json: string) {
+  // 1. Parse the JSON string into an array of objects
+  const products = JSON.parse(json)
+
+  // 2. Create the result string
+  let result = ""
+
+  // 3. Add headers to the result string
+  const headers = Object.keys(products[0])
+  result += headers.join(",") + "\n"
+
+  // 4. Loop through the products
+  for (let i = 0; i < products.length; i++) {
+    // 4.1. Loop through the keys of the product
+    for (const key in products[i]) {
+      // 4.1.1. If the key is not the last key, add a comma
+      if (
+        key !== Object.keys(products[i])[Object.keys(products[i]).length - 1]
+      ) {
+        result += products[i][key] + ","
+      } else {
+        // 4.1.2. If the key is the last key, add a new line
+        result += products[i][key] + "\n"
+      }
+    }
+  }
+
+  // 5. Return the result string
+  return result
+}
+
 function createSlug(product: DBProduct) {
+  if (!product["Item Name"]) return
+
   // Get the slug from the Reference Handle
-  const slug = product["Reference Handle"].substring(1) // remove the hash at the beginning
+  const slug =
+    product["Reference Handle"].charAt(0) === "#" // check if the first character is a hash
+      ? product["Reference Handle"].substring(1) // remove the hash at the beginning of the slug if it exists
+      : product["Reference Handle"] // otherwise, use the slug as-is
 
   // If the slug ends with a dash, remove it
   if (slug.charAt(slug.length - 1) === "-") {
@@ -119,11 +172,12 @@ function createSlug(product: DBProduct) {
 // This function takes a product from the database and transforms it into a product that can be used in the frontend
 // Note: The image, description, isFeatured, isOnSale, and salePrice properties are hardcoded because they are not included in the csv
 function transformProduct(product: DBProduct) {
+  if (!product["Item Name"]) return
   return {
     name: product["Item Name"],
     slug: createSlug(product),
     image:
-      "https://res.cloudinary.com/jovial-penguin/image/upload/c_thumb,w_400,g_face/v1678403244/319886454_675169010823442_2415112957092316693_n_wurxol.jpg",
+      "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403244/319886454_675169010823442_2415112957092316693_n_wurxol.jpg",
     price: Number(product["Price"]),
     category: product["Category"],
     tags: ["oddities"],
@@ -142,7 +196,9 @@ async function currentProducts() {
 
 async function createProducts(products: DBProduct[]) {
   for (let i = 0; i < products.length; i++) {
+    if (!products[i]["Item Name"]) continue
     const product = await db.product.create({
+      // @ts-ignore
       data: transformProduct(products[i]),
     })
 
@@ -152,8 +208,10 @@ async function createProducts(products: DBProduct[]) {
 
 async function updateProducts(products: DBProduct[]) {
   for (let i = 0; i < products.length; i++) {
+    if (!products[i]["Item Name"]) continue
     const product = await db.product.update({
       where: { slug: createSlug(products[i]) },
+      // @ts-ignore
       data: transformProduct(products[i]),
     })
 

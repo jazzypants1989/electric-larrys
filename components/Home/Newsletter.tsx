@@ -38,7 +38,7 @@ const Newsletter = () => {
   }
 
   return (
-    <div className="bg-transparent flex w-full flex-col items-center justify-center md:h-96">
+    <div className="flex w-full flex-col items-center justify-center md:h-96">
       <h4 className="text-center text-4xl text-orange drop-shadow">
         Become a Larry!
       </h4>
@@ -48,10 +48,10 @@ const Newsletter = () => {
       </p>
       <form
         onSubmit={handleSubmit(submitHandler)}
-        className="bg-transparent after:z-1 flex h-12 w-1/2 items-center justify-center text-orange outline-none transition-all after:absolute after:h-full after:w-full after:origin-right after:scale-x-0 after:bg-orange after:transition-all after:content-none hover:-translate-y-1 hover:border-2 hover:shadow-2xl hover:after:origin-left hover:after:scale-x-110"
+        className="flex h-12 w-1/2 items-center justify-center text-orange outline-none transition-all md:w-1/3"
       >
         <input
-          className="bg-transparent h-full w-full max-w-7xl text-orange placeholder-orange outline-none"
+          className="focus:border-transparent h-full w-full max-w-7xl text-orange placeholder-orange outline-none transition-all duration-500 ease-in-out hover:bg-orange hover:text-Yellow focus:outline-none focus:ring-2 focus:ring-orange focus:ring-opacity-50 focus:ring-offset-2 focus:ring-offset-orange active:bg-orange active:text-Yellow md:text-lg"
           type="email"
           placeholder="I won't spam you, I promise."
           aria-label="Enter your email address"
@@ -61,7 +61,7 @@ const Newsletter = () => {
           })}
         />
         <button
-          className="bg-transparent w-fit flex-shrink cursor-pointer border-none p-2 text-orange transition-all duration-500 ease-in-out hover:bg-orange hover:text-Green md:text-lg"
+          className="focus:border-transparent w-fit flex-shrink cursor-pointer rounded-lg border-none bg-orange p-2 text-Yellow transition-all duration-500 ease-in-out hover:bg-Yellow hover:text-orange focus:outline-none focus:ring-2 focus:ring-orange focus:ring-opacity-50 focus:ring-offset-2 focus:ring-offset-orange md:text-lg"
           type="submit"
           aria-label="Submit"
         >
@@ -69,7 +69,12 @@ const Newsletter = () => {
         </button>
 
         {errors.email && (
-          <p className="text-center text-Red">{errors.email.message}</p>
+          <p
+            className="
+          text-white absolute top-0 right-0 w-fit rounded-lg bg-Red p-1 text-center text-xs"
+          >
+            {errors.email.message}
+          </p>
         )}
       </form>
     </div>

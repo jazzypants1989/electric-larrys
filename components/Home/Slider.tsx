@@ -37,152 +37,61 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
   const sliderPost = sliderPosts.map((sliderPost: IPost, index: number) => {
     const { title, description, link, image } = sliderPost
 
-    // LINK AND IMAGE PRESENT
-
-    let sliderPostWithImageAndLink = (
+    return (
       <div
         className={index === current ? `w-fit ${animation}` : "w-fit"}
         key={index}
       >
         {index === current && (
-          <div className="m-auto flex items-center justify-center gap-2 rounded-4xl bg-orange py-8 px-2 text-center text-Black transition duration-1000 ease-in-out hover:bg-blue">
-            <a href={link!} target="_blank" rel="noreferrer">
-              <Image
-                src={image!}
-                alt={title}
-                width={333}
-                height={333}
-                priority
-                className="rounded-4xl"
-              />
-            </a>
-            <div className="">
-              <h2 className="text-sm text-Yellow transition duration-1000 ease-in-out md:py-4 md:text-2xl md:hover:text-orange">
-                {title}
-              </h2>
-              <p className="max-h-40 max-w-2xl overflow-hidden text-center text-Green">
-                {description}
-              </p>
+          <div className="m-auto flex items-center justify-center gap-2 rounded-4xl bg-Green py-8 px-2 text-center transition duration-1000 ease-in-out hover:bg-orange hover:text-Yellow">
+            {link && image && (
               <a href={link!} target="_blank" rel="noreferrer">
-                <button
-                  aria-label="Follow the link"
-                  className="w-8/9 mt-2 w-full rounded-lg bg-orange py-1 text-center text-Green opacity-90 drop-shadow-lg transition-all duration-500 ease-in-out hover:scale-95 hover:border-2 hover:bg-Green hover:text-blue hover:opacity-100"
-                >
-                  Check it out!
-                </button>
+                <Image
+                  src={image!}
+                  alt={title}
+                  width={333}
+                  height={333}
+                  priority
+                  className="rounded-4xl"
+                />
               </a>
-            </div>
-          </div>
-        )}
-      </div>
-    )
-
-    // IMAGE BUT NO LINK
-
-    let sliderPostWithImage = (
-      <div
-        className={index === current ? `w-fit ${animation}` : "w-fit"}
-        key={index}
-      >
-        {index === current && (
-          <div className="m-auto flex items-center justify-center rounded-4xl bg-orange py-8 text-center opacity-100 transition duration-1000 ease-in-out hover:bg-Green hover:text-Black ">
-            <div className="aspect-auto object-cover">
-              <Image
-                src={image!}
-                alt={title}
-                width={333}
-                height={333}
-                priority
-                className="rounded-4xl"
-              />
-            </div>
-            <div className="">
-              <h2 className="max-w-2xl text-sm text-Yellow drop-shadow-2xl transition duration-1000 ease-in-out md:text-2xl md:hover:text-orange">
+            )}
+            {image && !link && (
+              <div className="flex items-center justify-center">
+                <Image
+                  src={image!}
+                  alt={title}
+                  width={333}
+                  height={333}
+                  priority
+                  className="rounded-4xl"
+                />
+              </div>
+            )}
+            <div className="items-center justify-center text-center">
+              <h2 className="text-sm text-blue transition duration-1000 ease-in-out hover:scale-105 hover:text-Yellow md:py-4 md:text-2xl ">
                 {title}
               </h2>
-              <p className="max-h-40 w-full overflow-hidden text-center drop-shadow md:max-h-80">
+              <p className="m-auto max-h-40 max-w-2xl self-center overflow-hidden text-center text-xs text-Black transition duration-1000 ease-in-out md:text-sm">
                 {description}
               </p>
+              {link && (
+                <a href={link!} target="_blank" rel="noreferrer">
+                  <button
+                    aria-label="Follow the link"
+                    className="w-8/9 mt-2 w-full rounded-lg bg-orange py-1 text-center text-Green opacity-90 drop-shadow-lg transition-all duration-500 ease-in-out hover:scale-95 hover:border-2 hover:bg-Green hover:text-blue hover:opacity-100"
+                  >
+                    Check it out!
+                  </button>
+                </a>
+              )}
             </div>
           </div>
         )}
       </div>
     )
-
-    // LINK BUT NO IMAGE
-
-    let sliderPostWithLink = (
-      <div
-        className={
-          index === current || 0
-            ? `${animation} m-auto`
-            : "m-auto animate-searchSlide"
-        }
-        key={index}
-      >
-        {index === current && (
-          <div
-            className={`mx-1 grid items-center justify-center rounded-4xl bg-orange bg-opacity-100 text-center transition duration-1000 ease-in-out hover:bg-opacity-50 hover:text-Black hover:drop-shadow-lg md:hover:bg-Green `}
-          >
-            <a href={link!} target="_blank" rel="noreferrer">
-              <h2 className="p-2 text-lg text-Yellow drop-shadow-lg transition-all duration-1000 ease-in-out md:text-3xl md:hover:text-orange">
-                {title}
-              </h2>
-            </a>
-            <p className="max-h-40 w-full overflow-hidden drop-shadow md:max-h-80">
-              {description}
-            </p>
-            <a href={link!} target="_blank" rel="noreferrer">
-              <button
-                aria-label="Follow the link"
-                className="w-7/9 mt-2 w-full rounded-lg bg-Green py-1 text-center text-blue opacity-70 drop-shadow-lg transition-all duration-500 ease-in-out hover:scale-95 hover:border-2 hover:bg-orange hover:text-Black hover:opacity-100"
-              >
-                Check it out!
-              </button>
-            </a>
-          </div>
-        )}
-      </div>
-    )
-
-    // NO IMAGE OR LINK
-
-    let sliderPostNoImageOrLink = (
-      <div
-        className={
-          index === current || 0
-            ? `${animation} m-auto`
-            : "m-auto animate-searchSlide "
-        }
-        key={index}
-      >
-        {index === current && (
-          <div
-            className={`m-auto grid items-center justify-center rounded-4xl bg-orange text-center transition duration-1000 ease-in-out hover:bg-opacity-50 hover:text-Black md:hover:bg-Green`}
-          >
-            <div className="grid items-center justify-center p-5 text-center  ">
-              <h2 className="p-2 text-base text-Yellow drop-shadow-2xl transition duration-1000 ease-in-out md:text-2xl md:hover:text-orange">
-                {title}
-              </h2>
-              <p className="max-h-40 w-full overflow-hidden text-center drop-shadow">
-                {description}
-              </p>
-            </div>
-          </div>
-        )}
-      </div>
-    )
-
-    if (image && link) {
-      return sliderPostWithImageAndLink
-    } else if (image && !link) {
-      return sliderPostWithImage
-    } else if (!image && link) {
-      return sliderPostWithLink
-    } else {
-      return sliderPostNoImageOrLink
-    }
   })
+
   return (
     <>
       <article className="mx-2 flex max-h-full max-w-7xl items-center justify-around rounded-lg rounded-t-2xl bg-orange bg-opacity-70 drop-shadow-2xl lg:mx-auto">
