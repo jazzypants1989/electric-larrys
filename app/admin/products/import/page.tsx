@@ -39,12 +39,11 @@ function FileUploadSingle() {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data)
           setSuccess(true)
           setError("")
           setFile(undefined)
           router.refresh()
-          addToast("Products created!", true)
+          addToast(data, true)
         })
         .catch((err) => {
           console.log(err)
@@ -60,12 +59,11 @@ function FileUploadSingle() {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data)
           setSuccess(true)
           setError("")
           setFile(undefined)
           router.refresh()
-          addToast("Products updated!", true)
+          addToast(data, true)
         })
         .catch((err) => {
           console.log(err)
@@ -134,25 +132,26 @@ function FileUploadSingle() {
 
       {success && type === "Upload New Products and Ignore Existing" && (
         <div className="text-xl text-Green drop-shadow">
-          Your file has been uploaded, and the products have been created!
+          <p>
+            Your file has been uploaded, and the products have been created!
+          </p>
+          <Button onClick={reset}>Reset</Button>
         </div>
       )}
 
       {success && type === "Update Existing Products" && (
         <div className="text-xl text-Green drop-shadow">
-          Your file has been uploaded, and the products have been updated!
+          <p>
+            Your file has been uploaded, and the products have been updated!
+          </p>
+          <Button onClick={reset}>Reset</Button>
         </div>
       )}
 
       {error && (
         <>
           <div className="text-xl text-Red drop-shadow">{error}</div>
-          <button
-            className="border border-orange bg-orange text-Green hover:bg-Green hover:text-orange"
-            onClick={reset}
-          >
-            Reset
-          </button>
+          <Button onClick={reset}>Reset</Button>
         </>
       )}
     </div>

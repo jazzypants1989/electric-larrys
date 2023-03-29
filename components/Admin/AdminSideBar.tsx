@@ -49,7 +49,7 @@ export default function AdminSideBar() {
   ]
 
   return (
-    <div className="flex max-h-screen w-fit flex-col border-orange drop-shadow md:pr-4 lg:border-r">
+    <div className="flex max-h-screen w-fit flex-col border-orange drop-shadow-xl hover:drop-shadow-md md:pr-4 lg:border-r">
       <div className="flex flex-col md:p-2">
         <div className="flex gap-4 md:flex-col md:gap-0">
           <div className="flex">

@@ -27,11 +27,15 @@ export async function POST(req: NextRequest) {
   // Create the new products
   await createProducts(newProducts)
 
-  // Send a response
-  return new Response(JSON.stringify("Products imported successfully"), {
-    // Yes, ladies and gentlemen. It's the old stringify a string maneuver.
-    status: 200,
-  })
+  if (newProducts.length > 0) {
+    return new Response(JSON.stringify("Products imported successfully"), {
+      status: 200,
+    })
+  } else {
+    return new Response(JSON.stringify("No new products to import"), {
+      status: 200,
+    })
+  }
 }
 
 export async function PUT(req: NextRequest) {
@@ -59,10 +63,19 @@ export async function PUT(req: NextRequest) {
   // update the found products
   await updateProducts(updatedProducts)
 
-  // send a response
-  return new Response(JSON.stringify("Products updated successfully"), {
-    status: 200,
-  })
+  // return a response with the number of products updated
+  if (updatedProducts.length > 0) {
+    return new Response(
+      JSON.stringify(`${updatedProducts.length} products updated`),
+      {
+        status: 200,
+      }
+    )
+  } else {
+    return new Response(JSON.stringify("No products to update"), {
+      status: 200,
+    })
+  }
 }
 
 function csvToJson(csv: string) {
@@ -95,54 +108,6 @@ function csvToJson(csv: string) {
 
   // 5. Return the result as a JSON string
   return JSON.stringify(result)
-}
-
-export async function GET() {
-  // get the current products from the database
-  const current = await currentProducts()
-
-  // convert the products to csv
-  const csv = jsonToCsv(JSON.stringify(current))
-
-  // send the response as a file
-
-  return new Response(csv, {
-    headers: {
-      "Content-Type": "text/csv",
-      "Content-Disposition": "attachment; filename=products.csv",
-    },
-  })
-}
-
-function jsonToCsv(json: string) {
-  // 1. Parse the JSON string into an array of objects
-  const products = JSON.parse(json)
-
-  // 2. Create the result string
-  let result = ""
-
-  // 3. Add headers to the result string
-  const headers = Object.keys(products[0])
-  result += headers.join(",") + "\n"
-
-  // 4. Loop through the products
-  for (let i = 0; i < products.length; i++) {
-    // 4.1. Loop through the keys of the product
-    for (const key in products[i]) {
-      // 4.1.1. If the key is not the last key, add a comma
-      if (
-        key !== Object.keys(products[i])[Object.keys(products[i]).length - 1]
-      ) {
-        result += products[i][key] + ","
-      } else {
-        // 4.1.2. If the key is the last key, add a new line
-        result += products[i][key] + "\n"
-      }
-    }
-  }
-
-  // 5. Return the result string
-  return result
 }
 
 function createSlug(product: DBProduct) {
