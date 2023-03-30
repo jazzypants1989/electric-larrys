@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
-import { Product, Products } from "../../utils/dataHooks/getProducts"
 import ProductItem from "../../components/Products/ProductItem"
 import SortBox from "../../components/Products/SortBox"
 import Cheese from "../../components/Products/Cheese"
@@ -10,6 +9,8 @@ import CategoryBox from "../../components/Products/CategoryBox"
 import TagBox from "../../components/Products/TagBox"
 import Button from "../../components/Layout/Button"
 import Spinner from "../../components/Layout/Spinner"
+
+import type { Products, Product } from "@/types"
 
 export default function ProductsComponent({
   products,
@@ -34,8 +35,6 @@ export default function ProductsComponent({
 
   const [searching, setSearching] = useState(false)
 
-  const filteredProducts = filterProducts(products)
-
   const sortCallback = useCallback(
     (a: Product, b: Product) => {
       if (sort === "lowest") {
@@ -56,12 +55,20 @@ export default function ProductsComponent({
         } else {
           return 1
         }
+      } else if (sort === "oldest") {
+        if (a.createdAt < b.createdAt) {
+          return -1
+        } else {
+          return 1
+        }
       } else {
         return 0
       }
     },
     [sort]
   )
+
+  const filteredProducts = filterProducts(products)
 
   const sortedProducts = filteredProducts.sort(sortCallback).slice(0, 20)
 

@@ -3,8 +3,9 @@
 import Image from "next/image"
 import { ChangeEvent, FormEvent, useState } from "react"
 import { useRouter } from "next/navigation"
-import { Product } from "../../../../utils/dataHooks/getProducts"
 import useToast from "../../../../utils/useToast"
+
+import type { Product } from "@/types"
 
 export default function ProductID({ product }: { product: Product }) {
   const addToast = useToast()

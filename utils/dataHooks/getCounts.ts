@@ -7,7 +7,6 @@ export const preload = () => {
 }
 
 export const getCounts = cache(async () => {
-  console.log("getCounts")
   const productsCount = await db.product.count()
   const usersCount = await db.user.count()
   const announcementsCount = await db.announcement.count()

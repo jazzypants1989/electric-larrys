@@ -1,10 +1,11 @@
-import type { Product } from "../../utils/dataHooks/getProducts"
 import ProductItem from "../Products/ProductItem"
+
+import type { Product, Products } from "@/types"
 
 export default function FeaturedProducts({
   featuredProducts,
 }: {
-  featuredProducts: Product[]
+  featuredProducts: Products
 }) {
   return (
     <div className="flex flex-col items-center justify-center">

@@ -6,12 +6,12 @@ import { useState } from "react"
 import useToast from "../../../../utils/useToast"
 import Button from "../../../../components/Layout/Button"
 
-import type { IAnnouncement } from "../../../../utils/dataHooks/getAllAnnouncements"
+import type { Announcement } from "@/types"
 
 export default function AnnouncementPage({
   announcement,
 }: {
-  announcement: IAnnouncement
+  announcement: Announcement
 }) {
   const addToast = useToast()
   const [loading, setLoading] = useState(false)
@@ -24,7 +24,7 @@ export default function AnnouncementPage({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IAnnouncement>({
+  } = useForm<Announcement>({
     defaultValues: {
       title,
       link,
@@ -33,7 +33,7 @@ export default function AnnouncementPage({
     },
   })
 
-  const onSubmit: SubmitHandler<IAnnouncement> = async (data) => {
+  const onSubmit: SubmitHandler<Announcement> = async (data) => {
     setLoading(true)
     setError("")
 

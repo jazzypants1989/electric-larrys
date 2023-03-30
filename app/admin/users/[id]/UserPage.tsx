@@ -1,10 +1,12 @@
 "use client"
 
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from "react-hook-form"
+
 import useToast from "../../../../utils/useToast"
-import { useState } from "react"
-import { User } from "../../../../utils/dataHooks/getUserByID"
+
+import type { User } from "@/types"
 
 export default function UserPage({ user }: { user: User }) {
   const addToast = useToast()

@@ -1,14 +1,16 @@
 "use client"
 
-import { User } from "next-auth"
-import Image from "next/image"
-import Store from "../../utils/Store"
-import { useAtom } from "jotai"
-import { SubmitHandler, useForm } from "react-hook-form"
 import { signOut } from "next-auth/react"
-import useToast from "../../utils/useToast"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
+import { SubmitHandler, useForm } from "react-hook-form"
+import { useAtom } from "jotai"
+
+import Store from "../../utils/Store"
+import useToast from "../../utils/useToast"
 import Button from "../../components/Layout/Button"
+
+import type { User } from "@/types"
 
 export default function ProfilePage({
   orders,
@@ -67,6 +69,7 @@ export default function ProfilePage({
         addToast(data.error, false)
       } else {
         addToast("Profile updated successfully", true)
+        router.refresh()
       }
     } catch (err) {
       addToast("Error updating profile", false)
@@ -121,8 +124,8 @@ export default function ProfilePage({
 
   return (
     <div className="flex-col items-center justify-center">
-      <h1 className="text-center text-3xl drop-shadow">Profile</h1>
-      <h2 className="text-center text-lg drop-shadow">User</h2>
+      <h1 className="text-center text-3xl text-orange drop-shadow">Profile</h1>
+      <h2 className="text-center text-lg drop-shadow">Current User:</h2>
       <h3 className="text-center drop-shadow">{user.name}</h3>
       <p className="text-center drop-shadow">{user.email}</p>
       {user.image && user.image !== "f" && (
@@ -140,26 +143,10 @@ export default function ProfilePage({
         className="mx-auto max-w-screen-md"
         onSubmit={handleSubmit(submitHandler)}
       >
-        <h1 className="mb-4 text-xl">Change Password</h1>
+        <h1 className="mb-4 text-xl">Change Name or Password</h1>
 
         <div className="mb-4">
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            className="w-full"
-            id="name"
-            autoFocus
-            {...register("name", {
-              required: "Please enter name",
-            })}
-          />
-          {errors.name && (
-            <div className="text-red-500">{errors.name.message}</div>
-          )}
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">Confirm Email</label>
           <input
             type="email"
             className="w-full"
@@ -178,7 +165,23 @@ export default function ProfilePage({
         </div>
 
         <div className="mb-4">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="name">Change Name?</label>
+          <input
+            type="text"
+            className="w-full"
+            id="name"
+            autoFocus
+            {...register("name", {
+              required: "Please enter name",
+            })}
+          />
+          {errors.name && (
+            <div className="text-red-500">{errors.name.message}</div>
+          )}
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="password">New Password</label>
           <input
             className="w-full"
             type="password"

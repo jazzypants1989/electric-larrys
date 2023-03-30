@@ -64,7 +64,6 @@ export async function PUT(
     )
   }
 
-  // if tags is not an array
   if (!Array.isArray(tags)) {
     return NextResponse.json(
       { message: "Tags must be an array" },

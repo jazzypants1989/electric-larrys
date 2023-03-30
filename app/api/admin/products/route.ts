@@ -1,7 +1,8 @@
 import { getCurrentUser } from "../../../../utils/session"
 import { NextRequest, NextResponse } from "next/server"
 import db from "../../../../utils/prisma"
-import { Product, Products } from "../../../../utils/dataHooks/getProducts"
+
+import type { Product } from "@/types"
 type CartItem = {
   id: string
   object: string
@@ -35,7 +36,6 @@ type CartItem = {
   quantity: number
 }
 
-// const postHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 export async function POST() {
   const user = await getCurrentUser()
 
@@ -54,7 +54,7 @@ export async function POST() {
       price: 10,
       category: "one category here, 1-3 words",
       tags: ["oddities", "miscellaneous"],
-      countInStock: 0,
+      countInStock: 1,
       description: "More details about the product",
       isFeatured: false,
       isOnSale: false,
@@ -76,7 +76,7 @@ export async function PUT(request: NextRequest) {
     },
   })
 
-  const updatedProducts = products.map((product: Product) => {
+  const updatedProducts = products.map((product) => {
     const cartItem = cartItems.find(
       (item: CartItem) => item.description === product.name
     )
@@ -99,7 +99,7 @@ export async function PUT(request: NextRequest) {
     }
   })
 
-  async function updateDB(products: Products) {
+  async function updateDB(products: Product[]) {
     for (const product of products) {
       await db.product.update({
         where: { id: product.id },
@@ -108,6 +108,7 @@ export async function PUT(request: NextRequest) {
     }
   }
 
+  // @ts-ignore
   await updateDB(updatedProducts)
 
   return NextResponse.json({

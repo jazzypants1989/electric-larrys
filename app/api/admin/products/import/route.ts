@@ -1,5 +1,4 @@
 import db from "../../../../../utils/prisma"
-import { Product } from "../../../../../utils/dataHooks/getProducts"
 import { NextRequest } from "next/server"
 
 export async function POST(req: NextRequest) {
@@ -21,7 +20,7 @@ export async function POST(req: NextRequest) {
     const slug = createSlug(product)
 
     // Check if the slug already exists in the database
-    return !current.some((p: Product) => p.slug === slug)
+    return !current.some((DBproduct) => DBproduct.slug === slug)
   })
 
   // Create the new products
@@ -57,7 +56,7 @@ export async function PUT(req: NextRequest) {
     const slug = createSlug(product)
 
     // return true if the slug is in the current products array
-    return current.some((p: Product) => p.slug === slug)
+    return current.some((DBproduct) => DBproduct.slug === slug)
   })
 
   // update the found products

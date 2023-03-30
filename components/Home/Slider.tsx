@@ -1,12 +1,14 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
+import Image from "next/image"
+
 import RiArrowLeftSFill from "./Icons/RiArrowLeftSFill"
 import RiArrowRightSFill from "./Icons/RiArrowRightSFill"
-import Image from "next/image"
-import type { IPost } from "../../utils/dataHooks/getFeaturedPosts"
 
-const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
+import type { Posts } from "@/types"
+
+const Slider = ({ sliderPosts }: { sliderPosts: Posts }) => {
   const [current, setCurrent] = useState(0)
   const [animation, setAnimation] = useState("animate-woosh")
   const length = sliderPosts.length
@@ -34,7 +36,7 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
     return null
   }
 
-  const sliderPost = sliderPosts.map((sliderPost: IPost, index: number) => {
+  const sliderPost = sliderPosts.map((sliderPost, index: number) => {
     const { title, description, link, image } = sliderPost
 
     return (
@@ -79,7 +81,7 @@ const Slider = ({ sliderPosts }: { sliderPosts: IPost[] }) => {
                 <a href={link!} target="_blank" rel="noreferrer">
                   <button
                     aria-label="Follow the link"
-                    className="w-8/9 mt-2 w-full rounded-lg bg-orange py-1 text-center text-Green opacity-90 drop-shadow-lg transition-all duration-500 ease-in-out hover:scale-95 hover:border-2 hover:bg-Green hover:text-blue hover:opacity-100"
+                    className="mt-2 w-full rounded-lg bg-orange py-1 text-center text-sm tracking-widest text-Yellow opacity-90 drop-shadow-lg transition-all duration-500 ease-in-out hover:scale-95 hover:border-2 hover:bg-Green hover:text-blue hover:opacity-100"
                   >
                     Check it out!
                   </button>

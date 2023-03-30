@@ -4,11 +4,12 @@ import Image from "next/image"
 import Link from "next/link"
 import { useAtom } from "jotai"
 
-import Card from "../../../components/Layout/Card"
 import Store, { CartItem, reactions } from "../../../utils/Store"
-import { Product } from "../../../utils/dataHooks/getProducts"
+import Card from "../../../components/Layout/Card"
 import useToast from "../../../utils/useToast"
 import Button from "../../../components/Layout/Button"
+
+import type { Product } from "@/types"
 
 export default function ProductPage({
   product,

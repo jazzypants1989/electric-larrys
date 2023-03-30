@@ -1,4 +1,4 @@
-import { IAnnouncement } from "../../utils/dataHooks/getAllAnnouncements"
+import type { Announcement as IAnnouncement } from "@/types"
 
 const Announcement = ({ announcement }: { announcement: IAnnouncement }) => {
   return (

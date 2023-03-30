@@ -1,9 +1,10 @@
 "use client"
 
 import { ChangeEvent, useState } from "react"
+import { useRouter } from "next/navigation"
+
 import Button from "../../../../components/Layout/Button"
 import useToast from "../../../../utils/useToast"
-import { useRouter } from "next/navigation"
 
 function FileUploadSingle() {
   const [file, setFile] = useState<File>()

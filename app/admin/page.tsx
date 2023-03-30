@@ -12,32 +12,37 @@ export default async function AdminDashboardScreen() {
   return (
     <>
       <div className="flex h-full w-full flex-col items-center justify-center">
-        <h1 className="mb-4 text-xl">Admin Dashboard</h1>
+        <h1 className="mb-4 text-xl text-orange drop-shadow">
+          Admin Dashboard!
+        </h1>
         <div className="grid grid-cols-1 md:grid-cols-5">
           <Card className="m-2 p-2">
-            <p className="text-3xl">{summary.productsCount} </p>
-            <p>Products</p>
-            <Link href="/admin/products">View products</Link>
+            <Link className="text-3xl" href="/admin/products">
+              {summary.productsCount}{" "}
+            </Link>
+            <Link href="/admin/products">products</Link>
           </Card>
           <Card className="m-2 p-2">
-            <p className="text-3xl">{summary.usersCount} </p>
-            <p>Users</p>
-            <Link href="/admin/users">View users</Link>
+            <Link className="text-3xl" href="/admin/users">
+              {summary.usersCount}
+            </Link>
+            <Link href="/admin/users">users</Link>
           </Card>
           <Card className="m-2 p-2">
-            <p className="text-3xl">{summary.announcementsCount} </p>
-            <p>Announcements</p>
-            <Link href="/admin/announcements">View announcements</Link>
+            <Link className="text-3xl" href="/admin/announcements">
+              {summary.announcementsCount}{" "}
+            </Link>
+            <Link href="/admin/announcements">announcements</Link>
           </Card>
           <Card className="m-2 p-2">
             <p className="text-3xl">{summary.notesCount} </p>
             <p>Notes</p>
-            <p className="text-orange">(Look below.)</p>
           </Card>
           <Card className="m-2 p-2">
-            <p className="text-3xl">{summary.sliderPostsCount} </p>
-            <p>Posts</p>
-            <Link href="/admin/posts">View posts</Link>
+            <Link className="text-3xl" href="/admin/posts">
+              {summary.sliderPostsCount}{" "}
+            </Link>
+            <Link href="/admin/posts">posts</Link>
           </Card>
         </div>
         <div className="text-center">

@@ -2,12 +2,13 @@ import { cache } from "react"
 import "server-only"
 import db from "../prisma"
 
+import type { Posts } from "@/types"
+
 export const preload = () => {
   void getFeaturedPosts()
 }
 
 export const getFeaturedPosts = cache(async () => {
-  console.log("getFeaturedPosts")
   const posts = await db.post.findMany({
     where: {
       isPublished: true,
@@ -15,7 +16,6 @@ export const getFeaturedPosts = cache(async () => {
     },
     take: 4,
   })
-  return posts
-})
 
-export type IPost = Awaited<ReturnType<typeof getFeaturedPosts>>[number]
+  return JSON.parse(JSON.stringify(posts)) as Posts
+})

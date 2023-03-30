@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
+
 import RiSearchEyeFill from "./Icons/RiSearchEyeFill"
 import RiCloseCircleFill from "./Icons/RiCloseCircleFill"
 import HamburgerSearch from "./HamburgerSearch"

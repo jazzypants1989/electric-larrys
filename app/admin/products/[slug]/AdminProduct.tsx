@@ -1,14 +1,16 @@
 "use client"
 
+import { ChangeEvent, useEffect, useReducer } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { ChangeEvent, useEffect, useReducer } from "react"
+import Image from "next/image"
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form"
+
 import useToast from "../../../../utils/useToast"
-import { Product } from "../../../../utils/dataHooks/getProducts"
 import Button from "../../../../components/Layout/Button"
 import TagGuy from "./TagGuy"
-import Image from "next/image"
+
+import type { Product } from "@/types"
 
 type State = {
   loadingUpdate: boolean

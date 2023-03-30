@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
               },
               maximum: {
                 unit: "business_day",
-                value: 20,
+                value: 10,
               },
             },
           },

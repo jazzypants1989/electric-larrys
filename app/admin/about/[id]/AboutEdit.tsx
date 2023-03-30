@@ -7,11 +7,9 @@ import useToast from "../../../../utils/useToast"
 import Button from "../../../../components/Layout/Button"
 import AdminGallery from "../../../../components/Admin/AdminGallery"
 
-import type { About } from "../../../../utils/dataHooks/getAbout"
+import type { About } from "@/types"
 
-type AboutNN = NonNullable<About>
-
-export default function AboutEdit({ about }: { about: AboutNN }) {
+export default function AboutEdit({ about }: { about: About }) {
   const addToast = useToast()
   const [loading, setLoading] = useState(false)
   const [numberOfImages, setNumberOfImages] = useState(
@@ -38,7 +36,7 @@ export default function AboutEdit({ about }: { about: AboutNN }) {
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm<AboutNN>({
+  } = useForm<About>({
     defaultValues: {
       title,
       heroText,
@@ -49,7 +47,7 @@ export default function AboutEdit({ about }: { about: AboutNN }) {
     },
   })
 
-  const onSubmit: SubmitHandler<AboutNN> = async (data) => {
+  const onSubmit: SubmitHandler<About> = async (data) => {
     setLoading(true)
     setError("")
     console.log(data)
@@ -145,6 +143,7 @@ export default function AboutEdit({ about }: { about: AboutNN }) {
               setPicture={setHeroImage}
               show={galleryOpen}
               setShow={setGalleryOpen}
+              currentPicture={heroImage ?? ""}
             />
           )}
         </div>
@@ -157,11 +156,25 @@ export default function AboutEdit({ about }: { about: AboutNN }) {
                   type="text"
                   id={`otherImages${i}`}
                   {...register(`otherImages.${i}`)}
+                  className="mb-5 mr-2"
                 />
+                <div className="flex flex-col items-center justify-center">
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      setCurrentlyActiveImage(-1)
+                      setGallery("hero")
+                    }}
+                    className="mr-2 w-fit"
+                  >
+                    Pre-select Image
+                  </Button>
+                  <small className="mr-2">(Not necessary, just helpful)</small>
+                </div>
                 <Button
                   type="button"
                   onClick={() => openGallery(i)}
-                  className="w-1/2"
+                  className="mb-5"
                 >
                   Open Gallery
                 </Button>
@@ -190,6 +203,7 @@ export default function AboutEdit({ about }: { about: AboutNN }) {
               setPicture={setOtherImage}
               show={galleryOpen}
               setShow={setGalleryOpen}
+              currentPicture={otherImages[currentlyActiveImage]}
             />
           )}
         </div>

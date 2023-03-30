@@ -7,7 +7,7 @@ import { useEffect, useReducer } from "react"
 import Button from "../../../components/Layout/Button"
 import useToast from "../../../utils/useToast"
 
-import type { IAnnouncement } from "../../../utils/dataHooks/getAllAnnouncements"
+import type { Announcement } from "@/types"
 
 type State = {
   loadingCreate: boolean
@@ -48,7 +48,7 @@ const reducer = (state: State, action: Action): State => {
 export default function Announcements({
   announcements,
 }: {
-  announcements: IAnnouncement[]
+  announcements: Announcement[]
 }) {
   const router = useRouter()
   const addToast = useToast()
@@ -106,13 +106,13 @@ export default function Announcements({
   return (
     <div className="w-full overflow-x-auto drop-shadow md:col-span-3">
       <div className="m-2 flex flex-col items-center justify-between md:flex-row">
-        <h1 className="mx-auto mb-4 text-xl">Announcements</h1>
+        <h1 className="mx-auto mb-4 text-3xl text-orange">Announcements</h1>
         {loadingDelete && <div>Deleting item...</div>}
         <Button onClick={createAnnouncementHandler} disabled={loadingCreate}>
           Create Announcement
         </Button>
       </div>
-      <table className="mx-auto w-full table-auto">
+      <table className="mx-auto w-full table-auto text-sm">
         <thead className="m-6 border-b p-4">
           {announcements.length > 0 && (
             <tr className="mt-2">
@@ -130,7 +130,7 @@ export default function Announcements({
           </tr>
         )}
         <tbody>
-          {announcements.map((announcement: IAnnouncement) => (
+          {announcements.map((announcement: Announcement) => (
             <tr key={announcement?.id}>
               <td className="border-b p-4">{announcement?.title}</td>
               <td className="border-b p-4">{announcement?.description}</td>

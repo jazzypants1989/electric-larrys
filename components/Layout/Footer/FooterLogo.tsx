@@ -1,10 +1,10 @@
+import Image from "next/image"
+import Link from "next/link"
+
 import RiFacebookCircleFill from "./Icons/RiFacebookCircleFill"
 import Instagram from "./Icons/Instagram"
 import TbBrandTiktok from "./Icons/TbBrandTiktok"
-
 import pengy from "../../../public/images/default-monochrome.svg"
-import Image from "next/image"
-import Link from "next/link"
 
 export default function FooterLogo() {
   return (

@@ -1,10 +1,11 @@
 "use client"
 
-import Link from "next/link"
 import { useEffect } from "react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { signIn, useSession } from "next-auth/react"
 import { useForm, SubmitHandler } from "react-hook-form"
-import { useRouter } from "next/navigation"
+
 import Google from "../../components/Auth/Icons/Google"
 import Discord from "../../components/Auth/Icons/Discord"
 import Button from "../../components/Layout/Button"

@@ -3,9 +3,11 @@
 import { useRouter } from "next/navigation"
 import { useState, useRef, useEffect, MutableRefObject, FormEvent } from "react"
 import Image from "next/image"
-import { Product, Products } from "../../../utils/dataHooks/getProducts"
+
 import useDebounce from "../../../utils/useDebounce"
 import Button from "../Button"
+
+import type { Product, Products } from "@/types"
 
 export default function HamburgerSearch({
   searchBarOpen,

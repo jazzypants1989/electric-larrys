@@ -2,10 +2,12 @@
 
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import React, { useEffect, useReducer } from "react"
+import { useEffect, useReducer } from "react"
+
 import Button from "../../../components/Layout/Button"
-import type { Product } from "../../../utils/dataHooks/getProducts"
 import useToast from "../../../utils/useToast"
+
+import type { Product } from "@/types"
 
 type State = {
   loadingCreate: boolean

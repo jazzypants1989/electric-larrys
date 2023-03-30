@@ -1,11 +1,13 @@
 "use client"
 
-import { useRouter } from "next/navigation"
 import { useEffect, useReducer } from "react"
-import useToast from "../../../utils/useToast"
+import { useRouter } from "next/navigation"
 import Image from "next/image"
-import { User } from "../../../utils/dataHooks/getUserByID"
+
+import useToast from "../../../utils/useToast"
 import Button from "../../../components/Layout/Button"
+
+import type { User } from "@/types"
 
 type State = {
   loadingCreate: boolean
@@ -100,7 +102,9 @@ export default function Users({ users }: { users: User[] }) {
   return (
     <div className="flex flex-col">
       <div className="flex items-center justify-between">
-        <h1 className="mx-auto text-2xl font-semibold">Users</h1>
+        <h1 className="mx-auto text-3xl font-semibold text-orange drop-shadow">
+          Users
+        </h1>
         <Button onClick={createUserHandler}>
           {loadingCreate ? "Creating..." : "Create"}
         </Button>
@@ -122,8 +126,10 @@ export default function Users({ users }: { users: User[] }) {
                 />
               )}
               <div className="flex flex-col px-4">
-                <h2 className="text-lg font-semibold">{user?.name}</h2>
-                <p>{user?.email}</p>
+                <h2 className="text-lg tracking-wide drop-shadow-2xl">
+                  {user?.name}
+                </h2>
+                <p className="text-sm">{user?.email}</p>
               </div>
             </div>
             <div className="flex flex-col items-center border-x border-Green px-4">

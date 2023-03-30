@@ -1,18 +1,20 @@
 "use client"
 
-import Store, { CartItem } from "../../utils/Store"
+import { useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import RiCloseCircleFill from "./Header/Icons/RiCloseCircleFill"
-import getStripe from "../../utils/getStripe"
-import Card from "./Card"
 import { useAtom } from "jotai"
-import { Product } from "../../utils/dataHooks/getProducts"
-import useCartClick from "../../utils/useCartClick"
-import { useRef, useState } from "react"
+
+import Store, { CartItem } from "../../utils/Store"
+import getStripe from "../../utils/getStripe"
 import useToast from "../../utils/useToast"
+import useCartClick from "../../utils/useCartClick"
 import Button from "./Button"
+import Card from "./Card"
 import Spinner from "./Spinner"
+import RiCloseCircleFill from "./Header/Icons/RiCloseCircleFill"
+
+import type { Product } from "@/types"
 
 const Cart = () => {
   const [cart, setCart] = useAtom(Store)

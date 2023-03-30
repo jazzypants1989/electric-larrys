@@ -3,7 +3,7 @@ const sgMail = require("@sendgrid/mail")
 sgMail.setApiKey(`${process.env.NEXT_PUBLIC_SENDGRID_API_KEY}`)
 
 module.exports = class Email {
-  users: string
+  user: string
   name: string
   subject: string
   message: string
@@ -12,14 +12,14 @@ module.exports = class Email {
   from: string
   fromName: string
   constructor(
-    user: string,
+    user: { email: string; name: string },
     subject: string,
     message: string,
     link: string,
     image: string
   ) {
-    this.users = "jessepence@gmail.com"
-    this.name = user
+    this.user = user.email
+    this.name = user.name
     this.subject = subject
     this.message = message
     this.link = link
@@ -29,8 +29,9 @@ module.exports = class Email {
   }
 
   async sendEmail() {
+    console.log(this)
     const mailOptions = {
-      to: this.users,
+      to: this.user,
       from: {
         name: this.fromName,
         email: this.from,

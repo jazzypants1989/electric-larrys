@@ -1,10 +1,11 @@
 "use client"
 
-import Link from "next/link"
 import { useEffect } from "react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { signIn, useSession } from "next-auth/react"
 import { useForm, SubmitHandler } from "react-hook-form"
-import { useRouter } from "next/navigation"
+
 import AuthContainer from "../../components/Auth/AuthContainer"
 import Button from "../../components/Layout/Button"
 
@@ -102,7 +103,7 @@ export default function RegisterScreen() {
               id="name"
               autoFocus
               {...register("name", {
-                required: "Please enter name",
+                required: "Please enter a name",
               })}
             />
             {errors.name && (
@@ -118,7 +119,7 @@ export default function RegisterScreen() {
                 required: "Please enter email",
                 pattern: {
                   value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/i,
-                  message: "Please enter valid email",
+                  message: "Please enter a valid email",
                 },
               })}
               className="w-full"
@@ -158,7 +159,7 @@ export default function RegisterScreen() {
                 validate: (value) => value === getValues("password"),
                 minLength: {
                   value: 6,
-                  message: "confirm password is more than 5 chars",
+                  message: "The password must be more than 5 characters",
                 },
               })}
             />
@@ -167,7 +168,7 @@ export default function RegisterScreen() {
             )}
             {errors.confirmPassword &&
               errors.confirmPassword.type === "validate" && (
-                <div className="text-Red ">Password do not match</div>
+                <div className="text-Red ">Passwords do not match</div>
               )}
             <label htmlFor="newsletter">
               <input

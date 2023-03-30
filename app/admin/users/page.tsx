@@ -1,6 +1,7 @@
 import { getAllUsers } from "../../../utils/dataHooks/getAllUsers"
-import UsersPage from "./UsersPage"
 import { getCurrentUser } from "../../../utils/session"
+
+import UsersPage from "./UsersPage"
 
 export default async function AdminUsersPage() {
   const users = await getAllUsers()

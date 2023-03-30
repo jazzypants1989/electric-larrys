@@ -1,12 +1,12 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import React, { useEffect, useReducer } from "react"
+import { useEffect, useReducer } from "react"
 import Button from "../../../components/Layout/Button"
 import useToast from "../../../utils/useToast"
 import Spinner from "../../../components/Layout/Spinner"
 
-import type { About } from "../../../utils/dataHooks/getAbout"
+import type { About } from "@/types"
 
 type State = {
   loadingCreate: boolean
@@ -122,9 +122,11 @@ export default function AdminAbout({ abouts }: { abouts: About[] }) {
   return (
     <div className="flex h-full w-full flex-col items-center justify-center">
       <div className="flex h-full w-full flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold drop-shadow">About Templates</h1>
+        <h1 className="text-4xl font-bold text-orange drop-shadow">
+          About Templates
+        </h1>
         <details className="my-4 self-baseline">
-          <summary className="text-base font-bold text-orange drop-shadow">
+          <summary className="cursor-pointer text-base font-bold text-orange drop-shadow">
             Can I publish more than one?
           </summary>
           <span className="text-lg font-bold drop-shadow">
