@@ -2,12 +2,13 @@ import { cache } from "react"
 import "server-only"
 import db from "../prisma"
 
+import type { Posts } from "@/types"
+
 export const preload = () => {
   void getAllPosts()
 }
 
 export const getAllPosts = cache(async () => {
-  console.log("getAllPosts")
   const posts = await db.post.findMany()
-  return posts
+  return JSON.parse(JSON.stringify(posts)) as Posts
 })

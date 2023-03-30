@@ -12,7 +12,9 @@ export default async function AdminDashboardScreen() {
   return (
     <>
       <div className="flex h-full w-full flex-col items-center justify-center">
-        <h1 className="mb-4 text-xl">Admin Dashboard</h1>
+        <h1 className="mb-4 text-xl text-orange drop-shadow">
+          Admin Dashboard
+        </h1>
         <div className="grid grid-cols-1 md:grid-cols-5">
           <Card className="m-2 p-2">
             <p className="text-3xl">{summary.productsCount} </p>

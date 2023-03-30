@@ -1,12 +1,14 @@
 import { cache } from "react"
 import "server-only"
 import db from "../prisma"
+
+import type { Posts } from "@/types"
+
 export const preload = () => {
   void getNonFeaturedPosts()
 }
 
 export const getNonFeaturedPosts = cache(async () => {
-  console.log("getNonFeaturedPosts")
   const posts = await db.post.findMany({
     where: {
       isPublished: true,
@@ -14,5 +16,6 @@ export const getNonFeaturedPosts = cache(async () => {
     },
     take: 4,
   })
-  return posts
+
+  return JSON.parse(JSON.stringify(posts)) as Posts
 })

@@ -7,15 +7,7 @@ import { useEffect, useState } from "react"
 import AdminGallery from "../../../../components/Admin/AdminGallery"
 import Button from "../../../../components/Layout/Button"
 
-export type Post = {
-  id: string | null
-  title: string | null
-  link: string | null
-  description: string | null
-  image: string | null
-  isFeatured: boolean | null
-  isPublished: boolean | null
-}
+import type { Post } from "@/types"
 
 export default function PostPage({
   post,
@@ -164,6 +156,7 @@ export default function PostPage({
               setPicture={setPicture}
               setShow={setShow}
               pictures={pictures}
+              currentPicture={image}
             />
           </div>
           <div className="m-3 flex w-full flex-col items-center justify-center p-2">

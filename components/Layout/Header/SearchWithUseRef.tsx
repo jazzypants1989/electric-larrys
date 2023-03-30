@@ -3,10 +3,12 @@
 import { useState, useRef, useCallback, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
-import { Product, Products } from "../../../utils/dataHooks/getProducts"
+
 import BiSearchAlt from "./Icons/BiSearchAlt"
 import useDebounce from "../../../utils/useDebounce"
 import Button from "../Button"
+
+import type { Product, Products } from "@/types"
 
 export default function Search({
   placeholder,

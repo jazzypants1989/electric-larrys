@@ -1,11 +1,11 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import React, { useEffect, useReducer } from "react"
+import { useEffect, useReducer } from "react"
 import Button from "../../../components/Layout/Button"
 import useToast from "../../../utils/useToast"
 
-import type { Post } from "./[id]/Post"
+import type { Post } from "@/types"
 
 type State = {
   loadingCreate: boolean

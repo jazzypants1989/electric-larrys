@@ -1,16 +1,19 @@
 "use client"
 
-import { signOut, useSession } from "next-auth/react"
 import Link from "next/link"
+import dynamic from "next/dynamic"
+import { signOut } from "next-auth/react"
 import { Menu } from "@headlessui/react"
 import { useAtom } from "jotai"
+
 import Store from "../../../utils/Store"
 import DropdownLink from "./DropdownLink"
 import BsCart4 from "./Icons/BsCart4"
 import Search from "./SearchWithUseRef"
 import HamburgerMenu from "./HamburgerMenu"
-import Loading from "../../../app/loading"
-import dynamic from "next/dynamic"
+import Loading from "../../Layout/Spinner"
+
+import type { User } from "@/types"
 
 // import Cart from "../Cart"
 const DynamicCart = dynamic(() => import("../Cart"), {
@@ -18,9 +21,7 @@ const DynamicCart = dynamic(() => import("../Cart"), {
   suspense: true,
 })
 
-function Header() {
-  const { data: session, status } = useSession()
-
+function Header({ user }: { user: User }) {
   const [cart, setCart] = useAtom(Store)
 
   const cartClickHandler = () => {
@@ -66,23 +67,22 @@ function Header() {
             </span>
           )}
 
-          {status === "loading" ? (
-            "Loading"
-          ) : session?.user ? (
+          {user ? (
             <Menu as="div" className="relative z-40 inline-block">
               <Menu.Button className="mr-2 tracking-wide selection:font-thin hover:text-orange lg:text-lg">
-                {session.user.name}
+                {user.name}
               </Menu.Button>
               <Menu.Items className="absolute right-0 z-10 mt-4 w-56 origin-top-right bg-blue shadow-lg">
                 <Menu.Item>
                   <DropdownLink href="/profile">Profile / Orders</DropdownLink>
                 </Menu.Item>
 
-                {session.user.isEmployee || session.user.isAdmin ? (
+                {user.isEmployee || user.isAdmin ? (
                   <Menu.Item>
                     <DropdownLink href="/admin/">Admin Dashboard</DropdownLink>
                   </Menu.Item>
                 ) : null}
+
                 <Menu.Item>
                   <a
                     className="flex p-2 tracking-widest text-Green transition-all duration-300 ease-in-out hover:bg-Green hover:text-blue hover:shadow-none"

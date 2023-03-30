@@ -2,18 +2,11 @@
 
 import { FormEvent, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
+
 import useToast from "../../utils/useToast"
-import { User } from "../../utils/dataHooks/getUserByID"
 import Button from "../../components/Layout/Button"
 
-type Note = {
-  id: string | null
-  title: string | null
-  description: string | null
-  image: string | null
-  link: string | null
-  isPublished: boolean | null
-}
+import type { User, Note } from "@/types"
 
 export default function Notes({ notes, user }: { notes: Note[]; user: User }) {
   const router = useRouter()
@@ -69,6 +62,7 @@ export default function Notes({ notes, user }: { notes: Note[]; user: User }) {
         })
         addToast("Note created", true)
         setLoading(false)
+        setError("")
       } catch (error) {
         console.error(error)
         addToast("Note creation failed", false)
@@ -149,6 +143,9 @@ export default function Notes({ notes, user }: { notes: Note[]; user: User }) {
                 Created by: {note.User.name}
               </p>
             )}
+            <small className="drop-shadow">
+              {new Date(note.createdAt).toLocaleString()}
+            </small>
             {user?.isAdmin && (
               <Button
                 className="m-1 bg-Red hover:text-Red"

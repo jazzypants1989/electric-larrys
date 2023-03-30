@@ -1,12 +1,15 @@
 "use client"
+
 import Image from "next/image"
 import Link from "next/link"
-import { Product } from "../../utils/dataHooks/getProducts"
-import Store, { CartItem, reactions } from "../../utils/Store"
 import { useAtom } from "jotai"
-import Card from "../Layout/Card"
+
+import Store, { CartItem, reactions } from "../../utils/Store"
 import useToast from "../../utils/useToast"
+import Card from "../Layout/Card"
 import Button from "../Layout/Button"
+
+import type { Product } from "@/types"
 
 export default function ProductItem({ product }: { product: Product }) {
   const [cart, setCart] = useAtom(Store)
@@ -64,7 +67,7 @@ export default function ProductItem({ product }: { product: Product }) {
         <Link href={`/products/${product.slug}`} passHref>
           <h2 className="text-xl text-Yellow">{product.name}</h2>
         </Link>
-        <p className="mb-2 text-Black">{product.category}</p>
+        <p className="mb-2">{product.category}</p>
         {product.isOnSale ? (
           <>
             <p className="mb-2 text-lg text-Red line-through">
@@ -75,7 +78,7 @@ export default function ProductItem({ product }: { product: Product }) {
             </p>
           </>
         ) : (
-          <p className="text-lg">${product.price}</p>
+          <p className="text-lg text-Yellow">${product.price}</p>
         )}
         <Button
           className="add-to-cart"

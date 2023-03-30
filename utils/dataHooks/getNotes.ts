@@ -1,17 +1,20 @@
 import { cache } from "react"
-
+import "server-only"
 import db from "../prisma"
+
+import type { Notes } from "@/types"
+
 export const preload = () => {
   void getNotes()
 }
 
 export const getNotes = cache(async () => {
-  console.log("getNotes")
-  const posts = await db.note.findMany({
+  const notes = await db.note.findMany({
     orderBy: { createdAt: "desc" },
     include: {
       User: true,
     },
   })
-  return posts
+
+  return JSON.parse(JSON.stringify(notes)) as Notes
 })

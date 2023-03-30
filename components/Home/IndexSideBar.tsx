@@ -1,10 +1,11 @@
 import Image from "next/image"
-import type { IPost } from "../../utils/dataHooks/getFeaturedPosts"
 
-const SideBar = ({ sideBarPosts }: { sideBarPosts: IPost[] }) => {
+import type { Posts } from "@/types"
+
+const SideBar = ({ sideBarPosts }: { sideBarPosts: Posts }) => {
   // check sideBarPosts for images and links, then make dynamic styles based on their presence
 
-  const sideBar = sideBarPosts.map((sideBarPost: IPost, index: number) => {
+  const sideBar = sideBarPosts.map((sideBarPost, index: number) => {
     const { title, description, link, image, id } = sideBarPost
 
     const evenOrOdd = () => (index % 2 === 0 ? true : false)

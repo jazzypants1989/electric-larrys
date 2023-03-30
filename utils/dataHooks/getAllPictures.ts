@@ -7,7 +7,6 @@ export const preload = () => {
 }
 
 export const getAllPictures = cache(async () => {
-  console.log("getAllPictures")
   const pictures = await db.post.findMany({
     select: {
       image: true,

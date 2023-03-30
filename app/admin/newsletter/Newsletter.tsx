@@ -2,12 +2,13 @@
 
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useState } from "react"
-import { User } from "../../../utils/dataHooks/getUserByID"
 import useToast from "../../../utils/useToast"
 import Button from "../../../components/Layout/Button"
 
+import type { User } from "@/types"
+
 type FormValues = {
-  user: string
+  users: User[] | "ALL"
   subject: string
   message: string
   link: string
@@ -15,6 +16,7 @@ type FormValues = {
 }
 
 export default function Newsletter({ users }: { users: User[] }) {
+  const [type, setType] = useState("ALL")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const addToast = useToast()
@@ -23,16 +25,25 @@ export default function Newsletter({ users }: { users: User[] }) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>()
+    setValue,
+  } = useForm<FormValues>({
+    defaultValues: {
+      users: "ALL",
+      subject: "",
+      message: "",
+      link: "",
+      image: "",
+    },
+  })
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
       setLoading(true)
       setError("")
-      const { user, subject, message, link, image } = data
+      const { users, subject, message, link, image } = data
       // Send email
       const mail = {
-        user: user,
+        users: users,
         subject: subject,
         message: message,
         link: link,
@@ -62,27 +73,63 @@ export default function Newsletter({ users }: { users: User[] }) {
   return (
     <div className="mx-auto flex w-full flex-col items-center justify-center">
       <div className="flex flex-col items-center justify-center">
-        <h1 className="text-3xl font-bold">Send newsletter</h1>
-        <p>
-          Send newsletter to all users who have subscribed to the newsletter
-        </p>
+        <h1 className="text-3xl font-bold text-orange drop-shadow">
+          Send newsletter
+        </h1>
+        {type === "ALL" ? (
+          <>
+            <h2>Current Mode: Send to all Users that are signed up.</h2>
+            <Button onClick={() => setType("SELECT")} className="mt-4 mb-4">
+              Select users
+            </Button>
+          </>
+        ) : (
+          <>
+            <h2>Current Mode: Select Users</h2>
+            <Button
+              onClick={() => {
+                setType("ALL")
+                setValue("users", "ALL")
+              }}
+              className="mt-4 mb-4"
+            >
+              Send to all users
+            </Button>
+          </>
+        )}
       </div>
       <div className="flex flex-col items-center justify-center">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col items-center justify-center">
-            <label htmlFor="user">User</label>
-            <select
-              {...register("user", { required: true })}
-              className="rounded-md border border-orange p-2"
-              multiple
-              size={users.length}
-              style={{ height: "auto" }}
-            >
-              {users.map((user: User) => (
-                <option key={user!.id}>{user!.email}</option>
-              ))}
-            </select>
-            {errors.user && <p className="text-Red">This field is required</p>}
+            {type === "ALL" ? (
+              <input
+                {...register("users")}
+                type="hidden"
+                defaultValue="ALL"
+                value="ALL"
+              />
+            ) : (
+              <>
+                <label htmlFor="user">
+                  Users -- hold CTRL or SHIFT to select multiple
+                </label>
+                <select
+                  {...register("users", { required: true })}
+                  className="rounded-md border border-orange p-2"
+                  multiple
+                  size={users.length}
+                >
+                  {users.map((user: User) => (
+                    <option value={JSON.stringify(user)} key={user!.id}>
+                      {user!.email}
+                    </option>
+                  ))}
+                </select>
+                {errors.users && (
+                  <p className="text-Red">This field is required</p>
+                )}
+              </>
+            )}
           </div>
           <div className="flex flex-col items-center justify-center">
             <label htmlFor="subject">Subject</label>

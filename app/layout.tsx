@@ -1,13 +1,15 @@
 import React from "react"
+import Script from "next/script"
+import { Bangers } from "next/font/google"
+
 import Footer from "../components/Layout/Footer/Footer"
 import Header from "../components/Layout/Header/Header"
 import ToastContainer from "../components/Layout/ToastContainer"
 import "../styles/globals.css"
 import siteConfig from "../utils/siteConfig"
 
-import { Bangers } from "next/font/google"
 import AuthProvider from "../components/Auth/AuthProvider"
-import Script from "next/script"
+import { getCurrentUser } from "@/utils/session"
 
 const bangers = Bangers({
   weight: "400",
@@ -72,11 +74,13 @@ export const metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const user = await getCurrentUser()
+
   return (
     <html lang="en" className={bangers.className}>
       <head>
@@ -92,7 +96,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </head>
       <body className="m-0 max-w-full overflow-x-hidden scroll-smooth bg-blue p-0 font-thin tracking-wider text-Green">
         <AuthProvider>
-          <Header />
+          <Header user={user} />
           {children}
         </AuthProvider>
         <Footer />

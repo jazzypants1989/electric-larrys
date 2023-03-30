@@ -2,12 +2,16 @@ import { cache } from "react"
 import "server-only"
 import db from "../prisma"
 
+import type { About } from "@/types"
+
 const getAbout = cache(async () => {
-  return await db.about.findFirst({
+  const about = await db.about.findFirst({
     where: {
       isPublished: true,
     },
   })
+
+  return JSON.parse(JSON.stringify(about)) as About
 })
 
 export const preload = () => {
@@ -15,5 +19,3 @@ export const preload = () => {
 }
 
 export default getAbout
-
-export type About = Awaited<ReturnType<typeof getAbout>>

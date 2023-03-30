@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect } from "react"
 import { IToast } from "../../utils/ToastStore"
 
 interface IProps extends IToast {
@@ -19,7 +19,7 @@ export default function Toast({ success, message, onClose }: IProps) {
       timeout.current = setTimeout(() => {
         onClose()
       }, 500)
-    }, 6000)
+    }, 5000)
 
     setTimeouts((prev) => [...prev, timeout.current!])
 

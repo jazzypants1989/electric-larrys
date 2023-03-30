@@ -12,7 +12,6 @@
   "dependencies": {
     "@headlessui/react": "^1.7.4",
     "@prisma/client": "^4.11.0",
-    "@sendgrid/client": "^7.7.0",
     "@sendgrid/mail": "^7.7.0",
     "@stripe/stripe-js": "^1.42.1",
     "bcryptjs": "^2.4.3",
@@ -25,10 +24,10 @@
     "react-hook-form": "^7.43.2",
     "server-only": "^0.0.1",
     "sharp": "^0.31.3",
-    "stripe": "^11.1.0"
+    "stripe": "^11.1.0",
+    "superjson": "^1.12.2"
   },
   "devDependencies": {
-    "@builder.io/partytown": "^0.7.6",
     "@types/bcryptjs": "^2.4.2",
     "@types/react": "^18.0.8",
     "autoprefixer": "^10.4.5",

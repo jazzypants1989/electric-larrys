@@ -5,13 +5,12 @@ import Categories from "../components/Home/Categories"
 import Newsletter from "../components/Home/Newsletter"
 import FeaturedProducts from "../components/Home/FeaturedProducts"
 
-import {
-  getAllAnnouncements,
-  IAnnouncement,
-} from "../utils/dataHooks/getAllAnnouncements"
+import { getAllAnnouncements } from "../utils/dataHooks/getAllAnnouncements"
 import { getFeaturedPosts } from "../utils/dataHooks/getFeaturedPosts"
 import { getNonFeaturedPosts } from "../utils/dataHooks/getNonFeaturedPosts"
 import { getFeaturedProducts } from "../utils/dataHooks/getFeaturedProducts"
+
+import type { Announcement as IAnnouncement } from "@/types"
 
 export const revalidate = 10
 

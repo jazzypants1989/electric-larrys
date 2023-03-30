@@ -8,6 +8,7 @@ import useToast from "../../utils/useToast"
 import Button from "../Layout/Button"
 
 export default function AdminGallery(props: {
+  currentPicture: string | null
   pictures: string[]
   // eslint-disable-next-line no-unused-vars
   setPicture: (picture: string) => void
@@ -15,19 +16,19 @@ export default function AdminGallery(props: {
   // eslint-disable-next-line no-unused-vars
   setShow: (show: boolean) => void
 }) {
-  const { setPicture, show, setShow, pictures } = props
+  let { currentPicture, setPicture, show, setShow, pictures } = props
+
   const standardImageGallery = [
     "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403245/318953984_879797270130664_8991242814924628092_n_ld6ce6.jpg",
     "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403245/319125505_482600527344181_1113826939205737358_n_rtvr7q.jpg",
-    "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403245/318860694_1172216347003232_3858562987723900228_n_rhhkhy.jpg",
     "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403245/toys.jpg",
-    "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403245/games.jpg",
+    "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403245/board-games.jpg",
+    "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403245/video-games.jpg",
     "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403245/318657359_1319492078883086_4891519022965311904_n_icfdeo.jpg",
     "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403244/318538052_545599690756304_4838289912025477977_n_cphwl6.jpg",
     "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403244/318354220_1228677984529585_6452913891111765444_n_lm3qog.jpg",
     "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403244/319660582_1598822214284266_1561878818922412587_n_lvbe5v.jpg",
     "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403244/320129993_666941778425109_3492830316217990667_n_fn5yqt.jpg",
-    "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403244/319905800_694374685617451_3147532748022534942_n_ypccae.jpg",
     "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403244/319886454_675169010823442_2415112957092316693_n_wurxol.jpg",
     "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403244/319568863_1203734730549898_6700087743149853924_n_r5o5yp.jpg",
     "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403244/319437960_730241228722138_3216521701934312360_n_a54fqr.jpg",
@@ -36,12 +37,13 @@ export default function AdminGallery(props: {
     "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403243/319285154_673083157602746_6268135497158659571_n_oqpjb3.jpg",
     "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403243/319366372_687543296306301_323657085684437234_n_b32qgv.jpg",
     "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403243/319366028_550266666587812_5535464357450772541_n_jvkwdk.jpg",
-    "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403243/319326831_876320356834142_3783165606326240381_n_eftzew.jpg",
     "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403243/319328724_564363195510578_5093038599162007092_n_fvgf0m.jpg",
+    "https://res.cloudinary.com/jovial-penguin/image/upload/books.jpg",
+    "https://res.cloudinary.com/jovial-penguin/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_improve/v1678403245/pop-culture.jpg",
   ]
 
   const allImagesState = [...standardImageGallery, ...pictures]
-  const [chosenImage, setChosenImage] = useState("")
+  const [chosenImage, setChosenImage] = useState(currentPicture || "")
   const [allImages, setAllImages] = useState(allImagesState)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")

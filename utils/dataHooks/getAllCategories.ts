@@ -7,7 +7,6 @@ export const preload = () => {
 }
 
 export const getAllCategories = cache(async () => {
-  console.log("getAllCategories")
   const categories = await db.product.findMany({
     select: {
       category: true,
