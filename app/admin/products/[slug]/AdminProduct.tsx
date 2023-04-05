@@ -343,6 +343,10 @@ export default function AdminProductEditScreen({
             {errors.image && (
               <div className="text-Red">{errors.image.message}</div>
             )}
+            <span className="text-sm italic text-Red">
+              If you type this out, the image MUST start with
+              &quot;https://&quot; in ALL lowercase letters to work.
+            </span>
           </div>
           <div className="mb-4">
             <label htmlFor="imageFile">Upload image</label>

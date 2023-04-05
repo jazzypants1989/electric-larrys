@@ -12,7 +12,7 @@ const SideBar = ({ sideBarPosts }: { sideBarPosts: Posts }) => {
 
     return (
       <div
-        className="m-7 w-full max-w-lg rounded-3xl bg-orange bg-opacity-90 p-7 transition-all duration-700 ease-in-out even:bg-Green even:bg-opacity-90 hover:scale-105 hover:bg-opacity-100 even:hover:bg-opacity-100"
+        className="m-7 w-full max-w-xs rounded-3xl bg-orange bg-opacity-90 p-7 transition-all duration-700 ease-in-out even:bg-Green even:bg-opacity-90 hover:scale-105 hover:bg-opacity-100 even:hover:bg-opacity-100 md:max-w-lg"
         key={id}
       >
         {link && image && (

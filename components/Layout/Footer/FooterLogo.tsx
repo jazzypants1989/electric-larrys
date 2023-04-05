@@ -19,9 +19,8 @@ export default function FooterLogo() {
       </li>
       <li>
         <p className="p-2 pl-4 text-center">
-          Electric Larry&apos;s is an eclectic oddity emporium located in
-          Carbondale, IL. We carry a wide variety of items including movies,
-          music, books, toys, and more.
+          Pop Culture and Vintage Goods for Funky Retro Souls. Located in
+          Carbondale, IL.
         </p>
       </li>
       <li>

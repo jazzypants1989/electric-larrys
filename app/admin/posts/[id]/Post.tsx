@@ -131,8 +131,8 @@ export default function PostPage({
               {...register("link")}
             />
             <span className="text-xs text-Red">
-              Make sure to include the https:// if it is an outside link or it
-              will not work!
+              Make sure to include the https:// in all lowercase letters if it
+              is an outside link or it will not work!
             </span>
           </div>
           <div className="mt-3 flex w-full flex-col items-center justify-center">
@@ -148,6 +148,10 @@ export default function PostPage({
               value={picture || image || ""}
               onChange={(e) => setPicture(e.target.value)}
             />
+            <span className="text-xs text-Red">
+              Again, if you type this out, it MUST include the https:// in all
+              lowercase letters or it will not work!
+            </span>
             <Button className="mt-3" onClick={modalButtonHandler}>
               Pick from gallery!
             </Button>
