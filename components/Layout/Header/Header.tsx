@@ -46,6 +46,7 @@ function Header({ user }: { user: User }) {
       <nav
         className="ml-2 flex h-16 items-center justify-between shadow-md"
         aria-label="Top Navigation Bar"
+        id="header"
       >
         <Link
           href="/"

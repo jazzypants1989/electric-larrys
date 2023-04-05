@@ -1,8 +1,34 @@
+"use client"
+
 import Link from "next/link"
+import { useEffect, useRef } from "react"
 
 export default function Links() {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const clickScroll = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+
+      const header = document.querySelector("#header") as HTMLElement
+
+      if (ref.current?.contains(target) && target.tagName === "A") {
+        scroll({
+          top: header.offsetHeight,
+          behavior: "smooth",
+        })
+      }
+    }
+
+    document.addEventListener("click", clickScroll)
+
+    return () => {
+      document.removeEventListener("click", clickScroll)
+    }
+  }, [])
+
   return (
-    <div className="h-full text-center">
+    <div className="h-full text-center" ref={ref}>
       <h5 className="p-2 text-lg">Around the website</h5>
       <nav
         aria-label="Footer Navigation Bar"
