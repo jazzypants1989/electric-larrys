@@ -55,6 +55,7 @@ const Slider = ({ sliderPosts }: { sliderPosts: Posts }) => {
                     className="aspect-auto w-full rounded-3xl"
                     src={image}
                     title={title}
+                    allowFullScreen
                   ></iframe>
                 ) : (
                   <a href={link!} target="_blank" rel="noreferrer">
@@ -71,7 +72,7 @@ const Slider = ({ sliderPosts }: { sliderPosts: Posts }) => {
               </>
             )}
             {image && !link && (
-              <div className="flex items-center justify-center">
+              <div className="flex w-max items-center justify-center">
                 {image.startsWith("https://www.youtube.com") ? (
                   <iframe
                     width="350"
@@ -79,6 +80,7 @@ const Slider = ({ sliderPosts }: { sliderPosts: Posts }) => {
                     className="aspect-auto w-full rounded-3xl"
                     src={image}
                     title={title}
+                    allowFullScreen
                   ></iframe>
                 ) : (
                   <Image
