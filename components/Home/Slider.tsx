@@ -47,27 +47,48 @@ const Slider = ({ sliderPosts }: { sliderPosts: Posts }) => {
         {index === current && (
           <div className="m-auto flex items-center justify-center gap-2 rounded-4xl bg-Green py-8 px-2 text-center transition duration-1000 ease-in-out hover:bg-orange hover:text-Yellow">
             {link && image && (
-              <a href={link!} target="_blank" rel="noreferrer">
-                <Image
-                  src={image!}
-                  alt={title}
-                  width={333}
-                  height={333}
-                  priority
-                  className="rounded-4xl"
-                />
-              </a>
+              <>
+                {image.startsWith("https://www.youtube.com") ? (
+                  <iframe
+                    width="350"
+                    height="350"
+                    className="aspect-auto w-full rounded-3xl"
+                    src={image}
+                    title={title}
+                  ></iframe>
+                ) : (
+                  <a href={link!} target="_blank" rel="noreferrer">
+                    <Image
+                      src={image!}
+                      alt={title}
+                      width={333}
+                      height={333}
+                      priority
+                      className="rounded-4xl"
+                    />
+                  </a>
+                )}
+              </>
             )}
             {image && !link && (
               <div className="flex items-center justify-center">
-                <Image
-                  src={image!}
-                  alt={title}
-                  width={333}
-                  height={333}
-                  priority
-                  className="rounded-4xl"
-                />
+                {image.startsWith("https://www.youtube.com") ? (
+                  <iframe
+                    width="350"
+                    height="350"
+                    className="aspect-auto w-full rounded-3xl"
+                    src={image}
+                    title={title}
+                  ></iframe>
+                ) : (
+                  <Image
+                    src={image!}
+                    alt={title}
+                    width={350}
+                    height={350}
+                    className="rounded-3xl"
+                  />
+                )}
               </div>
             )}
             <div className="items-center justify-center text-center">

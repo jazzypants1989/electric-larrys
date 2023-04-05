@@ -22,24 +22,45 @@ const SideBar = ({ sideBarPosts }: { sideBarPosts: Posts }) => {
             target="_blank"
             rel="noreferrer"
           >
-            <Image
-              src={image!}
-              alt={title}
-              width={350}
-              height={350}
-              className="rounded-3xl"
-            />
+            {image.startsWith("https://www.youtube.com") ? (
+              <iframe
+                width="350"
+                height="350"
+                className="aspect-auto w-full rounded-3xl"
+                src={image}
+                title={title}
+              ></iframe>
+            ) : (
+              <Image
+                src={image!}
+                alt={title}
+                width={350}
+                height={350}
+                className="rounded-3xl"
+              />
+            )}
           </a>
         )}
         {image && !link && (
           <div className="flex items-center justify-center">
-            <Image
-              src={image!}
-              alt={title}
-              width={350}
-              height={350}
-              className="rounded-3xl"
-            />
+            {image.startsWith("https://www.youtube.com") ? (
+              <iframe
+                width="350"
+                height="350"
+                className="aspect-auto w-full rounded-3xl"
+                src={image}
+                title={title}
+                allowFullScreen
+              ></iframe>
+            ) : (
+              <Image
+                src={image!}
+                alt={title}
+                width={350}
+                height={350}
+                className="rounded-3xl"
+              />
+            )}
           </div>
         )}
         <div className="pt-4 text-center">
