@@ -26,6 +26,10 @@ export async function POST(req: NextRequest) {
 
       // Check if the slug already exists in the database
       return !current.some((DBproduct) => DBproduct.slug === slug)
+      // the filter function returns true if the slug is not in the database
+      // the some function returns true if the slug is in the database
+      // so newProducts will contain products that do not exist in the database
+      // and therefore need to be created
     })
 
     // Create the new products
@@ -181,9 +185,9 @@ function transformProduct(product: DBProduct) {
     countInStock: Number(product["Current Quantity Electric Larry's LLC"]),
     description:
       product["description"] || "This is a product! You want to buy it!",
-    isFeatured: false,
-    isOnSale: false,
-    salePrice: 10,
+    isFeatured: product["isFeatured"].toLowerCase() === "true" || false,
+    isOnSale: product["isOnSale"].toLowerCase() === "true" || false,
+    salePrice: Number(product["salePrice"]) || 0,
   }
 }
 
@@ -240,8 +244,8 @@ type DBProduct = {
   "image": string
   "Current Quantity Electric Larry's LLC": string
   "description": string
-  "Featured": string
-  "On Sale": string
-  "Sale Price": string
+  "isFeatured": string
+  "isOnSale": string
+  "salePrice": string
   "futuretags": string
 }
