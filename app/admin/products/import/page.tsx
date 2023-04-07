@@ -89,6 +89,7 @@ function FileUploadSingle() {
     setError("")
     setFile(undefined)
     setSuccess(false)
+    router.refresh()
   }
 
   return (

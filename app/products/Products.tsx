@@ -248,7 +248,7 @@ export default function ProductsComponent({
           shownProducts.map((product: Product) => (
             <ProductItem key={product.id} product={product} />
           ))}
-        {sortedProducts.length > 20 && (
+        {sortedProducts.length === 20 && (
           <Button
             onClick={() => getProducts(page + 1)}
             className=""

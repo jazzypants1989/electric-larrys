@@ -179,7 +179,12 @@ export default function AdminProductsScreen({
             {products.map((product: Product) => (
               <tr key={product.id} className="border-b">
                 <td className="border-r-2 border-r-orange text-center md:px-4">
-                  {product.name}
+                  <a
+                    href={`/admin/products/${product.slug}`}
+                    className="text-blue-500 hover:text-blue-700"
+                  >
+                    {product.name}
+                  </a>
                 </td>
                 <td className="border-r-2 border-r-orange text-center md:px-4">
                   {product.slug}

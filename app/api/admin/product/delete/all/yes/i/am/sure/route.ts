@@ -12,9 +12,9 @@ export async function GET() {
     )
   }
   const products = await db.product.deleteMany({
-    where: {
-      countInStock: 0,
-    },
+    // where: {
+    //   countInStock: 0,
+    // },
   })
 
   const message =

@@ -261,7 +261,7 @@ export default function AdminProductEditScreen({
     <FormProvider {...methods}>
       <div className="flex h-full w-full flex-col items-center justify-center">
         <form
-          className="mx-auto max-w-screen-md"
+          className="max-w-screen-md"
           onSubmit={handleSubmit(submitHandler)}
         >
           <h1 className="mb-4 text-xl">{`Edit Product ${slug}`}</h1>
@@ -419,9 +419,8 @@ export default function AdminProductEditScreen({
           </div>
           <div className="mb-4">
             <label htmlFor="countInStock">description</label>
-            <input
-              type="text"
-              className="w-full"
+            <textarea
+              className="h-40 w-full"
               id="description"
               {...register("description", {
                 required: "Please enter description",
@@ -431,7 +430,7 @@ export default function AdminProductEditScreen({
               <div className="text-Red">{errors.description.message}</div>
             )}
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="flex gap-1">
             <label htmlFor="isFeatured">Currently Featured?</label>
             <input
               type="checkbox"

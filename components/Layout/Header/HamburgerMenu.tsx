@@ -6,6 +6,7 @@ import { useState, useEffect } from "react"
 import RiSearchEyeFill from "./Icons/RiSearchEyeFill"
 import RiCloseCircleFill from "./Icons/RiCloseCircleFill"
 import HamburgerSearch from "./HamburgerSearch"
+import Link from "next/link"
 
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false)
@@ -117,18 +118,18 @@ export default function HamburgerMenu() {
       </div>
 
       <div className="hidden w-1/5 justify-between text-base md:flex">
-        <button
+        <Link
           className="cursor-pointer rounded-md border-x-2 border-orange px-2 text-Green duration-300 ease-in hover:rounded-2xl hover:border-x-4 hover:px-3 hover:text-sm hover:text-orange"
-          onClick={() => router.push("/about")}
+          href="/"
         >
           About
-        </button>
-        <button
+        </Link>
+        <Link
           className="cursor-pointer rounded-md border-x-2 border-orange px-2 text-Green duration-300 ease-in hover:rounded-2xl hover:border-x-4 hover:px-3 hover:text-sm hover:text-orange"
-          onClick={() => router.push("/products")}
+          href="/products"
         >
           Products
-        </button>
+        </Link>
         <button
           className="hidden cursor-pointer rounded-md border-x-2 border-orange px-2 text-Green duration-300 ease-in hover:rounded-2xl hover:border-x-4 hover:px-3 hover:text-sm hover:text-orange lg:flex"
           onClick={() => contactLink()}

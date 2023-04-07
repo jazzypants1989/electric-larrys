@@ -1,7 +1,3 @@
-// This is a React component that lets a user pick a picture from a gallery to add it to a post.
-// It is a modal that pops up when the user clicks on the "Add Picture" button in the AdminPost component.
-// It needs to be completely hidden and only show up when the user clicks on the "Add Picture" button.
-// It is a child component of AdminPost.tsx
 import Image from "next/image"
 import { ChangeEvent, useState } from "react"
 import useToast from "../../utils/useToast"
