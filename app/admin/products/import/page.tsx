@@ -12,6 +12,8 @@ function FileUploadSingle() {
   const [error, setError] = useState("")
   const [success, setSuccess] = useState(false)
   const [type, setType] = useState("Upload New Products and Ignore Existing")
+  const [tagInput, setTagInput] = useState("")
+  const [tagOutput, setTagOutput] = useState("")
 
   const router = useRouter()
   const addToast = useToast()
@@ -92,6 +94,15 @@ function FileUploadSingle() {
     router.refresh()
   }
 
+  function tagconverter(tags: string) {
+    // split by commas
+    let split = tags.split(", ")
+    // join by pipes
+    let joined = split.join("|")
+    // set the state
+    setTagOutput(joined)
+  }
+
   return (
     <div className="m-auto flex h-full w-full flex-col items-center justify-center p-4">
       <h1 className="text-2xl drop-shadow">Upload a CSV file</h1>
@@ -156,6 +167,18 @@ function FileUploadSingle() {
           <Button onClick={reset}>Reset</Button>
         </>
       )}
+      <div className="mt-4 flex w-full flex-col items-center justify-center">
+        <h4>Tag Converter!</h4>
+        <input
+          type="text"
+          value={tagInput}
+          onChange={(e) => setTagInput(e.target.value)}
+        />
+        <Button onClick={() => tagconverter(tagInput)}>Convert</Button>
+        <div className="mt-2 w-full break-all rounded-md border border-orange p-2">
+          <p className="text-xl text-orange drop-shadow">{tagOutput}</p>
+        </div>
+      </div>
     </div>
   )
 }

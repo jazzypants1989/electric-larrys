@@ -18,8 +18,17 @@ export async function GET() {
     convertPropertyNames(product, newHeaders)
   )
 
+  // transform the tags from an array to a pipe separated string
+  const transformedWithTags = transformed.map((product) => {
+    const tags = product.tags || []
+    return {
+      ...product,
+      tags: tags.join("|"),
+    }
+  })
+
   // convert the JSON to CSV
-  const csv = unparse(transformed)
+  const csv = unparse(transformedWithTags)
 
   // send the response as a file
 

@@ -32,6 +32,7 @@ export default function ProductsComponent({
   const [sort, setSort] = useState("")
   const [page, setPage] = useState(1)
   const [expand, setExpand] = useState(true)
+  const [noMore, setNoMore] = useState(false)
 
   const [searching, setSearching] = useState(false)
 
@@ -118,6 +119,7 @@ export default function ProductsComponent({
 
   const getProducts = (pageParam: number) => {
     console.log(`page is ${page}, pageParam is ${pageParam}`)
+    const scrollPosition = window.scrollY
     if (pageParam === 1) {
       setShownProducts(sortedProducts)
     } else {
@@ -125,8 +127,12 @@ export default function ProductsComponent({
         .sort(sortCallback)
         .slice(0, pageParam * 20)
       setShownProducts(newProducts)
+      if (newProducts.length === products.length) {
+        setNoMore(true)
+      }
     }
     setPage(pageParam)
+    window.scrollTo(0, scrollPosition)
   }
 
   const searchProducts = async (searchTerm: string) => {
@@ -248,10 +254,10 @@ export default function ProductsComponent({
           shownProducts.map((product: Product) => (
             <ProductItem key={product.id} product={product} />
           ))}
-        {sortedProducts.length === 20 && (
+        {sortedProducts.length === 20 && !noMore && (
           <Button
             onClick={() => getProducts(page + 1)}
-            className=""
+            className="h-24 w-3/5 self-center justify-self-center bg-Yellow text-sm font-thin text-orange"
             type="button"
           >
             Load More
