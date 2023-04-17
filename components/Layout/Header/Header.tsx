@@ -43,8 +43,8 @@ function Header({ user }: { user: User }) {
   return (
     <>
       {cart.cartOpen && <DynamicCart />}
-      <nav
-        className="ml-2 flex h-16 items-center justify-between shadow-md"
+      <header
+        className="relative z-50 ml-2 flex h-16 items-center justify-between shadow-md"
         aria-label="Top Navigation Bar"
         id="header"
       >
@@ -56,7 +56,7 @@ function Header({ user }: { user: User }) {
         </Link>
         <Search placeholder="Explore our oddities!" />
         <HamburgerMenu />
-        <div>
+        <div className="sticky top-0">
           <BsCart4 cartClickHandler={cartClickHandler} />
 
           {cartItems > 0 && (
@@ -69,11 +69,11 @@ function Header({ user }: { user: User }) {
           )}
 
           {user ? (
-            <Menu as="div" className="relative z-40 inline-block">
+            <Menu as="nav" className="relative inline-block text-left">
               <Menu.Button className="mr-2 tracking-wide selection:font-thin hover:text-orange lg:text-lg">
                 {user.name}
               </Menu.Button>
-              <Menu.Items className="absolute right-0 z-10 mt-4 w-56 origin-top-right bg-blue shadow-lg">
+              <Menu.Items className="absolute right-0 z-50 w-56 origin-top-right rounded-lg bg-blue shadow-lg ring-1 ring-Black ring-opacity-5 transition-all duration-300 ease-in-out focus:outline-none">
                 <Menu.Item>
                   <DropdownLink href="/profile">Profile / Orders</DropdownLink>
                 </Menu.Item>
@@ -86,7 +86,7 @@ function Header({ user }: { user: User }) {
 
                 <Menu.Item>
                   <a
-                    className="flex p-2 tracking-widest text-Green transition-all duration-300 ease-in-out hover:bg-Green hover:text-blue hover:shadow-none"
+                    className="flex rounded-md p-2 tracking-widest text-Green transition-all duration-300 ease-in-out hover:bg-Green hover:text-blue hover:shadow-none"
                     href="#"
                     onClick={logoutClickHandler}
                   >
@@ -101,7 +101,7 @@ function Header({ user }: { user: User }) {
             </Link>
           )}
         </div>
-      </nav>
+      </header>
     </>
   )
 }

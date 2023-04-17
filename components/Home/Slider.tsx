@@ -119,7 +119,7 @@ const Slider = ({ sliderPosts }: { sliderPosts: Posts }) => {
 
   return (
     <>
-      <article className="mx-2 flex max-h-full max-w-7xl items-center justify-around rounded-lg rounded-t-2xl bg-orange bg-opacity-70 drop-shadow-2xl lg:mx-auto">
+      <article className="sticky mx-2 flex max-h-full max-w-7xl items-center justify-around rounded-lg rounded-t-2xl bg-orange bg-opacity-70 drop-shadow-2xl lg:mx-auto">
         <span
           className="relative top-0 bottom-0 z-20 m-auto ml-2 flex cursor-pointer items-center justify-center rounded-full bg-Green p-1 text-3xl text-blue opacity-70 transition-all duration-1000 ease-in-out hover:scale-110 hover:text-orange hover:opacity-100 md:p-2 md:text-5xl"
           onClick={prevSlide}

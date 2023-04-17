@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server"
-import db from "../../../../../../../../../../utils/prisma"
-import { getCurrentUser } from "../../../../../../../../../../utils/session"
+import db from "../../../../../utils/prisma"
+import { getCurrentUser } from "../../../../../utils/session"
 
-export async function GET() {
+export async function DELETE() {
   const employee = await getCurrentUser()
 
   if (!employee || (employee && !employee.isAdmin)) {
@@ -12,17 +12,22 @@ export async function GET() {
     )
   }
   const products = await db.product.deleteMany({
-    // where: {
-    //   countInStock: 0,
-    // },
+    where: {
+      countInStock: 0,
+    },
   })
 
   const message =
     products.count > 0
-      ? "I killed them all with no remorse."
+      ? `I killed them all with no remorse. There were ${products.count} victims.`
       : "There were no potential victims."
 
-  return new Response(message, {
-    status: 200,
-  })
+  return new Response(
+    JSON.stringify({
+      message,
+    }),
+    {
+      status: 200,
+    }
+  )
 }

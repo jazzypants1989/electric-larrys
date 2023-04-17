@@ -12,9 +12,10 @@ const DropdownLink = forwardRef((props, ref) => {
   return (
     <Link
       href={href}
-      className="flex p-2 tracking-widest text-Green transition-all duration-300 ease-in-out hover:bg-Green hover:text-blue hover:shadow-none"
+      className="relative isolate z-50 flex rounded-md p-2 tracking-widest text-Green mix-blend-normal transition-all duration-300 ease-in-out hover:bg-Green hover:text-blue hover:shadow-none"
       ref={ref as any}
       {...rest}
+      style={{ mixBlendMode: "normal", zIndex: 9999999999999 }}
     >
       {children}
     </Link>

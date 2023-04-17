@@ -94,9 +94,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         `}
         </Script>
       </head>
-      <body className="m-0 max-w-full overflow-x-hidden scroll-smooth bg-blue p-0 font-thin tracking-wider text-Green">
+      <body className="relative z-50 m-0 max-w-full overflow-x-hidden scroll-smooth bg-blue p-0 font-thin tracking-wider text-Green">
         <AuthProvider>
-          <Header user={user} />
+          <Header
+            class="relative z-50"
+            style={{
+              zIndex: 9999,
+            }}
+            user={user}
+          />
           {children}
         </AuthProvider>
         <Footer />

@@ -99,6 +99,29 @@ export default function AdminProductsScreen({
     }
   }
 
+  const deleteAllHandler = async () => {
+    if (
+      !window.confirm(
+        "This will delete all products that are out of stock. Continue?"
+      )
+    ) {
+      return
+    }
+    try {
+      dispatch({ type: "DELETE_REQUEST" })
+      const response = await fetch(`/api/admin/product/delete/`, {
+        method: "DELETE",
+      })
+      const data = await response.json()
+      dispatch({ type: "DELETE_SUCCESS" })
+      addToast(data.message, true)
+      router.refresh()
+    } catch (err) {
+      dispatch({ type: "DELETE_FAIL" })
+      addToast(`Sorry, something went wrong.. ${err}`, false)
+    }
+  }
+
   const exportHandler = async () => {
     fetch("/api/admin/products/export", {
       method: "GET",
@@ -150,7 +173,7 @@ export default function AdminProductsScreen({
           {loadingCreate ? "Loading..." : "Export a CSV"}
         </Button>
       </div>
-      <div className="overflow-auto rounded-lg border-b shadow">
+      <div className="flex flex-col overflow-auto rounded-lg border-b shadow">
         <table className="min-w-full overflow-x-auto">
           <thead className="border-b bg-orange">
             <tr>
@@ -230,6 +253,15 @@ export default function AdminProductsScreen({
             ))}
           </tbody>
         </table>
+
+        <Button
+          onClick={deleteAllHandler}
+          className="m-1 self-end bg-Red hover:text-Red"
+          type="button"
+          disabled={loadingDelete}
+        >
+          {loadingDelete ? "Deleting..." : "Delete All Items"}
+        </Button>
       </div>
     </div>
   )

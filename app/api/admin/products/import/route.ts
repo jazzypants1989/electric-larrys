@@ -13,9 +13,9 @@ export async function POST(req: NextRequest) {
     // // Convert CSV to JSON
     const json = parse(csv, { header: true })
     const products = json.data
-    // const json = csvToJson(csv)
-    // if (!json) return
-    // const products = JSON.parse(json)
+    // OLD: const json = csvToJson(csv)
+    // OLD: if (!json) return
+    // OLD: const products = JSON.parse(json)
     // // Get all products in the database
     const current = await currentProducts()
     // Filter out products that already exist
@@ -26,10 +26,6 @@ export async function POST(req: NextRequest) {
 
       // Check if the slug already exists in the database
       return !current.some((DBproduct) => DBproduct.slug === slug)
-      // the filter function returns true if the slug is not in the database
-      // the some function returns true if the slug is in the database
-      // so newProducts will contain products that do not exist in the database
-      // and therefore need to be created
     })
 
     // Create the new products
@@ -181,7 +177,7 @@ function transformProduct(product: DBProduct) {
       "https://res.cloudinary.com/jovial-penguin/image/upload/v1678403244/toys",
     price: Number(product["Price"]),
     category: product["Category"],
-    tags: product["futuretags"] || product["tags"],
+    tags: product["tags"].split("|"),
     countInStock: Number(product["Current Quantity Electric Larry's LLC"]),
     description:
       product["description"] || "This is a product! You want to buy it!",
@@ -247,5 +243,4 @@ type DBProduct = {
   "isFeatured": string
   "isOnSale": string
   "salePrice": string
-  "futuretags": string
 }
