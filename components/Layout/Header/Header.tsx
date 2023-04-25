@@ -17,7 +17,13 @@ import type { User } from "@/types"
 
 // import Cart from "../Cart"
 const DynamicCart = dynamic(() => import("../Cart"), {
-  loading: () => <Loading />,
+  loading: () => {
+    return (
+      <div className="fixed top-0 left-0 z-50 flex h-full w-full items-center justify-center bg-blue bg-opacity-50">
+        <Loading />
+      </div>
+    )
+  },
   suspense: true,
 })
 

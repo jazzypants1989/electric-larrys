@@ -8,6 +8,14 @@ const SideBar = ({ sideBarPosts }: { sideBarPosts: Posts }) => {
   const sideBar = sideBarPosts.map((sideBarPost, index: number) => {
     const { title, description, link, image, id } = sideBarPost
 
+    function youtubeScreenshotFromURL(image: string) {
+      return `https://img.youtube.com/vi/${image.split("/")[4]}/hqdefault.jpg`
+    }
+
+    const youtubeScreenshot = image.startsWith("https://www.youtube.com")
+      ? youtubeScreenshotFromURL(image!)
+      : ""
+
     const evenOrOdd = () => (index % 2 === 0 ? true : false)
 
     return (
@@ -28,7 +36,11 @@ const SideBar = ({ sideBarPosts }: { sideBarPosts: Posts }) => {
                 height="350"
                 className="aspect-auto w-full rounded-3xl"
                 src={image}
+                srcDoc={`<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em #0050c0;}</style><a href=${image}?autoplay=1"><img src=${youtubeScreenshot} alt='${title}><span>▶</span></a>`}
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 title={title}
+                loading="lazy"
+                allowFullScreen
               ></iframe>
             ) : (
               <Image
@@ -49,8 +61,11 @@ const SideBar = ({ sideBarPosts }: { sideBarPosts: Posts }) => {
                 height="350"
                 className="aspect-auto w-full rounded-3xl"
                 src={image}
+                srcDoc={`<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto;border-radius:1rem;}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:#f77605;text-shadow:0 0 0.5em #0050c0;}</style><a href=${image}?autoplay=1><img src=${youtubeScreenshot} alt=${title} /><span>▶</span></a>`}
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 title={title}
                 allowFullScreen
+                loading="lazy"
               ></iframe>
             ) : (
               <Image

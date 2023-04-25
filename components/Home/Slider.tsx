@@ -39,6 +39,12 @@ const Slider = ({ sliderPosts }: { sliderPosts: Posts }) => {
   const sliderPost = sliderPosts.map((sliderPost, index: number) => {
     const { title, description, link, image } = sliderPost
 
+    const youtubeScreenshot = (image: string) => {
+      if (image.startsWith("https://www.youtube.com")) {
+        return `https://img.youtube.com/vi/${image.split("/")[4]}/hqdefault.jpg`
+      }
+    }
+
     return (
       <div
         className={index === current ? `w-fit ${animation}` : "w-fit"}
@@ -54,7 +60,10 @@ const Slider = ({ sliderPosts }: { sliderPosts: Posts }) => {
                     height="350"
                     className="aspect-auto w-full rounded-3xl"
                     src={image}
+                    srcDoc={`<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em #0050c0;}</style><a href=${image}?autoplay=1"><img src=${youtubeScreenshot} alt='${title}><span>▶</span></a>`}
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     title={title}
+                    loading="lazy"
                     allowFullScreen
                   ></iframe>
                 ) : (
@@ -79,7 +88,10 @@ const Slider = ({ sliderPosts }: { sliderPosts: Posts }) => {
                     height="350"
                     className="aspect-auto w-full rounded-3xl"
                     src={image}
+                    srcDoc={`<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em #0050c0;}</style><a href=${image}?autoplay=1"><img src=${youtubeScreenshot} alt='${title}><span>▶</span></a>`}
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     title={title}
+                    loading="lazy"
                     allowFullScreen
                   ></iframe>
                 ) : (
