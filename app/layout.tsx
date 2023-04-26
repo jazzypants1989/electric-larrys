@@ -93,6 +93,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-W5ZG3BB')
         `}
         </Script>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className="relative z-50 m-0 max-w-full overflow-x-hidden scroll-smooth bg-blue p-0 font-thin tracking-wider text-Green">
         <AuthProvider>
